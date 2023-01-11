@@ -1,0 +1,69 @@
+@import '~antd/dist/antd.css';
+
+
+.search-input{
+    background-color: '#F9F9F9'
+}
+
+.add_members_meetings{
+    .ant-modal-content {
+        border-radius: 10px;
+        .ant-modal-body {
+            padding: 0px;
+            .ant-checkbox {
+                margin-top: 6px;
+                .ant-checkbox-inner{
+                    border: 2px solid #6265FF;
+                }
+            }
+            .ant-checkbox-checked {
+                .ant-checkbox-inner{
+                    border: 2px solid #6265ff;
+                    background-color: #6265ff;
+                }
+            }
+            .ant-select-selector{
+                border: 0;
+                border-radius: 10px;
+                margin-top: 2px
+            }
+            .ant-list-item{
+                .ant-list-item-meta{
+                    font-family: 'Open Sans';
+                    font-weight: 600;
+                    .ant-list-item-meta-title{
+                        font-size: 14;
+                        font-weight: 700;
+                        color: #444444;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.ant-tag-has-color{
+    .anticon-close{
+        color: #6265ff
+    }
+}
+
+.header-options{
+    margin-right: 70px;
+    margin-top: 17px;
+    cursor: pointer;
+}
+
+.main-search{
+    
+    margin-top: 11px;
+    width: 22%;
+
+}
+
+.ant-btn{
+    border-radius: 62px;
+    color: #FFFFFF;
+    border-color: #d9d9d9;
+    background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
+}

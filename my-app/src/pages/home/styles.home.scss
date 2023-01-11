@@ -1,0 +1,78 @@
+@import '~antd/dist/antd.css';
+
+.intro-part{
+    display: flex;
+    justify-content: space-around;
+    // text-align: center;
+
+}
+
+.text-of-intro{
+    margin-left: 99px;
+    margin-top: 150px;
+    margin-right: 109px;
+    .title{
+        font-weight: 640;
+        font-size: 30px;
+    }
+    .detail{
+        margin-top: 10px;
+        margin-bottom: 27px;
+    }
+}
+
+.image-of-intro{
+    margin-top: 50px;
+    margin-right: 75px;
+}
+
+.right-of-user{
+    margin-top: 62px;
+
+    .title{
+        text-align: center;
+    }
+    .right-lst{
+        display: flex;
+        margin-left: 103px;
+        margin-right: 103px;
+        margin-top: 30px;
+
+        .lst-item{
+            width: 30%;
+            text-align: center;
+            margin: 5px;
+        }
+    }
+}
+
+.how-to-use{
+    margin-top: 70px;
+
+    display: flex;
+    justify-content: space-around;
+    .tutorial-image{
+        margin-left: 98px;
+
+    }
+    .content{
+        margin-right: 98px;
+        margin-left: 57px;
+        .title{
+            font-weight: 640;
+            font-size: 30px;
+        }
+        .subtitle{
+            margin-top: 10px;
+            margin-bottom: 27px;
+        }
+        .step-lst{
+            .lst-item{
+                display: flex;
+                .img{
+                    
+                }
+            }
+        }
+    }
+}
