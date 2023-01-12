@@ -8,6 +8,7 @@ import HowToUse2 from  '../../images/how_to_use2.png'
 import HowToUse3 from  '../../images/how_to_use3.png'
 import HowToUse4 from  '../../images/how_to_use4.png'
 import HowToUse5 from  '../../images/how_to_use5.png'
+import IntroMap from '../../images/intro-map.png'
 
 
 const Home = () => {
@@ -27,6 +28,7 @@ const Home = () => {
                 </div>
             </div>
             <div className='right-of-user'>
+                <div style={{    height: "225px"}}></div>
                 <div className='title'>
                     Quyền lợi khi sử dụng U.innovate
                 </div>
@@ -63,33 +65,40 @@ const Home = () => {
                     <div className='subtitle'>Các bước dưới đây hướng dẫn bạn về các tính năng và nội dung của U.innovate.</div>
                     <div className='step-lst'>
                         <div className='lst-item'>
-                            <img style={{width: '35px',marginRight:'15px'}} src={HowToUse1}/>
+                            <img className='img-item' src={HowToUse1}/>
                             <div>Bạn cần tạo tài khoản của mình trên U.innovate</div>
                         </div>
                         <div className='lst-item'>
-                            <img style={{width: '35px',marginRight:'15px'}} src={HowToUse2}/>
+                            <img className='img-item' src={HowToUse2}/>
                             <div>Bạn có thể có cái nhìn tổng quan về các tiêu chí và phương pháp của U.innovate</div>
                         </div>
                         <div className='lst-item'>  
-                            <img style={{width: '35px',marginRight:'15px'}} src={HowToUse3}/>
+                            <img className='img-item' src={HowToUse3}/>
                             <div>Bạn tiến hành tự động đánh giá thông qua các bước trên nền tảng U.innovate</div>
                         </div>
                         <div className='lst-item'>
-                            <img style={{width: '35px',marginRight:'15px'}} src={HowToUse4}/>
+                            <img className='img-item' src={HowToUse4}/>
                             <div>Bạn có thể đọc báo cáo về cơ sở giáo dục của mình trên U.innovate hoặc download báo cáo về máy, hoặc gửi email báo cáo</div>
                         </div>
                         <div className='lst-item'>
-                            <img style={{width: '35px',marginRight:'15px'}} src={HowToUse5}/>
+                            <img className='img-item' src={HowToUse5}/>
                             <div>Bạn có thể quay lại để tham khảo sự thay đổi của kết quả tự đánh giá và kết quả so sánh sau một thời gian</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div className='map-of-all-user'>
-
+                <img src={IntroMap}></img>
             </div>
             <div className='our-partner'>
+                <div style={{height: "43px"}}></div>
+                <div className='title'>Đối tác của chúng tôi</div>
+                <div className='partner-lst'>
 
+                </div>
+                <div className='partner-lst'>
+
+                </div>
             </div>
         </div>
     )

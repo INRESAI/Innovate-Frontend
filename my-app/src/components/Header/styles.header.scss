@@ -67,3 +67,9 @@
     border-color: #d9d9d9;
     background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
 }
+
+.main-header{
+    display: flex;   
+    justify-content: space-around;
+    position: relative;
+}

@@ -37,11 +37,10 @@ export default function CFooter() {
             <MDBCol md="3" lg="4" xl="3" className='mx-auto mb-4'>
               <h6 className='text-uppercase fw-bold mb-4'>
                 <MDBIcon icon="gem" className="me-3" />
-                Company name
+                IID
               </h6>
               <p>
-                Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
-                consectetur adipisicing elit.
+              Research Institute for Innovation and Development
               </p>
             </MDBCol>
 
@@ -97,14 +96,14 @@ export default function CFooter() {
               <h6 className='text-uppercase fw-bold mb-4'>Contact</h6>
               <p>
                 <MDBIcon icon="home" className="me-2" />
-                New York, NY 10012, US
+                Tầng 5, 176 Thái Hà, Đống Đa, Hà Nội
               </p>
               <p>
                 <MDBIcon icon="envelope" className="me-3" />
-                info@example.com
+                hello@iid.org.vn
               </p>
               <p>
-                <MDBIcon icon="phone" className="me-3" /> + 01 234 567 88
+                <MDBIcon icon="phone" className="me-3" /> +084 24 8 8865 1212
               </p>
               <p>
                 <MDBIcon icon="print" className="me-3" /> + 01 234 567 89
@@ -115,9 +114,9 @@ export default function CFooter() {
       </section>
 
       <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
-        © 2021 Copyright:
-        <a className='text-reset fw-bold' href='https://mdbootstrap.com/'>
-          MDBootstrap.com
+        © 2023 Copyright:
+        <a className='text-reset fw-bold' href='https://iid.org.vn/'>
+          https://iid.org.vn/
         </a>
       </div>
     </MDBFooter>
