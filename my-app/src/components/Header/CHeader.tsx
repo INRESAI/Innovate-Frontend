@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
 import { Avatar, Button, Drawer, Dropdown, Image, Input, Menu, Switch } from 'antd'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Logo from '../../images/U.innovateLogo.png'
 import avatar from '../../images/avatar.jpg'
 import notification from '../../images/notification.png'
@@ -28,20 +28,19 @@ export const CHeader = (props: MyProps) => {
     const [visible, setVisible] = useState(false);
     const [isOnModal, setIsOnModal] = useState<boolean>(false);
     const [current, setCurrent] = useState<string>('1')
+    useEffect(() => {
+        console.log(window.location.pathname);
+        // console.log(window.location.href);
+        if (window.location.pathname === '/evaluate')
+            setCurrent('2')
+        if (window.location.pathname === '/news')
+            setCurrent('3')
+        if (window.location.pathname === '/about_us')
+            setCurrent('4')
+        if (window.location.pathname === '/')
+            setCurrent('1')
+    }, [window.location.pathname])
 
-    const handleMenuClick = (e: any) => {
-        if (e.key === '1' || e.key === '2') {
-            setVisible(false);
-        }
-    };
-
-    const toggle = () => {
-        setIsOnModal(!isOnModal);
-    };
-
-    const handleVisibleChange = (flag: boolean) => {
-        setVisible(flag);
-    };
     const showDrawer = () => {
         setVisible(true);
     }
@@ -59,7 +58,14 @@ export const CHeader = (props: MyProps) => {
             <div className='header-logo'>
                 <Link to={'/'} className='logo-text'> U.innovate</Link>
             </div>
-            <Menu className='header-menu' onClick={handleClick} selectedKeys={[current]} mode="horizontal" overflowedIndicator={<MenuOutlined />} >
+            <Menu
+                className='header-menu'
+                onClick={handleClick}
+                defaultSelectedKeys={[current]}
+                selectedKeys={[current]}
+                mode="horizontal"
+                overflowedIndicator={<MenuOutlined />}
+            >
                 <Menu.Item key="1" >
                     <Link to={'/'}> Trang chủ </Link>
                 </Menu.Item>

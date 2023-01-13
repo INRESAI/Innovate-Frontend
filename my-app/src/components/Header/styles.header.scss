@@ -44,7 +44,7 @@
         font-size: 16px;
         line-height: 20px;
         color: #FF9955 !important;
-        transition: 0.3s all;
+        transition: 0.3s all ease-in-out;
     }
 
     .ant-menu-horizontal>.ant-menu-item::after,
@@ -148,7 +148,7 @@
     }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1200px) {
 
     .menubtn {
         display: none;
@@ -159,7 +159,7 @@
     }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
 
     .header-menu {
         display: none;
@@ -168,13 +168,6 @@
     .ant-drawer-content-wrapper {
         width: 50% !important;
     }
-
-    // .header-content-input{
-    //     display: none !important;
-    // }
-    // .header-button{
-    //     display: none;
-    // }
 
     .menubtn {
         position: absolute;
