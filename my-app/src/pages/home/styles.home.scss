@@ -23,7 +23,7 @@
     }
     
     .image-of-intro{
-        margin-top: 50px;
+        margin-top: 95px;
         margin-right: 75px;
         margin-bottom: 77px;
     }
@@ -122,4 +122,18 @@
     .partner-lst{
 
     }
+}
+
+
+.menubtn {
+    background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
+    border: none;
+
+}
+
+.menubtn:hover,
+.menubtn:focus {
+    animation: pulse 1s;
+    box-shadow: 0 0 0 2em transparent;
+    background: linear-gradient(308.85deg, #FF6600 0%, #f87925 100%);
 }
