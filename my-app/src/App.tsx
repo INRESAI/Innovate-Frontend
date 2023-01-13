@@ -5,20 +5,25 @@ import { Provider } from 'react-redux';
 import store, { persistor } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import CMainRouter from './components/CMainRouter';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { CHeader } from './components/Header/CHeader';
+import Home from './pages/home/Home';
+import AboutUs from './pages/AboutUs/AboutUs';
+import CFooter from './components/Footer/CFooter';
+import { Layout } from 'antd';
 
 
 function App() {
-  return (
-        <Provider store={store}>
-            <PersistGate persistor={persistor}>
-                {/* <CBootstrap> */}
-                    {/* <CThemeProvider> */}
-                        <CMainRouter />
-                    {/* </CThemeProvider> */}
-                {/* </CBootstrap> */}
-            </PersistGate>
-        </Provider>
-  );
+    return (
+        <Layout>
+            <CHeader />
+            <Routes>
+                <Route path="/" element={<Home />}></Route>
+                <Route path="/about_us" element={<AboutUs />}></Route>
+            </Routes>
+            <CFooter />
+        </Layout>
+    );
 }
 
 export default App;

@@ -9,7 +9,7 @@ import AppleIcon from "../../images/AppleIcon.png"
 import FacebookIcon from "../../images/FacebookIcon.png"
 import GoogleIcon from "../../images/GoogleIcon.png"
 import React, { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { LoginRequest } from '../../common/define-identity'
 import { useDispatchRoot } from '../../redux/store'
 import { loginRequest } from '../../redux/controller'
@@ -22,7 +22,7 @@ export default function Login(): JSX.Element {
     const [rememberState,setRememberState] = useState<boolean>(false);
     const recentRegistration = localStorage.getItem('recentRegistration')
     const token = localStorage.getItem('token');
-    const history = useHistory();
+    // const history = useHistory();
     const dispatch = useDispatchRoot();
 
   
@@ -31,7 +31,7 @@ export default function Login(): JSX.Element {
     const onFinish = async (item: LoginRequest) => {
         console.log('hehehehe')
         localStorage.removeItem('recentRegistration')
-        history.push('/home')
+        // history.push('/home')
         // dispatch(loginRequest(item));
     
     }
