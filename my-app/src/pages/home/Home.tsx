@@ -1,6 +1,7 @@
 import { Button } from 'antd'
 import React from 'react'
 import './styles.home.scss'
+import "../../App.scss";
 import ImageOfIntro from '../../images/intro_image.png'
 import HowToUse from '../../images/how_to_use.png'
 import HowToUse1 from '../../images/how_to_use1.png'
