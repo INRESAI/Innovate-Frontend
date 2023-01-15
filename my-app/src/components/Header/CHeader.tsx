@@ -70,7 +70,7 @@ export const CHeader = (props: MyProps) => {
                     <Link to={'/'}> Trang chủ </Link>
                 </Menu.Item>
                 <Menu.Item key="2">
-                    <Link to={'/evaluate'}>Đánh giá </Link>
+                    <Link to={'/test'}>Đánh giá </Link>
                 </Menu.Item>
                 <Menu.Item key="3" >
                     <Link to={'/news'}>Tin tức</Link>
@@ -96,7 +96,7 @@ export const CHeader = (props: MyProps) => {
                 } placement="right" onClose={onClose} visible={visible}>
                     <div style={{ display: 'flex', flexDirection: "column" }}>
                         <Button type="text" href="/" >Trang chủ</Button>
-                        <Button type="text" href="/evaluate" >Đánh giá</Button>
+                        <Button type="text" href="/test" >Đánh giá</Button>
                         <Button type="text" href="/news" >Tin tức</Button>
                         <Button type="text" href="/about_us" >Về chúng tôi</Button>
                     </div>
