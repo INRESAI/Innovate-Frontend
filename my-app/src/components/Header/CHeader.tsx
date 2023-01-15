@@ -31,7 +31,7 @@ export const CHeader = (props: MyProps) => {
     useEffect(() => {
         console.log(window.location.pathname);
         // console.log(window.location.href);
-        if (window.location.pathname === '/evaluate')
+        if (window.location.pathname === '/test')
             setCurrent('2')
         if (window.location.pathname === '/news')
             setCurrent('3')
