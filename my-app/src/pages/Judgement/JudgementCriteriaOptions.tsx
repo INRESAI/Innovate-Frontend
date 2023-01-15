@@ -1,6 +1,6 @@
 import { Avatar, Breadcrumb, List } from 'antd'
 import React from 'react'
-import { ICriteria } from '../../common/define-criteria'
+import { ICriteria } from '../../common/u-innovate/define-criteria'
 import Criteria1 from '../../images/criteria1.png'
 import Criteria2 from '../../images/criteria2.png'
 import Criteria3 from '../../images/criteria3.png'
@@ -12,7 +12,7 @@ import Criteria8 from '../../images/criteria8.png'
 
 
 interface MyProps{
-  tranferFromCriteriaToTest: () => void;
+  tranferFromCriteriaToTest: (id : string) => void;
   revertToIntro: () => void
 }
 
@@ -87,7 +87,7 @@ const JudgementCriteriaOptions = (props: MyProps) => {
                 dataSource={TemporaryCriteriaLst}
                 renderItem={(item) => (
                 <List.Item 
-                    onClick={()=>props.tranferFromCriteriaToTest()}
+                    onClick={()=>props.tranferFromCriteriaToTest(item.id)}
                     style={{cursor: "pointer"}}
                 >
                     <List.Item.Meta

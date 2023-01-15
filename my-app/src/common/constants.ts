@@ -32,7 +32,8 @@ const SYSTEM_CONSTANTS = {
         },
         MAIL_SERVICE: {
             MEETING_INVITATION: 'meetingInvitation'
-        }
+        },
+        
     },
     IMAGE: {
         IMAGE_HOTEL: "dms/Document/file"
