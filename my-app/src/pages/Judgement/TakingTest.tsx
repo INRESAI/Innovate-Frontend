@@ -202,9 +202,10 @@ const fakeSetOfQuestions2: IQuestion[] = [
         ],
         pickedAnswer: null
     },
-
+    
 
 ]
+
 const fakeSetOfQuestionsLst: ISetOfQuestions[] = [
     {
         id: '1',
@@ -212,42 +213,42 @@ const fakeSetOfQuestionsLst: ISetOfQuestions[] = [
         questionLst: fakeSetOfQuestions1
     },
     {
-        id: '1',
+        id: '2',
         content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
         questionLst: fakeSetOfQuestions2
     },
     {
-        id: '1',
+        id: '3',
         content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
         questionLst: []
     },
     {
-        id: '1',
+        id: '4',
         content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
         questionLst: []
     },
     {
-        id: '1',
+        id: '5',
         content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
         questionLst: []
     },
     {
-        id: '1',
+        id: '6',
         content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
         questionLst: []
     },
     {
-        id: '1',
+        id: '7',
         content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
         questionLst: []
     },
     {
-        id: '1',
+        id: '8',
         content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
         questionLst: []
     },
     {
-        id: '1',
+        id: '9',
         content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
         questionLst: []
     },
@@ -264,7 +265,17 @@ interface MyProps {
 const TakingTest = (props: MyProps) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentSetOfQuestion, setCurrentSetOfQuestion] = useState<ISetOfQuestions>(); // Set lai moi khi chon phan pagination
-    const [currentChoseAnswerId, setCurrentChoseAnswerId] = useState<number>(0);
+    const [currentChoseAnswerId,setCurrentChoseAnswerId] = useState<number>(0);
+
+
+    useEffect(()=>{
+        console.log('----------------RENDERED-------------------')
+    },[])
+
+    useEffect(()=>{
+        console.log('----------------RENDERED-------------------')
+
+    })
 
     const tranferTpAnotherSetOfQuestion = (index: number) => {
         setCurrentIndex(index);
@@ -334,14 +345,15 @@ const TakingTest = (props: MyProps) => {
                                                     <label className='lst-item'
                                                         onClick={() => {
                                                             item.pickedAnswer = subitem.id
-                                                            setCurrentChoseAnswerId(currentChoseAnswerId + 1)
+                                                            setCurrentChoseAnswerId(currentChoseAnswerId+1)
                                                             console.log(item);
                                                         }}
                                                     >
-                                                        <input
-                                                            type="radio" className="radio-btn"
-                                                            checked={item.pickedAnswer === subitem.id}
-                                                            value={subitem.id} id={subitem.id} name={item.id} />
+                                                        <input 
+                                                            type="radio" className="radio-btn" 
+                                                            checked={item.pickedAnswer === subitem.id} 
+                                                            value={subitem.id} id={subitem.id} name={item.id} 
+                                                        />
                                                         <div className="label">{subitem.content}</div>
                                                     </label>
                                                 ))

@@ -11,9 +11,11 @@ import Criteria7 from '../../images/criteria7.png'
 import Criteria8 from '../../images/criteria8.png'
 import "../../App.scss";
 
-interface MyProps {
-    tranferFromCriteriaToTest: (id: string) => void;
-    revertToIntro: () => void
+
+interface MyProps{
+  tranferFromCriteriaToTest: (id : string) => void;
+  revertToIntro: () => void;
+  criteriaLst: ICriteria[];
 }
 
 const TemporaryCriteriaLst: ICriteria[] = [
