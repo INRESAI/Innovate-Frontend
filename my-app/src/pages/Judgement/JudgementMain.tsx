@@ -3,16 +3,17 @@ import IntroduceMethod from './IntroduceMethod'
 import JudgementCriteriaOptions from './JudgementCriteriaOptions'
 import TakingTest from './TakingTest'
 import './styles.judgement.scss'
+import "../../App.scss";
 
 const JudgementMain = () => {
-    const [isShowIntro,setIsShowIntro] = useState(true);
-    const [isShowCriteria,setIsShowCriteria] = useState(false);
-    const [isShowTest,setIsShowTest] = useState(false);
+    const [isShowIntro, setIsShowIntro] = useState(true);
+    const [isShowCriteria, setIsShowCriteria] = useState(false);
+    const [isShowTest, setIsShowTest] = useState(false);
     //Dung useSelector lay ra 2 lst criteriaLst va questionByCriteriaLst
 
-    useEffect(()=>{
+    useEffect(() => {
         //call API get All criteria va luu vao Redux
-    },[])
+    }, [])
 
     const tranferFromIntroToCriteria = () => {
         setIsShowIntro(false);
@@ -40,26 +41,26 @@ const JudgementMain = () => {
     return (
         <div className='judgement-main'>
             {
-                isShowIntro && 
+                isShowIntro &&
                 <IntroduceMethod
-                    tranferFromIntroToCriteria = {tranferFromIntroToCriteria}
+                    tranferFromIntroToCriteria={tranferFromIntroToCriteria}
                 />
             }
             {
-                isShowCriteria && 
+                isShowCriteria &&
                 <JudgementCriteriaOptions
-                    tranferFromCriteriaToTest = {tranferFromCriteriaToTest}
-                    revertToIntro = {revertToIntro}
-                    //Sau nay se truyen them 1 lst Criteria vao day
+                    tranferFromCriteriaToTest={tranferFromCriteriaToTest}
+                    revertToIntro={revertToIntro}
+                //Sau nay se truyen them 1 lst Criteria vao day
                 />
             }
             {
                 // Sau nay se sua isShowTest thanh questionByCriteria != null
-                isShowTest && 
+                isShowTest &&
                 <TakingTest
-                    revertToIntro = {revertToIntro}
-                    revertToCriteria = {revertToCriteria}
-                    //Sau nay se truyen 1 lst questionByCriteriaLst vao nua
+                    revertToIntro={revertToIntro}
+                    revertToCriteria={revertToCriteria}
+                //Sau nay se truyen 1 lst questionByCriteriaLst vao nua
                 />
             }
         </div>
