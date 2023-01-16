@@ -1,8 +1,11 @@
 import { Breadcrumb, Button, Checkbox, notification } from 'antd';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IQuestion } from '../../common/u-innovate/define-question';
 import { ISetOfQuestions } from '../../common/u-innovate/define-setOfQuestions';
 import OtherTestIcon from '../../images/other-test-icon.png'
+import { ArrowRightOutlined } from '@ant-design/icons';
+import Pagination from '@mui/material/Pagination';
+
 import "../../App.scss";
 
 const fakeOtherTestLst = [
@@ -23,56 +26,6 @@ const fakeOtherTestLst = [
     },
 
 ]
-
-const fakeSetOfQuestionsLst: ISetOfQuestions[] = [
-    {
-        id: '1',
-        content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
-        questionLst: []
-    },
-    {
-        id: '1',
-        content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
-        questionLst: []
-    },
-    {
-        id: '1',
-        content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
-        questionLst: []
-    },
-    {
-        id: '1',
-        content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
-        questionLst: []
-    },
-    {
-        id: '1',
-        content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
-        questionLst: []
-    },
-    {
-        id: '1',
-        content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
-        questionLst: []
-    },
-    {
-        id: '1',
-        content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
-        questionLst: []
-    },
-    {
-        id: '1',
-        content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
-        questionLst: []
-    },
-    {
-        id: '1',
-        content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
-        questionLst: []
-    },
-
-]
-
 const fakeSetOfQuestions: IQuestion[] = [
     {
         id: "1",
@@ -171,6 +124,56 @@ const fakeSetOfQuestions: IQuestion[] = [
     },
 
 ]
+const fakeSetOfQuestionsLst: ISetOfQuestions[] = [
+    {
+        id: '1',
+        content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
+        questionLst: fakeSetOfQuestions
+    },
+    {
+        id: '1',
+        content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
+        questionLst: fakeSetOfQuestions
+    },
+    {
+        id: '1',
+        content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
+        questionLst: []
+    },
+    {
+        id: '1',
+        content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
+        questionLst: []
+    },
+    {
+        id: '1',
+        content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
+        questionLst: []
+    },
+    {
+        id: '1',
+        content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
+        questionLst: []
+    },
+    {
+        id: '1',
+        content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
+        questionLst: []
+    },
+    {
+        id: '1',
+        content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
+        questionLst: []
+    },
+    {
+        id: '1',
+        content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
+        questionLst: []
+    },
+
+]
+
+
 
 interface MyProps {
     revertToIntro: () => void; // Chuyen qua lai giua cac phan cua danh gia
@@ -181,6 +184,10 @@ const TakingTest = (props: MyProps) => {
     const [currentIndex, setCurrentIndex] = useState(1);
     const [currentSetOfQuestion, setCurrentSetOfQuestion] = useState<ISetOfQuestions>(); // Set lai moi khi chon phan pagination
 
+    useEffect(() => {
+        console.log(fakeSetOfQuestionsLst.length);
+
+    })
     const tranferTpAnotherSetOfQuestion = (index: number) => {
         setCurrentIndex(index);
         // setCurrentSetOfQuestion()
@@ -252,7 +259,7 @@ const TakingTest = (props: MyProps) => {
                                                             console.log(fakeSetOfQuestions);
                                                         }}
                                                     >
-                                                        <input type="radio" className="radio-btn" name={item.id} id="a-opt" />
+                                                        <input type="radio" className="radio-btn" name={item.id} id="a-opt" value={subitem.id} />
                                                         <div className="label">{subitem.content}</div>
                                                     </label>
 
@@ -264,25 +271,7 @@ const TakingTest = (props: MyProps) => {
                             }
                         </div>
                         <div className='footer'>
-                            <div className='pagination'>
-                                <nav aria-label="Page navigation example">
-                                    <ul className="pagination pagination-circle pg-blue">
-
-                                        {/* <li className="page-item active"><a className="page-link">1</a></li>
-                                        <li className="page-item"><a className="page-link">2</a></li>
-                                        <li className="page-item"><a className="page-link">3</a></li>
-                                        <li className="page-item"><a className="page-link">4</a></li>
-                                        <li className="page-item"><a className="page-link">5</a></li> */}
-                                        {
-                                            fakeSetOfQuestionsLst.map((item, index) => {
-                                                return (
-                                                    <li className={`page-item ${index + 1 === currentIndex ? 'active' : ''}`} onClick={() => { tranferTpAnotherSetOfQuestion(index + 1) }}><a className="page-link">{index + 1}</a></li>
-                                                )
-                                            })
-                                        }
-                                    </ul>
-                                </nav>
-                            </div>
+                            <Pagination className='pagination' count={fakeSetOfQuestionsLst.length} variant="outlined" />
                             <div className='button-group'>
                                 <Button className='button' onClick={() => setCurrentIndex(currentIndex - 1)}>Quay lại</Button>
                                 <Button className='button' onClick={() => { handleFinishTest() }}>Hoàn thành</Button>
@@ -294,9 +283,9 @@ const TakingTest = (props: MyProps) => {
                     {
                         fakeOtherTestLst.map((item) =>
                             <div className='test'>
-                                <div>{item.title}</div>
-                                <div>{item.content}</div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', margin: '15px' }}>
+                                <div className='title'>{item.title}</div>
+                                <div className='content'>{item.content}</div>
+                                <div className='btn-and-icon' style={{ display: 'flex', justifyContent: 'space-between', margin: '15px' }}>
                                     <div>
                                         <img src={OtherTestIcon} />
                                     </div>
@@ -308,7 +297,10 @@ const TakingTest = (props: MyProps) => {
                             </div>
                         )
                     }
-
+                    <div className='more-test'>
+                        <div className="text">Xem thêm</div>
+                        <div className="icon"><ArrowRightOutlined /></div>
+                    </div>
                 </div>
             </div>
         </div>
