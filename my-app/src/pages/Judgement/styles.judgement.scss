@@ -414,6 +414,8 @@ $accent-color: #FF9955;
                         }
 
                         .button-group {
+                            display: flex;
+
                             .button {
                                 // background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
                                 border-radius: 30px;
@@ -423,8 +425,10 @@ $accent-color: #FF9955;
                                 font-weight: 700;
                                 font-size: 14px;
                                 line-height: 20px;
-                                margin-right: 20px;
+                            }
 
+                            .button:first-child {
+                                margin-right: 10px;
                             }
 
                             .button:hover {
@@ -486,7 +490,141 @@ $accent-color: #FF9955;
                     display: flex;
                     justify-content: end;
                     align-items: center;
-                    margin-top: 50px;
+                    margin-top: 20px;
+                    cursor: pointer;
+
+                    .text {
+                        font-weight: 700;
+                        font-size: 14px;
+                        line-height: 20px;
+                        display: flex;
+                        align-items: center;
+                        text-align: right;
+                        color: #FF9955;
+                        margin-right: 10px;
+                    }
+
+                    .icon {
+                        color: #FF9955;
+                        margin-bottom: 5px;
+                    }
+                }
+
+                .more-test:hover {
+                    -webkit-animation: swing 1s ease;
+                    animation: swing 1s ease;
+                    -webkit-animation-iteration-count: 1;
+                    animation-iteration-count: 1;
+
+                    .text {
+                        font-size: 20px;
+                        transition: all 0.3s;
+                    }
+
+                    .icon {
+                        font-size: 20px;
+                        transition: all 0.3s;
+                    }
+                }
+            }
+        }
+    }
+
+    .more-test {
+        .back-test {
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            margin: 30px 100px;
+            cursor: pointer;
+
+            .text {
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 20px;
+                display: flex;
+                align-items: center;
+                text-align: right;
+                color: #FF9955;
+            }
+
+            .icon {
+                color: #FF9955;
+                margin-right: 10px;
+                margin-bottom: 5px;
+            }
+        }
+
+        .back-test:hover {
+            -webkit-animation: swing 1s ease;
+            animation: swing 1s ease;
+            -webkit-animation-iteration-count: 1;
+            animation-iteration-count: 1;
+
+            .text {
+                font-size: 20px;
+                transition: all 0.3s;
+            }
+
+            .icon {
+                .anticon.anticon-arrow-left {
+                    font-size: 20px !important;
+                    transition: all 0.3s;
+                }
+            }
+        }
+
+        .test-body {
+            .other-tests {
+                margin: 0px 100px;
+
+                .test {
+                    padding: 22px;
+                    margin-bottom: 10px;
+                    // border: solid;
+                    border-radius: 30px;
+                    background-color: #FFFFFF;
+                    box-shadow: 0px 2px 10px rgba(4, 6, 15, 0.05);
+
+                    .title {
+                        font-weight: 600;
+                        font-size: 16px;
+                        line-height: 20px;
+                        color: #4E4E4E;
+                        margin-bottom: 10px;
+                    }
+
+                    .content {
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 24px;
+                        color: #858585;
+                    }
+
+                    .button {
+                        background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
+                        border-radius: 30px;
+                        color: #FFFFFF;
+                        border: none;
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 20px;
+                        margin-right: 20px;
+
+                    }
+
+                    .button:hover {
+                        font-weight: bold;
+                        background: linear-gradient(308.85deg, #FF6600 0%, #fa7b26 100%);
+                        transition: 0.3s all;
+                    }
+                }
+
+                .more-test {
+                    display: flex;
+                    justify-content: end;
+                    align-items: center;
+                    margin-top: 20px;
                     cursor: pointer;
 
                     .text {
@@ -548,6 +686,8 @@ $accent-color: #FF9955;
         }
     }
 
+
+
     .footer-main {
         display: none;
         background-color: #f0f2f5;
@@ -565,9 +705,50 @@ $accent-color: #FF9955;
             }
         }
 
+        .taking-test {
+            .test-body {
+                .test-detail {
+                    .taking-test-area {
+                        padding: 20px;
+                    }
+                }
+            }
+        }
+
         .criteria-lst {
             margin-right: 50px;
             margin-left: 125px;
+        }
+
+        .more-test {
+            .back-test {
+                margin: 30px;
+            }
+
+            .test-body {
+
+                .other-tests {
+                    margin: 0px 30px !important;
+
+                    .ant-list {
+                        .ant-row {
+                            .ant-col {
+                                .ant-list-item {
+                                    .test {
+                                        .btn-and-icon {
+                                            cursor: pointer;
+
+                                            img {
+                                                margin-right: 20px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -618,6 +799,74 @@ $accent-color: #FF9955;
             }
         }
 
+        .taking-test {
+            margin: 40px 30px;
+
+            .test-body {
+
+                .test-detail {
+                    .title {
+                        font-size: 30px !important;
+                    }
+
+                    .text {
+                        font-size: 13px !important;
+                    }
+
+                    .taking-test-area {
+                        .sub-title {
+                            font-size: 14px;
+                        }
+
+                        .question-lst {
+                            .content {
+                                font-size: 13px;
+                            }
+
+                            .options-of-answer {
+
+                                .lst-item {
+                                    margin-right: 10px;
+
+                                    .label {
+                                        font-size: 10px;
+                                    }
+
+                                    .label::before {
+                                        width: 22.5px !important;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .other-tests {
+                margin-top: 45px !important;
+
+                .test {
+                    .title {
+                        font-size: 14px !important;
+                    }
+
+                    .content {
+                        font-size: 12px !important;
+                    }
+
+                    .btn-and-icon {
+                        margin: 10px !important;
+                    }
+
+                    .button {
+                        margin-right: 0px !important;
+                        margin-left: 15px !important;
+                        font-size: 12px !important;
+                    }
+                }
+            }
+        }
+
         .criteria-lst {
 
             .criteria-title {
@@ -626,6 +875,47 @@ $accent-color: #FF9955;
 
             .criteria-text {
                 font-size: 12px !important;
+            }
+        }
+
+        .more-test {
+            .test-body {
+                .other-tests {
+                    margin: 0px 30px !important;
+
+                    .ant-list {
+                        .ant-row {
+                            .ant-col {
+                                .ant-list-item {
+                                    .test {
+                                        padding: 15px;
+
+                                        .title {
+                                            font-size: 14px;
+                                        }
+
+                                        .content {
+                                            font-size: 12px;
+                                        }
+
+                                        .button {
+                                            font-size: 12px;
+                                        }
+
+                                        .btn-and-icon {
+                                            margin: 5px;
+
+                                            img {
+                                                margin-right: 10px;
+                                                margin-left: -15px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -661,6 +951,121 @@ $accent-color: #FF9955;
 
             .criteria-text {
                 font-size: 16px !important;
+            }
+        }
+
+        .taking-test {
+            margin: 40px 30px;
+
+            .test-body {
+
+                .test-detail {
+                    .title {
+                        font-size: 30px !important;
+                    }
+
+                    .text {
+                        font-size: 13px !important;
+                    }
+
+                    .taking-test-area {
+                        .sub-title {
+                            font-size: 14px;
+                        }
+
+                        .question-lst {
+                            .content {
+                                font-size: 13px;
+                            }
+
+                            .options-of-answer {
+
+                                .lst-item {
+                                    margin-right: 10px;
+
+                                    .label {
+                                        font-size: 10px;
+                                    }
+
+                                    .label::before {
+                                        width: 22.5px !important;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .other-tests {
+                margin-top: 45px !important;
+                display: none !important;
+
+                .test {
+
+                    // display: none !important;
+                    .title {
+                        font-size: 14px !important;
+                    }
+
+                    .content {
+                        font-size: 12px !important;
+                    }
+
+                    .btn-and-icon {
+                        margin: 10px !important;
+                    }
+
+                    .button {
+                        margin-right: 0px !important;
+                        margin-left: 15px !important;
+                        font-size: 12px !important;
+                    }
+                }
+            }
+        }
+
+        .more-test {
+            .test-body {
+                .other-tests {
+                    margin: 0px 30px !important;
+
+                    .ant-list {
+                        .ant-row {
+                            div {
+                                .ant-col {
+                                    .ant-list-item {
+                                        .test {
+                                            padding: 15px;
+
+                                            .title {
+                                                font-size: 14px;
+                                            }
+
+                                            .content {
+                                                font-size: 12px;
+                                            }
+
+                                            .button {
+                                                font-size: 12px;
+                                            }
+
+                                            .btn-and-icon {
+                                                margin: 5px;
+
+                                                img {
+                                                    margin-right: 10px;
+                                                    margin-left: -15px;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
             }
         }
     }
@@ -726,8 +1131,83 @@ $accent-color: #FF9955;
             }
 
         }
+
+        .taking-test {
+            margin: 40px 30px;
+
+            .test-body {
+
+                .test-detail {
+                    .title {
+                        font-size: 25px !important;
+                    }
+
+                    .text {
+                        font-size: 12px !important;
+                    }
+
+                    .taking-test-area {
+                        .sub-title {
+                            font-size: 12px;
+                        }
+
+                        .question-lst {
+                            .content {
+                                font-size: 11px;
+                            }
+
+                            .options-of-answer {
+
+                                .lst-item {
+                                    margin-right: 10px;
+
+                                    &:hover>.label {
+                                        &::before {
+                                            border: 5px solid $accent-color;
+                                            margin-right: 5px;
+                                            width: 20px !important;
+                                        }
+                                    }
+
+                                    .radio-btn {
+                                        &:checked+.label {
+                                            &::before {
+                                                margin-right: 5px;
+                                                border: 5px solid $accent-color;
+                                                background: #EEF2F6;
+                                                width: 20px !important;
+
+                                            }
+                                        }
+                                    }
+
+                                    .label {
+                                        font-size: 8px;
+                                    }
+
+                                    .label::before {
+                                        width: 22px !important;
+                                    }
+                                }
+                            }
+                        }
+
+                        .footer {
+                            flex-direction: column;
+
+                            .pagination {
+                                margin-bottom: 15px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
     }
 }
+
 
 @media (max-width: 350px) {
     .judgement-main {
@@ -784,6 +1264,75 @@ $accent-color: #FF9955;
             }
 
         }
+
+        .taking-test {
+            margin: 40px 30px;
+
+            .test-body {
+
+                .test-detail {
+                    .title {
+                        font-size: 25px !important;
+                    }
+
+                    .text {
+                        font-size: 12px !important;
+                    }
+
+                    .taking-test-area {
+                        .sub-title {
+                            font-size: 12px;
+                        }
+
+                        .question-lst {
+                            .content {
+                                font-size: 11px;
+                            }
+
+                            .options-of-answer {
+
+                                .lst-item {
+                                    margin-right: 10px;
+
+                                    &:hover>.label {
+                                        &::before {
+                                            border: 5px solid $accent-color;
+                                            margin-right: 5px;
+                                            width: 20px !important;
+                                        }
+                                    }
+
+                                    .radio-btn {
+                                        &:checked+.label {
+                                            &::before {
+                                                margin-right: 5px;
+                                                border: 5px solid $accent-color;
+                                                background: #EEF2F6;
+                                                width: 20px !important;
+
+                                            }
+                                        }
+                                    }
+
+                                    .label {
+                                        font-size: 8px;
+                                    }
+
+                                    .label::before {
+                                        width: 30px !important;
+                                    }
+                                }
+                            }
+                        }
+
+                        .footer {
+                            flex-direction: column;
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
 
