@@ -18,7 +18,7 @@ const JudgementMain = () => {
 
     // const getAllCriteria
 
-    useEffect(()=>{
+    useEffect(() => {
         //call API get All criteria va luu vao Redux
         // const res = CriteriaAPI.alternativeGetAllCriteria()
         // setCriteriaLst(res.data);
@@ -50,13 +50,13 @@ const JudgementMain = () => {
     return (
         <div className='judgement-main'>
             {
-                isShowIntro && 
+                isShowIntro &&
                 <IntroduceMethod
-                    tranferFromIntroToCriteria = {tranferFromIntroToCriteria}
+                    tranferFromIntroToCriteria={tranferFromIntroToCriteria}
                 />
             }
             {
-                isShowCriteria && 
+                isShowCriteria &&
                 <JudgementCriteriaOptions
                     tranferFromCriteriaToTest = {tranferFromCriteriaToTest}
                     revertToIntro = {revertToIntro}
@@ -66,11 +66,11 @@ const JudgementMain = () => {
             }
             {
                 // Sau nay se sua isShowTest thanh questionByCriteria != null
-                isShowTest && 
+                isShowTest &&
                 <TakingTest
-                    revertToIntro = {revertToIntro}
-                    revertToCriteria = {revertToCriteria}
-                    //Sau nay se truyen 1 lst questionByCriteriaLst vao nua
+                    revertToIntro={revertToIntro}
+                    revertToCriteria={revertToCriteria}
+                //Sau nay se truyen 1 lst questionByCriteriaLst vao nua
                 />
             }
         </div>
