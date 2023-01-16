@@ -202,7 +202,7 @@ const fakeSetOfQuestions2: IQuestion[] = [
         ],
         pickedAnswer: null
     },
-    
+
 
 ]
 
@@ -265,22 +265,21 @@ interface MyProps {
 const TakingTest = (props: MyProps) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentSetOfQuestion, setCurrentSetOfQuestion] = useState<ISetOfQuestions>(); // Set lai moi khi chon phan pagination
-    const [currentChoseAnswerId,setCurrentChoseAnswerId] = useState<number>(0);
+    const [currentChoseAnswerId, setCurrentChoseAnswerId] = useState<number>(0);
 
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log('----------------RENDERED-------------------')
-    },[])
+    }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log('----------------RENDERED-------------------')
 
     })
+    const handleChange = (event: any, value: any) => {
+        setCurrentIndex(value - 1);
 
-    const tranferTpAnotherSetOfQuestion = (index: number) => {
-        setCurrentIndex(index);
-        // setCurrentSetOfQuestion()
-    }
+    };
 
     const checkWhetherUserDoneTest = () => { // Check xem nguoi dung da nhap het cau tra loi chua
         fakeSetOfQuestionsLst.forEach((item) => {
@@ -345,14 +344,14 @@ const TakingTest = (props: MyProps) => {
                                                     <label className='lst-item'
                                                         onClick={() => {
                                                             item.pickedAnswer = subitem.id
-                                                            setCurrentChoseAnswerId(currentChoseAnswerId+1)
+                                                            setCurrentChoseAnswerId(currentChoseAnswerId + 1)
                                                             console.log(item);
                                                         }}
                                                     >
-                                                        <input 
-                                                            type="radio" className="radio-btn" 
-                                                            checked={item.pickedAnswer === subitem.id} 
-                                                            value={subitem.id} id={subitem.id} name={item.id} 
+                                                        <input
+                                                            type="radio" className="radio-btn"
+                                                            checked={item.pickedAnswer === subitem.id}
+                                                            value={subitem.id} id={subitem.id} name={item.id}
                                                         />
                                                         <div className="label">{subitem.content}</div>
                                                     </label>
@@ -364,7 +363,7 @@ const TakingTest = (props: MyProps) => {
                             }
                         </div>
                         <div className='footer'>
-                            <Pagination className='pagination' count={fakeSetOfQuestionsLst.length} variant="outlined" />
+                            <Pagination className='pagination' onChange={handleChange} count={fakeSetOfQuestionsLst.length} variant="outlined" />
                             <div className='button-group'>
                                 <Button className='button' onClick={() => setCurrentIndex(currentIndex - 1)}>Quay lại</Button>
                                 <Button className='button' onClick={() => { handleFinishTest() }}>Hoàn thành</Button>
