@@ -1,10 +1,11 @@
 /* eslint-disable new-parens */
 import HttpClient from "../http-client";
 import SYSTEM_CONSTANTS from "../../common/constants";
-import { ICreateMeetingsReq, IDataObjectResponse, IDataResponse, IGetMeetingsReq, IMeetings, IMemberInMeetings, IMemberWithRole, ITask } from "../../common/define-meetings";
-import { GetAllMemberReq, GetAllMembersWithRoleReq, GetAllTaskReq } from "../../common/define-type";
+import axios from "axios";
+
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError, map } from "rxjs/operators";
+import { ICriteria } from "../../common/u-innovate/define-criteria";
 
 export default class CriteriaAPI {
     static host = 'http://178.128.19.31:2001';
@@ -70,10 +71,21 @@ export default class CriteriaAPI {
     // }
 
 
-    static getCriteria(params: GetAllTaskReq): Observable<IDataResponse<ITask> | null> {
-        const api = `${CriteriaAPI.host}/${SYSTEM_CONSTANTS.API.TASK.GET_ALL}?size=${params.size}${params.name ? `&name=${params.name}` : ''}`;
-        return HttpClient.get(api).pipe(
-            map((res) => res as IDataResponse<ITask> || null, catchError((error) => new Observable))
+    static getAllCriteria(): Observable<ICriteria[] | null> {
+        const api = `${CriteriaAPI.host}/${SYSTEM_CONSTANTS.API.CRITERIA.GET_ALL}`;
+        return HttpClient.get(api,{}).pipe(
+            map((res) => res as ICriteria[] || null, catchError((error) => new Observable))
         );
+    }
+
+    static alternativeGetAllCriteria() {
+        const api = `${CriteriaAPI.host}/${SYSTEM_CONSTANTS.API.CRITERIA.GET_ALL}`;
+
+        var config = {
+            method: 'get',
+            url: api,
+            headers: { }
+        };
+        return axios(config);
     }
 }

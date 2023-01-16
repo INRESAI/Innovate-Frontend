@@ -179,6 +179,10 @@ interface MyProps{
 const TakingTest = (props: MyProps) => {
     const [currentIndex,setCurrentIndex] = useState(1);
     const [currentSetOfQuestion, setCurrentSetOfQuestion] = useState<ISetOfQuestions>(); // Set lai moi khi chon phan pagination
+    const [currentChoseAnswerId,setCurrentChoseAnswerId] = useState<string>("");
+
+
+
 
     const tranferTpAnotherSetOfQuestion = (index : number) => {
         setCurrentIndex(index);
@@ -246,12 +250,30 @@ const TakingTest = (props: MyProps) => {
                                             {
                                                 item.answerLst.map((subitem)=>(
                                                     <div style={{display:'flex',margin: '30px'}}>
-                                                        <Checkbox checked={item.pickedAnswer ? true : false} // Neu dap an da duoc lua chon thi bat sang len 
-                                                            onClick={()=>{
+                                                        {/* <Checkbox 
+                                                            onChange={()=>{
                                                                 item.pickedAnswer=subitem // Luu lai dap an duoc chon
                                                             }}
+                                                            checked={item.pickedAnswer != null ? true : false} // Neu dap an da duoc lua chon thi bat sang len 
+
                                                         />
-                                                        <div>{subitem.content}</div>
+                                                        <div>{subitem.content}</div> */}
+                                                        <label style={{ fontSize: 20 }} className="form-check-label" >
+                                                            <input
+                                                                onChange={()=>{
+                                                                    item.pickedAnswer=subitem.id // Luu lai dap an duoc chon
+                                                                    setCurrentChoseAnswerId(subitem.id)
+                                                                    console.log(item.pickedAnswer)
+                                                                    console.log(fakeSetOfQuestions)
+                                                                }}
+                                                                checked={item.pickedAnswer === subitem.id }
+                                                                name = {subitem.content}
+                                                                value={subitem.id} 
+                                                                className="form-check-input"
+                                                                type="checkbox"
+                                                            />
+                                                            {subitem.content}
+                                                        </label>
                                                     </div>
                                                     
                                                 ))

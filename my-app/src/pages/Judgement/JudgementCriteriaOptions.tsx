@@ -13,7 +13,8 @@ import Criteria8 from '../../images/criteria8.png'
 
 interface MyProps{
   tranferFromCriteriaToTest: (id : string) => void;
-  revertToIntro: () => void
+  revertToIntro: () => void;
+  criteriaLst: ICriteria[];
 }
 
 const TemporaryCriteriaLst: ICriteria[] = [

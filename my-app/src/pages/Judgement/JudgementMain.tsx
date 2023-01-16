@@ -3,15 +3,25 @@ import IntroduceMethod from './IntroduceMethod'
 import JudgementCriteriaOptions from './JudgementCriteriaOptions'
 import TakingTest from './TakingTest'
 import './styles.judgement.scss'
+import { useDispatchRoot, useSelectorRoot } from '../../redux/store'
+import { getCriteriaLstRequest } from '../../redux/controller'
+import CriteriaAPI from '../../api/criteria/criteria.api'
 
 const JudgementMain = () => {
     const [isShowIntro,setIsShowIntro] = useState(true);
     const [isShowCriteria,setIsShowCriteria] = useState(false);
     const [isShowTest,setIsShowTest] = useState(false);
+    const [criteriaLst,setCriteriaLst] = useState([]);
     //Dung useSelector lay ra 2 lst criteriaLst va questionByCriteriaLst
+    // const { criteriaLst } = useSelectorRoot((state) => state.uinnovate);
+    const dispatch = useDispatchRoot()
+
+    // const getAllCriteria
 
     useEffect(()=>{
         //call API get All criteria va luu vao Redux
+        // const res = CriteriaAPI.alternativeGetAllCriteria()
+        // setCriteriaLst(res.data);
     },[])
 
     const tranferFromIntroToCriteria = () => {
@@ -50,6 +60,7 @@ const JudgementMain = () => {
                 <JudgementCriteriaOptions
                     tranferFromCriteriaToTest = {tranferFromCriteriaToTest}
                     revertToIntro = {revertToIntro}
+                    criteriaLst = {criteriaLst}
                     //Sau nay se truyen them 1 lst Criteria vao day
                 />
             }

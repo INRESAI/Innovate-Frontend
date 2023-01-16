@@ -16,5 +16,5 @@ export interface IQuestion{
     id: string;
     content: string;
     answerLst: IAnswerOfQuestion[];
-    pickedAnswer: IAnswerOfQuestion | null;
+    pickedAnswer: string | null;
 }
