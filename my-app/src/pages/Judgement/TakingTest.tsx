@@ -260,6 +260,8 @@ const fakeSetOfQuestionsLst: ISetOfQuestions[] = [
 interface MyProps {
     revertToIntro: () => void; // Chuyen qua lai giua cac phan cua danh gia
     revertToCriteria: () => void
+    tranferFromTestToMoreTests: () => void;
+
 }
 
 const TakingTest = (props: MyProps) => {
@@ -363,7 +365,7 @@ const TakingTest = (props: MyProps) => {
                             }
                         </div>
                         <div className='footer'>
-                            <Pagination className='pagination' onChange={handleChange} count={fakeSetOfQuestionsLst.length} variant="outlined" />
+                            <Pagination className='pagination' onChange={handleChange} count={fakeSetOfQuestionsLst.length} variant="outlined" siblingCount={0} />
                             <div className='button-group'>
                                 <Button className='button' onClick={() => setCurrentIndex(currentIndex - 1)}>Quay lại</Button>
                                 <Button className='button' onClick={() => { handleFinishTest() }}>Hoàn thành</Button>
@@ -389,7 +391,7 @@ const TakingTest = (props: MyProps) => {
                             </div>
                         )
                     }
-                    <div className='more-test'>
+                    <div className='more-test' onClick={() => props.tranferFromTestToMoreTests()}>
                         <div className="text">Xem thêm</div>
                         <div className="icon"><ArrowRightOutlined /></div>
                     </div>
