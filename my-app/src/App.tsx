@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Provider } from 'react-redux';
@@ -15,13 +15,26 @@ import JudgementMain from './pages/Judgement/JudgementMain';
 
 
 function App() {
+
+    useEffect(() => {
+        const footerMain = document.getElementById('footer-main');
+        if (footerMain) {
+            if (window.location.pathname === '/test')
+                footerMain.style.display = 'none';
+            else {
+                footerMain.style.display = 'block';
+                console.log('baka');
+            }
+        }
+
+    })
     return (
         <Layout>
             <CHeader />
             <Routes>
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/about_us" element={<AboutUs />}></Route>
-                <Route path="/test" element={<JudgementMain/>}></Route>
+                <Route path="/test" element={<JudgementMain />}></Route>
 
             </Routes>
             <CFooter />

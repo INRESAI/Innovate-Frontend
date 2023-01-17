@@ -4,7 +4,7 @@ import "../../App.scss";
 import "./styles.footer.scss"
 export default function CFooter() {
     return (
-        <div className='footer-main'>
+        <div className='footer-main' id='footer-main'>
             <div className='separation-line'></div>
             <div className='content'>
                 <div className='content-left'>

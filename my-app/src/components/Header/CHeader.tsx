@@ -51,7 +51,7 @@ export const CHeader = (props: MyProps) => {
     const handleClick = (e: { key: any }) => {
         console.log('click ', e);
         setCurrent(e.key);
-
+        window.location.reload();
     };
     return (
         <div className='main-header'>

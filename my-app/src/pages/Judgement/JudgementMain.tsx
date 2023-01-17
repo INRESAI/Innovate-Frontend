@@ -19,13 +19,6 @@ const JudgementMain = () => {
     // const { criteriaLst } = useSelectorRoot((state) => state.uinnovate);
     const dispatch = useDispatchRoot()
 
-    // const getAllCriteria
-
-    useEffect(() => {
-        //call API get All criteria va luu vao Redux
-        // const res = CriteriaAPI.alternativeGetAllCriteria()
-        // setCriteriaLst(res.data);
-    }, [])
 
     const tranferFromIntroToCriteria = () => {
         setIsShowIntro(false);
