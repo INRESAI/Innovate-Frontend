@@ -11,27 +11,35 @@ const JudgementMain = () => {
     const [isShowIntro,setIsShowIntro] = useState(true);
     const [isShowCriteria,setIsShowCriteria] = useState(false);
     const [isShowTest,setIsShowTest] = useState(false);
-    const [criteriaLst,setCriteriaLst] = useState([]);
+    const [criteriaLst,setCriteriaLst] = useState<any>();
     //Dung useSelector lay ra 2 lst criteriaLst va questionByCriteriaLst
     // const { criteriaLst } = useSelectorRoot((state) => state.uinnovate);
     const dispatch = useDispatchRoot()
 
     // const getAllCriteria
 
-    useEffect(() => {
-        //call API get All criteria va luu vao Redux
-        // const res = CriteriaAPI.alternativeGetAllCriteria()
-        // setCriteriaLst(res.data);
-    },[])
+    // useEffect(() => {
+    //     //call API get All criteria va luu vao Redux
+    //     const res = CriteriaAPI.alternativeGetAllCriteria()
+    //     setCriteriaLst(res.data);
+    // },[])
 
-    const tranferFromIntroToCriteria = () => {
+    const tranferFromIntroToCriteria = async () => {
+        await CriteriaAPI.alternativeGetAllCriteria().then((res: any)=>{
+            console.log(res)
+            // dispatch(sendAnswersRequest(data.data))
+            setCriteriaLst(res.data.data)
+            
+            console.log(criteriaLst)
+
+        })
         setIsShowIntro(false);
         setIsShowCriteria(true);
     }
 
     const tranferFromCriteriaToTest = (criteriaId: string) => { // chuyen tu man chon tieu chi sang man lam bai test
         //Call API get danh sach question theo criteriaId
-
+        
         setIsShowCriteria(false);
         setIsShowTest(true);
     }
@@ -56,7 +64,7 @@ const JudgementMain = () => {
                 />
             }
             {
-                isShowCriteria &&
+                criteriaLst &&
                 <JudgementCriteriaOptions
                     tranferFromCriteriaToTest = {tranferFromCriteriaToTest}
                     revertToIntro = {revertToIntro}
