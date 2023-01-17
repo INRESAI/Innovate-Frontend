@@ -6,6 +6,7 @@ import { catchError, filter, switchMap,mergeMap, map } from "rxjs/operators";
 import { notification } from "antd";
 import { ICriteria } from "../../common/u-innovate/define-criteria";
 import CriteriaAPI from "../../api/criteria/criteria.api";
+import QuestionAPI from "../../api/questions/question.api";
 
 
 interface UInnovateState {
@@ -42,7 +43,17 @@ const uInnovateSlice = createSlice({
         getCriteriaLstFail(state, action: any){
             state.loading =false
         },
-        
+
+        // Get all question
+        getAllQuestionsByCriteriaIdRequest(state, action: PayloadAction<string>){
+            state.loading=true
+        },
+        getAllQuestionsByCriteriaSuccess(state, action: PayloadAction<any>){
+            state.loading=true
+        },
+        getAllQuestionsByCriteriaIdFail(state, action: PayloadAction<any>){
+            state.loading=true
+        },
     }
 })
 
@@ -64,15 +75,32 @@ const getAllCriteria$: RootEpic = (action$) => action$.pipe(
     })
 )
 
+// const getAllQuestionsByCriteriaId$: RootEpic = (action$) => action$.pipe(
+//     filter(getAllQuestionsByCriteriaIdRequest.match),
+//     switchMap((req) => {
+//         // IdentityApi.login(re.payload) ?
+        
+//         return QuestionAPI.getAllQuestionByCriteriaId(req.payload).pipe(
+//             mergeMap((res: any) => {
+//                     console.log(res);
+//                     return [
+//                         uInnovateSlice.actions.getCriteriaLstSuccess(res.data),
 
+//                     ];
+//             }),
+//             catchError(err => [uInnovateSlice.actions.getCriteriaLstFail(err)])
+//         )
+//     })
+// )
 
 
 export const UInnovateEpics = [
     getAllCriteria$,
-
+    // getAllQuestionsByCriteriaId$
 ]
 export const {
     getCriteriaLstRequest,
-
+    getAllQuestionsByCriteriaIdRequest,
+    
 } = uInnovateSlice.actions
 export const uInnovateReducer = uInnovateSlice.reducer

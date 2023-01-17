@@ -35,7 +35,14 @@ const SYSTEM_CONSTANTS = {
         },
         CRITERIA: {
             GET_ALL: 'criteria'
+        },
+        QUESTION: {
+            GET_ALL: 'questions/criteria'
+        },
+        ANSWER: {
+            GET_ALL: 'answers'
         }
+
     },
     IMAGE: {
         IMAGE_HOTEL: "dms/Document/file"
