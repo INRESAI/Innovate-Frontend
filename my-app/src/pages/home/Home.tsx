@@ -1,23 +1,27 @@
-import { Button } from 'antd'
-import React from 'react'
-import './styles.home.scss'
+import { Button } from 'antd';
 import "../../App.scss";
-import ImageOfIntro from '../../images/home_image_1.png'
-import HowToUse from '../../images/home_image_2.png'
-import HowToUse1 from '../../images/how_to_use1.png'
-import HowToUse2 from '../../images/how_to_use2.png'
-import HowToUse3 from '../../images/how_to_use3.png'
-import HowToUse4 from '../../images/how_to_use4.png'
-import HowToUse5 from '../../images/how_to_use5.png'
-import IntroMap from '../../images/intro-map.png'
-import RightOfUseImage1 from '../../images/right_of_use_image_1.png'
-import RightOfUseImage2 from '../../images/right_of_use_image_2.png'
-import RightOfUseImage3 from '../../images/right_of_use_image_3.png'
-import RightOfUseImage4 from '../../images/right_of_use_image_4.png'
-import RightOfUseImage5 from '../../images/right_of_use_image_5.png'
+import ImageOfIntro from '../../images/home_image_1.png';
+import HowToUse from '../../images/home_image_2.png';
+import HowToUse1 from '../../images/how_to_use1.png';
+import HowToUse2 from '../../images/how_to_use2.png';
+import HowToUse3 from '../../images/how_to_use3.png';
+import HowToUse4 from '../../images/how_to_use4.png';
+import HowToUse5 from '../../images/how_to_use5.png';
+import RightOfUseImage1 from '../../images/right_of_use_image_1.png';
+import RightOfUseImage2 from '../../images/right_of_use_image_2.png';
+import RightOfUseImage3 from '../../images/right_of_use_image_3.png';
+import RightOfUseImage4 from '../../images/right_of_use_image_4.png';
+import RightOfUseImage5 from '../../images/right_of_use_image_5.png';
+import './styles.home.scss';
+import { motion } from 'framer-motion';
 const Home = () => {
     return (
-        <div className='main-home'>
+        <motion.div
+            className='main-home'
+            initial={{width: 0}}
+            animate={{width: "100%"}}
+            exit={{x: window.innerWidth, transition: {duration: 0.5}}}
+        >
             <div className='intro-part'>
                 <div className='text-of-intro'>
                     <div className='title' >Tổ chức Giáo dục Đại học của bạn đã chuẩn bị sẵn sàng cho những thách thức trong tương lai chưa?</div>
@@ -64,23 +68,9 @@ const Home = () => {
 
                 </div>
             </div>
-            {/* <div className='privacy-legal'>
-                <div className='content'>
-                    <div className='content-box'>
-                        <div className='title'>Privacy Policy</div>
-                        <Button className='button'>Xem chi tiết</Button>
-                        <img className='image' src={FirewallImage} alt='' />
-                    </div>
-                    <div className='content-box'>
-                        <div className='title'>Legal notice</div>
-                        <Button className='button'>Xem chi tiết</Button>
-                        <img className='image' src={LayeredSecurityImage} alt='' />
-                    </div>
-                </div>
-            </div> */}
             <div className='how-to-use'>
                 <div className='tutorial-image'>
-                    <img src={HowToUse} />
+                    <img src={HowToUse} alt='' />
                 </div>
                 <div className='content'>
                     <div className='title'>Làm thế nào để sử dụng U.innovate?</div>
@@ -124,7 +114,7 @@ const Home = () => {
                     <div className='item'>6</div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 

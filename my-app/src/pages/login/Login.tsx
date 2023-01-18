@@ -1,129 +1,123 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/anchor-is-valid */
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import { Breadcrumb, List, Switch } from 'antd';
+import { useEffect, useState } from 'react';
+import OtherTestIcon from '../../images/other-test-icon.png';
+import { Link } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+import LoginImage from '../../images/login-image.png';
+import './login.scss'
+import "../../App.scss"
+import { Box, Button, Checkbox, FormControlLabel, Grid, TextField } from '@mui/material';
 
-import { Button, Checkbox, Form, Image, Input, notification } from 'antd'
-import Forgot_Password from "../../images/forgot_password.png"
-import Logo from '../../images/logo.png'
-import LoginImage from '../../images/forgot_password.png'
-import AppleIcon from "../../images/AppleIcon.png"
-import FacebookIcon from "../../images/FacebookIcon.png"
-import GoogleIcon from "../../images/GoogleIcon.png"
-import React, { useEffect, useState } from 'react'
-// import { useHistory } from 'react-router-dom';
-import { LoginRequest } from '../../common/define-identity'
-import { useDispatchRoot } from '../../redux/store'
-import { loginRequest } from '../../redux/controller'
-// import { LoginRequest } from 'common/define-identity';
-// import { useDispatchRoot, useSelectorRoot } from 'redux/store';
-// import { loginRequest } from 'redux/controller';
+interface MyProps {
+    // tranferFromLoginToHome: () => void;
+}
+const Login = (props: MyProps) => {
+    const [isOn, setIsOn] = useState(true);
 
 
-export default function Login(): JSX.Element {
-    const [rememberState,setRememberState] = useState<boolean>(false);
-    const recentRegistration = localStorage.getItem('recentRegistration')
-    const token = localStorage.getItem('token');
-    // const history = useHistory();
-    const dispatch = useDispatchRoot();
-
-  
-
-
-    const onFinish = async (item: LoginRequest) => {
-        console.log('hehehehe')
-        localStorage.removeItem('recentRegistration')
-        // history.push('/home')
-        // dispatch(loginRequest(item));
-    
-    }
-
-    function onFinishFailed () {
+    const handleSubmit = () => {
 
     }
-
     return (
-        <div>
-            <div style={{marginTop: "113.14px", marginLeft: "138px", marginBottom: "45.08px"}}>
-                <Image preview={false} className='logo' src={Logo} alt="Logo" />
+        <motion.div className='login-main'
+            initial={{ width: 0 }}
+            animate={{ width: "100%" }}
+            exit={{ x: window.innerWidth, transition: { duration: 0.5 } }}
+        >
+            <div className='back-to-login'>
+                <Breadcrumb>
+                    <Breadcrumb.Item>
+                        <Link to='/'>
+                            <motion.div className='back-button'
+                                whileHover={{ scale: 1.5 }}
+                                whileTap={{ scale: 0.9 }}
+                                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                            >
+                                <div className="icon"><ArrowLeftOutlined /></div>
+                                <div className="text">Quay lại</div>
+                            </motion.div>
+                        </Link>
+                    </Breadcrumb.Item>
+                </Breadcrumb>
             </div>
-            <div style={{ marginLeft: "138px",marginRight: "118px", display: "flex", justifyContent: "space-between"}}>
-            <div>
-                <div style={{width: "220px",height: "56px",fontSize: "40px",letterSpacing: "0.5px", marginBottom:"30.6px"}}><b>Đăng nhập</b></div>
-                <Form
-                    name="basic"
-                    initialValues={{
-                        remember: true,
-                    }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
-                    autoComplete="off"
-                    layout='vertical'
-                    size='large'
-                >
-                <Form.Item
-                    label="Email"
-                    name="email"
-                    rules={[
-                    {
-                        required: true,
-                        message: 'Vui lòng nhập email!',
-                    },{
-                        type: 'email',
-                        message: 'Nhập đúng định dạng email!'
-                    }
-                    ]}
-                >
-                    <Input style={{borderRadius: "9px", width: "458px", height: "56.99px"}}/>
-                </Form.Item>
-
-                <Form.Item
-                    label="Mật khẩu"
-                    name="password"
-                    rules={[
-                    {
-                        required: true,
-                        message: 'Vui lòng nhập mật khẩu!',
-                    },
-                    ]}
-                >
-                    <Input.Password style={{borderRadius: "9px",width: "458px", height: "56.99px"}}/>
-                </Form.Item>
-
-                <Form.Item
-                    name="remember"
-                    className='ml-0'
-                >
-                    <Checkbox onChange={()=> setRememberState(!rememberState)}>Nhớ mật khẩu</Checkbox>
-                </Form.Item>
-
-
-                <Form.Item
-                    
-                >
-                    <Button type="primary" htmlType="submit" style={{borderRadius: "9px",fontSize: "20px", backgroundColor:"#6265FF", width: "458px", height: "56.99px"}}>
-                    <b>Đăng nhập</b>
-                    </Button>
-                </Form.Item>
-                </Form>
-                <div style={{textAlign: "center",width: "458px", height: "56.99px"}}>
-                <a style={{color: "#6265FF"}}>Quên mật khẩu</a>
+            <div className='content-main'>
+                <div className='image-of-login'>
+                    <div className='title'>Chào mừng bạn đến với V.innovate!</div>
+                    <div className='sub-title'>Đánh giá, xếp hạng các trường đại học. cao đằng/tỉnh thành phố về dổi mới sáng tạo, khởi nghiệp và tạo tác động.</div>
+                    <img src={LoginImage} alt='' />
                 </div>
-                <div style={{marginTop: "10px", fontSize: "30px"}}>
-                <div style={{color: "#CBCBCB"}}><b>Hoặc</b></div>
-                <div>
-                    <Image preview={false} src={FacebookIcon}/>
-                    <Image preview={false} src={GoogleIcon}/>
-                    <Image preview={false} src={AppleIcon}/>
-                </div>
-                <div style={{fontSize: "20px"}}>
-                    <span>Bạn chưa có tài khoản?  </span>
-                    <span><a style={{color: "#6265FF"}}>Đăng ký</a></span>
-                </div>
+                <div className='form-login'>
+                    <div
+                        className={`container ${isOn ? 'moon' : ''}`}
+                        data-darkmode={isOn}
+                        onClick={() => setIsOn(!isOn)}
+                        style={{ justifyContent: isOn ? 'flex-end' : 'flex-start' }}
+                    >
+                        <motion.div layout className="handle">
+                            <AnimatePresence initial={false}>
+                                <motion.div
+                                    className={`add-text-${isOn ? 'moon' : 'sun'}`}
+                                    key={isOn ? 'moon' : 'sun'}
+                                    initial={{ y: -30, opacity: 0 }}
+                                    animate={{ y: 0, opacity: 1 }}
+                                    exit={{ y: 30, opacity: 0 }}
+                                    transition={{ duration: .2 }}
+                                />
+                            </AnimatePresence>
+                        </motion.div>
+                    </div>
+                    <Box className='form' component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email / Tài khoản"
+                            name="email"
+                            autoComplete="email"
+                            placeholder='Nhập Email hoặc tài khoản'
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Mật khẩu"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            placeholder='Nhập mật khẩu'
+
+                        />
+                        <Grid container>
+                            <Grid item xs>
+                                <FormControlLabel
+                                    control={<Checkbox value="remember" color="primary" />}
+                                    label="Nhớ mật khẩu"
+                                />
+                            </Grid>
+                            <Grid item>
+                                <Link to={'/login'} >
+                                    Quên mật khẩu
+                                </Link>
+                            </Grid>
+                        </Grid>
+
+                        <Button
+                            // type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Đăng nhập
+                        </Button>
+                    </Box>
                 </div>
             </div>
-            <div>
-                <Image preview={false} src={Forgot_Password}/>
-            </div>
-            </div>
-        </div>
+
+        </motion.div>
     )
 }
+
+export default Login

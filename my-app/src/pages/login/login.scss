@@ -1,0 +1,216 @@
+.login-main {
+    background-color: white;
+    overflow-x: visible;
+
+    .back-button {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        margin: 30px 100px;
+        cursor: pointer;
+
+        .text {
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 20px;
+            display: flex;
+            align-items: center;
+            text-align: right;
+            color: #FF9955;
+        }
+
+        .icon {
+            color: #FF9955;
+            margin-right: 10px;
+            margin-bottom: 5px;
+        }
+    }
+
+    .content-main {
+        display: flex;
+        justify-content: space-around;
+        z-index: 2;
+        position: relative;
+        background: #FFFFFF;
+
+        .image-of-login {
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            align-items: center;
+            margin-top: -50px;
+            margin-left: 50px;
+            width: 45%;
+
+            .title {
+                font-weight: 700;
+                font-size: 40px;
+                line-height: 56px;
+                display: flex;
+                align-items: center;
+                background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .sub-title {
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 24px;
+                display: flex;
+                align-items: center;
+                color: #858585;
+
+            }
+
+            img {
+                height: 60%;
+                margin-left: 100px;
+            }
+        }
+
+        .form-login {
+            margin-right: 100px;
+            margin-top: 70px;
+
+            .container {
+                margin-left: 245px;
+                height: 40px;
+                width: 200px;
+                background-color: #FFECDF;
+                border-radius: 30px;
+                display: flex;
+                align-items: center;
+                box-sizing: border-box;
+                cursor: pointer;
+                transition: all .3s;
+                color: #FF9955;
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 20px;
+                padding-right: var(--mdb-gutter-x, 0px);
+                padding-left: var(--mdb-gutter-x, 0px);
+
+                .handle {
+                    height: 40px;
+                    width: 100px;
+                    border-radius: 30px;
+                    display: grid;
+                    align-items: center;
+                    justify-items: center;
+                    background-color: #FF9955;
+                    overflow: hidden;
+                    margin-left: -190px;
+
+                    .add-text-sun::before {
+                        font-weight: bold;
+                        color: #FFFFFF;
+                        content: "Đăng ký";
+                    }
+
+                    .add-text-moon::before {
+                        font-weight: bold;
+                        color: #FFFFFF;
+                        content: "Đăng nhập";
+                    }
+                }
+            }
+
+            .container::before {
+                content: "Đăng nhập";
+                margin-left: 110px;
+            }
+
+            .container.moon {
+                .handle {
+                    margin-left: 30px;
+                }
+            }
+
+            .container.moon::before {
+                content: "Đăng ký";
+                color: #FF9955;
+                margin-left: 0px;
+            }
+
+            .form.MuiBox-root.css-164r41r {
+                .css-17vbkzs-MuiFormControl-root-MuiTextField-root {
+                    .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 24px;
+                        display: flex;
+                        align-items: center;
+                        color: #C0C0C0;
+                        margin-left: 10px;
+                    }
+
+                    .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+                        border-radius: 30px;
+                        // border: 1.5px solid #C0C0C0;
+                    }
+
+                    .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root:hover fieldset {
+                        border: 1.5px solid #FF9955;
+
+                    }
+
+                    .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused fieldset {
+                        border: 1.5px solid #FF9955;
+
+                    }
+
+                    .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+                        color: #FF6600 !important;
+                        z-index: 100;
+                        background-color: #FFFFFF;
+                        // padding-right: 30px;
+                    }
+                }
+
+                .css-11lq3yg-MuiGrid-root {
+                    align-items: center;
+
+                    .css-1vd824g-MuiGrid-root {
+                        .css-j204z7-MuiFormControlLabel-root {
+
+                            .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.Mui-checked,
+                            .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate {
+                                color: #FF6600;
+                            }
+                        }
+                    }
+
+                    .css-13i4rnv-MuiGrid-root {
+                        a {
+                            font-weight: 700;
+                            font-size: 14px;
+                            line-height: 20px;
+                            display: flex;
+                            align-items: center;
+                            background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                            background-clip: text;
+                        }
+                    }
+                }
+
+                .css-1vhaqj4-MuiButtonBase-root-MuiButton-root {
+                    background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
+                    border-radius: 30px;
+                    font-weight: 700;
+                    font-size: 14px;
+                    line-height: 20px;
+                    display: flex;
+                    align-items: center;
+                    text-align: right;
+                    color: #FFFFFF;
+                }
+            }
+        }
+
+
+    }
+}

@@ -1,25 +1,21 @@
-import React from 'react'
-import ImageOfIntro from '../../images/intro_image.png'
+import FirewallImage from '../../images/Firewall_image.png'
+import LayeredSecurityImage from '../../images/Layered_security_image.png'
 import AboutImage1 from '../../images/about_image_1.png'
-import HowToUse from '../../images/how_to_use.png'
-import HowToUse1 from '../../images/how_to_use1.png'
-import HowToUse2 from '../../images/how_to_use2.png'
-import HowToUse3 from '../../images/how_to_use3.png'
-import HowToUse4 from '../../images/how_to_use4.png'
-import HowToUse5 from '../../images/how_to_use5.png'
 import MailImage from '../../images/mail_image.png'
 import PhoneImage from '../../images/phone_image.png'
 import WebImage from '../../images/web_image.png'
-import FirewallImage from '../../images/Firewall_image.png'
-import LayeredSecurityImage from '../../images/Layered_security_image.png'
-
-import IntroMap from '../../images/intro-map.png'
 import { Button } from 'antd'
-import "../../App.scss";
+import "../../App.scss"
 import '../AboutUs/styles.aboutus.scss'
+import { motion } from 'framer-motion';
+
 const AboutUs = () => {
     return (
-        <div className='about-main'>
+        <motion.div className='about-main'
+            initial={{ width: 0 }}
+            animate={{ width: "100%" }}
+            exit={{ x: window.innerWidth, transition: { duration: 0.5 } }}
+        >
             <div className='intro-part'>
                 <div className='text-of-intro'>
                     <div className='title' >Giới thiệu chung</div>
@@ -80,7 +76,7 @@ const AboutUs = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 

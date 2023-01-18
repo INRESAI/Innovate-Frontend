@@ -1,5 +1,6 @@
-import { Avatar, Breadcrumb, Button, List } from 'antd'
-import React from 'react'
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { Breadcrumb, Button, List } from 'antd'
+import "../../App.scss"
 import { ICriteria } from '../../common/u-innovate/define-criteria'
 import Criteria1 from '../../images/criteria1.png'
 import Criteria2 from '../../images/criteria2.png'
@@ -9,13 +10,12 @@ import Criteria5 from '../../images/criteria5.png'
 import Criteria6 from '../../images/criteria6.png'
 import Criteria7 from '../../images/criteria7.png'
 import Criteria8 from '../../images/criteria8.png'
-import "../../App.scss";
 
 
-interface MyProps{
-  tranferFromCriteriaToTest: (id : string) => void;
-  revertToIntro: () => void;
-  criteriaLst: ICriteria[];
+interface MyProps {
+    tranferFromCriteriaToTest: (id: string) => void;
+    revertToIntro: () => void;
+    criteriaLst: ICriteria[];
 }
 
 const TemporaryCriteriaLst: ICriteria[] = [
@@ -79,10 +79,6 @@ const JudgementCriteriaOptions = (props: MyProps) => {
                 <Breadcrumb.Item className='present-link'>
                     Bắt đầu đánh giá
                 </Breadcrumb.Item>
-                {/* <Breadcrumb.Item>
-                <a href="">Application List</a>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>An Application</Breadcrumb.Item> */}
             </Breadcrumb>
             <List
                 itemLayout="horizontal"
@@ -93,7 +89,7 @@ const JudgementCriteriaOptions = (props: MyProps) => {
                         style={{ cursor: "pointer" }}
                     >
                         <List.Item.Meta
-                            avatar={<img className='criteria-image' src={item.urlImage} />}
+                            avatar={<img className='criteria-image' src={item.urlImage} alt='' />}
                             title={<a className='criteria-title'>{item.title}</a>}
                             description={<div>
                                 <div className='criteria-text'>{item.content}</div>

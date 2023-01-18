@@ -1,10 +1,10 @@
-import { Breadcrumb, Button, Checkbox, notification } from 'antd';
-import React, { useEffect, useState } from 'react'
-import { IQuestion } from '../../common/u-innovate/define-question';
-import { ISetOfQuestions } from '../../common/u-innovate/define-setOfQuestions';
-import OtherTestIcon from '../../images/other-test-icon.png'
 import { ArrowRightOutlined } from '@ant-design/icons';
 import Pagination from '@mui/material/Pagination';
+import { Breadcrumb, Button, notification } from 'antd';
+import { useEffect, useState } from 'react';
+import { IQuestion } from '../../common/u-innovate/define-question';
+import { ISetOfQuestions } from '../../common/u-innovate/define-setOfQuestions';
+import OtherTestIcon from '../../images/other-test-icon.png';
 
 import "../../App.scss";
 
@@ -255,8 +255,6 @@ const fakeSetOfQuestionsLst: ISetOfQuestions[] = [
 
 ]
 
-
-
 interface MyProps {
     revertToIntro: () => void; // Chuyen qua lai giua cac phan cua danh gia
     revertToCriteria: () => void
@@ -278,6 +276,7 @@ const TakingTest = (props: MyProps) => {
         console.log('----------------RENDERED-------------------')
 
     })
+    
     const handleChange = (event: any, value: any) => {
         setCurrentIndex(value - 1);
 

@@ -1,7 +1,5 @@
-import React from 'react';
-import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
 import "../../App.scss";
-import "./styles.footer.scss"
+import "./styles.footer.scss";
 export default function CFooter() {
     return (
         <div className='footer-main' id='footer-main'>

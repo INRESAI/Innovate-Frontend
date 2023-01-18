@@ -1,21 +1,15 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
-import { Avatar, Button, Drawer, Dropdown, Image, Input, Menu, Switch } from 'antd'
-import React, { useEffect, useState } from 'react'
-import Logo from '../../images/U.innovateLogo.png'
-import avatar from '../../images/avatar.jpg'
-import notification from '../../images/notification.png'
-import { SearchOutlined } from '@ant-design/icons';
-import "./styles.header.scss";
+import { SearchOutlined } from '@ant-design/icons'
+import { Button, Drawer, Input, Menu } from 'antd'
+import { useEffect, useState } from 'react'
+import "./styles.header.scss"
 // import "./styles.css";
-import "../../App.scss";
-import { Link } from "react-router-dom";
-import { useSelectorRoot } from '../../redux/store';
+import { Link } from "react-router-dom"
+import "../../App.scss"
 // import CRegisterModal from './CRegisterModal';
-import { IUser } from '../../common/define-identity'
-import { MDBBtn } from 'mdb-react-ui-kit';
-import { EuroOutlined, HeartOutlined, BarsOutlined, MenuOutlined, CalculatorOutlined } from '@ant-design/icons';
+import { MenuOutlined } from '@ant-design/icons'
 
 
 interface MyProps {
@@ -24,13 +18,11 @@ interface MyProps {
 
 
 export const CHeader = (props: MyProps) => {
-    const userEmail = localStorage.getItem('userEmail');
-    const [visible, setVisible] = useState(false);
-    const [isOnModal, setIsOnModal] = useState<boolean>(false);
-    const [current, setCurrent] = useState<string>('1')
+    const [visible, setVisible] = useState(false); // Biến thể hiện nút thu gọn menu có đang mở hay không
+    const [current, setCurrent] = useState<string>('1') // Biến thể hiện giá trị cho nút hiện tại
+
+    // Kiểm tra xem đường dẫn đang là gì để set thuộc tính đã click cho header
     useEffect(() => {
-        console.log(window.location.pathname);
-        // console.log(window.location.href);
         if (window.location.pathname === '/test')
             setCurrent('2')
         if (window.location.pathname === '/news')
@@ -41,18 +33,21 @@ export const CHeader = (props: MyProps) => {
             setCurrent('1')
     }, [window.location.pathname])
 
+    // Hiển thị ra nút thu gọn menu
     const showDrawer = () => {
         setVisible(true);
     }
+
+    // Đóng nút thu gọn menu
     const onClose = () => {
         setVisible(false);
     }
 
+    // Gán giá trị cho biến nút hiện tại
     const handleClick = (e: { key: any }) => {
-        console.log('click ', e);
         setCurrent(e.key);
-        window.location.reload();
     };
+
     return (
         <div className='main-header'>
             <div className='header-logo'>
@@ -86,7 +81,9 @@ export const CHeader = (props: MyProps) => {
                 />
                 <SearchOutlined className='icon-search' />
             </div>
-            <Button className='header-button'>Đăng ký</Button>
+            <Button className='header-button'>
+                <Link to={'/login'}>Đăng ký</Link>
+            </Button>
             <>
                 <Button className='menubtn' type="primary" shape="circle" icon={<MenuOutlined />} onClick={showDrawer} ></Button>
                 <Drawer title={

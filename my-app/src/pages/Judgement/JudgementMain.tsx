@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { useDispatchRoot } from '../../redux/store'
 import IntroduceMethod from './IntroduceMethod'
 import JudgementCriteriaOptions from './JudgementCriteriaOptions'
+import MoreTest from './MoreTest'
 import TakingTest from './TakingTest'
 import './styles.judgement.scss'
-import { useDispatchRoot, useSelectorRoot } from '../../redux/store'
-import { getCriteriaLstRequest } from '../../redux/controller'
-import CriteriaAPI from '../../api/criteria/criteria.api'
-import MoreTest from './MoreTest'
+import { motion } from 'framer-motion';
 
 const JudgementMain = () => {
     const [isShowIntro, setIsShowIntro] = useState(true);
@@ -53,7 +52,10 @@ const JudgementMain = () => {
         setIsShowTest(false);
     }
     return (
-        <div className='judgement-main'>
+        <motion.div className='judgement-main'
+            initial={{ width: 0 }}
+            animate={{ width: "100%" }}
+            exit={{ x: window.innerWidth, transition: { duration: 0.5 } }}>
             {
                 isShowIntro &&
                 <IntroduceMethod
@@ -85,7 +87,7 @@ const JudgementMain = () => {
                     tranferFromMoreTestToTests={tranferFromMoreTestToTests}
                 />
             }
-        </div>
+        </motion.div>
     )
 }
 

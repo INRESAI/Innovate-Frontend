@@ -1,10 +1,7 @@
-import { Breadcrumb, Button, Checkbox, List, notification } from 'antd';
-import React, { useEffect, useRef, useState } from 'react'
-import { IQuestion } from '../../common/u-innovate/define-question';
-import { ISetOfQuestions } from '../../common/u-innovate/define-setOfQuestions';
-import OtherTestIcon from '../../images/other-test-icon.png'
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import Pagination from '@mui/material/Pagination';
+import { Breadcrumb, Button, List } from 'antd';
+import { useEffect, useState } from 'react';
+import OtherTestIcon from '../../images/other-test-icon.png';
 interface MyProps {
     tranferFromMoreTestToTests: () => void;
 }
@@ -86,11 +83,6 @@ const MoreTest = (props: MyProps) => {
                         <div className="text">Quay lại</div>
                     </div>
                 </Breadcrumb.Item>
-
-                {/* <Breadcrumb.Item>
-                <a href="">Application List</a>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>An Application</Breadcrumb.Item> */}
             </Breadcrumb>
             <div className='test-body'>
                 <div className='other-tests'>
@@ -115,24 +107,6 @@ const MoreTest = (props: MyProps) => {
                             </List.Item>
                         )}
                     />
-                    {/* {
-
-                        fakeOtherTestLst.map((item) =>
-                            <div className='test'>
-                                <div className='title'>{item.title}</div>
-                                <div className='content'>{item.content}</div>
-                                <div className='btn-and-icon' style={{ display: 'flex', justifyContent: 'space-between', margin: '15px' }}>
-                                    <div>
-                                        <img src={OtherTestIcon} />
-                                    </div>
-                                    <div style={{ display: 'flex' }}>
-                                        <Button className='button'>TẢI VỀ</Button>
-                                        <Button className='button'>XEM THÊM</Button>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    } */}
                 </div>
             </div>
         </div>

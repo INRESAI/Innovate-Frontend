@@ -1,8 +1,7 @@
-import { Button } from 'antd'
-import React from 'react'
-import IntroduceMethodImg from '../../images/introduce_method.png'
-import './styles.judgement.scss'
+import { Button } from 'antd';
 import "../../App.scss";
+import IntroduceMethodImg from '../../images/introduce_method.png';
+import './styles.judgement.scss';
 
 interface MyProps {
     tranferFromIntroToCriteria: () => void
