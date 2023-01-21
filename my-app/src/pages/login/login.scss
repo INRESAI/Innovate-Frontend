@@ -40,7 +40,7 @@
             align-items: center;
             margin-top: -50px;
             margin-left: 50px;
-            width: 45%;
+            width: 40%;
 
             .title {
                 font-weight: 700;
@@ -71,11 +71,12 @@
         }
 
         .form-login {
-            margin-right: 100px;
-            margin-top: 70px;
+            margin-top: 20px;
+            width: 30%;
 
             .container {
-                margin-left: 245px;
+                margin-left: 80px;
+                margin-bottom: 30px;
                 height: 40px;
                 width: 200px;
                 background-color: #FFECDF;
@@ -134,56 +135,100 @@
                 margin-left: 0px;
             }
 
-            .form.MuiBox-root.css-164r41r {
-                .css-17vbkzs-MuiFormControl-root-MuiTextField-root {
-                    .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
-                        font-weight: 500;
-                        font-size: 14px;
-                        line-height: 24px;
-                        display: flex;
-                        align-items: center;
-                        color: #C0C0C0;
-                        margin-left: 10px;
-                    }
+            .ant-form {
+                .ant-form-item {
+                    .ant-row {
+                        flex-direction: column;
 
-                    .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
-                        border-radius: 30px;
-                        // border: 1.5px solid #C0C0C0;
-                    }
+                        .ant-form-item-control-input {
+                            width: 285px;
+                        }
 
-                    .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root:hover fieldset {
-                        border: 1.5px solid #FF9955;
+                        .ant-form-item-label {
+                            text-align: start;
 
-                    }
+                            label {
+                                font-weight: 500;
+                                font-size: 12px;
+                                line-height: 24px;
+                                color: #4E4E4E;
+                            }
+                        }
 
-                    .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused fieldset {
-                        border: 1.5px solid #FF9955;
+                        .ant-input {
+                            border-radius: 30px;
+                            font-weight: 500;
+                            font-size: 14px;
+                            line-height: 24px;
+                            display: flex;
+                            align-items: center;
+                            color: #4E4E4E;
 
-                    }
+                        }
 
-                    .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
-                        color: #FF6600 !important;
-                        z-index: 100;
-                        background-color: #FFFFFF;
-                        // padding-right: 30px;
+                        .ant-input:placeholder-shown {
+                            width: 285px !important;
+                            font-weight: 500;
+                            font-size: 12px;
+                            line-height: 24px;
+                            display: flex;
+                            align-items: center;
+                            color: #C0C0C0;
+                        }
+
+                        .ant-input.email-input:hover {
+                            outline: none;
+                            border: 1px solid #FF6600;
+                        }
+
+                        .ant-input.email-input:focus {
+                            outline: none;
+                            border: 1px solid #FF6600;
+                            box-shadow: none;
+                        }
+
+                        .ant-input-password:hover {
+                            outline: none;
+                            border: 1px solid #FF6600;
+                        }
+
+                        .ant-input-affix-wrapper {
+                            width: 285px !important;
+
+                        }
+
+                        .ant-input-affix-wrapper-focused {
+                            box-shadow: none !important;
+                            border: 1px solid #FF6600;
+
+                        }
+
+                        .button-submit {
+                            width: 100%;
+                            background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
+                            border-radius: 30px;
+                            border: none;
+                        }
+
                     }
                 }
 
-                .css-11lq3yg-MuiGrid-root {
-                    align-items: center;
+                .remember-forgot-password {
+                    .ant-form-item-control-input-content {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
 
-                    .css-1vd824g-MuiGrid-root {
-                        .css-j204z7-MuiFormControlLabel-root {
-
-                            .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.Mui-checked,
-                            .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate {
-                                color: #FF6600;
-                            }
+                        .css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label {
+                            font-weight: 500;
+                            font-size: 14px;
+                            line-height: 24px;
+                            display: flex;
+                            align-items: center;
+                            color: #858585;
                         }
-                    }
 
-                    .css-13i4rnv-MuiGrid-root {
-                        a {
+                        .forgot-password {
                             font-weight: 700;
                             font-size: 14px;
                             line-height: 20px;
@@ -193,24 +238,214 @@
                             -webkit-background-clip: text;
                             -webkit-text-fill-color: transparent;
                             background-clip: text;
+                            cursor: pointer;
+                        }
+                    }
+
+                }
+
+                .step-item {
+                    margin-left: -70px;
+
+                    .ant-steps {
+                        .ant-steps-item {
+                            .ant-steps-icon-dot {
+                                background-color: #FF6600 !important;
+                            }
+                        }
+
+                        .ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-tail::after {
+                            background-color: #FF6600 !important;
                         }
                     }
                 }
 
-                .css-1vhaqj4-MuiButtonBase-root-MuiButton-root {
-                    background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
+                .ant-form-item.agreement {
+                    margin-bottom: 0;
+
+                    .css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label {
+                        font-weight: 400;
+                        font-size: 12px;
+                        line-height: 16px;
+                        display: flex;
+                        align-items: center;
+                        color: #C0C0C0;
+                    }
+                }
+
+            }
+
+            .ant-select.ant-select-in-form-item {
+                z-index: 3;
+
+                .ant-select-selector {
                     border-radius: 30px;
-                    font-weight: 700;
+                    z-index: 3;
+                    font-weight: 500;
                     font-size: 14px;
-                    line-height: 20px;
-                    display: flex;
-                    align-items: center;
-                    text-align: right;
-                    color: #FFFFFF;
+                    line-height: 24px;
+                    color: #696969;
+                }
+
+                .ant-select-selector:hover {
+                    outline: none;
+                    border: 1px solid #FF6600;
+                }
+
+                .ant-select-selector:focus {
+                    outline: none !important;
+                    border: 1px solid #FF6600 !important;
+                    box-shadow: none !important;
+                    z-index: 3;
+                }
+
+
+                .ant-select-arrow {
+                    color: #4E4E4E !important;
+                    z-index: 3;
                 }
             }
+
+            .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+                outline: none !important;
+                border: 1px solid #FF6600 !important;
+                box-shadow: none !important;
+            }
+
         }
 
 
     }
 }
+
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    background-color: #FF9955 !important;
+    // margin-bottom: 10px;
+    // border-radius: 30px;
+    color: #FFFFFF;
+}
+
+.ant-select-item {
+    // border-radius: 30px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    color: #696969;
+}
+
+.ant-select-item:hover {
+    background-color: #ffb17d;
+    // border-radius: 30px;
+    color: #FFFFFF;
+
+}
+
+.ant-select-dropdown.ant-select-dropdown-placement-bottomLeft {
+    border-radius: 15px;
+    padding: 0;
+    background: #EEF2F6;
+
+}
+
+@media (min-width: 1300px) {}
+
+@media (max-width: 1300px) {}
+
+@media (max-width: 1100px) {
+    .login-main {
+        .content-main {
+            .image-of-login {
+                height: 100%;
+                margin-top: 0px;
+
+                .title {
+                    font-size: 35px;
+                }
+
+                img {
+                    width: 85%;
+                }
+            }
+        }
+
+    }
+}
+
+@media (max-width: 900px) {
+    .login-main {
+        .back-button {
+            margin-left: 30px;
+        }
+
+        .content-main {
+            justify-content: space-between !important;
+
+            .image-of-login {
+                margin-left: 30px;
+
+                .title {
+                    font-size: 30px;
+                }
+            }
+
+            .form-login {
+                width: 300px;
+                margin-right: 10px;
+            }
+        }
+
+    }
+}
+
+@media (max-width: 700px) {
+    .login-main {
+
+        .content-main {
+            justify-content: center !important;
+            margin-right: 90px;
+
+            .image-of-login {
+                display: none;
+            }
+
+            .form-login {
+                .ant-form {
+                    .ant-form-item {
+
+                        .ant-row {
+                            .ant-form-item-control-input {
+                                width: 400px;
+                            }
+
+                            .ant-input:placeholder-shown {
+                                width: 400px !important;
+                            }
+
+                            .ant-input-affix-wrapper {
+                                width: 400px !important;
+                            }
+
+                            .ant-form-item-label {
+                                label {
+                                    font-size: 14px;
+                                }
+                            }
+                        }
+                    }
+
+                    .step-item {
+                        display: none;
+                        .ant-steps {
+                            // flex-direction: row !important;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+
+
+@media (max-width: 350px) {}
