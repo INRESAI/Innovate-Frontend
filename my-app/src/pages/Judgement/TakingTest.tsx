@@ -7,6 +7,7 @@ import { ISetOfQuestions } from '../../common/u-innovate/define-setOfQuestions';
 import OtherTestIcon from '../../images/other-test-icon.png';
 
 import "../../App.scss";
+import { ICriteria } from '../../common/u-innovate/define-criteria';
 
 const fakeOtherTestLst = [
     {
@@ -259,7 +260,8 @@ interface MyProps {
     revertToIntro: () => void; // Chuyen qua lai giua cac phan cua danh gia
     revertToCriteria: () => void
     tranferFromTestToMoreTests: () => void;
-    questionLst: ISetOfQuestions[]
+    questionLst: ISetOfQuestions[];
+    choseCriteria: ICriteria;
 }
 
 const TakingTest = (props: MyProps) => {
@@ -321,7 +323,7 @@ const TakingTest = (props: MyProps) => {
                     <a onClick={() => { props.revertToCriteria() }}>Bắt đầu đánh giá</a>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item className='present-link'>
-                    Lãnh đạo quản trị
+                    {props.choseCriteria.name}
                 </Breadcrumb.Item>
                 {/* <Breadcrumb.Item>
                 <a href="">Application List</a>
@@ -330,11 +332,11 @@ const TakingTest = (props: MyProps) => {
             </Breadcrumb>
             <div className='test-body'>
                 <div className='test-detail'>
-                    <div className='title'>Lãnh đạo và quản trị</div>
+                    <div className='title'>{props.choseCriteria.name}</div>
                     <div className='text'>Bạn có thể đọc về các yếu tố đánh giá của U.innovate và tải xuống ghi chú Khái niệm, cung cấp thông tin cơ bản về U.innovate và khái niệm về các trường đại học khởi nghiệp</div>
                     <div className='taking-test-area'>
                         {/* Khi call API se thay doan duoi nay thanh currentSetOfQuestion.content */}
-                        <div className='sub-title'>4. Nhà trường là động lực ĐMST&KN trong phát triển địa phương, xã hội và cộng đồng.</div>
+                        <div className='sub-title'>{props.questionLst[currentIndex].content}</div>
 
                         <div className='question-lst'>
                             {
@@ -368,7 +370,7 @@ const TakingTest = (props: MyProps) => {
                         <div className='footer'>
                             <Pagination className='pagination' onChange={handleChange} count={props.questionLst.length} variant="outlined" siblingCount={0} />
                             <div className='button-group'>
-                                <Button className='button' onClick={() => setCurrentIndex(currentIndex - 1)}>Quay lại</Button>
+                                {/* <Button className='button' onClick={() => setCurrentIndex(currentIndex - 1)}>Quay lại</Button> */}
                                 <Button className='button' onClick={() => { handleFinishTest() }}>Hoàn thành</Button>
                             </div>
                         </div>

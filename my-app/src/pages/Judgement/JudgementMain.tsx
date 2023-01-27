@@ -9,6 +9,7 @@ import JudgementCriteriaOptions from './JudgementCriteriaOptions'
 import MoreTest from './MoreTest'
 import TakingTest from './TakingTest'
 import './styles.judgement.scss'
+import { ICriteria } from '../../common/u-innovate/define-criteria'
 
 const JudgementMain = () => {
     const [isShowIntro, setIsShowIntro] = useState(true);
@@ -17,6 +18,7 @@ const JudgementMain = () => {
     const [isShowMoreTest, setIsShowMoreTest] = useState(false);
     const [criteriaLst, setCriteriaLst] = useState<any>();
     const [questionLst, setQuestionLst] = useState<ISetOfQuestions[]>();
+    const [choseCriteria,setChoseCriteria] = useState<ICriteria>(); // Luu lai Criteria duoc chon o giao dien danh sach Criteria. Sau do truyen vao giao dien lam test
 
     //Dung useSelector lay ra 2 lst criteriaLst va questionByCriteriaLst
     // const { criteriaLst } = useSelectorRoot((state) => state.uinnovate);
@@ -45,13 +47,16 @@ const JudgementMain = () => {
         setIsShowCriteria(true);
     }
 
-    const tranferFromCriteriaToTest =  async (criteriaId: string) => { // chuyen tu man chon tieu chi sang man lam bai test
+    const tranferFromCriteriaToTest =  async (criteria: ICriteria) => { // chuyen tu man chon tieu chi sang man lam bai test
         //Call API get danh sach question theo criteriaId
         let responseOfFirstAPI: any;
         let responseOfSecondAPI;
         let finalQuestionOfCriteriaLst: ISetOfQuestions[] = [];
 
-        await QuestionAPI.getAllQuestionByCriteriaId(criteriaId).then((res: any)=>{
+        setChoseCriteria(criteria);
+
+
+        await QuestionAPI.getAllQuestionByCriteriaId(criteria.id).then((res: any)=>{ // Lay tat ca bo cau hoi (moi bo cau hoi gom nhieu cau hoi) cua tieu chi duoc chon
             console.log(res)
             responseOfFirstAPI = res.data.data;
         })
@@ -120,8 +125,9 @@ const JudgementMain = () => {
             }
             {
                 // Sau nay se sua isShowTest thanh questionByCriteria != null
-                questionLst && isShowTest &&
+                questionLst && isShowTest && choseCriteria &&
                 <TakingTest
+                    choseCriteria={choseCriteria}
                     revertToIntro={revertToIntro}
                     revertToCriteria={revertToCriteria}
                     tranferFromTestToMoreTests={tranferFromTestToMoreTests}

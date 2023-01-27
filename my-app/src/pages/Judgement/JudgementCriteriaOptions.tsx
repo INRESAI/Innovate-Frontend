@@ -13,7 +13,7 @@ import "../../App.scss";
 
 
 interface MyProps {
-    tranferFromCriteriaToTest: (id: string) => void;
+    tranferFromCriteriaToTest: (criteria: ICriteria) => void;
     revertToIntro: () => void;
     criteriaLst: ICriteria[];
 }
@@ -72,7 +72,7 @@ const TemporaryCriteriaLst = [
 const JudgementCriteriaOptions = (props: MyProps) => {
     const [newOptionsLst, setNewOptionLst] = useState<ICriteria[]>();
 
-    useEffect(() => {
+    useEffect(() => {// Mapping du lieu nhan ve tu API sang class duoc khai bao o frontend
         let newLst: ICriteria[] = [];
         props.criteriaLst.map((item, index) => {
             newLst.push(
@@ -87,7 +87,9 @@ const JudgementCriteriaOptions = (props: MyProps) => {
         )
         setNewOptionLst(newLst)
     }, [])
-    console.log(props.criteriaLst)
+
+    // console.log(props.criteriaLst)
+
     return (
         <div className='criteria-lst'>
             <Breadcrumb>
@@ -107,7 +109,7 @@ const JudgementCriteriaOptions = (props: MyProps) => {
                 dataSource={newOptionsLst}
                 renderItem={(item) => (
                     <List.Item
-                        onClick={() => props.tranferFromCriteriaToTest(item.id)}
+                        onClick={() => props.tranferFromCriteriaToTest(item)}
                         style={{ cursor: "pointer" }}
                     >
                         <List.Item.Meta
