@@ -27,181 +27,181 @@ const fakeOtherTestLst = [
 
 ]
 const fakeSetOfQuestions1: IQuestion[] = [
-    {
-        id: "1",
-        content: "1.1 Nhà trường có tuyên bố sứ mệnh, tầm nhìn về đổi mới sáng tạo và khởi nghiệp",
-        answerLst: [
-            {
-                id: "1",
-                content: "Quan sát được hoàn toàn"
-            },
-            {
-                id: "2",
-                content: "Quan sát được một phần"
-            },
-            {
-                id: "3",
-                content: "Không quan sát thấy"
-            },
-        ],
-        pickedAnswer: null
-    },
-    {
-        id: "2",
-        content: "1.2 Nhà trường có chiến lược về đổi mới sáng tạo và khởi nghiệp cho toàn trường",
-        answerLst: [
-            {
-                id: "1",
-                content: "Quan sát được hoàn toàn"
-            },
-            {
-                id: "2",
-                content: "Quan sát được một phần"
-            },
-            {
-                id: "3",
-                content: "Không quan sát thấy"
-            },
-        ],
-        pickedAnswer: null
-    },
-    {
-        id: "3",
-        content: "1.3 Toàn bộ cán bộ, nhân viên, người học được truyền thông và hiểu rằng ĐMST&KN là ưu tiên hàng đầu của Nhà trường",
-        answerLst: [
-            {
-                id: "1",
-                content: "Quan sát được hoàn toàn"
-            },
-            {
-                id: "2",
-                content: "Quan sát được một phần"
-            },
-            {
-                id: "3",
-                content: "Không quan sát thấy"
-            },
-        ],
-        pickedAnswer: null
-    },
-    {
-        id: "4",
-        content: "1.4 Lộ trình chiến lược về ĐMST&KN của Nhà trường được định dạng đơn giản, và được truyền thông rộng rãi trong toàn bộ Nhà trường",
-        answerLst: [
-            {
-                id: "1",
-                content: "Quan sát được hoàn toàn"
-            },
-            {
-                id: "2",
-                content: "Quan sát được một phần"
-            },
-            {
-                id: "3",
-                content: "Không quan sát thấy"
-            },
-        ],
-        pickedAnswer: null
-    },
-    {
-        id: "5",
-        content: "1.5 Văn bản chiến lược về ĐMST&KN có đề cập đến việc thường xuyên xem xét, đánh giá, cập nhật cho phù hợp",
-        answerLst: [
-            {
-                id: "1",
-                content: "Quan sát được hoàn toàn"
-            },
-            {
-                id: "2",
-                content: "Quan sát được một phần"
-            },
-            {
-                id: "3",
-                content: "Không quan sát thấy"
-            },
-        ],
-        pickedAnswer: null
-    },
+    // {
+    //     id: "1",
+    //     content: "1.1 Nhà trường có tuyên bố sứ mệnh, tầm nhìn về đổi mới sáng tạo và khởi nghiệp",
+    //     answerLst: [
+    //         {
+    //             id: "1",
+    //             content: "Quan sát được hoàn toàn"
+    //         },
+    //         {
+    //             id: "2",
+    //             content: "Quan sát được một phần"
+    //         },
+    //         {
+    //             id: "3",
+    //             content: "Không quan sát thấy"
+    //         },
+    //     ],
+    //     pickedAnswer: null
+    // },
+    // {
+    //     id: "2",
+    //     content: "1.2 Nhà trường có chiến lược về đổi mới sáng tạo và khởi nghiệp cho toàn trường",
+    //     answerLst: [
+    //         {
+    //             id: "1",
+    //             content: "Quan sát được hoàn toàn"
+    //         },
+    //         {
+    //             id: "2",
+    //             content: "Quan sát được một phần"
+    //         },
+    //         {
+    //             id: "3",
+    //             content: "Không quan sát thấy"
+    //         },
+    //     ],
+    //     pickedAnswer: null
+    // },
+    // {
+    //     id: "3",
+    //     content: "1.3 Toàn bộ cán bộ, nhân viên, người học được truyền thông và hiểu rằng ĐMST&KN là ưu tiên hàng đầu của Nhà trường",
+    //     answerLst: [
+    //         {
+    //             id: "1",
+    //             content: "Quan sát được hoàn toàn"
+    //         },
+    //         {
+    //             id: "2",
+    //             content: "Quan sát được một phần"
+    //         },
+    //         {
+    //             id: "3",
+    //             content: "Không quan sát thấy"
+    //         },
+    //     ],
+    //     pickedAnswer: null
+    // },
+    // {
+    //     id: "4",
+    //     content: "1.4 Lộ trình chiến lược về ĐMST&KN của Nhà trường được định dạng đơn giản, và được truyền thông rộng rãi trong toàn bộ Nhà trường",
+    //     answerLst: [
+    //         {
+    //             id: "1",
+    //             content: "Quan sát được hoàn toàn"
+    //         },
+    //         {
+    //             id: "2",
+    //             content: "Quan sát được một phần"
+    //         },
+    //         {
+    //             id: "3",
+    //             content: "Không quan sát thấy"
+    //         },
+    //     ],
+    //     pickedAnswer: null
+    // },
+    // {
+    //     id: "5",
+    //     content: "1.5 Văn bản chiến lược về ĐMST&KN có đề cập đến việc thường xuyên xem xét, đánh giá, cập nhật cho phù hợp",
+    //     answerLst: [
+    //         {
+    //             id: "1",
+    //             content: "Quan sát được hoàn toàn"
+    //         },
+    //         {
+    //             id: "2",
+    //             content: "Quan sát được một phần"
+    //         },
+    //         {
+    //             id: "3",
+    //             content: "Không quan sát thấy"
+    //         },
+    //     ],
+    //     pickedAnswer: null
+    // },
 
 ]
 
 const fakeSetOfQuestions2: IQuestion[] = [
-    {
-        id: "6",
-        content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
-        answerLst: [
-            {
-                id: "1",
-                content: "Quan sát được hoàn toàn"
-            },
-            {
-                id: "2",
-                content: "Quan sát được một phần"
-            },
-            {
-                id: "3",
-                content: "Không quan sát thấy"
-            },
-        ],
-        pickedAnswer: null
-    },
-    {
-        id: "7",
-        content: "4.2 Nhà trường cho phép cộng đồng địa phương được tiếp cận, sử dụng cơ sở vật chất của Nhà trường",
-        answerLst: [
-            {
-                id: "1",
-                content: "Quan sát được hoàn toàn"
-            },
-            {
-                id: "2",
-                content: "Quan sát được một phần"
-            },
-            {
-                id: "3",
-                content: "Không quan sát thấy"
-            },
-        ],
-        pickedAnswer: null
-    },
-    {
-        id: "8",
-        content: "4.3 Nhà trường hỗ trợ các công ty khởi nghiệp tại địa phương để tăng cường đổi mới và tăng trưởng",
-        answerLst: [
-            {
-                id: "1",
-                content: "Quan sát được hoàn toàn"
-            },
-            {
-                id: "2",
-                content: "Quan sát được một phần"
-            },
-            {
-                id: "3",
-                content: "Không quan sát thấy"
-            },
-        ],
-        pickedAnswer: null
-    },
-    {
-        id: "9",
-        content: "4.4 Nhà trường có sự hiện diện mạnh mẽ trong cộng đồng địa phương, bằng cách hỗ trợ các hoạt động văn hóa và nghệ thuật địa phương",
-        answerLst: [
-            {
-                id: "1",
-                content: "Quan sát được hoàn toàn"
-            },
-            {
-                id: "2",
-                content: "Quan sát được một phần"
-            },
-            {
-                id: "3",
-                content: "Không quan sát thấy"
-            },
-        ],
-        pickedAnswer: null
-    },
+    // {
+    //     id: "6",
+    //     content: "4.1 Nhà trường tích cực tham gia vào việc phát triển và thực hiện các chiến lược ĐMST&KN của địa phương, khu vực và / hoặc quốc gia",
+    //     answerLst: [
+    //         {
+    //             id: "1",
+    //             content: "Quan sát được hoàn toàn"
+    //         },
+    //         {
+    //             id: "2",
+    //             content: "Quan sát được một phần"
+    //         },
+    //         {
+    //             id: "3",
+    //             content: "Không quan sát thấy"
+    //         },
+    //     ],
+    //     pickedAnswer: null
+    // },
+    // {
+    //     id: "7",
+    //     content: "4.2 Nhà trường cho phép cộng đồng địa phương được tiếp cận, sử dụng cơ sở vật chất của Nhà trường",
+    //     answerLst: [
+    //         {
+    //             id: "1",
+    //             content: "Quan sát được hoàn toàn"
+    //         },
+    //         {
+    //             id: "2",
+    //             content: "Quan sát được một phần"
+    //         },
+    //         {
+    //             id: "3",
+    //             content: "Không quan sát thấy"
+    //         },
+    //     ],
+    //     pickedAnswer: null
+    // },
+    // {
+    //     id: "8",
+    //     content: "4.3 Nhà trường hỗ trợ các công ty khởi nghiệp tại địa phương để tăng cường đổi mới và tăng trưởng",
+    //     answerLst: [
+    //         {
+    //             id: "1",
+    //             content: "Quan sát được hoàn toàn"
+    //         },
+    //         {
+    //             id: "2",
+    //             content: "Quan sát được một phần"
+    //         },
+    //         {
+    //             id: "3",
+    //             content: "Không quan sát thấy"
+    //         },
+    //     ],
+    //     pickedAnswer: null
+    // },
+    // {
+    //     id: "9",
+    //     content: "4.4 Nhà trường có sự hiện diện mạnh mẽ trong cộng đồng địa phương, bằng cách hỗ trợ các hoạt động văn hóa và nghệ thuật địa phương",
+    //     answerLst: [
+    //         {
+    //             id: "1",
+    //             content: "Quan sát được hoàn toàn"
+    //         },
+    //         {
+    //             id: "2",
+    //             content: "Quan sát được một phần"
+    //         },
+    //         {
+    //             id: "3",
+    //             content: "Không quan sát thấy"
+    //         },
+    //     ],
+    //     pickedAnswer: null
+    // },
 
 
 ]
@@ -259,7 +259,7 @@ interface MyProps {
     revertToIntro: () => void; // Chuyen qua lai giua cac phan cua danh gia
     revertToCriteria: () => void
     tranferFromTestToMoreTests: () => void;
-
+    questionLst: ISetOfQuestions[]
 }
 
 const TakingTest = (props: MyProps) => {
@@ -270,6 +270,8 @@ const TakingTest = (props: MyProps) => {
 
     useEffect(() => {
         console.log('----------------RENDERED-------------------')
+        console.log(props.questionLst)
+
     }, [])
 
     useEffect(() => {
@@ -283,7 +285,7 @@ const TakingTest = (props: MyProps) => {
     };
 
     const checkWhetherUserDoneTest = () => { // Check xem nguoi dung da nhap het cau tra loi chua
-        fakeSetOfQuestionsLst.forEach((item) => {
+        props.questionLst.forEach((item) => {
             item.questionLst.forEach((subitem) => {
                 if (subitem.pickedAnswer === null) {
                     return false
@@ -336,7 +338,7 @@ const TakingTest = (props: MyProps) => {
 
                         <div className='question-lst'>
                             {
-                                fakeSetOfQuestionsLst[currentIndex].questionLst.map((item) => ( // Sau nay se thay bang useState currentSetOfQuestion
+                                props.questionLst[currentIndex].questionLst.map((item) => ( // Sau nay se thay bang useState currentSetOfQuestion
                                     <div>
                                         <div className='content'>{item.content}</div>
                                         <div className='options-of-answer'>
@@ -364,7 +366,7 @@ const TakingTest = (props: MyProps) => {
                             }
                         </div>
                         <div className='footer'>
-                            <Pagination className='pagination' onChange={handleChange} count={fakeSetOfQuestionsLst.length} variant="outlined" siblingCount={0} />
+                            <Pagination className='pagination' onChange={handleChange} count={props.questionLst.length} variant="outlined" siblingCount={0} />
                             <div className='button-group'>
                                 <Button className='button' onClick={() => setCurrentIndex(currentIndex - 1)}>Quay lại</Button>
                                 <Button className='button' onClick={() => { handleFinishTest() }}>Hoàn thành</Button>

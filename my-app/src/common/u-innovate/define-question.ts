@@ -9,7 +9,8 @@ export interface IGetAllQuestionsByCriteriaResponse{
 export interface IAnswerOfQuestion{
     id: string;
     content: string;
-    // mark: number;
+    description: string;
+    point: string;
 }
 
 export interface IQuestion{

@@ -1,6 +1,6 @@
 export interface ICriteria{
     id: string;
-    title: string;
-    content: string;
+    name: string;
+    description: string;
     urlImage: string;
 }
