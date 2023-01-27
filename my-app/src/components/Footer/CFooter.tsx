@@ -1,5 +1,7 @@
 import "../../App.scss";
 import "./styles.footer.scss";
+
+// Phần footer của trang web
 export default function CFooter() {
     return (
         <div className='footer-main' id='footer-main'>
@@ -8,7 +10,6 @@ export default function CFooter() {
                 <div className='content-left'>
                     The U.innovate for design, creativity and innovation on the Internet
                 </div>
-                {/* <div className='content-right'>Next Conferences</div> */}
             </div>
             <div className='content'>
                 <div className='content-left'>

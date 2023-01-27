@@ -1,14 +1,15 @@
+import { Button } from 'antd'
+import { motion } from 'framer-motion'
+import "../../App.scss"
 import FirewallImage from '../../images/Firewall_image.png'
 import LayeredSecurityImage from '../../images/Layered_security_image.png'
 import AboutImage1 from '../../images/about_image_1.png'
 import MailImage from '../../images/mail_image.png'
 import PhoneImage from '../../images/phone_image.png'
 import WebImage from '../../images/web_image.png'
-import { Button } from 'antd'
-import "../../App.scss"
 import '../AboutUs/styles.aboutus.scss'
-import { motion } from 'framer-motion';
 
+// Phần giới thiệu về chúng tôi ở trang web
 const AboutUs = () => {
     return (
         <motion.div className='about-main'

@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion';
 
+// Phần tin tức của trang web
 const News = () => {
     return (
         <motion.div

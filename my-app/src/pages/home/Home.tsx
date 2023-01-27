@@ -14,6 +14,8 @@ import RightOfUseImage4 from '../../images/right_of_use_image_4.png';
 import RightOfUseImage5 from '../../images/right_of_use_image_5.png';
 import './styles.home.scss';
 import { motion } from 'framer-motion';
+
+// Phần trang chủ của trang web
 const Home = () => {
     return (
         <motion.div

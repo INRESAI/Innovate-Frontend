@@ -1,19 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
-import { Provider } from 'react-redux';
-import store, { persistor } from './redux/store';
-import { PersistGate } from 'redux-persist/integration/react';
 // import CMainRouter from './components/CMainRouter';
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
-import { CHeader } from './components/Header/CHeader';
-import Home from './pages/home/Home';
-import AboutUs from './pages/AboutUs/AboutUs';
-import CFooter from './components/Footer/CFooter';
 import { Layout } from 'antd';
-import JudgementMain from './pages/Judgement/JudgementMain';
-import Login from './pages/login/Login';
+import { useLocation } from 'react-router-dom';
 import AnimationRouter from './components/AnimationRouter';
+import CFooter from './components/Footer/CFooter';
+import { CHeader } from './components/Header/CHeader';
 
 
 function App() {

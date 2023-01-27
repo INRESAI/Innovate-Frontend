@@ -6,6 +6,8 @@ import JudgementMain from '../pages/Judgement/JudgementMain'
 import Login from '../pages/login/Login'
 import { AnimatePresence } from 'framer-motion'
 import News from '../pages/news/News'
+
+// Dùng để set animation cho các router với nhau
 const AnimationRouter = () => {
     const location = useLocation();
     return (

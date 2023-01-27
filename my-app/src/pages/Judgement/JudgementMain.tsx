@@ -1,17 +1,14 @@
+import { motion } from 'framer-motion'
 import { useState } from 'react'
+import CriteriaAPI from '../../api/criteria/criteria.api'
+import QuestionAPI from '../../api/questions/question.api'
+import { ISetOfQuestions } from '../../common/u-innovate/define-setOfQuestions'
 import { useDispatchRoot } from '../../redux/store'
 import IntroduceMethod from './IntroduceMethod'
 import JudgementCriteriaOptions from './JudgementCriteriaOptions'
 import MoreTest from './MoreTest'
 import TakingTest from './TakingTest'
 import './styles.judgement.scss'
-import { useDispatchRoot, useSelectorRoot } from '../../redux/store'
-import { getCriteriaLstRequest } from '../../redux/controller'
-import CriteriaAPI from '../../api/criteria/criteria.api'
-import MoreTest from './MoreTest'
-import QuestionAPI from '../../api/questions/question.api'
-import { ISetOfQuestions } from '../../common/u-innovate/define-setOfQuestions'
-import { ICriteria } from '../../common/u-innovate/define-criteria'
 
 const JudgementMain = () => {
     const [isShowIntro, setIsShowIntro] = useState(true);
@@ -42,6 +39,8 @@ const JudgementMain = () => {
             console.log(criteriaLst)
 
         })
+        console.log('baka');
+        
         setIsShowIntro(false);
         setIsShowCriteria(true);
     }

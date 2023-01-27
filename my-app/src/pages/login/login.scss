@@ -104,13 +104,13 @@
                     overflow: hidden;
                     margin-left: -190px;
 
-                    .add-text-sun::before {
+                    .add-text-register::before {
                         font-weight: bold;
                         color: #FFFFFF;
                         content: "Đăng ký";
                     }
 
-                    .add-text-moon::before {
+                    .add-text-login::before {
                         font-weight: bold;
                         color: #FFFFFF;
                         content: "Đăng nhập";
@@ -123,13 +123,13 @@
                 margin-left: 110px;
             }
 
-            .container.moon {
+            .container.login {
                 .handle {
                     margin-left: 30px;
                 }
             }
 
-            .container.moon::before {
+            .container.login::before {
                 content: "Đăng ký";
                 color: #FF9955;
                 margin-left: 0px;

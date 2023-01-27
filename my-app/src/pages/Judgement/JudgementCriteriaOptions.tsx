@@ -9,6 +9,7 @@ import Criteria5 from '../../images/criteria5.png'
 import Criteria6 from '../../images/criteria6.png'
 import Criteria7 from '../../images/criteria7.png'
 import Criteria8 from '../../images/criteria8.png'
+import "../../App.scss";
 
 
 interface MyProps {
@@ -69,24 +70,23 @@ const TemporaryCriteriaLst = [
 ]
 
 const JudgementCriteriaOptions = (props: MyProps) => {
-    const [newOptionsLst,setNewOptionLst] = useState<ICriteria[]>();
+    const [newOptionsLst, setNewOptionLst] = useState<ICriteria[]>();
 
-    useEffect(()=>{
+    useEffect(() => {
         let newLst: ICriteria[] = [];
-        props.criteriaLst.map((item,index) => 
-            {
-                newLst.push(
-                    {
-                        description: item.description,
-                        id: item.id,
-                        name: item.name,
-                        ...TemporaryCriteriaLst[index]
-                    }
-                )
-            }
+        props.criteriaLst.map((item, index) => {
+            newLst.push(
+                {
+                    description: item.description,
+                    id: item.id,
+                    name: item.name,
+                    ...TemporaryCriteriaLst[index]
+                }
+            )
+        }
         )
         setNewOptionLst(newLst)
-    },[])
+    }, [])
     console.log(props.criteriaLst)
     return (
         <div className='criteria-lst'>
@@ -97,6 +97,10 @@ const JudgementCriteriaOptions = (props: MyProps) => {
                 <Breadcrumb.Item className='present-link'>
                     Bắt đầu đánh giá
                 </Breadcrumb.Item>
+                {/* <Breadcrumb.Item>
+                <a href="">Application List</a>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>An Application</Breadcrumb.Item> */}
             </Breadcrumb>
             <List
                 itemLayout="horizontal"
@@ -108,7 +112,7 @@ const JudgementCriteriaOptions = (props: MyProps) => {
                     >
                         <List.Item.Meta
                             avatar={<img className='criteria-image' src={item.urlImage} />}
-                            title={<a className='criteria-title'>{item.title}</a>}
+                            title={<a className='criteria-title'>{item.name}</a>}
                             description={<div>
                                 <div className='criteria-text'>{item.description}</div>
                                 <Button className='criteria-btn'>Đánh giá</Button>

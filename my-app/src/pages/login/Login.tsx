@@ -1,27 +1,32 @@
-import { ArrowLeftOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, CaretDownOutlined } from '@ant-design/icons';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import { Breadcrumb, Button, Form, Input, Select, Steps } from 'antd';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CaretDownOutlined } from "@ant-design/icons";
 import "../../App.scss";
-import LoginImage from '../../images/login-image.png';
 import LoginImage2 from '../../images/login-image-2.png';
+import LoginImage from '../../images/login-image.png';
 
 import './login.scss';
 
 interface MyProps {
     // tranferFromLoginToHome: () => void;
 }
-const Login = (props: MyProps) => {
-    const [isOn, setIsOn] = useState(true);
-    const [current, setCurrent] = useState(0);
-    const { Option } = Select;
 
+const { Option } = Select;
+// Phần đăng nhập / đăng ký của trang web
+const Login = (props: MyProps) => {
+
+    const [isLogin, setIsLogin] = useState(true); // Biến kiểm tra có đang ơ trang đăng nhập hay đăng ký
+    const [current, setCurrent] = useState(0);  // Biến gán giá trị đang ở bước bao nhiêu của trang đăng ký
+
+    // Hàm thực hiện đến bước tiếp theo của trang đăng ký
     const handleClickNext = () => {
         setCurrent(current + 1);
     }
+
+    // Hàm thực hiện khi đã hoàn thành form đăng ký/ đăng nhập
     const onFinish = (values: any) => {
         console.log('Received values of form: ', values);
     };
@@ -51,20 +56,20 @@ const Login = (props: MyProps) => {
                 <div className='image-of-login'>
                     <div className='title'>Chào mừng bạn đến với V.innovate!</div>
                     <div className='sub-title'>Đánh giá, xếp hạng các trường đại học. cao đằng/tỉnh thành phố về dổi mới sáng tạo, khởi nghiệp và tạo tác động.</div>
-                    <img src={isOn ? LoginImage : LoginImage2} alt='' />
+                    <img src={isLogin ? LoginImage : LoginImage2} alt='' />
                 </div>
                 <div className='form-login'>
                     <div
-                        className={`container ${isOn ? 'moon' : ''}`}
-                        data-darkmode={isOn}
-                        onClick={() => setIsOn(!isOn)}
-                        style={{ justifyContent: isOn ? 'flex-end' : 'flex-start' }}
+                        className={`container ${isLogin ? 'login' : ''}`}
+                        data-darkmode={isLogin}
+                        onClick={() => setIsLogin(!isLogin)}
+                        style={{ justifyContent: isLogin ? 'flex-end' : 'flex-start' }}
                     >
                         <motion.div layout className="handle">
                             <AnimatePresence initial={false}>
                                 <motion.div
-                                    className={`add-text-${isOn ? 'moon' : 'sun'}`}
-                                    key={isOn ? 'moon' : 'sun'}
+                                    className={`add-text-${isLogin ? 'login' : 'register'}`}
+                                    key={isLogin ? 'login' : 'register'}
                                     initial={{ y: -30, opacity: 0 }}
                                     animate={{ y: 0, opacity: 1 }}
                                     exit={{ y: 30, opacity: 0 }}
@@ -74,7 +79,7 @@ const Login = (props: MyProps) => {
                         </motion.div>
                     </div>
                     {
-                        isOn ?
+                        isLogin ?
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
@@ -87,13 +92,15 @@ const Login = (props: MyProps) => {
                                     wrapperCol={{ span: 16 }}
                                     initialValues={{ remember: true }}
                                     onFinish={onFinish}
-                                    // onFinishFailed={onFinishFailed}
                                     autoComplete="off"
                                 >
                                     <Form.Item
                                         label="Email/Tài khoản"
                                         name="EmailLogin"
-                                        rules={[{ required: true, message: 'Vui lòng nhập email!' }]}
+                                        rules={[
+                                            { type: 'email', message: 'Email không hợp lệ', },
+                                            { required: true, message: 'Vui lòng nhập email!' }
+                                        ]}
                                     >
                                         <Input className='email-input' placeholder='Nhập Email hoặc tài khoản' />
                                     </Form.Item>
@@ -149,7 +156,10 @@ const Login = (props: MyProps) => {
                                             <Form.Item
                                                 label="Email"
                                                 name="EmailRegister"
-                                                rules={[{ required: true, message: 'Vui lòng nhập email!' }]}
+                                                rules={[
+                                                    { type: 'email', message: 'Email không hợp lệ', },
+                                                    { required: true, message: 'Vui lòng nhập email!' }
+                                                ]}
                                             >
                                                 <Input className='email-input' placeholder='Nhập Email' />
                                             </Form.Item>
@@ -164,13 +174,24 @@ const Login = (props: MyProps) => {
                                             <Form.Item
                                                 label="Xác nhận mật khẩu"
                                                 name="ConfirmPasswordRegiter"
-                                                rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
+                                                dependencies={['PasswordRegiter']}
+                                                rules={[
+                                                    { required: true, message: 'Vui lòng nhập mật khẩu!' },
+                                                    ({ getFieldValue }) => ({
+                                                        validator(_, value) {
+                                                            if (!value || getFieldValue('PasswordRegiter') === value) {
+                                                                return Promise.resolve();
+                                                            }
+                                                            return Promise.reject(new Error('Mật khẩu xác nhận không đúng!'));
+                                                        },
+                                                    }),
+                                                ]}
                                             >
                                                 <Input.Password placeholder='Nhập lại mật khẩu' />
                                             </Form.Item>
 
                                             <Form.Item >
-                                                <Button onClick={handleClickNext} className='button-submit' type="primary" htmlType="submit">
+                                                <Button className='button-submit' type="primary" htmlType="submit">
                                                     Tiếp tục
                                                 </Button>
                                             </Form.Item>
@@ -206,7 +227,7 @@ const Login = (props: MyProps) => {
                                             >
                                                 <Select
                                                     suffixIcon={<CaretDownOutlined />}
-                                                    defaultValue={1}
+                                                    placeholder="Chọn cơ sở đào tạo"
                                                 >
                                                     <Option value={1}>Hà Nội</Option>
                                                     <Option value={2}>Thành Phố HCM</Option>
@@ -220,7 +241,7 @@ const Login = (props: MyProps) => {
                                             >
                                                 <Select
                                                     suffixIcon={<CaretDownOutlined />}
-                                                    defaultValue={1}
+                                                    placeholder="Chọn vai trò"
                                                 >
                                                     <Option value={1}>Sinh viên theo học tại cơ sở đào tạo</Option>
                                                     <Option value={2}>Cán bộ, giảng viên cơ sở đào tạo</Option>
@@ -229,7 +250,7 @@ const Login = (props: MyProps) => {
                                             </Form.Item>
 
                                             <Form.Item >
-                                                <Button onClick={handleClickNext} className='button-submit' type="primary" htmlType="submit">
+                                                <Button className='button-submit' type="primary" htmlType="submit">
                                                     Tiếp tục
                                                 </Button>
                                             </Form.Item>
@@ -301,7 +322,7 @@ const Login = (props: MyProps) => {
                                                 }} />} label="Tôi chấp nhận Điều khoản và Điều kiện" />
                                             </Form.Item>
                                             <Form.Item
-                                                name="agreement"
+                                                name="agreement-3"
                                                 className='agreement'
                                                 valuePropName="checked"
                                                 rules={[
@@ -319,7 +340,7 @@ const Login = (props: MyProps) => {
                                                 }} />} label="Tôi muốn nhận thông tin cập nhật về VNHEI" />
                                             </Form.Item>
                                             <Form.Item
-                                                name="agreement"
+                                                name="agreement-4"
                                                 className='agreement'
                                                 valuePropName="checked"
                                                 rules={[

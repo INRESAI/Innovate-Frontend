@@ -16,7 +16,7 @@ interface MyProps {
     // setIsLogout: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-
+// Phần header của trang web
 export const CHeader = (props: MyProps) => {
     const [visible, setVisible] = useState(false); // Biến thể hiện nút thu gọn menu có đang mở hay không
     const [current, setCurrent] = useState<string>('1') // Biến thể hiện giá trị cho nút hiện tại
@@ -86,11 +86,15 @@ export const CHeader = (props: MyProps) => {
             </Button>
             <>
                 <Button className='menubtn' type="primary" shape="circle" icon={<MenuOutlined />} onClick={showDrawer} ></Button>
-                <Drawer title={
-                    <div className='header-logo'>
-                        <Link to={'/'} className='logo-text'>U.innovate</Link>
-                    </div>
-                } placement="right" onClose={onClose} visible={visible}>
+                <Drawer
+                    title={
+                        <div className='header-logo'>
+                            <Link to={'/'} className='logo-text'>U.innovate</Link>
+                        </div>
+                    }
+                    placement="right"
+                    onClose={onClose}
+                    visible={visible}>
                     <div style={{ display: 'flex', flexDirection: "column" }}>
                         <Button type="text" href="/" >Trang chủ</Button>
                         <Button type="text" href="/test" >Đánh giá</Button>
