@@ -67,9 +67,9 @@ export const CHeader = (props: MyProps) => {
                 <Menu.Item key="2">
                     <Link to={'/test'}>Đánh giá </Link>
                 </Menu.Item>
-                <Menu.Item key="3" >
+                {/* <Menu.Item key="3" >
                     <Link to={'/news'}>Tin tức</Link>
-                </Menu.Item>
+                </Menu.Item> */}
                 <Menu.Item key="4">
                     <Link to={'/about_us'}>Về chúng tôi</Link>
                 </Menu.Item>
@@ -98,7 +98,7 @@ export const CHeader = (props: MyProps) => {
                     <div style={{ display: 'flex', flexDirection: "column" }}>
                         <Button type="text" href="/" >Trang chủ</Button>
                         <Button type="text" href="/test" >Đánh giá</Button>
-                        <Button type="text" href="/news" >Tin tức</Button>
+                        {/* <Button type="text" href="/news" >Tin tức</Button> */}
                         <Button type="text" href="/about_us" >Về chúng tôi</Button>
                     </div>
                 </Drawer>

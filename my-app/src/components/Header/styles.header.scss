@@ -25,6 +25,7 @@
     .header-menu {
         width: 100%;
         border: none;
+        margin-left: 100px;
 
         .ant-menu-item a:hover {
             color: #FF9955 !important;
@@ -149,7 +150,6 @@
 }
 
 @media (min-width: 1200px) {
-
     .menubtn {
         display: none;
     }
@@ -160,6 +160,17 @@
 }
 
 @media (max-width: 1200px) {
+    .main-header {
+        justify-content: flex-start;
+        .header-button {
+            position: absolute;
+            right: 70px;
+        }
+        .header-content-input{
+            position: absolute;
+            right: 160px;
+        }
+    }
 
     .header-menu {
         display: none;
@@ -175,8 +186,10 @@
     }
 }
 
-@media (max-width: 650px) {
-
+@media (max-width: 700px) {
+    .main-header{
+        padding-left: 25px;
+    }
     .header-menu {
         display: none;
     }
