@@ -2,7 +2,7 @@
 /* eslint-disable no-debugger */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootEpic } from "../../common/define-type";
-import { catchError, filter, switchMap,mergeMap, map } from "rxjs/operators";
+import { catchError, filter, switchMap, mergeMap, map } from "rxjs/operators";
 import { notification } from "antd";
 import { ICriteria } from "../../common/u-innovate/define-criteria";
 import CriteriaAPI from "../../api/criteria/criteria.api";
@@ -40,19 +40,19 @@ const uInnovateSlice = createSlice({
             state.criteriaLst = action.payload
             state.loading = false
         },
-        getCriteriaLstFail(state, action: any){
-            state.loading =false
+        getCriteriaLstFail(state, action: any) {
+            state.loading = false
         },
 
         // Get all question
-        getAllQuestionsByCriteriaIdRequest(state, action: PayloadAction<string>){
-            state.loading=true
+        getAllQuestionsByCriteriaIdRequest(state, action: PayloadAction<string>) {
+            state.loading = true
         },
-        getAllQuestionsByCriteriaSuccess(state, action: PayloadAction<any>){
-            state.loading=true
+        getAllQuestionsByCriteriaSuccess(state, action: PayloadAction<any>) {
+            state.loading = true
         },
-        getAllQuestionsByCriteriaIdFail(state, action: PayloadAction<any>){
-            state.loading=true
+        getAllQuestionsByCriteriaIdFail(state, action: PayloadAction<any>) {
+            state.loading = true
         },
     }
 })
@@ -61,14 +61,11 @@ const getAllCriteria$: RootEpic = (action$) => action$.pipe(
     filter(getCriteriaLstRequest.match),
     switchMap(() => {
         // IdentityApi.login(re.payload) ?
-        
+
         return CriteriaAPI.getAllCriteria().pipe(
             mergeMap((res: any) => {
-                    console.log(res);
-                    return [
-                        uInnovateSlice.actions.getCriteriaLstSuccess(res.data),
-
-                    ];
+                console.log(res);
+                return [uInnovateSlice.actions.getCriteriaLstSuccess(res.data),];
             }),
             catchError(err => [uInnovateSlice.actions.getCriteriaLstFail(err)])
         )
@@ -79,7 +76,7 @@ const getAllCriteria$: RootEpic = (action$) => action$.pipe(
 //     filter(getAllQuestionsByCriteriaIdRequest.match),
 //     switchMap((req) => {
 //         // IdentityApi.login(re.payload) ?
-        
+
 //         return QuestionAPI.getAllQuestionByCriteriaId(req.payload).pipe(
 //             mergeMap((res: any) => {
 //                     console.log(res);
@@ -101,6 +98,6 @@ export const UInnovateEpics = [
 export const {
     getCriteriaLstRequest,
     getAllQuestionsByCriteriaIdRequest,
-    
+
 } = uInnovateSlice.actions
 export const uInnovateReducer = uInnovateSlice.reducer

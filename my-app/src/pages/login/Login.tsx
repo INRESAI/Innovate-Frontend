@@ -9,6 +9,10 @@ import LoginImage2 from '../../images/login-image-2.png';
 import LoginImage from '../../images/login-image.png';
 
 import './login.scss';
+import { LoginRequest } from '../../common/define-identity';
+import { useDispatchRoot } from '../../redux/store';
+import { loginRequest } from '../../redux/controller/login.slice';
+import IdentityApi from '../../api/identity/identity.api';
 
 interface MyProps {
     // tranferFromLoginToHome: () => void;
@@ -20,6 +24,7 @@ const Login = (props: MyProps) => {
 
     const [isLogin, setIsLogin] = useState(true); // Biến kiểm tra có đang ơ trang đăng nhập hay đăng ký
     const [current, setCurrent] = useState(0);  // Biến gán giá trị đang ở bước bao nhiêu của trang đăng ký
+    const dispatch = useDispatchRoot();
 
     // Hàm thực hiện đến bước tiếp theo của trang đăng ký
     const handleClickNext = () => {
@@ -27,9 +32,21 @@ const Login = (props: MyProps) => {
     }
 
     // Hàm thực hiện khi đã hoàn thành form đăng ký/ đăng nhập
-    const onFinish = (values: any) => {
-        console.log('Received values of form: ', values);
-    };
+    const onFinish = async (account: any): Promise<any> => {
+        console.log(account);
+        const req: LoginRequest = {
+            "email": account.EmailLogin,
+            "password": account.PasswordLogin,
+            "remember": account.remember,
+            "additionalProp1": {},
+
+        };
+        await IdentityApi.login(req).then((res: any) => {
+            console.log(res);
+        })
+        dispatch(loginRequest(req));
+    }
+
     return (
         <motion.div className='login-main'
             initial={{ width: 0 }}
