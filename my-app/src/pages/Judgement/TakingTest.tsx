@@ -286,22 +286,31 @@ const TakingTest = (props: MyProps) => {
 
     };
 
-    const checkWhetherUserDoneTest = () => { // Check xem nguoi dung da nhap het cau tra loi chua
+    const checkWhetherDoneTest = () => { // Check xem nguoi dung da nhap het cau tra loi chua
+        let check = 1;
         props.questionLst.forEach((item) => {
+            if(check===0) return;
             item.questionLst.forEach((subitem) => {
+                console.log("Bo cau hoi hien tai: ",item.content,"----Dap an hien tai: ", subitem.pickedAnswer)
                 if (subitem.pickedAnswer === null) {
-                    return false
+                    console.log("Co vao day khong nhi")
+                    check = 0;
+                    return;
                 }
             })
         })
-
-        return true
+        if( check === 1) return true;
+        else return false;
     }
 
     const handleFinishTest = () => { // Neu da nhap het cau tra loi thi se call API tinh toan diem 
-        if (checkWhetherUserDoneTest()) {
+        console.log("---------------Leu leu leu----------------")
+
+        if (checkWhetherDoneTest()===true) {
+
             //Call API
         } else {
+            console.log("Cuoi cung thi")
             notification.open({
                 message: 'Bạn vui lòng hoàn thành toàn bộ các câu hỏi!',
                 type: "error",
@@ -309,7 +318,6 @@ const TakingTest = (props: MyProps) => {
                     console.log('Notification Clicked!');
                 },
             });
-            return
         }
     }
 
