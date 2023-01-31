@@ -41,6 +41,9 @@ const SYSTEM_CONSTANTS = {
         },
         ANSWER: {
             GET_ALL: 'answers'
+        },
+        RESULT: {
+            CACULATE: 'results/answers'
         }
 
     },

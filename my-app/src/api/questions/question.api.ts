@@ -37,4 +37,27 @@ export default class QuestionAPI {
 
         return axios(config)
     }
+
+    static caculateResult = (questionLst: any[]) => {
+        var data = JSON.stringify({
+            "total": 0,
+            "listAnswer": questionLst,
+            "additionalProp1": {}
+        });
+
+        const currentToken = localStorage.getItem('accessToken') // Doi sau khi xong login thi cong tiep
+          
+        var config = {
+            method: 'post',
+            url: `${QuestionAPI.host}/${SYSTEM_CONSTANTS.API.RESULT.CACULATE}`,
+            headers: { // Sau khi xong phan Login se thay accessToken vao sau Bearer
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhpZXVAZ21haWwuY29tIiwic2NvcGVzIjpbInVzZXIiXSwiaWF0IjoxNjc1MTc4MzYwLCJleHAiOjE2NzUyNjQ3NjB9.fA43Odfyo180KR2d1p2dkvbwrS3xlh3zWs8leGUFLbQ', 
+                'Content-Type': 'application/json'
+            },
+            data : data
+        };
+          
+        return axios(config)
+          
+    }
 }
