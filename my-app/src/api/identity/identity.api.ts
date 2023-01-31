@@ -1,6 +1,6 @@
 /* eslint-disable */
 import SYSTEM_CONSTANTS from '../../common/constants';
-import { IUser, LoginRequest, NewResponseLogin, RegisterRequest, ResponseDeparment, ResponseLogin } from '../../common/define-identity';
+import { GetUserInfoRequest, IUser, LoginRequest, NewResponseLogin, RegisterRequest, ResponseDeparment, ResponseLogin } from '../../common/define-identity';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError, map } from "rxjs/operators";
 import HttpClient from "../http-client";
@@ -28,45 +28,50 @@ export default class IdentityApi {
             map((res) => res as IDataResponse<IUser> || null, catchError((error) => new Observable)));
     }
 
-    // static login(body: LoginRequest): Observable<IDataResponse<any> | null>{
-    //     const api = `${IdentityApi.host}/${SYSTEM_CONSTANTS.API.IDENTITY.LOGIN}`;
-    //     return HttpClient.post(api, body).pipe(
-    //         map((res) => res as IDataResponse<IUser> || null, catchError((error) => new Observable)));
-    // }
-    static login(body: LoginRequest) {
+    static login(body: LoginRequest): Observable<IDataResponse<any> | null>{
         const api = `${IdentityApi.host}/${SYSTEM_CONSTANTS.API.IDENTITY.LOGIN}`;
-
-        // var config = {
-        //     method: 'post',
-        //     url: api,
-        //     headers: {
-        //         'Access-Control-Allow-Origin': '*',
-        //         'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type, Authorization',
-        //         'Access-Control-Allow-Methods': '*',
-        //         "Content-Type": "application/json"
-        //     },
-        //     data: body,
-        // };
-        var data = JSON.stringify({
-            "email": "kienn11000@gmail.com",
-            "password": "123456",
-            "remember": true,
-            "additionalProp1": {}
-        });
-
-        var config = {
-            method: 'post',
-            url: 'http://178.128.19.31:2001/users/login',
-            headers: {
-                'accessToken': 'ákldal',
-                'Content-Type': 'application/json'
-            },
-            data: data
-        };
-
-        //   axios(config)
-        return axios(config);
+        return HttpClient.post(api, body).pipe(
+            map((res) => res as IDataResponse<IUser> || null, catchError((error) => new Observable)));
     }
+    static getUserInfo(body: GetUserInfoRequest): Observable<IDataResponse<any> | null>{
+        const api = `${IdentityApi.host}/${SYSTEM_CONSTANTS.API.IDENTITY.GETUSERINFO}`;
+        return HttpClient.post(api, body).pipe(
+            map((res) => res as IDataResponse<IUser> || null, catchError((error) => new Observable)));
+    }
+    // static login(body: LoginRequest) {
+    //     const api = `${IdentityApi.host}/${SYSTEM_CONSTANTS.API.IDENTITY.LOGIN}`;
+
+    //     // var config = {
+    //     //     method: 'post',
+    //     //     url: api,
+    //     //     headers: {
+    //     //         'Access-Control-Allow-Origin': '*',
+    //     //         'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type, Authorization',
+    //     //         'Access-Control-Allow-Methods': '*',
+    //     //         "Content-Type": "application/json"
+    //     //     },
+    //     //     data: body,
+    //     // };
+    //     var data = JSON.stringify({
+    //         "email": "kienn11000@gmail.com",
+    //         "password": "123456",
+    //         "remember": true,
+    //         "additionalProp1": {}
+    //     });
+
+    //     var config = {
+    //         method: 'post',
+    //         url: 'http://178.128.19.31:2001/users/login',
+    //         headers: {
+    //             'accessToken': 'ákldal',
+    //             'Content-Type': 'application/json'
+    //         },
+    //         data: data
+    //     };
+
+    //     //   axios(config)
+    //     return axios(config);
+    // }
     static register(body: RegisterRequest): Observable<IDataResponse<any> | null> {
         const api = `${IdentityApi.host}/${SYSTEM_CONSTANTS.API.IDENTITY.REGISTER}`;
         // console.log(body)

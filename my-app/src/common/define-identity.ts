@@ -165,11 +165,19 @@ export interface LoginRequest{
     remember: boolean,
     additionalProp1: {}
 }
-
+export interface GetUserInfoRequest{
+    accessToken: string,
+    additionalProp1: {}
+}
 export interface IUser{
-    id: string,
     email: string,
     name: string,
+    address: string,
+    phone?: string,
+    password?: string,
+    confirmPassword?: string,
+    facilityId: string,
+    positionId: string,
 }
 
 export interface RegisterRequest{

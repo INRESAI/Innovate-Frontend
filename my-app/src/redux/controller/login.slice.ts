@@ -5,7 +5,7 @@ import { notification } from "antd";
 import { WritableDraft } from "immer/dist/internal";
 import { catchError, filter, map, mergeMap, switchMap } from "rxjs/operators";
 // import IdentityApi from "../../api/identity.api";
-import { IUser, LoginRequest, RegisterRequest, ResponseDeparment } from "../../common/define-identity";
+import { GetUserInfoRequest, IUser, LoginRequest, RegisterRequest, ResponseDeparment } from "../../common/define-identity";
 import { RootEpic } from "../../common/define-type";
 import Utils from "../../common/utils";
 import IdentityApi from "../../api/identity/identity.api";
@@ -27,6 +27,7 @@ interface LoginState {
     departmentId: number;
     refresh_token: string;
     statusCode: string | undefined
+    tokenLogin: string | undefined;
 }
 
 const initState: LoginState = {
@@ -38,30 +39,24 @@ const initState: LoginState = {
     messageForgot: undefined,
     refresh_token: "",
     statusCode: undefined,
+    tokenLogin: undefined,
 }
 
 const loginSlice = createSlice({
     name: 'login',
     initialState: initState,
     reducers: {
+        // checkIsLogin(state, action: any) {
+        //     state.tokenLogin = action
+        //     console.log("---get token---");
+        // },
         loginRequest(state, action: PayloadAction<LoginRequest>) {
             state.loading = true;
             // console.log("da chui vao",state.loading)
         },
-        loginSuccess(state, action: PayloadAction<{ user: IUser, token: string }>) {
+        loginSuccess(state, action: PayloadAction<{ token: string }>) {
             Utils.setLocalStorage('token', action.payload.token);
-            Utils.setLocalStorage('userId', action.payload.user.id)
-            Utils.setLocalStorage('userEmail', action.payload.user.email)
-            Utils.setLocalStorage('userName', action.payload.user.name)
-
-            // state.loading = false;
-            // Utils.setLocalStorage("email", action.payload.user.email);
-            // Utils.setLocalStorage("id", action.payload.user.id);
-            // Utils.setLocalStorage("password", action.payload.user.password);
-            // Utils.setLocalStorage("refresh_token", action.payload.refresh_token)
-            // Utils.setLocalStorage("email", action.payload.user.)
-            // Utils.setLocalStorage("expires", action.payload.expires_token)
-            state.user = action.payload.user
+            state.tokenLogin = action.payload.token
             state.loading = false
             state.isSuccess = true;
             notification.open({
@@ -93,8 +88,35 @@ const loginSlice = createSlice({
             state.statusCode = action.payload;
         }
         ,
-        getInfoUser(state, action: PayloadAction<IUser>) {
-            state.user = action.payload
+        getUserInfoRequest(state, action: PayloadAction<GetUserInfoRequest>) {
+            state.tokenLogin = action.payload.accessToken
+            state.loading = true;
+        },
+        getUserInfoSuccess(state, action: PayloadAction<{ user: IUser, token: string }>) {
+            Utils.setLocalStorage('userName', action.payload.user.name);
+            Utils.setLocalStorage('userMail', action.payload.user.email);
+            state.loading = false;
+            state.isSuccess = true;
+            state.user = action.payload.user;
+            console.log('---get user info success---');
+            
+
+        },
+        getUserInfoFail(state, action: any) {
+            // state.user = action.payload
+            console.log(action);
+            notification.open({
+                message: 'Lấy thông tin thành viên không thành công',
+                description:
+                    'Hãy kiểm tra lại thông tin đăng nhập.',
+                onClick: () => {
+                    console.log('Notification Clicked!');
+                },
+                style: {
+                    marginTop: 40
+                }
+            });
+            state.message = action.payload.message
         },
         forgotRequest(state, action: PayloadAction<string>) {
             state.loading = true
@@ -173,42 +195,35 @@ const loginSlice = createSlice({
     }
 })
 
-// const login$: RootEpic = (action$) => action$.pipe(
-//     filter(loginRequest.match),
-//     switchMap((re) => {
-//         // IdentityApi.login(re.payload) ?
-//         console.log(re);
-//         const body: LoginRequest = {
-//             "email": re.payload.email,
-//             "password": re.payload.password,
-//             "remember": re.payload.remember,
-//             "additionalProp1": {},
-//         };
+const login$: RootEpic = (action$) => action$.pipe(
+    filter(loginRequest.match),
+    switchMap((re) => {
+        // IdentityApi.login(re.payload) ?
+        console.log(re);
+        const body: LoginRequest = {
+            "email": re.payload.email,
+            "password": re.payload.password,
+            "remember": re.payload.remember,
+            "additionalProp1": {},
+        };
 
-//         return IdentityApi.login(body).pipe(
-//             mergeMap((res: any) => {
-//                 console.log(res);
-//                 console.log(res.data.accessToken);
-//                 const token = res.data.accessToken
-//                 const user: IUser = {
-//                     id: res.data.id,
-//                     email: res.data.email,
-//                     name: res.data.name,
-//                 };
-//                 console.log(user);
-//                 return [
-//                     loginSlice.actions.loginSuccess({ user, token: token }),
-//                     loginSlice.actions.setLoading(false),
-//                     loginSlice.actions.setStatusCode(res.statusCode)
-//                 ];
-//             }),
-//             catchError(err =>
-//                 [loginSlice.actions.loginFail(err)]
-//             )
-//         )
-//     })
-// )
-
+        return IdentityApi.login(body).pipe(
+            mergeMap((res: any) => {
+                console.log(res);
+                console.log(res.data.accessToken);
+                const token = res.data.accessToken
+                return [
+                    loginSlice.actions.loginSuccess({ token: token }),
+                    loginSlice.actions.setLoading(false),
+                    loginSlice.actions.setStatusCode(res.statusCode)
+                ];
+            }),
+            catchError(err =>
+                [loginSlice.actions.loginFail(err)]
+            )
+        )
+    })
+)
 
 const forgot$: RootEpic = (action$) => action$.pipe(
     filter(forgotRequest.match),
@@ -263,29 +278,52 @@ const register$: RootEpic = (action$) => action$.pipe(
     })
 )
 
-const ableToLogin$: RootEpic = (action$) => action$.pipe(
-    filter(checkAbleToLogin.match),
-    mergeMap(() => {
-        return [
-            loginSlice.actions.checkAbleToLogin("OK"),
-        ]
+const getUserInfo$: RootEpic = (action$) => action$.pipe(
+    filter(getUserInfoRequest.match),
+    switchMap((re) => {
+        console.log(re);
+        const body: GetUserInfoRequest = {
+            "accessToken": re.payload.accessToken,
+            "additionalProp1": {}
+        };
+
+        return IdentityApi.getUserInfo(body).pipe(
+            mergeMap((res: any) => {
+                console.log(res);
+                const token = res.data.accessToken; 
+
+                const user: IUser = {
+                    email: res.data.email,
+                    name: res.data.name,
+                    address: res.data.address,
+                    facilityId: res.data.facilityId,
+                    positionId: res.data.positionId,
+                };
+                console.log(user);
+                return [
+                    loginSlice.actions.getUserInfoSuccess({ user, token: token }),
+                ];
+            }),
+            catchError(err =>
+                [loginSlice.actions.getUserInfoFail(err)]
+            )
+        )
     })
 )
-
-
 export const LoginEpics = [
-    // login$,
+    login$,
     forgot$,
     clearMessage$,
     logOut$,
-    register$
+    register$,
+    getUserInfo$
 ]
 export const {
     // getDepartmentRequest,
+    getUserInfoRequest,
     loginRequest,
     forgotRequest,
     clearMessageResquest,
-    getInfoUser,
     clearAllRequest,
     registerRequest,
     checkAbleToLogin

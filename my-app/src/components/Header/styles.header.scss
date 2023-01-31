@@ -101,7 +101,10 @@
         font-weight: 700;
 
     }
-
+    .header-avatar{
+        position: absolute;
+        right: 50px;
+    }
     .menubtn {
         background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
         border: none;
@@ -169,6 +172,10 @@
         .header-content-input{
             position: absolute;
             right: 160px;
+        }
+        .header-avatar{
+            position: absolute;
+            right: 70px;
         }
     }
 
