@@ -9,7 +9,8 @@ const SYSTEM_CONSTANTS = {
             CONNECT_TOKEN: 'identity/clients/publicKey',
             LOGIN: "users/login",
             FORGOT: "license_manager/users",
-            REGISTER: "users/register"
+            REGISTER: "users/register",
+            GETUSERINFO: "users/getuserinfo",
         },
         MEETINGS: {
             CREATE_MEETINGS: 'meeting',

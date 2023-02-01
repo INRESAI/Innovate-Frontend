@@ -2,15 +2,15 @@ import { ArrowLeftOutlined, CaretDownOutlined } from '@ant-design/icons';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import { Breadcrumb, Button, Form, Input, Select, Steps } from 'antd';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import "../../App.scss";
 import LoginImage2 from '../../images/login-image-2.png';
 import LoginImage from '../../images/login-image.png';
 
 import './login.scss';
 import { LoginRequest } from '../../common/define-identity';
-import { useDispatchRoot } from '../../redux/store';
+import { useDispatchRoot, useSelectorRoot } from '../../redux/store';
 import { loginRequest } from '../../redux/controller/login.slice';
 import IdentityApi from '../../api/identity/identity.api';
 
@@ -25,6 +25,15 @@ const Login = (props: MyProps) => {
     const [isLogin, setIsLogin] = useState(true); // Biến kiểm tra có đang ơ trang đăng nhập hay đăng ký
     const [current, setCurrent] = useState(0);  // Biến gán giá trị đang ở bước bao nhiêu của trang đăng ký
     const dispatch = useDispatchRoot();
+    const navigate = useNavigate();
+    const { tokenLogin } = useSelectorRoot((state) => state.login);
+
+
+    useEffect(() => {
+        if (tokenLogin) {
+            navigate("/");
+        }
+    }, [tokenLogin])
 
     // Hàm thực hiện đến bước tiếp theo của trang đăng ký
     const handleClickNext = () => {
@@ -32,7 +41,7 @@ const Login = (props: MyProps) => {
     }
 
     // Hàm thực hiện khi đã hoàn thành form đăng ký/ đăng nhập
-    const onFinish = async (account: any): Promise<any> => {
+    const onFinishLogin = async (account: any): Promise<any> => {
         console.log(account);
         const req: LoginRequest = {
             "email": account.EmailLogin,
@@ -41,9 +50,6 @@ const Login = (props: MyProps) => {
             "additionalProp1": {},
 
         };
-        await IdentityApi.login(req).then((res: any) => {
-            console.log(res);
-        })
         dispatch(loginRequest(req));
     }
 
@@ -57,7 +63,8 @@ const Login = (props: MyProps) => {
                 <Breadcrumb>
                     <Breadcrumb.Item>
                         <Link to='/'>
-                            <motion.div className='back-button'
+                            <motion.div
+                                className='back-button'
                                 whileHover={{ scale: 1.5 }}
                                 whileTap={{ scale: 0.9 }}
                                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -108,7 +115,7 @@ const Login = (props: MyProps) => {
                                     name="basic"
                                     wrapperCol={{ span: 16 }}
                                     initialValues={{ remember: true }}
-                                    onFinish={onFinish}
+                                    onFinish={onFinishLogin}
                                     autoComplete="off"
                                 >
                                     <Form.Item
