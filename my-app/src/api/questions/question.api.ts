@@ -40,7 +40,7 @@ export default class QuestionAPI {
 
     static caculateResult = (questionLst: any[]) => {
         var data = JSON.stringify({
-            "total": 0,
+            // "total": 0,
             "listAnswer": questionLst,
             "additionalProp1": {}
         });
@@ -51,7 +51,7 @@ export default class QuestionAPI {
             method: 'post',
             url: `${QuestionAPI.host}/${SYSTEM_CONSTANTS.API.RESULT.CACULATE}`,
             headers: { // Sau khi xong phan Login se thay accessToken vao sau Bearer
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhpZXVAZ21haWwuY29tIiwic2NvcGVzIjpbInVzZXIiXSwiaWF0IjoxNjc1MTc4MzYwLCJleHAiOjE2NzUyNjQ3NjB9.fA43Odfyo180KR2d1p2dkvbwrS3xlh3zWs8leGUFLbQ', 
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhpZXVAZ21haWwuY29tIiwic2NvcGVzIjpbInVzZXIiXSwiaWF0IjoxNjc1MjE5NDY0LCJleHAiOjE2NzUzMDU4NjR9.WQP7_tu9ii55UqymrYjEvTegTRI4d6KES_ilSjodFCg', 
                 'Content-Type': 'application/json'
             },
             data : data

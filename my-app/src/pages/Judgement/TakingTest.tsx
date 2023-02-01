@@ -301,6 +301,7 @@ const TakingTest = (props: MyProps) => {
                     questionLstOfRequestBody.push({ // Neu cau hoi da duoc chon dap an thi se day ID cau hoi va ID cau tra loi vao lst
                         "questionId": subitem.id,
                         "answerId": subitem.pickedAnswer,
+                        "point": subitem.pickedAnswer.point
                     })
                 }
             })
@@ -371,14 +372,14 @@ const TakingTest = (props: MyProps) => {
                                                 item.answerLst.map((subitem) => (
                                                     <label className='lst-item'
                                                         onClick={() => {
-                                                            item.pickedAnswer = subitem.id
+                                                            item.pickedAnswer = subitem
                                                             setCurrentChoseAnswerId(currentChoseAnswerId + 1)
                                                             console.log(item);
                                                         }}
                                                     >
                                                         <input
                                                             type="radio" className="radio-btn"
-                                                            checked={item.pickedAnswer === subitem.id}
+                                                            checked={item.pickedAnswer === subitem}
                                                             value={subitem.id} id={subitem.id} name={item.id}
                                                         />
                                                         <div className="label">{subitem.content}</div>
