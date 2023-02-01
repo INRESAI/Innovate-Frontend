@@ -1,9 +1,9 @@
 import { DataForeservation } from "./define-api-booking";
 
-export interface ResponseDeparment{
+export interface ResponseDeparment {
     id: number,
     tingId: string,
-    dateOfBirth:string,
+    dateOfBirth: string,
     departmentId: number,
     startDate: string,
     endDate: string,
@@ -19,38 +19,38 @@ export interface ResponseDeparment{
     status: number,
     mood: string,
     contactDetail: {
-      employeeId: number,
-      mask: number,
-      addressStreet1: string,
-      addressStreet2: string,
-      city: string,
-      country: string,
-      homePhone: string,
-      mobile: string,
-      otherEmail: string,
-      workEmail: string,
-      workPhone: string,
-      zipCode: string
+        employeeId: number,
+        mask: number,
+        addressStreet1: string,
+        addressStreet2: string,
+        city: string,
+        country: string,
+        homePhone: string,
+        mobile: string,
+        otherEmail: string,
+        workEmail: string,
+        workPhone: string,
+        zipCode: string
     },
     companies: [
         number
     ],
     jobs: [
-      {
-        id: number,
-        employeeId: number,
-        categoryId: number,
-        startDate: string,
-        endDate: string,
-        location: string,
-        salary: number,
-        specification: string,
-        status: number,
-        supervisorId: number,
-        titleId: number
-      }
+        {
+            id: number,
+            employeeId: number,
+            categoryId: number,
+            startDate: string,
+            endDate: string,
+            location: string,
+            salary: number,
+            specification: string,
+            status: number,
+            supervisorId: number,
+            titleId: number
+        }
     ]
-  }
+}
 
 export interface ResponseListHotel {
     id: number,
@@ -59,10 +59,10 @@ export interface ResponseListHotel {
     note: string,
     hotline: string,
     managerId: string,
-    autoId: string | number |null
+    autoId: string | number | null
     createDate: string,
     dataForeservation: DataForeservation | null,
-    dbname: string |null,
+    dbname: string | null,
     ghiChu: string,
     guid: string,
     hotelName: string,
@@ -72,11 +72,11 @@ export interface ResponseListHotel {
     issIpaddress: string | null,
     ma: string,
     ngayBatDau: string | null,
-    ngayKetThuc: string |null,
-    parent: string |null,
+    ngayKetThuc: string | null,
+    parent: string | null,
     parentGuid: string | null,
-    sequency: string |null,
-    userId: string |null,
+    sequency: string | null,
+    userId: string | null,
     company: {
         id: number,
         mask: number,
@@ -159,17 +159,18 @@ export interface NewResponseLogin {
     };
 }
 
-export interface LoginRequest{
+export interface LoginRequest {
     email: string,
     password: string,
     remember: boolean,
     additionalProp1: {}
 }
-export interface GetUserInfoRequest{
+export interface GetUserInfoRequest {
     accessToken: string,
     additionalProp1: {}
 }
-export interface IUser{
+export interface IUser {
+    id?: string;    
     email: string,
     name: string,
     address: string,
@@ -178,10 +179,22 @@ export interface IUser{
     confirmPassword?: string,
     facilityId: string,
     positionId: string,
+    role?: string;
 }
 
-export interface RegisterRequest{
+export interface RegisterRequest {
     email: string,
     password: string,
-    confirmPassword: string
+    confirmPassword: string,
+    name: string,
+    phone: string,
+    address: string,
+    facilityId: string,
+    positionId: string,
+    additionalProp1: {}
+
+}
+export interface CheckEmailResponse {
+    exist: boolean,
+    message: string,
 }

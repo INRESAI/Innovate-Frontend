@@ -11,6 +11,7 @@ const SYSTEM_CONSTANTS = {
             FORGOT: "license_manager/users",
             REGISTER: "users/register",
             GETUSERINFO: "users/getuserinfo",
+            CHECKEMAIL: "users/checkemail",
         },
         MEETINGS: {
             CREATE_MEETINGS: 'meeting',
@@ -42,8 +43,13 @@ const SYSTEM_CONSTANTS = {
         },
         ANSWER: {
             GET_ALL: 'answers'
-        }
-
+        },
+        POSITIONS: {
+            GET_ALL: 'positions'
+        },
+        FACILITIES: {
+            GET_ALL: 'facilities'
+        },
     },
     IMAGE: {
         IMAGE_HOTEL: "dms/Document/file"

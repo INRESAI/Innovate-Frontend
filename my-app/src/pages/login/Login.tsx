@@ -9,10 +9,12 @@ import LoginImage2 from '../../images/login-image-2.png';
 import LoginImage from '../../images/login-image.png';
 
 import './login.scss';
-import { LoginRequest } from '../../common/define-identity';
+import { LoginRequest, RegisterRequest } from '../../common/define-identity';
 import { useDispatchRoot, useSelectorRoot } from '../../redux/store';
-import { loginRequest } from '../../redux/controller/login.slice';
+import { checkEmailRequest, loginRequest, registerRequest } from '../../redux/controller/login.slice';
 import IdentityApi from '../../api/identity/identity.api';
+import { getAllFacilitiesRequest, getAllPositionsRequest } from '../../redux/controller';
+import { IPosition } from '../../common/u-innovate/define-position';
 
 interface MyProps {
     // tranferFromLoginToHome: () => void;
@@ -26,21 +28,81 @@ const Login = (props: MyProps) => {
     const [current, setCurrent] = useState(0);  // Biến gán giá trị đang ở bước bao nhiêu của trang đăng ký
     const dispatch = useDispatchRoot();
     const navigate = useNavigate();
-    const { tokenLogin } = useSelectorRoot((state) => state.login);
+    const { tokenLogin, isExistEmail } = useSelectorRoot((state) => state.login);
+    const { positionsLst, facilitiesLst } = useSelectorRoot((state) => state.uinnovate);
+    const [lstPosition, setLstPosition] = useState<IPosition[]>([]);
+    const [lstFacility, setLstFacility] = useState<IPosition[]>([]);
+    const [userName, setUserName] = useState<string>('');
+    const [userEmail, setUserEmail] = useState<string>('');
+    const [userPassword, setUserPassword] = useState<string>('');
+    const [userConfirmPassword, setUserConfirmPassword] = useState<string>('');
+    const [userFacilityId, setUserFacilityId] = useState<string>('');
+    const [userPositionId, setUserPositionId] = useState<string>('');
+    // Thực hiện lấy vai trò và cơ sở đào tạo của user
+    useEffect(() => {
+        if (!isLogin) {
+            dispatch(getAllFacilitiesRequest());
+            dispatch(getAllPositionsRequest());
+        }
+    }, [isLogin])
 
+    // Thực hiện gán giá trị cơ sở đào tạo
+    useEffect(() => {
+        setLstFacility(JSON.parse(JSON.stringify(facilitiesLst)));
+    }, [facilitiesLst]);
 
+    // Thực hiện gán giá trị vai trò
+    useEffect(() => {
+        setLstPosition(JSON.parse(JSON.stringify(positionsLst)));
+    }, [positionsLst]);
+
+    // Thực hiện nếu đã đăng nhập thành công, trở về trang chủ
     useEffect(() => {
         if (tokenLogin) {
             navigate("/");
         }
     }, [tokenLogin])
 
-    // Hàm thực hiện đến bước tiếp theo của trang đăng ký
-    const handleClickNext = () => {
-        setCurrent(current + 1);
+    // Thực hiện chuyển đến trang tiếp theo nếu thông tin hợp lệ
+    useEffect(() => {
+        if (!isExistEmail) {
+            setCurrent(current + 1);
+        }
+    }, [isExistEmail])
+    // Hàm thực hiện lưu thông tin của trang đầu tiên của đăng ký
+    const handleClickFirstStep = async (res: any): Promise<any> => {
+        setUserName(res.UsernameRegister);
+        setUserEmail(res.EmailRegister);
+        setUserPassword(res.PasswordRegiter);
+        setUserConfirmPassword(res.ConfirmPasswordRegiter);
+        dispatch(checkEmailRequest(res.EmailRegister))
     }
 
-    // Hàm thực hiện khi đã hoàn thành form đăng ký/ đăng nhập
+    // Hàm thực hiện lưu thông tin của trang thứ 2 của đăng ký
+    const handleClickSecondStep = async (res: any): Promise<any> => {
+        console.log(res);
+        setUserFacilityId(res.TrainingFacilities);
+        setUserPositionId(res.RoleOfTrainingFacilities)
+        setCurrent(current + 1);
+    }
+    // Hàm thực hiện khi đã hoàn thành form đăng ký
+    const onFinishRegister = async (): Promise<any> => {
+        const req: RegisterRequest = {
+            "email": userEmail,
+            "password": userPassword,
+            "confirmPassword": userConfirmPassword,
+            "name": userName,
+            "phone": "string",
+            "address": "string",
+            "facilityId": userFacilityId,
+            "positionId": userPositionId,
+            "additionalProp1": {}
+        };
+        dispatch(registerRequest(req));
+        setIsLogin(!isLogin)
+        // dispatch(re(req));
+    }
+    // Hàm thực hiện khi đã hoàn thành form đăng nhập
     const onFinishLogin = async (account: any): Promise<any> => {
         console.log(account);
         const req: LoginRequest = {
@@ -166,7 +228,7 @@ const Login = (props: MyProps) => {
                                             name="basic"
                                             wrapperCol={{ span: 16 }}
                                             initialValues={{ remember: true }}
-                                            onFinish={handleClickNext}
+                                            onFinish={handleClickFirstStep}
                                             autoComplete="off"
                                         >
                                             <Form.Item
@@ -241,7 +303,7 @@ const Login = (props: MyProps) => {
                                             name="basic"
                                             wrapperCol={{ span: 16 }}
                                             initialValues={{ remember: true }}
-                                            onFinish={handleClickNext}
+                                            onFinish={handleClickSecondStep}
                                             autoComplete="off"
                                         >
                                             <Form.Item
@@ -253,8 +315,9 @@ const Login = (props: MyProps) => {
                                                     suffixIcon={<CaretDownOutlined />}
                                                     placeholder="Chọn cơ sở đào tạo"
                                                 >
-                                                    <Option value={1}>Hà Nội</Option>
-                                                    <Option value={2}>Thành Phố HCM</Option>
+                                                    {lstFacility.map((index) => (
+                                                        <Option value={index.id}>{index.name}</Option>
+                                                    ))}
                                                 </Select>
                                             </Form.Item>
 
@@ -267,9 +330,9 @@ const Login = (props: MyProps) => {
                                                     suffixIcon={<CaretDownOutlined />}
                                                     placeholder="Chọn vai trò"
                                                 >
-                                                    <Option value={1}>Sinh viên theo học tại cơ sở đào tạo</Option>
-                                                    <Option value={2}>Cán bộ, giảng viên cơ sở đào tạo</Option>
-                                                    <Option value={3}>Đại diện cơ sở đào tạo</Option>
+                                                    {lstPosition.map((index) => (
+                                                        <Option value={index.id}>{index.name}</Option>
+                                                    ))}
                                                 </Select>
                                             </Form.Item>
 
@@ -299,7 +362,7 @@ const Login = (props: MyProps) => {
                                             name="basic"
                                             wrapperCol={{ span: 16 }}
                                             initialValues={{ remember: true }}
-                                            onFinish={handleClickNext}
+                                            onFinish={onFinishRegister}
                                             autoComplete="off"
                                         >
                                             <Form.Item

@@ -5,7 +5,7 @@ import { notification } from "antd";
 import { WritableDraft } from "immer/dist/internal";
 import { catchError, filter, map, mergeMap, switchMap } from "rxjs/operators";
 // import IdentityApi from "../../api/identity.api";
-import { GetUserInfoRequest, IUser, LoginRequest, RegisterRequest, ResponseDeparment } from "../../common/define-identity";
+import { CheckEmailResponse, GetUserInfoRequest, IUser, LoginRequest, RegisterRequest, ResponseDeparment } from "../../common/define-identity";
 import { RootEpic } from "../../common/define-type";
 import Utils from "../../common/utils";
 import IdentityApi from "../../api/identity/identity.api";
@@ -26,8 +26,9 @@ interface LoginState {
     messageForgot: MessageForgot | undefined;
     departmentId: number;
     refresh_token: string;
-    statusCode: string | undefined
+    statusCode: string | undefined;
     tokenLogin: string | undefined;
+    isExistEmail: boolean;
 }
 
 const initState: LoginState = {
@@ -40,16 +41,13 @@ const initState: LoginState = {
     refresh_token: "",
     statusCode: undefined,
     tokenLogin: undefined,
+    isExistEmail: true,
 }
 
 const loginSlice = createSlice({
     name: 'login',
     initialState: initState,
     reducers: {
-        // checkIsLogin(state, action: any) {
-        //     state.tokenLogin = action
-        //     console.log("---get token---");
-        // },
         loginRequest(state, action: PayloadAction<LoginRequest>) {
             state.loading = true;
             // console.log("da chui vao",state.loading)
@@ -65,7 +63,7 @@ const loginSlice = createSlice({
                     console.log('Notification Clicked!');
                 },
                 style: {
-                    marginTop: 40
+                    paddingTop: 40
                 }
             });
         },
@@ -79,7 +77,7 @@ const loginSlice = createSlice({
                     console.log('Notification Clicked!');
                 },
                 style: {
-                    marginTop: 40
+                    paddingTop: 40
                 }
             });
             state.message = action.payload.message
@@ -99,7 +97,7 @@ const loginSlice = createSlice({
             state.isSuccess = true;
             state.user = action.payload.user;
             console.log('---get user info success---');
-            
+
 
         },
         getUserInfoFail(state, action: any) {
@@ -113,11 +111,35 @@ const loginSlice = createSlice({
                     console.log('Notification Clicked!');
                 },
                 style: {
-                    marginTop: 40
+                    paddingTop: 40
                 }
             });
             state.message = action.payload.message
         },
+
+
+        checkEmailRequest: (state, action: PayloadAction<string>) => {
+            state.loading = true;
+        },
+        checkEmailSuccess: (state, action: PayloadAction<CheckEmailResponse>) => {
+            console.log(action.payload);
+            state.isExistEmail = action.payload.exist;
+            if (action.payload.exist) {
+                notification.open({
+                    message: 'Email đã tồn tại',
+                    onClick: () => {
+                        console.log('Notification Clicked!');
+                    },
+                    style: {
+                        marginTop: 40
+                    }
+                });
+            }
+        },
+        checkEmailFailed(state, action: PayloadAction<boolean>) {
+            state.loading = action.payload;
+        },
+
         forgotRequest(state, action: PayloadAction<string>) {
             state.loading = true
         },
@@ -128,13 +150,6 @@ const loginSlice = createSlice({
         },
         setLoading(state, action: PayloadAction<boolean>) {
             state.loading = action.payload
-        },
-        getDepartmentRequest(state, action: PayloadAction<string>) {
-            state.loading = true;
-        },
-        getDepartmentSuccess(state, action: PayloadAction<ResponseDeparment>) {
-            state.isSuccess = true;
-            state.departmentId = action.payload.departmentId;
         },
         message(state, action: PayloadAction<MessageLogin>) {
             state.message = action.payload;
@@ -175,9 +190,8 @@ const loginSlice = createSlice({
                     console.log('Notification Clicked!');
                 },
             });
-            // openNotification(NotificationType.Info, 'topRight', `Đăng ký tài khoản mới thành công!`, ``);
 
-            state.user = action.payload.user
+            // state.user = action.payload.user
             state.isSuccess = true;
         },
 
@@ -259,6 +273,12 @@ const register$: RootEpic = (action$) => action$.pipe(
             "email": re.payload.email,
             "password": re.payload.password,
             "confirmPassword": re.payload.confirmPassword,
+            "name": re.payload.name,
+            "phone": re.payload.phone,
+            "address": re.payload.address,
+            "facilityId": re.payload.facilityId,
+            "positionId": re.payload.positionId,
+            "additionalProp1": {}
         };
         return IdentityApi.register(body).pipe(
             mergeMap((res: any) => {
@@ -278,6 +298,7 @@ const register$: RootEpic = (action$) => action$.pipe(
     })
 )
 
+
 const getUserInfo$: RootEpic = (action$) => action$.pipe(
     filter(getUserInfoRequest.match),
     switchMap((re) => {
@@ -290,7 +311,7 @@ const getUserInfo$: RootEpic = (action$) => action$.pipe(
         return IdentityApi.getUserInfo(body).pipe(
             mergeMap((res: any) => {
                 console.log(res);
-                const token = res.data.accessToken; 
+                const token = res.data.accessToken;
 
                 const user: IUser = {
                     email: res.data.email,
@@ -310,9 +331,27 @@ const getUserInfo$: RootEpic = (action$) => action$.pipe(
         )
     })
 )
+const checkEmail$: RootEpic = (action$) => action$.pipe(
+    filter(checkEmailRequest.match),
+    switchMap((re) => {
+        console.log(re);
+        return IdentityApi.checkEmail(re.payload).pipe(
+            mergeMap((res: any) => {
+                console.log(res);
+                return [
+                    loginSlice.actions.checkEmailSuccess(res.data),
+                ];
+            }),
+            catchError(err =>
+                [loginSlice.actions.checkEmailFailed(err)]
+            )
+        )
+    })
+)
 export const LoginEpics = [
     login$,
     forgot$,
+    checkEmail$,
     clearMessage$,
     logOut$,
     register$,
@@ -322,6 +361,7 @@ export const {
     // getDepartmentRequest,
     getUserInfoRequest,
     loginRequest,
+    checkEmailRequest,
     forgotRequest,
     clearMessageResquest,
     clearAllRequest,
