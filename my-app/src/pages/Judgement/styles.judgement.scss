@@ -264,8 +264,9 @@ $accent-color: #FF9955;
                 .taking-test-area {
                     border-radius: 30px;
                     background-color: #EEF2F6;
-                    margin-top: 30px;
                     padding: 38px;
+                    width: 80%;
+                    margin: 30px auto;
 
                     .sub-title {
                         font-weight: 700;
@@ -359,6 +360,8 @@ $accent-color: #FF9955;
                         justify-content: space-between;
 
                         .pagination {
+                            pointer-events: none;
+
                             .MuiPagination-ul.css-wjh20t-MuiPagination-ul {
                                 li {
                                     button {
@@ -383,6 +386,14 @@ $accent-color: #FF9955;
                                     .css-lqq3n7-MuiButtonBase-root-MuiPaginationItem-root.Mui-disabled {
                                         opacity: 0.5;
                                     }
+                                }
+
+                                li:first-child {
+                                    display: none;
+                                }
+
+                                li:last-child {
+                                    display: none;
                                 }
 
                                 .page-item {
@@ -443,6 +454,7 @@ $accent-color: #FF9955;
 
             .other-tests {
                 margin-left: 20px;
+                display: none;
 
                 .test {
                     padding: 22px;
@@ -802,30 +814,30 @@ $accent-color: #FF9955;
                     }
 
                     .taking-test-area {
-                        .sub-title {
-                            font-size: 14px;
-                        }
+                        // .sub-title {
+                        //     font-size: 14px;
+                        // }
 
-                        .question-lst {
-                            .content {
-                                font-size: 13px;
-                            }
+                        // .question-lst {
+                        //     .content {
+                        //         font-size: 13px;
+                        //     }
 
-                            .options-of-answer {
+                        //     .options-of-answer {
 
-                                .lst-item {
-                                    margin-right: 10px;
+                        //         .lst-item {
+                        //             margin-right: 10px;
 
-                                    .label {
-                                        font-size: 10px;
-                                    }
+                        //             .label {
+                        //                 font-size: 10px;
+                        //             }
 
-                                    .label::before {
-                                        width: 22.5px !important;
-                                    }
-                                }
-                            }
-                        }
+                        //             .label::before {
+                        //                 width: 22.5px !important;
+                        //             }
+                        //         }
+                        //     }
+                        // }
                     }
                 }
             }
@@ -1062,7 +1074,6 @@ $accent-color: #FF9955;
 @media (max-width: 700px) {
     .judgement-main {
         margin-top: 40px;
-
     }
 }
 

@@ -1,7 +1,7 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
 import Pagination from '@mui/material/Pagination';
 import { Breadcrumb, Button, notification } from 'antd';
-import { useEffect, useState,useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { IQuestion } from '../../common/u-innovate/define-question';
 import { ISetOfQuestions } from '../../common/u-innovate/define-setOfQuestions';
 import OtherTestIcon from '../../images/other-test-icon.png';
@@ -9,6 +9,8 @@ import OtherTestIcon from '../../images/other-test-icon.png';
 import "../../App.scss";
 import { ICriteria } from '../../common/u-innovate/define-criteria';
 import QuestionAPI from '../../api/questions/question.api';
+import { CHeader } from '../../components/Header/CHeader';
+import { display } from '@mui/system';
 
 const fakeOtherTestLst = [
     {
@@ -270,6 +272,7 @@ const TakingTest = (props: MyProps) => {
     const [currentSetOfQuestion, setCurrentSetOfQuestion] = useState<ISetOfQuestions>(); // Set lai moi khi chon phan pagination
     const [currentChoseAnswerId, setCurrentChoseAnswerId] = useState<number>(0);
     let questionLstOfRequestBody: any[] = [] // doi lai form cua questionLst cho phu hop voi bodyRequest cua API
+    const [checkNextBtn, setCheckNextBtn] = useState<boolean>(false); // Kiểm tra xem đã điền hết đáp án của trang để hiển thị nút tiếp tuc
 
 
 
@@ -283,21 +286,37 @@ const TakingTest = (props: MyProps) => {
         console.log('----------------RENDERED-------------------')
 
     })
-    
-    const handleChange = (event: any, value: any) => {
-        setCurrentIndex(value - 1);
+    useEffect(() => {
+        checkIsPartOfQuestionIsAnswered();
+    }, [currentChoseAnswerId])
 
+    const handleChangePagination = () => {
+        setCurrentIndex(currentIndex + 1);
+        setCheckNextBtn(false);
     };
-
+    const handleBackPagination = () => {
+        setCurrentIndex(currentIndex - 1);
+        setCheckNextBtn(true);
+    };
+    // Kiểm tra xem từng trang của danh sách câu hỏi đã được trả lời hết chưa
+    const checkIsPartOfQuestionIsAnswered = () => {
+        for (let i = 0; i < props.questionLst[currentIndex].questionLst.length; i++) {
+            if (!props.questionLst[currentIndex].questionLst[i].pickedAnswer) {
+                setCheckNextBtn(false);
+                return;
+            }
+        }
+        props.questionLst.length === currentIndex + 1 ? setCheckNextBtn(false) : setCheckNextBtn(true);
+    }
     const checkWhetherDoneTest = () => { // Check xem nguoi dung da nhap het cau tra loi chua
         let check = 1;
         props.questionLst.forEach((item) => {
-            if(check===0) return;
+            if (check === 0) return;
             item.questionLst.forEach((subitem) => {
                 if (subitem.pickedAnswer === null) {
                     check = 0;
                     return;
-                }else{
+                } else {
                     questionLstOfRequestBody.push({ // Neu cau hoi da duoc chon dap an thi se day ID cau hoi va ID cau tra loi vao lst
                         "questionId": subitem.id,
                         "answerId": subitem.pickedAnswer,
@@ -306,7 +325,7 @@ const TakingTest = (props: MyProps) => {
                 }
             })
         })
-        if( check === 1) return true;
+        if (check === 1) return true;
         else {
             questionLstOfRequestBody = [] // Neu chi can 1 cau hoi chua duoc tra loi thi se xoa toan bo lst
             return false
@@ -316,11 +335,9 @@ const TakingTest = (props: MyProps) => {
     const handleFinishTest = async () => { // Neu da nhap het cau tra loi thi se call API tinh toan diem 
         console.log("---------------Leu leu leu----------------")
 
-        if (checkWhetherDoneTest()===true) {
+        if (checkWhetherDoneTest() === true) {
             console.log('-----------------Mai la anh em ban nhe------------------')
             console.log(props.questionLst)
-
-        
             //Call API
 
             await QuestionAPI.caculateResult(questionLstOfRequestBody).then(res => {
@@ -349,10 +366,6 @@ const TakingTest = (props: MyProps) => {
                 <Breadcrumb.Item className='present-link'>
                     {props.choseCriteria.name}
                 </Breadcrumb.Item>
-                {/* <Breadcrumb.Item>
-                <a href="">Application List</a>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>An Application</Breadcrumb.Item> */}
             </Breadcrumb>
             <div className='test-body'>
                 <div className='test-detail'>
@@ -392,10 +405,11 @@ const TakingTest = (props: MyProps) => {
                             }
                         </div>
                         <div className='footer'>
-                            <Pagination className='pagination' onChange={handleChange} count={props.questionLst.length} variant="outlined" siblingCount={0} />
+                            <Pagination className='pagination' page={currentIndex + 1} count={props.questionLst.length} variant="outlined" siblingCount={0} />
                             <div className='button-group'>
-                                {/* <Button className='button' onClick={() => setCurrentIndex(currentIndex - 1)}>Quay lại</Button> */}
-                                <Button className='button' onClick={() => { handleFinishTest() }}>Hoàn thành</Button>
+                                {currentIndex > 0 && <Button className='button' onClick={() => { handleBackPagination() }}>Quay lại</Button>}
+                                {checkNextBtn && <Button className='button' onClick={() => { handleChangePagination() }}>Tiếp tục</Button>}
+                                {(props.questionLst.length === currentIndex + 1 && checkWhetherDoneTest()) && <Button className='button' onClick={() => { handleFinishTest() }}>Hoàn thành</Button>}
                             </div>
                         </div>
                     </div>
