@@ -45,13 +45,25 @@ export default class QuestionAPI {
             "additionalProp1": {}
         });
 
-        const currentToken = localStorage.getItem('accessToken') // Doi sau khi xong login thi cong tiep
-          
+        console.log(data);
+
+        
+
+        let currentToken = localStorage.getItem('token') // Doi sau khi xong login thi cong tiep
+        
+        if (currentToken) {
+            currentToken = currentToken.slice(1);
+            currentToken = currentToken.slice(0, currentToken.length - 1);
+            // console.log(currentToken);
+            
+        }
+        console.log(currentToken)
+
         var config = {
             method: 'post',
             url: `${QuestionAPI.host}/${SYSTEM_CONSTANTS.API.RESULT.CACULATE}`,
             headers: { // Sau khi xong phan Login se thay accessToken vao sau Bearer
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhpZXVAZ21haWwuY29tIiwic2NvcGVzIjpbInVzZXIiXSwiaWF0IjoxNjc1MjE5NDY0LCJleHAiOjE2NzUzMDU4NjR9.WQP7_tu9ii55UqymrYjEvTegTRI4d6KES_ilSjodFCg', 
+                'Authorization': `Bearer ${currentToken}`, 
                 'Content-Type': 'application/json'
             },
             data : data
