@@ -300,8 +300,9 @@ const TakingTest = (props: MyProps) => {
                 }else{
                     questionLstOfRequestBody.push({ // Neu cau hoi da duoc chon dap an thi se day ID cau hoi va ID cau tra loi vao lst
                         "questionId": subitem.id,
-                        "answerId": subitem.pickedAnswer,
-                        "point": subitem.pickedAnswer.point
+                        "answerId": subitem.pickedAnswer.id,
+                        "point": subitem.pickedAnswer.point,
+                        "additionalProp1": {}
                     })
                 }
             })
