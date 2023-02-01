@@ -50,6 +50,10 @@ const SYSTEM_CONSTANTS = {
         FACILITIES: {
             GET_ALL: 'facilities'
         },
+        RESULT: {
+            CACULATE: 'results/answers'
+        }
+
     },
     IMAGE: {
         IMAGE_HOTEL: "dms/Document/file"

@@ -1,13 +1,14 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
 import Pagination from '@mui/material/Pagination';
 import { Breadcrumb, Button, notification } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useRef } from 'react';
 import { IQuestion } from '../../common/u-innovate/define-question';
 import { ISetOfQuestions } from '../../common/u-innovate/define-setOfQuestions';
 import OtherTestIcon from '../../images/other-test-icon.png';
 
 import "../../App.scss";
 import { ICriteria } from '../../common/u-innovate/define-criteria';
+import QuestionAPI from '../../api/questions/question.api';
 
 const fakeOtherTestLst = [
     {
@@ -268,6 +269,8 @@ const TakingTest = (props: MyProps) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentSetOfQuestion, setCurrentSetOfQuestion] = useState<ISetOfQuestions>(); // Set lai moi khi chon phan pagination
     const [currentChoseAnswerId, setCurrentChoseAnswerId] = useState<number>(0);
+    let questionLstOfRequestBody: any[] = [] // doi lai form cua questionLst cho phu hop voi bodyRequest cua API
+
 
 
     useEffect(() => {
@@ -291,29 +294,42 @@ const TakingTest = (props: MyProps) => {
         props.questionLst.forEach((item) => {
             if(check===0) return;
             item.questionLst.forEach((subitem) => {
-                console.log("Bo cau hoi hien tai: ",item.content,"----Dap an hien tai: ", subitem.pickedAnswer)
                 if (subitem.pickedAnswer === null) {
-                    console.log("Co vao day khong nhi")
                     check = 0;
                     return;
+                }else{
+                    questionLstOfRequestBody.push({ // Neu cau hoi da duoc chon dap an thi se day ID cau hoi va ID cau tra loi vao lst
+                        "questionId": subitem.id,
+                        "answerId": subitem.pickedAnswer,
+                        "point": subitem.pickedAnswer.point
+                    })
                 }
             })
         })
         if( check === 1) return true;
-        else return false;
+        else {
+            questionLstOfRequestBody = [] // Neu chi can 1 cau hoi chua duoc tra loi thi se xoa toan bo lst
+            return false
+        };
     }
 
-    const handleFinishTest = () => { // Neu da nhap het cau tra loi thi se call API tinh toan diem 
+    const handleFinishTest = async () => { // Neu da nhap het cau tra loi thi se call API tinh toan diem 
         console.log("---------------Leu leu leu----------------")
 
         if (checkWhetherDoneTest()===true) {
+            console.log('-----------------Mai la anh em ban nhe------------------')
+            console.log(props.questionLst)
 
+        
             //Call API
+
+            await QuestionAPI.caculateResult(questionLstOfRequestBody).then(res => {
+                console.log(res)
+            })
         } else {
-            console.log("Cuoi cung thi")
             notification.open({
                 message: 'Bạn vui lòng hoàn thành toàn bộ các câu hỏi!',
-                type: "error",
+                type: "warning",
                 onClick: () => {
                     console.log('Notification Clicked!');
                 },
@@ -356,14 +372,14 @@ const TakingTest = (props: MyProps) => {
                                                 item.answerLst.map((subitem) => (
                                                     <label className='lst-item'
                                                         onClick={() => {
-                                                            item.pickedAnswer = subitem.id
+                                                            item.pickedAnswer = subitem
                                                             setCurrentChoseAnswerId(currentChoseAnswerId + 1)
                                                             console.log(item);
                                                         }}
                                                     >
                                                         <input
                                                             type="radio" className="radio-btn"
-                                                            checked={item.pickedAnswer === subitem.id}
+                                                            checked={item.pickedAnswer === subitem}
                                                             value={subitem.id} id={subitem.id} name={item.id}
                                                         />
                                                         <div className="label">{subitem.content}</div>
