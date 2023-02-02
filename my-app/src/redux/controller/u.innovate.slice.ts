@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-debugger */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootEpic } from "../../common/define-type";
-import { catchError, filter, switchMap, mergeMap, map } from "rxjs/operators";
-import { notification } from "antd";
-import { ICriteria } from "../../common/u-innovate/define-criteria";
+import { catchError, filter, mergeMap, switchMap } from "rxjs/operators";
 import CriteriaAPI from "../../api/criteria/criteria.api";
-import QuestionAPI from "../../api/questions/question.api";
-import { IPosition } from "../../common/u-innovate/define-position";
-import PositionsAPI from "../../api/positions/positions.api";
-import { IFacilities } from "../../common/u-innovate/define-facilities";
+// import FacilitiesAPI from "../../api/facilities/facilities.api";
 import FacilitiesAPI from "../../api/facilities/facilities.api";
+
+// import PositionsAPI from "../../api/positions/positions.api";
+import PositionsAPI from "../../api/positions/positions.api";
+import { RootEpic } from "../../common/define-type";
+import { ICriteria } from "../../common/u-innovate/define-criteria";
+import { IFacilities } from "../../common/u-innovate/define-facilities";
+import { IPosition } from "../../common/u-innovate/define-position";
 
 
 interface UInnovateState {

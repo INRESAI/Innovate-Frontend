@@ -358,9 +358,9 @@ $accent-color: #FF9955;
                     .footer {
                         display: flex;
                         justify-content: space-between;
-
+                        align-items: center;
                         .pagination {
-                            pointer-events: none;
+                            // pointer-events: none;
 
                             .MuiPagination-ul.css-wjh20t-MuiPagination-ul {
                                 li {
@@ -388,13 +388,13 @@ $accent-color: #FF9955;
                                     }
                                 }
 
-                                li:first-child {
-                                    display: none;
-                                }
+                                // li:first-child {
+                                //     display: none;
+                                // }
 
-                                li:last-child {
-                                    display: none;
-                                }
+                                // li:last-child {
+                                //     display: none;
+                                // }
 
                                 .page-item {
                                     border: 1px solid #C0CDD9;
@@ -426,7 +426,10 @@ $accent-color: #FF9955;
 
                         .button-group {
                             display: flex;
-
+                            align-items: center;
+                            .number-of-questions-answered{
+                                margin-right: 10px;
+                            }
                             .button {
                                 // background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
                                 border-radius: 30px;
