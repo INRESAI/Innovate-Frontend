@@ -9,6 +9,9 @@ import { IQuestion } from '../../common/u-innovate/define-question';
 import { ISetOfQuestions } from '../../common/u-innovate/define-setOfQuestions';
 import OtherTestIcon from '../../images/other-test-icon.png';
 
+import "../../App.scss";
+import Result from './Result';
+
 const fakeOtherTestLst = [
     {
         id: "1",
@@ -267,11 +270,12 @@ const TakingTest = (props: MyProps) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentSetOfQuestion, setCurrentSetOfQuestion] = useState<ISetOfQuestions>(); // Set lai moi khi chon phan pagination
     const [currentChoseAnswerId, setCurrentChoseAnswerId] = useState<number>(0);
-    let questionLstOfRequestBody: any[] = [] // doi lai form cua questionLst cho phu hop voi bodyRequest cua API
-    const [numberOfQuestionsAnswered, setNumberOfQuestionsAnswered] = useState<number>(0); // Kiểm tra xem đã điền hết đáp án của trang để hiển thị nút tiếp tuc
+    const [receivedResult, setReceivedResult] = useState<any>();
+    let questionLstOfRequestBody: any[] = []; // doi lai form cua questionLst cho phu hop voi bodyRequest cua API
+    let quantityOfEachTypeOfAnswer: number[] = [0, 0, 0]; // Lst luu lai so luong cau tra loi moi loai, vi tri 0 luu cau tra loi "quan sat hoan toan", 1 la "quan sat duoc 1 phan", 2 la "khong quan sat duoc"    const [numberOfQuestionsAnswered, setNumberOfQuestionsAnswered] = useState<number>(0); // Kiểm tra xem đã điền hết đáp án của trang để hiển thị nút tiếp tuc
     const [numberOfQuestions, setNumberOfQuestions] = useState<number>(0);
-
-
+    const [quantityOfEachTypeOfAnswerUseState, setquantityOfEachTypeOfAnswerUseState] = useState<number[]>([0, 0, 0]);
+    const [numberOfQuestionsAnswered, setNumberOfQuestionsAnswered] = useState<number>(0); // Kiểm tra xem đã điền hết đáp án của trang để hiển thị nút tiếp tuc
     useEffect(() => {
         console.log('----------------RENDERED-------------------')
         console.log(props.questionLst)
@@ -334,10 +338,27 @@ const TakingTest = (props: MyProps) => {
         if (checkWhetherDoneTest() === true) {
             console.log('-----------------Mai la anh em ban nhe------------------')
             console.log(props.questionLst)
-            //Call API
+
+            // Luu lai so luong cau tra loi moi loai
+            props.questionLst.forEach((item) => {
+                item.questionLst.forEach((subitem) => {
+                    console.log(subitem.pickedAnswer?.id);
+                    if (subitem.pickedAnswer?.id === "63c4109aa5775a103cdc9de0") { // Quan sat duoc hoan toan
+                        quantityOfEachTypeOfAnswer[0] += 1
+                    } else if (subitem.pickedAnswer?.id === "63c410a6a5775a103cdc9de2") { // Quan sat duoc 1 phan
+                        quantityOfEachTypeOfAnswer[1] += 1
+                    } else {
+                        quantityOfEachTypeOfAnswer[2] += 1 // KHong quan sat duoc
+                    }
+                })
+            })
+            console.log(quantityOfEachTypeOfAnswer)
+            setquantityOfEachTypeOfAnswerUseState(quantityOfEachTypeOfAnswer)
+            //Call API tinh diem
 
             await QuestionAPI.caculateResult(questionLstOfRequestBody).then(res => {
-                console.log(res)
+                console.log(res.data.data);
+                setReceivedResult(res.data.data);
             })
         } else {
             notification.open({
@@ -350,92 +371,115 @@ const TakingTest = (props: MyProps) => {
         }
     }
 
+    const selectAnswerHandle = () => {
+
+    }
+
     return (
         <div className='taking-test'>
-            <Breadcrumb>
-                <Breadcrumb.Item>
-                    <a onClick={() => props.revertToIntro()}>Đánh giá</a>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                    <a onClick={() => { props.revertToCriteria() }}>Bắt đầu đánh giá</a>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item className='present-link'>
-                    {props.choseCriteria.name}
-                </Breadcrumb.Item>
-            </Breadcrumb>
-            <div className='test-body'>
-                <div className='test-detail'>
-                    <div className='title'>{props.choseCriteria.name}</div>
-                    <div className='text'>Bạn có thể đọc về các yếu tố đánh giá của U.innovate và tải xuống ghi chú Khái niệm, cung cấp thông tin cơ bản về U.innovate và khái niệm về các trường đại học khởi nghiệp</div>
-                    <div className='taking-test-area'>
-                        {/* Khi call API se thay doan duoi nay thanh currentSetOfQuestion.content */}
-                        <div className='sub-title'>{props.questionLst[currentIndex].content}</div>
+            {
+                receivedResult && quantityOfEachTypeOfAnswerUseState &&
+                <Result
+                    receivedResult={receivedResult}
+                    quantityOfEachTypeOfAnswer={quantityOfEachTypeOfAnswerUseState}
+                    doneQuestionLst={props.questionLst}
+                    revertToCriteria={props.revertToCriteria}
+                    setReceivedResult={setReceivedResult}
+                />
+            }
+            {
+                !receivedResult &&
+                <div>
+                    <Breadcrumb>
+                        <Breadcrumb.Item>
+                            <a onClick={() => props.revertToIntro()}>Đánh giá</a>
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item>
+                            <a onClick={() => { props.revertToCriteria() }}>Bắt đầu đánh giá</a>
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item className='present-link'>
+                            {props.choseCriteria.name}
+                        </Breadcrumb.Item>
+                        {/* <Breadcrumb.Item>
+                        <a href="">Application List</a>
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item>An Application</Breadcrumb.Item> */}
+                    </Breadcrumb>
+                    <div className='test-body'>
+                        <div className='test-detail'>
+                            <div className='title'>{props.choseCriteria.name}</div>
+                            <div className='text'>Bạn có thể đọc về các yếu tố đánh giá của U.innovate và tải xuống ghi chú Khái niệm, cung cấp thông tin cơ bản về U.innovate và khái niệm về các trường đại học khởi nghiệp</div>
+                            <div className='taking-test-area'>
+                                {/* Khi call API se thay doan duoi nay thanh currentSetOfQuestion.content */}
+                                <div className='sub-title'>{props.questionLst[currentIndex].content}</div>
 
-                        <div className='question-lst' >
+                                <div className='question-lst' >
+                                    {
+                                        props.questionLst[currentIndex].questionLst.map((item) => ( // Sau nay se thay bang useState currentSetOfQuestion
+                                            <div>
+                                                <div className='content'>{item.content}</div>
+                                                <div className='options-of-answer'>
+                                                    {
+                                                        item.answerLst.map((subitem) => (
+                                                            <label className='lst-item'
+                                                                onClick={() => {
+                                                                    item.pickedAnswer = subitem
+                                                                    setCurrentChoseAnswerId(currentChoseAnswerId + 1)
+                                                                    console.log(item);
+                                                                }}
+                                                            >
+                                                                <input
+                                                                    type="radio" className="radio-btn"
+                                                                    checked={item.pickedAnswer === subitem}
+                                                                    value={subitem.id} id={subitem.id} name={item.id}
+                                                                />
+                                                                <div className="label">{subitem.content}</div>
+                                                            </label>
+                                                        ))
+                                                    }
+                                                </div>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                                <div className='footer'>
+                                    <Pagination className='pagination' page={currentIndex + 1} onChange={handleChange} count={props.questionLst.length} variant="outlined" siblingCount={0} />
+
+                                    <div className='button-group'>
+                                        <div className='number-of-questions-answered'>
+                                            Đã trả lời: {numberOfQuestionsAnswered}/{numberOfQuestions}
+                                        </div>
+                                        {(checkWhetherDoneTest()) && <Button className='button' onClick={() => { handleFinishTest() }}>Hoàn thành</Button>}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='other-tests'>
                             {
-                                props.questionLst[currentIndex].questionLst.map((item) => ( // Sau nay se thay bang useState currentSetOfQuestion
-                                    <div>
+                                fakeOtherTestLst.map((item) =>
+                                    <div className='test'>
+                                        <div className='title'>{item.title}</div>
                                         <div className='content'>{item.content}</div>
-                                        <div className='options-of-answer'>
-                                            {
-                                                item.answerLst.map((subitem) => (
-                                                    <label className='lst-item'
-                                                        onClick={() => {
-                                                            item.pickedAnswer = subitem
-                                                            setCurrentChoseAnswerId(currentChoseAnswerId + 1)
-                                                            console.log(item);
-                                                        }}
-                                                    >
-                                                        <input
-                                                            type="radio" className="radio-btn"
-                                                            checked={item.pickedAnswer === subitem}
-                                                            value={subitem.id} id={subitem.id} name={item.id}
-                                                        />
-                                                        <div className="label">{subitem.content}</div>
-                                                    </label>
-                                                ))
-                                            }
+                                        <div className='btn-and-icon' style={{ display: 'flex', justifyContent: 'space-between', margin: '15px' }}>
+                                            <div>
+                                                <img src={OtherTestIcon} />
+                                            </div>
+                                            <div style={{ display: 'flex' }}>
+                                                <Button className='button'>TẢI VỀ</Button>
+                                                <Button className='button'>XEM THÊM</Button>
+                                            </div>
                                         </div>
                                     </div>
-                                ))
+                                )
                             }
-                        </div>
-                        <div className='footer'>
-                            <Pagination className='pagination' page={currentIndex + 1} onChange={handleChange} count={props.questionLst.length} variant="outlined" siblingCount={0} />
-
-                            <div className='button-group'>
-                                <div className='number-of-questions-answered'>
-                                    Đã trả lời: {numberOfQuestionsAnswered}/{numberOfQuestions}
-                                </div>
-                                {(checkWhetherDoneTest()) && <Button className='button' onClick={() => { handleFinishTest() }}>Hoàn thành</Button>}
+                            <div className='more-test' onClick={() => props.tranferFromTestToMoreTests()}>
+                                <div className="text">Xem thêm</div>
+                                <div className="icon"><ArrowRightOutlined /></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className='other-tests'>
-                    {
-                        fakeOtherTestLst.map((item) =>
-                            <div className='test'>
-                                <div className='title'>{item.title}</div>
-                                <div className='content'>{item.content}</div>
-                                <div className='btn-and-icon' style={{ display: 'flex', justifyContent: 'space-between', margin: '15px' }}>
-                                    <div>
-                                        <img src={OtherTestIcon} />
-                                    </div>
-                                    <div style={{ display: 'flex' }}>
-                                        <Button className='button'>TẢI VỀ</Button>
-                                        <Button className='button'>XEM THÊM</Button>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    }
-                    <div className='more-test' onClick={() => props.tranferFromTestToMoreTests()}>
-                        <div className="text">Xem thêm</div>
-                        <div className="icon"><ArrowRightOutlined /></div>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     )
 }
