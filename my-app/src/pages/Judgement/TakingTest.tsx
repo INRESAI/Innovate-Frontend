@@ -276,6 +276,8 @@ const TakingTest = (props: MyProps) => {
     const [numberOfQuestions, setNumberOfQuestions] = useState<number>(0);
     const [quantityOfEachTypeOfAnswerUseState, setquantityOfEachTypeOfAnswerUseState] = useState<number[]>([0, 0, 0]);
     const [numberOfQuestionsAnswered, setNumberOfQuestionsAnswered] = useState<number>(0); // Kiểm tra xem đã điền hết đáp án của trang để hiển thị nút tiếp tuc
+    const [totalScoreOfQuestionList, setTotalScoreOfQuestionList] = useState<number>(0); // Tổng số điểm của danh sách câu hỏi
+
     useEffect(() => {
         console.log('----------------RENDERED-------------------')
         console.log(props.questionLst)
@@ -309,6 +311,7 @@ const TakingTest = (props: MyProps) => {
     }
     const checkWhetherDoneTest = () => { // Check xem nguoi dung da nhap het cau tra loi chua
         let check = 1;
+        questionLstOfRequestBody = [];
         props.questionLst.forEach((item) => {
             if (check === 0) return;
             item.questionLst.forEach((subitem) => {
@@ -338,9 +341,10 @@ const TakingTest = (props: MyProps) => {
         if (checkWhetherDoneTest() === true) {
             console.log('-----------------Mai la anh em ban nhe------------------')
             console.log(props.questionLst)
-
+            let count = 0;
             // Luu lai so luong cau tra loi moi loai
             props.questionLst.forEach((item) => {
+                count += item.questionLst.length * 5;
                 item.questionLst.forEach((subitem) => {
                     console.log(subitem.pickedAnswer?.id);
                     if (subitem.pickedAnswer?.id === "63c4109aa5775a103cdc9de0") { // Quan sat duoc hoan toan
@@ -352,22 +356,16 @@ const TakingTest = (props: MyProps) => {
                     }
                 })
             })
+
             console.log(quantityOfEachTypeOfAnswer)
             setquantityOfEachTypeOfAnswerUseState(quantityOfEachTypeOfAnswer)
+            setTotalScoreOfQuestionList(count);
             //Call API tinh diem
 
             await QuestionAPI.caculateResult(questionLstOfRequestBody).then(res => {
                 console.log(res.data.data);
                 setReceivedResult(res.data.data);
             })
-        } else {
-            notification.open({
-                message: 'Bạn vui lòng hoàn thành toàn bộ các câu hỏi!',
-                type: "warning",
-                onClick: () => {
-                    console.log('Notification Clicked!');
-                },
-            });
         }
     }
 
@@ -385,6 +383,7 @@ const TakingTest = (props: MyProps) => {
                     doneQuestionLst={props.questionLst}
                     revertToCriteria={props.revertToCriteria}
                     setReceivedResult={setReceivedResult}
+                    totalScoreOfQuestionList={totalScoreOfQuestionList}
                 />
             }
             {

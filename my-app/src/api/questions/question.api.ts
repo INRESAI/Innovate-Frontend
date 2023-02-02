@@ -45,7 +45,7 @@ export default class QuestionAPI {
             "additionalProp1": {}
         });
 
-        console.log(data);
+        console.log("check data: " +  data);
 
         
 
@@ -59,7 +59,7 @@ export default class QuestionAPI {
         }
         console.log(currentToken)
 
-        var config = {
+        var config = {  
             method: 'post',
             url: `${QuestionAPI.host}/${SYSTEM_CONSTANTS.API.RESULT.CACULATE}`,
             headers: { // Sau khi xong phan Login se thay accessToken vao sau Bearer
