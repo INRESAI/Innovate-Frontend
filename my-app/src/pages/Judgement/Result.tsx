@@ -8,6 +8,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ISetOfQuestions } from '../../common/u-innovate/define-setOfQuestions';
 import ResultImage from '../../images/result-image.png';
 import './styles.judgement.scss';
+import { ChartDonut, ChartThemeColor, ChartThemeVariant } from '@patternfly/react-charts';
 
 interface MyProps {
     receivedResult: any;
@@ -85,11 +86,29 @@ const Result = (props: MyProps) => {
                     <div className='sub-title'>Lorem ipsum dolor sit amet consectetur. Ut amet a amet lacinia etiam integer urna pharetra. Malesuada tristique volutpat semper pharetra mauris dis.</div>
                     <div className='detail-total'>
                         {/* <Child> */}
-                        <canvas className='chart-score' ref={canvasCallback}></canvas>
-                        <div className='score-out-of-total-score'>
+                        <ChartDonut
+                            constrainToVisibleArea={true}
+                            data={[{ x: 'Quan sát được hoàn toàn', y: props.quantityOfEachTypeOfAnswer[0] }, { x: 'Quan sát được một phần', y: props.quantityOfEachTypeOfAnswer[1] }, { x: 'Không quan sát thấy', y: props.quantityOfEachTypeOfAnswer[2] }]}
+                            // labels={({ datum }) => `${datum.x}: ${datum.y}%`}
+                            legendData={[{ name: `Quan sát được hoàn toàn: ${props.quantityOfEachTypeOfAnswer[0]} câu` }, { name: `Quan sát được một phần: ${props.quantityOfEachTypeOfAnswer[1]} câu` }, { name: `Không quan sát thấy: ${props.quantityOfEachTypeOfAnswer[2]} câu` }]}
+                            legendOrientation="vertical"
+                            legendPosition="right"
+                            padding={{
+                                bottom: 20,
+                                left: 20,
+                                right: 250, // Adjusted to accommodate legend
+                                top: 20
+                            }}
+                            subTitle={`Tổng ${props.totalScoreOfQuestionList} điểm`}
+                            title={props.receivedResult.total}
+                            themeColor={ChartThemeColor.multiUnordered}
+                            width={400}
+                        />
+                        {/* <canvas className='chart-score' ref={canvasCallback}></canvas> */}
+                        {/* <div className='score-out-of-total-score'>
                             <div className='score'>{props.receivedResult.total}</div>
                             <div className='total-score-of-test'>Tổng {props.totalScoreOfQuestionList} điểm</div>
-                        </div>
+                        </div> */}
                         {/* </Child> */}
                         {/* <div className='chart-of-result'>
                             {props.receivedResult.total}
@@ -103,7 +122,7 @@ const Result = (props: MyProps) => {
                     </div>
                 </div>
                 <div className='total-score-right'>
-                    <img src={ResultImage} alt=''/>
+                    <img src={ResultImage} alt='' />
                 </div>
             </div>
             <div className='title-view-test'>
