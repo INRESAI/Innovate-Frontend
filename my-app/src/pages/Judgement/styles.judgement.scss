@@ -711,9 +711,39 @@ $accent-color: #FF9955;
                 .detail-total {
                     position: relative;
 
-                    // display: flex;
-                    .chart-score {
-                        width: 800px !important;
+                    .pf-c-chart {
+                        svg {
+                            g:nth-child(2) {
+                                text {
+                                    tspan {
+                                        font-weight: 700;
+                                        font-size: 14px !important;
+                                        line-height: 20px;
+                                        color: #4E4E4E;
+                                    }
+                                }
+                            }
+                        }
+
+                        text {
+                            tspan:nth-child(1) {
+                                font-weight: 700;
+                                font-size: 30px !important;
+                                line-height: 56px;
+                                display: flex;
+                                align-items: center;
+                                text-align: center;
+                                color: #4E4E4E;
+                                padding-bottom: 10px;
+                            }
+
+                            tspan:nth-child(2) {
+                                font-weight: 500;
+                                font-size: 14px;
+                                line-height: 24px;
+                                color: #867F96;
+                            }
+                        }
                     }
 
                     .score-out-of-total-score {
@@ -748,7 +778,8 @@ $accent-color: #FF9955;
                 justify-content: end;
                 align-items: center;
                 margin-right: 20px;
-                img{
+
+                img {
                     height: 80%;
                 }
             }
@@ -768,6 +799,7 @@ $accent-color: #FF9955;
                 font-size: 14px;
                 line-height: 24px;
                 display: flex;
+                justify-content: center;
                 align-items: center;
                 text-align: center;
                 color: #858585;
@@ -1068,6 +1100,80 @@ $accent-color: #FF9955;
                 }
             }
         }
+
+        .result-answer {
+
+            .total-score {
+                .total-score-left {
+                    .title {}
+
+                    .sub-title {}
+
+                    .detail-total {
+                        .pf-c-chart {
+                            svg:nth-child(1) {
+                                width: 550px !important;
+                            }
+                        }
+
+                        .score-out-of-total-score {
+                            .score {}
+
+                            .total-score-of-test {}
+                        }
+                    }
+                }
+
+                .total-score-right {
+                    justify-content: center;
+
+                    img {
+                        height: 70%;
+                    }
+                }
+            }
+
+            .title-view-test {
+                .title {}
+
+                .content {}
+            }
+
+            .taking-test-area {
+
+
+                .sub-title {}
+
+                .question-lst {
+                    .content {}
+
+                    .options-of-answer {
+                        .lst-item {
+                            .radio-btn {}
+
+                            .label {}
+
+                            .label::before {}
+
+                        }
+                    }
+                }
+
+
+            }
+
+            .turn-back-btn {
+
+                .back-button {
+
+                    .text {}
+
+                    .icon {}
+                }
+            }
+
+
+        }
     }
 }
 
@@ -1082,6 +1188,79 @@ $accent-color: #FF9955;
             }
         }
 
+        .result-answer {
+
+            .total-score {
+                .total-score-left {
+                    .title {}
+
+                    .sub-title {}
+
+                    .detail-total {
+                        .pf-c-chart {
+                            svg:nth-child(1) {
+                                width: 500px !important;
+                            }
+                        }
+
+                        .score-out-of-total-score {
+                            .score {}
+
+                            .total-score-of-test {}
+                        }
+                    }
+                }
+
+                .total-score-right {
+                    justify-content: center;
+
+                    img {
+                        height: 60%;
+                    }
+                }
+            }
+
+            .title-view-test {
+                .title {}
+
+                .content {}
+            }
+
+            .taking-test-area {
+
+
+                .sub-title {}
+
+                .question-lst {
+                    .content {}
+
+                    .options-of-answer {
+                        .lst-item {
+                            .radio-btn {}
+
+                            .label {}
+
+                            .label::before {}
+
+                        }
+                    }
+                }
+
+
+            }
+
+            .turn-back-btn {
+
+                .back-button {
+
+                    .text {}
+
+                    .icon {}
+                }
+            }
+
+
+        }
     }
 
 }
@@ -1230,6 +1409,158 @@ $accent-color: #FF9955;
                 }
             }
         }
+
+        .result-answer {
+
+            .total-score {
+                .total-score-left {
+                    .title {}
+
+                    .sub-title {}
+
+                    .detail-total {
+                        .pf-c-chart {
+                            svg:nth-child(1) {
+                                width: 500px !important;
+                            }
+                        }
+
+                        .score-out-of-total-score {
+                            .score {}
+
+                            .total-score-of-test {}
+                        }
+                    }
+                }
+
+                .total-score-right {
+                    justify-content: center;
+                    // margin-left: 50px;
+
+                    img {
+                        height: 60%;
+                    }
+                }
+            }
+
+            .title-view-test {
+                .title {}
+
+                .content {}
+            }
+
+            .taking-test-area {
+                width: 80%;
+
+                .sub-title {}
+
+                .question-lst {
+                    .content {}
+
+                    .options-of-answer {
+                        .lst-item {
+                            .radio-btn {}
+
+                            .label {}
+
+                            .label::before {}
+
+                        }
+                    }
+                }
+
+
+            }
+
+            .turn-back-btn {
+
+                .back-button {
+
+                    .text {}
+
+                    .icon {}
+                }
+            }
+
+
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .result-answer {
+
+        .total-score {
+            .total-score-left {
+                .title {}
+
+                .sub-title {}
+
+                .detail-total {
+                    .pf-c-chart {
+                        svg:nth-child(1) {
+                            width: 500px !important;
+                        }
+                    }
+
+                    .score-out-of-total-score {
+                        .score {}
+
+                        .total-score-of-test {}
+                    }
+                }
+            }
+
+            .total-score-right {
+                justify-content: start !important;
+                margin-left: 30px;
+
+                img {
+                    height: 55% !important;
+                }
+            }
+        }
+
+        .title-view-test {
+            .title {}
+
+            .content {}
+        }
+
+        .taking-test-area {
+            width: 80%;
+
+            .sub-title {}
+
+            .question-lst {
+                .content {}
+
+                .options-of-answer {
+                    .lst-item {
+                        .radio-btn {}
+
+                        .label {}
+
+                        .label::before {}
+
+                    }
+                }
+            }
+
+
+        }
+
+        .turn-back-btn {
+
+            .back-button {
+
+                .text {}
+
+                .icon {}
+            }
+        }
+
+
     }
 }
 
@@ -1380,6 +1711,92 @@ $accent-color: #FF9955;
                 }
             }
         }
+
+        .result-answer {
+
+            .total-score {
+                .total-score-left {
+                    .title {}
+
+                    .sub-title {}
+
+                    .detail-total {
+                        .pf-c-chart {
+                            display: flex !important;
+                            justify-content: center;
+                            text-align: center;
+
+                            svg:nth-child(1) {
+                                width: 500px !important;
+                            }
+                        }
+
+                        .score-out-of-total-score {
+                            .score {}
+
+                            .total-score-of-test {}
+                        }
+                    }
+                }
+
+                .total-score-right {
+                    display: none;
+
+                    img {
+                        height: 55% !important;
+                    }
+                }
+            }
+
+            .title-view-test {
+                .title {}
+
+                .content {}
+            }
+
+            .taking-test-area {
+                width: 80%;
+
+                .sub-title {
+                    font-size: 14px;
+                }
+
+                .question-lst {
+                    .content {
+                        font-size: 13px;
+                    }
+
+                    .options-of-answer {
+
+                        .lst-item {
+                            margin-right: 10px;
+
+                            .label {
+                                font-size: 10px;
+                            }
+
+                            .label::before {
+                                width: 22.5px !important;
+                            }
+                        }
+                    }
+                }
+
+
+            }
+
+            .turn-back-btn {
+
+                .back-button {
+
+                    .text {}
+
+                    .icon {}
+                }
+            }
+
+
+        }
     }
 }
 
@@ -1515,6 +1932,56 @@ $accent-color: #FF9955;
             }
         }
 
+        .result-answer {
+            .taking-test-area {
+                width: 90%;
+
+                .sub-title {
+                    font-size: 12px;
+                }
+
+                .question-lst {
+                    .content {
+                        font-size: 11px;
+                    }
+
+                    .options-of-answer {
+
+                        .lst-item {
+                            margin-right: 10px;
+
+                            &:hover>.label {
+                                &::before {
+                                    border: 5px solid $accent-color;
+                                    margin-right: 5px;
+                                    width: 20px !important;
+                                }
+                            }
+
+                            .radio-btn {
+                                &:checked+.label {
+                                    &::before {
+                                        margin-right: 5px;
+                                        border: 5px solid $accent-color;
+                                        background: #EEF2F6;
+                                        width: 20px !important;
+
+                                    }
+                                }
+                            }
+
+                            .label {
+                                font-size: 8px;
+                            }
+
+                            .label::before {
+                                width: 22px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
     }
 }

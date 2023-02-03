@@ -1,14 +1,13 @@
 import Pagination from '@mui/material/Pagination';
 import "../../App.scss";
-
 import { ArrowLeftOutlined } from '@ant-design/icons';
+import { ChartDonut, ChartThemeColor } from '@patternfly/react-charts';
 import Chart from "chart.js";
 import { motion } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
 import { ISetOfQuestions } from '../../common/u-innovate/define-setOfQuestions';
 import ResultImage from '../../images/result-image.png';
 import './styles.judgement.scss';
-import { ChartDonut, ChartThemeColor, ChartThemeVariant } from '@patternfly/react-charts';
 
 interface MyProps {
     receivedResult: any;
@@ -96,7 +95,7 @@ const Result = (props: MyProps) => {
                             padding={{
                                 bottom: 20,
                                 left: 20,
-                                right: 250, // Adjusted to accommodate legend
+                                right: 260, // Adjusted to accommodate legend
                                 top: 20
                             }}
                             subTitle={`Tổng ${props.totalScoreOfQuestionList} điểm`}
@@ -125,8 +124,8 @@ const Result = (props: MyProps) => {
                     <img src={ResultImage} alt='' />
                 </div>
             </div>
-            <div className='title-view-test'>
-                <div className='title'>Xem lại phần trả lời</div>
+            <div className=''>
+                <div className='tititle-view-testtle'>Xem lại phần trả lời</div>
                 <div className='content'>Lorem ipsum dolor sit amet consectetur. Ut amet a amet lacinia etiam integer urna pharetra. Malesuada tristique volutpat semper pharetra mauris dis.</div>
             </div>
             <div className='taking-test-area'>
