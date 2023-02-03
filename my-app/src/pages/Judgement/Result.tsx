@@ -124,8 +124,8 @@ const Result = (props: MyProps) => {
                     <img src={ResultImage} alt='' />
                 </div>
             </div>
-            <div className=''>
-                <div className='tititle-view-testtle'>Xem lại phần trả lời</div>
+            <div className='title-view-test'>
+                <div className='title'>Xem lại phần trả lời</div>
                 <div className='content'>Lorem ipsum dolor sit amet consectetur. Ut amet a amet lacinia etiam integer urna pharetra. Malesuada tristique volutpat semper pharetra mauris dis.</div>
             </div>
             <div className='taking-test-area'>
