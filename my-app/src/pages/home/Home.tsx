@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, notification } from 'antd';
 import "../../App.scss";
 import ImageOfIntro from '../../images/home_image_1.png';
 import HowToUse from '../../images/home_image_2.png';
@@ -14,22 +14,40 @@ import RightOfUseImage4 from '../../images/right_of_use_image_4.png';
 import RightOfUseImage5 from '../../images/right_of_use_image_5.png';
 import './styles.home.scss';
 import { motion } from 'framer-motion';
+import { useSelectorRoot } from '../../redux/store';
+import { useNavigate } from 'react-router-dom';
 
 // Phần trang chủ của trang web
 const Home = () => {
+    const { tokenLogin, user } = useSelectorRoot((state) => state.login);
+    const navigate = useNavigate();
+
+    const handleOnClick = () => {
+        if (!tokenLogin) {
+            notification['warning']({
+                message: 'Vui lòng đăng nhập tài khoản trước',
+                style: {
+                    width: '100%'
+                }
+            });
+        }
+        else {
+            navigate('/test')
+        }
+    }
     return (
         <motion.div
             className='main-home'
-            initial={{width: 0}}
-            animate={{width: "100%"}}
-            exit={{x: window.innerWidth, transition: {duration: 0.5}}}
+            initial={{ width: 0 }}
+            animate={{ width: "100%" }}
+            exit={{ x: window.innerWidth, transition: { duration: 0.5 } }}
         >
             <div className='intro-part'>
                 <div className='text-of-intro'>
                     <div className='title' >Tổ chức Giáo dục Đại học của bạn đã chuẩn bị sẵn sàng cho những thách thức trong tương lai chưa?</div>
                     <div className='detail'>Quốc gia khởi nghiệp là một trong những ưu tiên phát triển của Việt Nam từ năm 2016 đến nay. Nhiều chương trình quốc gia đã được phê duyệt và triển khai sâu rộng trên toàn quốc như đề án 844, 1665, 939. Trường đại học, cao đẳng cần là cốt lõi cho hệ sinh thái khởi nghiệp, đổi mới sáng tạo quốc gia, vì ở đó là nơi tạo ra tri thức, chia sẻ tri thức, cũng như phát triển nhân tài cho đổi mới sáng tạo và khởi nghiệp.</div>
                     <div>
-                        <Button className='button-start'>Bắt đầu tự đánh giá</Button>
+                        <Button className='button-start' onClick={handleOnClick}>Đến trang đánh giá</Button>
                     </div>
                 </div>
                 <div className='image-of-intro'>

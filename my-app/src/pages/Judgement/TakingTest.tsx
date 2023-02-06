@@ -11,6 +11,7 @@ import OtherTestIcon from '../../images/other-test-icon.png';
 
 import "../../App.scss";
 import Result from './Result';
+import { motion } from 'framer-motion';
 
 const fakeOtherTestLst = [
     {
@@ -277,6 +278,7 @@ const TakingTest = (props: MyProps) => {
     const [quantityOfEachTypeOfAnswerUseState, setquantityOfEachTypeOfAnswerUseState] = useState<number[]>([0, 0, 0]);
     const [numberOfQuestionsAnswered, setNumberOfQuestionsAnswered] = useState<number>(0); // Kiểm tra xem đã điền hết đáp án của trang để hiển thị nút tiếp tuc
     const [totalScoreOfQuestionList, setTotalScoreOfQuestionList] = useState<number>(0); // Tổng số điểm của danh sách câu hỏi
+    const [checkNextBtn, setCheckNextBtn] = useState<boolean>(false); // Kiểm tra xem đã điền hết đáp án của trang để hiển thị nút tiếp tuc
 
     useEffect(() => {
         console.log('----------------RENDERED-------------------')
@@ -293,14 +295,19 @@ const TakingTest = (props: MyProps) => {
 
     })
     useEffect(() => {
+        countQuestionIsAnswered();
         checkIsPartOfQuestionIsAnswered();
     }, [currentChoseAnswerId])
+
+    useEffect(() => {
+        checkIsPartOfQuestionIsAnswered();
+    }, [currentIndex])
 
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setCurrentIndex(value - 1);
     };
-    // Kiểm tra xem từng trang của danh sách câu hỏi đã được trả lời hết chưa
-    const checkIsPartOfQuestionIsAnswered = () => {
+    // Đếm số lượng câu hỏi đã được trả lời 
+    const countQuestionIsAnswered = () => {
         let count = 0;
         props.questionLst.forEach(item => {
             item.questionLst.forEach(question => {
@@ -308,6 +315,16 @@ const TakingTest = (props: MyProps) => {
             });
         });
         setNumberOfQuestionsAnswered(count);
+    }
+    // Kiểm tra xem từng trang của danh sách câu hỏi đã được trả lời hết chưa
+    const checkIsPartOfQuestionIsAnswered = () => {
+        for (let i = 0; i < props.questionLst[currentIndex].questionLst.length; i++) {
+            if (!props.questionLst[currentIndex].questionLst[i].pickedAnswer) {
+                setCheckNextBtn(false);
+                return;
+            }
+        }
+        props.questionLst.length === currentIndex + 1 ? setCheckNextBtn(false) : setCheckNextBtn(true);
     }
     const checkWhetherDoneTest = () => { // Check xem nguoi dung da nhap het cau tra loi chua
         let check = 1;
@@ -334,7 +351,14 @@ const TakingTest = (props: MyProps) => {
             return false
         };
     }
-
+    const handleChangePagination = () => {
+        setCurrentIndex(currentIndex + 1);
+        setCheckNextBtn(false);
+    };
+    const handleBackPagination = () => {
+        setCurrentIndex(currentIndex - 1);
+        setCheckNextBtn(true);
+    }
     const handleFinishTest = async () => { // Neu da nhap het cau tra loi thi se call API tinh toan diem 
         console.log("---------------Leu leu leu----------------")
 
@@ -448,7 +472,30 @@ const TakingTest = (props: MyProps) => {
                                         <div className='number-of-questions-answered'>
                                             Đã trả lời: {numberOfQuestionsAnswered}/{numberOfQuestions}
                                         </div>
-                                        {(checkWhetherDoneTest()) && <Button className='button' onClick={() => { handleFinishTest() }}>Hoàn thành</Button>}
+                                        {/* {(checkWhetherDoneTest()) && <Button className='button' onClick={() => { handleFinishTest() }}>Hoàn thành</Button>} */}
+                                        {currentIndex > 0 &&
+                                            <motion.div className='taking-test-button'
+                                                whileHover={{ scale: 1.1 }}
+                                                whileTap={{ scale: 0.95 }}>
+                                                {/* <Button onClick={handleClickLogin}>Đăng nhập</Button> */}
+                                                <Button className='button' onClick={() => { handleBackPagination() }}>Quay lại</Button>
+                                            </motion.div>
+                                        }
+                                        {checkNextBtn &&
+                                            <motion.div className='taking-test-button'
+                                                whileHover={{ scale: 1.1 }}
+                                                whileTap={{ scale: 0.95 }}>
+                                                <Button className='button' onClick={() => { handleChangePagination() }}>Tiếp tục</Button>
+                                            </motion.div>
+                                        }
+                                        {
+                                            (props.questionLst.length === currentIndex + 1 && checkWhetherDoneTest()) &&
+                                            <motion.div className='taking-test-button'
+                                                whileHover={{ scale: 1.1 }}
+                                                whileTap={{ scale: 0.95 }}>
+                                                <Button className='button' onClick={() => { handleFinishTest() }}>Hoàn thành</Button>
+                                            </motion.div>
+                                        }
                                     </div>
                                 </div>
                             </div>

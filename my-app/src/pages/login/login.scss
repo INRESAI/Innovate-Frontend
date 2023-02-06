@@ -163,10 +163,13 @@
                             display: flex;
                             align-items: center;
                             color: #4E4E4E;
-
                         }
 
-                        .ant-input:placeholder-shown {
+                        .ant-input::-webkit-input-placeholder{
+                            // color: red;
+                            margin-left: 10px;
+                            padding-left: 5px;
+                            font-style: italic;
                             width: 285px !important;
                             font-weight: 500;
                             font-size: 12px;
@@ -175,6 +178,7 @@
                             align-items: center;
                             color: #C0C0C0;
                         }
+
 
                         .ant-input.email-input:hover {
                             outline: none;
@@ -209,7 +213,14 @@
                             border-radius: 30px;
                             border: none;
                         }
-
+                        .button-submit:focus{
+                            box-shadow: 0 0 0 2px #FF9955;
+                            outline: none;
+                            font-weight: bold;
+                        }
+                        #basic_PasswordLogin, #basic_PasswordRegiter, #basic_ConfirmPasswordRegiter{
+                            border-radius: 0px;
+                        }
                     }
                 }
 
@@ -346,7 +357,9 @@
     background: #EEF2F6;
 
 }
-
+.ant-notification{
+    top: 70px !important;
+}
 @media (min-width: 1300px) {}
 
 @media (max-width: 1300px) {}

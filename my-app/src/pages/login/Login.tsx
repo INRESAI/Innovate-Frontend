@@ -2,7 +2,7 @@ import { ArrowLeftOutlined, CaretDownOutlined } from '@ant-design/icons';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import { Breadcrumb, Button, Form, Input, Select, Steps } from 'antd';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import "../../App.scss";
 import LoginImage2 from '../../images/login-image-2.png';
@@ -17,14 +17,14 @@ import { getAllFacilitiesRequest, getAllPositionsRequest } from '../../redux/con
 import { IPosition } from '../../common/u-innovate/define-position';
 
 interface MyProps {
-    // tranferFromLoginToHome: () => void;
+    isLogin?: boolean
 }
 
 const { Option } = Select;
 // Phần đăng nhập / đăng ký của trang web
 const Login = (props: MyProps) => {
 
-    const [isLogin, setIsLogin] = useState(true); // Biến kiểm tra có đang ơ trang đăng nhập hay đăng ký
+    const [isLogin, setIsLogin] = useState(true); // Biến kiểm tra có đang ở trang đăng nhập hay đăng ký
     const [current, setCurrent] = useState(0);  // Biến gán giá trị đang ở bước bao nhiêu của trang đăng ký
     const dispatch = useDispatchRoot();
     const navigate = useNavigate();
@@ -38,6 +38,18 @@ const Login = (props: MyProps) => {
     const [userConfirmPassword, setUserConfirmPassword] = useState<string>('');
     const [userFacilityId, setUserFacilityId] = useState<string>('');
     const [userPositionId, setUserPositionId] = useState<string>('');
+
+    const inputRef = useRef<any>(null);
+
+    const handleClick = () => {
+        if (inputRef.current) {
+            inputRef.current.focus();
+            inputRef.current.setSelectionRange(2, 5);
+        }
+    };
+
+
+
     // Thực hiện lấy vai trò và cơ sở đào tạo của user
     useEffect(() => {
         if (!isLogin) {
@@ -188,7 +200,7 @@ const Login = (props: MyProps) => {
                                             { required: true, message: 'Vui lòng nhập email!' }
                                         ]}
                                     >
-                                        <Input className='email-input' placeholder='Nhập Email hoặc tài khoản' />
+                                        <Input className='input-login email-input' placeholder='Nhập Email hoặc tài khoản' />
                                     </Form.Item>
 
                                     <Form.Item
@@ -196,17 +208,21 @@ const Login = (props: MyProps) => {
                                         name="PasswordLogin"
                                         rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
                                     >
-                                        <Input.Password placeholder='Nhập mật khẩu' />
+                                        <Input.Password className='input-login' placeholder='Nhập mật khẩu' ref={inputRef} />
                                     </Form.Item>
 
                                     <Form.Item className='remember-forgot-password' name="remember" valuePropName="checked" >
-                                        <FormControlLabel control={<Checkbox defaultChecked sx={{
-                                            color: '#FF9955',
-                                            '&.Mui-checked': {
+                                        <FormControlLabel
+                                            control={<Checkbox defaultChecked sx={{
                                                 color: '#FF9955',
-                                            },
-                                        }} />} label="Nhớ mật khẩu" />
-                                        <div className='forgot-password'>Quên mật khẩu</div>
+                                                '&.Mui-checked': {
+                                                    color: '#FF9955',
+                                                },
+                                            }} />}
+                                            label="Nhớ mật khẩu"
+
+                                        />
+                                        <div className='forgot-password' onClick={handleClick}>Quên mật khẩu</div>
                                     </Form.Item>
 
                                     <Form.Item >
@@ -412,12 +428,7 @@ const Login = (props: MyProps) => {
                                                 name="agreement-3"
                                                 className='agreement'
                                                 valuePropName="checked"
-                                                rules={[
-                                                    {
-                                                        validator: (_, value) =>
-                                                            value ? Promise.resolve() : Promise.reject(new Error('Vui lòng chấp nhận điều khoản')),
-                                                    },
-                                                ]}
+
                                             >
                                                 <FormControlLabel control={<Checkbox sx={{
                                                     color: '#FF9955',
@@ -430,12 +441,6 @@ const Login = (props: MyProps) => {
                                                 name="agreement-4"
                                                 className='agreement'
                                                 valuePropName="checked"
-                                                rules={[
-                                                    {
-                                                        validator: (_, value) =>
-                                                            value ? Promise.resolve() : Promise.reject(new Error('Vui lòng chấp nhận điều khoản')),
-                                                    },
-                                                ]}
                                             >
                                                 <FormControlLabel control={<Checkbox sx={{
                                                     color: '#FF9955',

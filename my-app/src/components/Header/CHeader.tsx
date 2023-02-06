@@ -6,13 +6,14 @@ import { Avatar, Button, Drawer, Dropdown, Input, Menu, MenuProps } from 'antd'
 import { useEffect, useState } from 'react'
 import "./styles.header.scss"
 // import "./styles.css";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import "../../App.scss"
 // import CRegisterModal from './CRegisterModal';
 import { MenuOutlined } from '@ant-design/icons'
 import { useSelectorRoot } from '../../redux/store'
 import Utils from '../../common/utils'
 import UserIcon from '../../images/user_icon.png'
+import { motion } from 'framer-motion'
 
 
 interface MyProps {
@@ -26,10 +27,9 @@ export const CHeader = (props: MyProps) => {
     const { tokenLogin, user } = useSelectorRoot((state) => state.login);
     const [userName, setUserName] = useState<string>(user?.name ? user.name : '')
     const [userEmail, setUserEmail] = useState<string>(user?.email ? user.email : '')
+    const navigate = useNavigate();
 
     useEffect(() => {
-        console.log(user);
-        
         if (tokenLogin) {
             const usermail = localStorage.getItem('userMail') ? localStorage.getItem('userMail') : '';
             const username = localStorage.getItem('userName') ? localStorage.getItem('userName') : '';
@@ -95,6 +95,10 @@ export const CHeader = (props: MyProps) => {
             ),
         },
     ];
+
+    const handleClickLogin = () => {
+        navigate('/login');
+    }
     return (
         <div className='main-header'>
             <div className='header-logo'>
@@ -129,9 +133,17 @@ export const CHeader = (props: MyProps) => {
                 <SearchOutlined className='icon-search' />
             </div>
             {!tokenLogin &&
-                <Button className='header-button'>
-                    <Link to={'/login'}>Đăng ký</Link>
-                </Button>
+                <>
+                    {/* <motion.div className='header-button' whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}>
+                        <Button onClick={handleClickLogin}>Đăng ký</Button>
+                    </motion.div> */}
+                    <motion.div className='header-button'
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}>
+                        <Button onClick={handleClickLogin}>Đăng nhập</Button>
+                    </motion.div>
+                </>
             }
             {tokenLogin &&
                 <Dropdown menu={{ items }} placement="bottomLeft" arrow>
