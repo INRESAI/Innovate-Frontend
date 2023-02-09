@@ -142,6 +142,64 @@
 
                         .ant-form-item-control-input {
                             width: 285px;
+
+                            .ant-form-item-control-input-content {
+                                .label-login {
+                                    font-weight: 500;
+                                    font-size: 14px;
+                                    line-height: 24px;
+                                    display: flex;
+                                    align-items: center;
+                                    color: #858585;
+
+                                    .checkbox-login {
+                                        margin-right: 10px;
+
+                                        .ant-checkbox-inner {
+                                            border-radius: 5px;
+                                            margin: 0px;
+                                        }
+
+                                        .ant-checkbox:hover .ant-checkbox-inner {
+                                            border-color: #FF9955 !important;
+                                        }
+
+                                        .ant-checkbox:focus .ant-checkbox-inner {
+                                            border-color: #FF9955 !important;
+                                            background-color: #FF9955 !important;
+                                        }
+
+                                        .ant-checkbox-checked .ant-checkbox-inner {
+                                            border-color: #FF9955 !important;
+                                            background-color: #FF9955 !important;
+                                        }
+
+                                        .ant-checkbox-checked:hover {
+                                            border-color: red !important;
+                                        }
+
+                                        .ant-checkbox-checked::after {
+                                            border: none !important;
+                                        }
+
+                                        .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+                                        .ant-checkbox:hover .ant-checkbox-inner,
+                                        .ant-checkbox-input:focus+.ant-checkbox-inner {
+                                            border-color: #FF9955;
+                                        }
+                                    }
+                                }
+
+                                .label-login.label-agreement {
+                                    font-weight: 400;
+                                    font-size: 12px;
+                                    line-height: 16px;
+                                    display: flex;
+                                    align-items: center;
+                                    color: #C0C0C0;
+                                }
+
+                            }
                         }
 
                         .ant-form-item-label {
@@ -165,7 +223,7 @@
                             color: #4E4E4E;
                         }
 
-                        .ant-input::-webkit-input-placeholder{
+                        .ant-input::-webkit-input-placeholder {
                             // color: red;
                             margin-left: 10px;
                             padding-left: 5px;
@@ -213,12 +271,16 @@
                             border-radius: 30px;
                             border: none;
                         }
-                        .button-submit:focus{
+
+                        .button-submit:focus {
                             box-shadow: 0 0 0 2px #FF9955;
                             outline: none;
                             font-weight: bold;
                         }
-                        #basic_PasswordLogin, #basic_PasswordRegiter, #basic_ConfirmPasswordRegiter{
+
+                        #basic_PasswordLogin,
+                        #basic_PasswordRegiter,
+                        #basic_ConfirmPasswordRegiter {
                             border-radius: 0px;
                         }
                     }
@@ -230,14 +292,6 @@
                         justify-content: space-between;
                         align-items: center;
 
-                        .css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label {
-                            font-weight: 500;
-                            font-size: 14px;
-                            line-height: 24px;
-                            display: flex;
-                            align-items: center;
-                            color: #858585;
-                        }
 
                         .forgot-password {
                             font-weight: 700;
@@ -274,14 +328,7 @@
                 .ant-form-item.agreement {
                     margin-bottom: 0;
 
-                    .css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label {
-                        font-weight: 400;
-                        font-size: 12px;
-                        line-height: 16px;
-                        display: flex;
-                        align-items: center;
-                        color: #C0C0C0;
-                    }
+
                 }
 
             }
@@ -357,9 +404,11 @@
     background: #EEF2F6;
 
 }
-.ant-notification{
+
+.ant-notification {
     top: 70px !important;
 }
+
 @media (min-width: 1300px) {}
 
 @media (max-width: 1300px) {}
@@ -448,6 +497,7 @@
 
                     .step-item {
                         display: none;
+
                         .ant-steps {
                             // flex-direction: row !important;
                         }

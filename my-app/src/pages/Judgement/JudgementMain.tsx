@@ -132,6 +132,7 @@ const JudgementMain = () => {
                     revertToCriteria={revertToCriteria}
                     tranferFromTestToMoreTests={tranferFromTestToMoreTests}
                     questionLst={questionLst}
+                    numberOfQuestions={questionLst.length}
                 //Sau nay se truyen 1 lst questionByCriteriaLst vao nua
                 />
             }

@@ -1,4 +1,3 @@
-import Pagination from '@mui/material/Pagination';
 import "../../App.scss";
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { ChartDonut, ChartThemeColor } from '@patternfly/react-charts';
@@ -8,6 +7,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ISetOfQuestions } from '../../common/u-innovate/define-setOfQuestions';
 import ResultImage from '../../images/result-image.png';
 import './styles.judgement.scss';
+import { Pagination } from "antd";
 
 interface MyProps {
     receivedResult: any;
@@ -16,6 +16,7 @@ interface MyProps {
     totalScoreOfQuestionList: number;
     revertToCriteria: () => void;
     setReceivedResult: React.Dispatch<any>;
+    numberOfQuestionList: number;
 }
 
 const Result = (props: MyProps) => {
@@ -56,9 +57,8 @@ const Result = (props: MyProps) => {
 
     };
 
-    const handleChange = (event: any, value: any) => {
-        setCurrentIndex(value - 1);
-
+    const handlePageChange = (page: number) => {
+        setCurrentIndex(page - 1);
     };
 
     return (
@@ -103,21 +103,6 @@ const Result = (props: MyProps) => {
                             themeColor={ChartThemeColor.multiUnordered}
                             width={400}
                         />
-                        {/* <canvas className='chart-score' ref={canvasCallback}></canvas> */}
-                        {/* <div className='score-out-of-total-score'>
-                            <div className='score'>{props.receivedResult.total}</div>
-                            <div className='total-score-of-test'>Tổng {props.totalScoreOfQuestionList} điểm</div>
-                        </div> */}
-                        {/* </Child> */}
-                        {/* <div className='chart-of-result'>
-                            {props.receivedResult.total}
-                        </div>
-                        <div>
-                            <div>Quan sát được hoàn toàn</div>
-                            <div>Quan sát được một phần</div>
-                            <div>Không quan sát thấy</div>
-
-                        </div> */}
                     </div>
                 </div>
                 <div className='total-score-right'>
@@ -158,7 +143,8 @@ const Result = (props: MyProps) => {
                     }
                 </div>
                 <div className='footer'>
-                    <Pagination className='pagination' onChange={handleChange} count={props.doneQuestionLst.length} variant="outlined" siblingCount={0} />
+                    <Pagination className='pagination paginnation-result' defaultCurrent={currentIndex + 1} onChange={handlePageChange}
+                        total={props.numberOfQuestionList * 10} showLessItems={true} />
                 </div>
             </div>
         </div>

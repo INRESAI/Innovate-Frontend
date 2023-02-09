@@ -1,6 +1,5 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
-import Pagination from '@mui/material/Pagination';
-import { Breadcrumb, Button, notification } from 'antd';
+import { Breadcrumb, Button, notification, Pagination } from 'antd';
 import { useEffect, useState } from 'react';
 import "../../App.scss";
 import QuestionAPI from '../../api/questions/question.api';
@@ -265,6 +264,7 @@ interface MyProps {
     tranferFromTestToMoreTests: () => void;
     questionLst: ISetOfQuestions[];
     choseCriteria: ICriteria;
+    numberOfQuestions: number;
 }
 
 const TakingTest = (props: MyProps) => {
@@ -292,7 +292,7 @@ const TakingTest = (props: MyProps) => {
 
     useEffect(() => {
         console.log('----------------RENDERED-------------------')
-
+        console.log(props.numberOfQuestions);
     })
     useEffect(() => {
         countQuestionIsAnswered();
@@ -408,6 +408,7 @@ const TakingTest = (props: MyProps) => {
                     revertToCriteria={props.revertToCriteria}
                     setReceivedResult={setReceivedResult}
                     totalScoreOfQuestionList={totalScoreOfQuestionList}
+                    numberOfQuestionList={props.numberOfQuestions}
                 />
             }
             {
@@ -466,8 +467,8 @@ const TakingTest = (props: MyProps) => {
                                     }
                                 </div>
                                 <div className='footer'>
-                                    <Pagination className='pagination' page={currentIndex + 1} onChange={handleChange} count={props.questionLst.length} variant="outlined" siblingCount={0} />
-
+                                    {/* <Pagination className='pagination' page={currentIndex + 1} onChange={handleChange} count={props.questionLst.length} variant="outlined" siblingCount={0} /> */}
+                                    <Pagination className='pagination' current={currentIndex + 1} total={props.numberOfQuestions * 10} showLessItems={true} />
                                     <div className='button-group'>
                                         <div className='number-of-questions-answered'>
                                             Đã trả lời: {numberOfQuestionsAnswered}/{numberOfQuestions}
@@ -498,29 +499,6 @@ const TakingTest = (props: MyProps) => {
                                         }
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div className='other-tests'>
-                            {
-                                fakeOtherTestLst.map((item) =>
-                                    <div className='test'>
-                                        <div className='title'>{item.title}</div>
-                                        <div className='content'>{item.content}</div>
-                                        <div className='btn-and-icon' style={{ display: 'flex', justifyContent: 'space-between', margin: '15px' }}>
-                                            <div>
-                                                <img src={OtherTestIcon} />
-                                            </div>
-                                            <div style={{ display: 'flex' }}>
-                                                <Button className='button'>TẢI VỀ</Button>
-                                                <Button className='button'>XEM THÊM</Button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
-                            }
-                            <div className='more-test' onClick={() => props.tranferFromTestToMoreTests()}>
-                                <div className="text">Xem thêm</div>
-                                <div className="icon"><ArrowRightOutlined /></div>
                             </div>
                         </div>
                     </div>

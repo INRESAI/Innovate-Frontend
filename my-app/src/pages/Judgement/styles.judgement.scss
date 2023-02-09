@@ -362,67 +362,9 @@ $accent-color: #FF9955;
 
                         .pagination {
                             pointer-events: none;
-
-                            .MuiPagination-ul.css-wjh20t-MuiPagination-ul {
-                                li {
-                                    button {
-                                        border: 2px solid #C0CDD9;
-                                        border-radius: 50%;
-                                        font-weight: 500;
-                                        font-size: 15px;
-                                        line-height: 20px;
-                                        display: flex;
-                                        align-items: center;
-                                        text-align: right;
-                                        color: #C0CDD9;
-                                    }
-
-                                    .css-lqq3n7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
-                                        color: #FFFFFF;
-                                        background: #C0CDD9;
-                                        font-weight: 700;
-                                        color: #FFFFFF;
-                                    }
-
-                                    .css-lqq3n7-MuiButtonBase-root-MuiPaginationItem-root.Mui-disabled {
-                                        opacity: 0.5;
-                                    }
-                                }
-
-                                li:first-child {
-                                    display: none;
-                                }
-
-                                li:last-child {
-                                    display: none;
-                                }
-
-                                .page-item {
-                                    border: 1px solid #C0CDD9;
-                                    border-radius: 50%;
-                                    margin-right: 10px;
-
-                                    .page-link {
-                                        font-weight: 500;
-                                        font-size: 14px;
-                                        line-height: 20px;
-                                        display: flex;
-                                        align-items: center;
-                                        text-align: right;
-                                        color: #C0CDD9;
-
-                                    }
-                                }
-
-                                .page-item.active {
-
-                                    .page-link {
-                                        background: #C0CDD9;
-                                        font-weight: 700;
-                                        color: #FFFFFF;
-                                    }
-                                }
-                            }
+                        }
+                        .paginnation.paginnation-result{
+                            pointer-events: auto !important;
                         }
 
                         .button-group {
@@ -905,58 +847,7 @@ $accent-color: #FF9955;
                 justify-content: space-between;
 
                 .pagination {
-                    .MuiPagination-ul.css-wjh20t-MuiPagination-ul {
-                        li {
-                            button {
-                                border: 2px solid #C0CDD9;
-                                border-radius: 50%;
-                                font-weight: 500;
-                                font-size: 15px;
-                                line-height: 20px;
-                                display: flex;
-                                align-items: center;
-                                text-align: right;
-                                color: #C0CDD9;
-                            }
 
-                            .css-lqq3n7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
-                                color: #FFFFFF;
-                                background: #C0CDD9;
-                                font-weight: 700;
-                                color: #FFFFFF;
-                            }
-
-                            .css-lqq3n7-MuiButtonBase-root-MuiPaginationItem-root.Mui-disabled {
-                                opacity: 0.5;
-                            }
-                        }
-
-                        .page-item {
-                            border: 1px solid #C0CDD9;
-                            border-radius: 50%;
-                            margin-right: 10px;
-
-                            .page-link {
-                                font-weight: 500;
-                                font-size: 14px;
-                                line-height: 20px;
-                                display: flex;
-                                align-items: center;
-                                text-align: right;
-                                color: #C0CDD9;
-
-                            }
-                        }
-
-                        .page-item.active {
-
-                            .page-link {
-                                background: #C0CDD9;
-                                font-weight: 700;
-                                color: #FFFFFF;
-                            }
-                        }
-                    }
                 }
 
                 .button-group {

@@ -1,6 +1,5 @@
 import { ArrowLeftOutlined, CaretDownOutlined } from '@ant-design/icons';
-import { Checkbox, FormControlLabel } from '@mui/material';
-import { Breadcrumb, Button, Form, Input, Select, Steps } from 'antd';
+import { Breadcrumb, Button, Checkbox, Form, Input, Select, Steps } from 'antd';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -212,16 +211,10 @@ const Login = (props: MyProps) => {
                                     </Form.Item>
 
                                     <Form.Item className='remember-forgot-password' name="remember" valuePropName="checked" >
-                                        <FormControlLabel
-                                            control={<Checkbox defaultChecked sx={{
-                                                color: '#FF9955',
-                                                '&.Mui-checked': {
-                                                    color: '#FF9955',
-                                                },
-                                            }} />}
-                                            label="Nhớ mật khẩu"
-
-                                        />
+                                        <label className='label-login'>
+                                            <Checkbox className='checkbox-login' />
+                                            <>Nhớ mật khẩu</>
+                                        </label>
                                         <div className='forgot-password' onClick={handleClick}>Quên mật khẩu</div>
                                     </Form.Item>
 
@@ -399,12 +392,11 @@ const Login = (props: MyProps) => {
                                                     },
                                                 ]}
                                             >
-                                                <FormControlLabel control={<Checkbox sx={{
-                                                    color: '#FF9955',
-                                                    '&.Mui-checked': {
-                                                        color: '#FF9955',
-                                                    },
-                                                }} />} label="Tôi chấp nhận Tuyên bố về quyền riêng tư Bằng cách chọn hộp này, tôi xác nhận rằng tôi muốn đăng ký dịch vụ này và tôi đồng ý cho IID xử lý dữ liệu cá nhân của tôi cho mục đích được mô tả trong tuyên bố về quyền riêng tư (nghĩa là để nhận thông tin được yêu cầu về các chủ đề khác nhau trong lĩnh vực dịch vụ của VNHEI thông qua bản tin hoặc thông báo của chúng tôi)" />
+                                                <label className='label-login label-agreement'>
+                                                    <Checkbox className='checkbox-login' />
+                                                    <>Tôi chấp nhận Tuyên bố về quyền riêng tư
+                                                        Bằng cách chọn hộp này, tôi xác nhận rằng tôi muốn đăng ký dịch vụ này và tôi đồng ý cho IID xử lý dữ liệu cá nhân của tôi cho mục đích được mô tả trong tuyên bố về quyền riêng tư (nghĩa là để nhận thông tin được yêu cầu về các chủ đề khác nhau trong lĩnh vực dịch vụ của VNHEI thông qua bản tin hoặc thông báo của chúng tôi)   </>
+                                                </label>
                                             </Form.Item>
                                             <Form.Item
                                                 className='agreement'
@@ -417,12 +409,10 @@ const Login = (props: MyProps) => {
                                                     },
                                                 ]}
                                             >
-                                                <FormControlLabel control={<Checkbox sx={{
-                                                    color: '#FF9955',
-                                                    '&.Mui-checked': {
-                                                        color: '#FF9955',
-                                                    },
-                                                }} />} label="Tôi chấp nhận Điều khoản và Điều kiện" />
+                                                <label className='label-login label-agreement'>
+                                                    <Checkbox className='checkbox-login' />
+                                                    <>Tôi chấp nhận Điều khoản và Điều kiện</>
+                                                </label>
                                             </Form.Item>
                                             <Form.Item
                                                 name="agreement-3"
@@ -430,25 +420,20 @@ const Login = (props: MyProps) => {
                                                 valuePropName="checked"
 
                                             >
-                                                <FormControlLabel control={<Checkbox sx={{
-                                                    color: '#FF9955',
-                                                    '&.Mui-checked': {
-                                                        color: '#FF9955',
-                                                    },
-                                                }} />} label="Tôi muốn nhận thông tin cập nhật về VNHEI" />
+                                                <label className='label-login label-agreement'>
+                                                    <Checkbox className='checkbox-login' />
+                                                    <>Tôi muốn nhận thông tin cập nhật về VNHEI</>
+                                                </label>
                                             </Form.Item>
                                             <Form.Item
                                                 name="agreement-4"
                                                 className='agreement'
                                                 valuePropName="checked"
-                                            >
-                                                <FormControlLabel control={<Checkbox sx={{
-                                                    color: '#FF9955',
-
-                                                    '&.Mui-checked': {
-                                                        color: '#FF9955',
-                                                    },
-                                                }} />} label="Tôi muốn nhận thêm thông tin về cách sử dụng trang web VNHEI" />
+                                            > 
+                                                <label className='label-login label-agreement'>
+                                                    <Checkbox className='checkbox-login' />
+                                                    <>Tôi muốn nhận thêm thông tin về cách sử dụng trang web VNHEI</>
+                                                </label>
                                             </Form.Item>
 
                                             <Form.Item >
