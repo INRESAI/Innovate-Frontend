@@ -137,6 +137,7 @@
 
             .ant-form {
                 .ant-form-item {
+                    
                     .ant-row {
                         flex-direction: column;
 
@@ -196,7 +197,14 @@
                                     line-height: 16px;
                                     display: flex;
                                     align-items: center;
-                                    color: #C0C0C0;
+                                    color: #858585;
+                                    strong{
+                                        color: #00A3FF !important;
+                                        margin-left: 5px !important;
+                                    }
+                                }
+                                #basic_agreement-4{
+                                    margin-bottom: 10px;
                                 }
 
                             }
@@ -265,19 +273,46 @@
 
                         }
 
-                        .button-submit {
+                        .button-submit{
                             width: 100%;
                             background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
                             border-radius: 30px;
                             border: none;
+                            font-weight: 700;
+                            font-size: 14px;
+                            line-height: 20px;
+                            color: #FFFFFF;
                         }
 
-                        .button-submit:focus {
+                        .button-back {
+                            width: 100%;
+                            border-radius: 30px;
+                            font-weight: 700;
+                            font-size: 14px;
+                            line-height: 20px;
+                            color: #FFFFFF;
+                            background-color: white !important;
+                            border: 2px solid #FF9955;
+                            color: #FF9955 !important;
+                        }
+
+                        .button-submit:hover {
+                            background: linear-gradient(308.85deg, #FF8533 0%, #FFB380 100%);
+                            box-shadow: 0px 4px 60px rgba(255, 153, 85, 0.25);
+                        }
+
+                        .button-back:hover {
+                            border: 2px solid #FFB380;
+                            color: #FFB380;
+                            box-shadow: 0px 4px 60px rgba(255, 153, 85, 0.25);
+                        }
+
+                        .button-submit:focus,
+                        .button-back:focus {
                             box-shadow: 0 0 0 2px #FF9955;
                             outline: none;
                             font-weight: bold;
                         }
-
                         #basic_PasswordLogin,
                         #basic_PasswordRegiter,
                         #basic_ConfirmPasswordRegiter {

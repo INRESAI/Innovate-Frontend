@@ -119,6 +119,7 @@ const loginSlice = createSlice({
 
 
         checkEmailRequest: (state, action: PayloadAction<string>) => {
+            state.isExistEmail = true;
             state.loading = true;
         },
         checkEmailSuccess: (state, action: PayloadAction<CheckEmailResponse>) => {
@@ -198,8 +199,8 @@ const loginSlice = createSlice({
         registerFail(state, action: PayloadAction<any>) {
             notification.open({
                 message: 'Đăng ký không thành công',
-                description:
-                    action.payload.response.message,
+                // description:
+                //     action.payload.response.message,
                 onClick: () => {
                     console.log('Notification Clicked!');
                 },

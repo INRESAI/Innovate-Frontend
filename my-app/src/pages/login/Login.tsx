@@ -14,6 +14,7 @@ import { checkEmailRequest, loginRequest, registerRequest } from '../../redux/co
 import IdentityApi from '../../api/identity/identity.api';
 import { getAllFacilitiesRequest, getAllPositionsRequest } from '../../redux/controller';
 import { IPosition } from '../../common/u-innovate/define-position';
+import { IFacilities } from '../../common/u-innovate/define-facilities';
 
 interface MyProps {
     isLogin?: boolean
@@ -23,6 +24,7 @@ const { Option } = Select;
 // Phần đăng nhập / đăng ký của trang web
 const Login = (props: MyProps) => {
 
+    const [form] = Form.useForm();
     const [isLogin, setIsLogin] = useState(true); // Biến kiểm tra có đang ở trang đăng nhập hay đăng ký
     const [current, setCurrent] = useState(0);  // Biến gán giá trị đang ở bước bao nhiêu của trang đăng ký
     const dispatch = useDispatchRoot();
@@ -30,7 +32,15 @@ const Login = (props: MyProps) => {
     const { tokenLogin, isExistEmail } = useSelectorRoot((state) => state.login);
     const { positionsLst, facilitiesLst } = useSelectorRoot((state) => state.uinnovate);
     const [lstPosition, setLstPosition] = useState<IPosition[]>([]);
-    const [lstFacility, setLstFacility] = useState<IPosition[]>([]);
+    const [lstFacility, setLstFacility] = useState<IFacilities[]>([]);
+    // const [formData, setFormData] = useState({
+    //     username: '',
+    //     userEmail: '',
+    //     userPassword: '',
+    //     userConfirmPassword: '',
+    //     userFacilityId: '',
+    //     userPositionId: '',
+    // });
     const [userName, setUserName] = useState<string>('');
     const [userEmail, setUserEmail] = useState<string>('');
     const [userPassword, setUserPassword] = useState<string>('');
@@ -38,16 +48,12 @@ const Login = (props: MyProps) => {
     const [userFacilityId, setUserFacilityId] = useState<string>('');
     const [userPositionId, setUserPositionId] = useState<string>('');
 
-    const inputRef = useRef<any>(null);
-
-    const handleClick = () => {
-        if (inputRef.current) {
-            inputRef.current.focus();
-            inputRef.current.setSelectionRange(2, 5);
-        }
-    };
-
-
+    // const handleChange = (e: { target: { name: any; value: any; }; }) => {
+    //     setFormData({
+    //         ...formData,
+    //         [e.target.name]: e.target.value,
+    //     });
+    // };
 
     // Thực hiện lấy vai trò và cơ sở đào tạo của user
     useEffect(() => {
@@ -82,22 +88,24 @@ const Login = (props: MyProps) => {
     }, [isExistEmail])
     // Hàm thực hiện lưu thông tin của trang đầu tiên của đăng ký
     const handleClickFirstStep = async (res: any): Promise<any> => {
-        setUserName(res.UsernameRegister);
-        setUserEmail(res.EmailRegister);
-        setUserPassword(res.PasswordRegiter);
-        setUserConfirmPassword(res.ConfirmPasswordRegiter);
-        dispatch(checkEmailRequest(res.EmailRegister))
+        console.log(res);
+        setUserName(res.userName);
+        setUserEmail(res.userEmail);
+        setUserPassword(res.userPassword);
+        setUserConfirmPassword(res.userConfirmPassword);
+        dispatch(checkEmailRequest(res.userEmail));
     }
 
     // Hàm thực hiện lưu thông tin của trang thứ 2 của đăng ký
     const handleClickSecondStep = async (res: any): Promise<any> => {
         console.log(res);
-        setUserFacilityId(res.TrainingFacilities);
-        setUserPositionId(res.RoleOfTrainingFacilities)
+        setUserFacilityId(res.userFacilityId);
+        setUserPositionId(res.userPositionId)
         setCurrent(current + 1);
     }
     // Hàm thực hiện khi đã hoàn thành form đăng ký
     const onFinishRegister = async (): Promise<any> => {
+        
         const req: RegisterRequest = {
             "email": userEmail,
             "password": userPassword,
@@ -126,6 +134,21 @@ const Login = (props: MyProps) => {
         dispatch(loginRequest(req));
     }
 
+    const onClickBackButton = () => {
+        navigate("/");
+        setCurrent(0);
+
+    }
+
+    const onClickSwitchButton = () => {
+        setIsLogin(!isLogin)
+        setCurrent(0);
+    }
+
+    const onClickBackPage = () => {
+        setCurrent(current - 1)
+        // console.log(userName);
+    }
     return (
         <motion.div className='login-main'
             initial={{ width: 0 }}
@@ -135,7 +158,7 @@ const Login = (props: MyProps) => {
             <div className='back-to-login'>
                 <Breadcrumb>
                     <Breadcrumb.Item>
-                        <Link to='/'>
+                        <div onClick={onClickBackButton}>
                             <motion.div
                                 className='back-button'
                                 whileHover={{ scale: 1.5 }}
@@ -145,7 +168,7 @@ const Login = (props: MyProps) => {
                                 <div className="icon"><ArrowLeftOutlined /></div>
                                 <div className="text">Quay lại</div>
                             </motion.div>
-                        </Link>
+                        </div>
                     </Breadcrumb.Item>
                 </Breadcrumb>
             </div>
@@ -159,7 +182,7 @@ const Login = (props: MyProps) => {
                     <div
                         className={`container ${isLogin ? 'login' : ''}`}
                         data-darkmode={isLogin}
-                        onClick={() => setIsLogin(!isLogin)}
+                        onClick={onClickSwitchButton}
                         style={{ justifyContent: isLogin ? 'flex-end' : 'flex-start' }}
                     >
                         <motion.div layout className="handle">
@@ -207,7 +230,7 @@ const Login = (props: MyProps) => {
                                         name="PasswordLogin"
                                         rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
                                     >
-                                        <Input.Password className='input-login' placeholder='Nhập mật khẩu' ref={inputRef} />
+                                        <Input.Password className='input-login' placeholder='Nhập mật khẩu' />
                                     </Form.Item>
 
                                     <Form.Item className='remember-forgot-password' name="remember" valuePropName="checked" >
@@ -215,7 +238,7 @@ const Login = (props: MyProps) => {
                                             <Checkbox className='checkbox-login' />
                                             <>Nhớ mật khẩu</>
                                         </label>
-                                        <div className='forgot-password' onClick={handleClick}>Quên mật khẩu</div>
+                                        <div className='forgot-password' >Quên mật khẩu</div>
                                     </Form.Item>
 
                                     <Form.Item >
@@ -239,18 +262,20 @@ const Login = (props: MyProps) => {
                                             initialValues={{ remember: true }}
                                             onFinish={handleClickFirstStep}
                                             autoComplete="off"
+                                            form={form}
                                         >
                                             <Form.Item
                                                 label="Họ và tên"
-                                                name="UsernameRegister"
+                                                name="userName"
                                                 rules={[{ required: true, message: 'Vui lòng nhập họ tên!' }]}
                                             >
-                                                <Input className='email-input' placeholder='Nhập họ và tên' />
+                                                
+                                                <Input className='email-input' placeholder='Nhập họ và tên'/>
                                             </Form.Item>
 
                                             <Form.Item
                                                 label="Email"
-                                                name="EmailRegister"
+                                                name="userEmail"
                                                 rules={[
                                                     { type: 'email', message: 'Email không hợp lệ', },
                                                     { required: true, message: 'Vui lòng nhập email!' }
@@ -260,21 +285,22 @@ const Login = (props: MyProps) => {
                                             </Form.Item>
                                             <Form.Item
                                                 label="Mật khẩu"
-                                                name="PasswordRegiter"
+                                                name="userPassword"
                                                 rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
                                             >
-                                                <Input.Password placeholder='Nhập mật khẩu' />
+                                                <Input.Password id='basic_PasswordRegiter' placeholder='Nhập mật khẩu' />
                                             </Form.Item>
 
                                             <Form.Item
+                                                className='userConfirmPassword'
                                                 label="Xác nhận mật khẩu"
-                                                name="ConfirmPasswordRegiter"
-                                                dependencies={['PasswordRegiter']}
+                                                name="userConfirmPassword"
+                                                dependencies={['userPassword']}
                                                 rules={[
                                                     { required: true, message: 'Vui lòng nhập mật khẩu!' },
                                                     ({ getFieldValue }) => ({
                                                         validator(_, value) {
-                                                            if (!value || getFieldValue('PasswordRegiter') === value) {
+                                                            if (!value || getFieldValue('userPassword') === value) {
                                                                 return Promise.resolve();
                                                             }
                                                             return Promise.reject(new Error('Mật khẩu xác nhận không đúng!'));
@@ -282,7 +308,7 @@ const Login = (props: MyProps) => {
                                                     }),
                                                 ]}
                                             >
-                                                <Input.Password placeholder='Nhập lại mật khẩu' />
+                                                <Input.Password id='basic_ConfirmPasswordRegiter' placeholder='Nhập lại mật khẩu'  />
                                             </Form.Item>
 
                                             <Form.Item >
@@ -314,15 +340,17 @@ const Login = (props: MyProps) => {
                                             initialValues={{ remember: true }}
                                             onFinish={handleClickSecondStep}
                                             autoComplete="off"
+                                            form={form}
                                         >
                                             <Form.Item
                                                 label="Cơ sở đào tạo"
-                                                name="TrainingFacilities"
+                                                name="userFacilityId"
                                                 rules={[{ required: true, message: 'Vui lòng cơ sở đào tạo!' }]}
                                             >
                                                 <Select
                                                     suffixIcon={<CaretDownOutlined />}
                                                     placeholder="Chọn cơ sở đào tạo"
+                                                    // onChange={handleChange}
                                                 >
                                                     {lstFacility.map((index) => (
                                                         <Option value={index.id}>{index.name}</Option>
@@ -332,7 +360,7 @@ const Login = (props: MyProps) => {
 
                                             <Form.Item
                                                 label="Vai trò tại cơ sở đào tạo"
-                                                name="RoleOfTrainingFacilities"
+                                                name="userPositionId"
                                                 rules={[{ required: true, message: 'Vui lòng chọn vai trò cơ sở đào tạo!' }]}
                                             >
                                                 <Select
@@ -348,6 +376,11 @@ const Login = (props: MyProps) => {
                                             <Form.Item >
                                                 <Button className='button-submit' type="primary" htmlType="submit">
                                                     Tiếp tục
+                                                </Button>
+                                            </Form.Item>
+                                            <Form.Item >
+                                                <Button className='button-back' onClick={onClickBackPage}>
+                                                    Quay lại
                                                 </Button>
                                             </Form.Item>
                                             <Form.Item className='step-item'>
@@ -373,6 +406,8 @@ const Login = (props: MyProps) => {
                                             initialValues={{ remember: true }}
                                             onFinish={onFinishRegister}
                                             autoComplete="off"
+                                            form={form}
+
                                         >
                                             <Form.Item
                                                 label="Bạn thuộc Khoa/Viện nào tại cơ sở đào tạo đó?"
@@ -411,7 +446,7 @@ const Login = (props: MyProps) => {
                                             >
                                                 <label className='label-login label-agreement'>
                                                     <Checkbox className='checkbox-login' />
-                                                    <>Tôi chấp nhận Điều khoản và Điều kiện</>
+                                                    <>Tôi chấp nhận <strong>  Điều khoản và Điều kiện</strong></>
                                                 </label>
                                             </Form.Item>
                                             <Form.Item
@@ -429,7 +464,7 @@ const Login = (props: MyProps) => {
                                                 name="agreement-4"
                                                 className='agreement'
                                                 valuePropName="checked"
-                                            > 
+                                            >
                                                 <label className='label-login label-agreement'>
                                                     <Checkbox className='checkbox-login' />
                                                     <>Tôi muốn nhận thêm thông tin về cách sử dụng trang web VNHEI</>
@@ -439,6 +474,11 @@ const Login = (props: MyProps) => {
                                             <Form.Item >
                                                 <Button className='button-submit' type="primary" htmlType="submit">
                                                     Đăng ký
+                                                </Button>
+                                            </Form.Item>
+                                            <Form.Item >
+                                                <Button className='button-back' onClick={onClickBackPage}>
+                                                    Quay lại
                                                 </Button>
                                             </Form.Item>
                                             <Form.Item className='step-item'>
