@@ -33,27 +33,12 @@ const Login = (props: MyProps) => {
     const { positionsLst, facilitiesLst } = useSelectorRoot((state) => state.uinnovate);
     const [lstPosition, setLstPosition] = useState<IPosition[]>([]);
     const [lstFacility, setLstFacility] = useState<IFacilities[]>([]);
-    // const [formData, setFormData] = useState({
-    //     username: '',
-    //     userEmail: '',
-    //     userPassword: '',
-    //     userConfirmPassword: '',
-    //     userFacilityId: '',
-    //     userPositionId: '',
-    // });
     const [userName, setUserName] = useState<string>('');
     const [userEmail, setUserEmail] = useState<string>('');
     const [userPassword, setUserPassword] = useState<string>('');
     const [userConfirmPassword, setUserConfirmPassword] = useState<string>('');
     const [userFacilityId, setUserFacilityId] = useState<string>('');
     const [userPositionId, setUserPositionId] = useState<string>('');
-
-    // const handleChange = (e: { target: { name: any; value: any; }; }) => {
-    //     setFormData({
-    //         ...formData,
-    //         [e.target.name]: e.target.value,
-    //     });
-    // };
 
     // Thực hiện lấy vai trò và cơ sở đào tạo của user
     useEffect(() => {
@@ -86,6 +71,7 @@ const Login = (props: MyProps) => {
             setCurrent(current + 1);
         }
     }, [isExistEmail])
+
     // Hàm thực hiện lưu thông tin của trang đầu tiên của đăng ký
     const handleClickFirstStep = async (res: any): Promise<any> => {
         console.log(res);
@@ -105,7 +91,7 @@ const Login = (props: MyProps) => {
     }
     // Hàm thực hiện khi đã hoàn thành form đăng ký
     const onFinishRegister = async (): Promise<any> => {
-        
+
         const req: RegisterRequest = {
             "email": userEmail,
             "password": userPassword,
@@ -134,20 +120,22 @@ const Login = (props: MyProps) => {
         dispatch(loginRequest(req));
     }
 
+    // Hàm thực hiện trở lại trang chủ
     const onClickBackButton = () => {
         navigate("/");
         setCurrent(0);
 
     }
 
+    // Hàm chuyển đổi giữa đăng nhập và đăng xuất
     const onClickSwitchButton = () => {
         setIsLogin(!isLogin)
         setCurrent(0);
     }
 
+    // Hàm thực hiện trở lại các bước đăng nhập
     const onClickBackPage = () => {
         setCurrent(current - 1)
-        // console.log(userName);
     }
     return (
         <motion.div className='login-main'
@@ -269,8 +257,8 @@ const Login = (props: MyProps) => {
                                                 name="userName"
                                                 rules={[{ required: true, message: 'Vui lòng nhập họ tên!' }]}
                                             >
-                                                
-                                                <Input className='email-input' placeholder='Nhập họ và tên'/>
+
+                                                <Input className='email-input' placeholder='Nhập họ và tên' />
                                             </Form.Item>
 
                                             <Form.Item
@@ -297,7 +285,7 @@ const Login = (props: MyProps) => {
                                                 name="userConfirmPassword"
                                                 dependencies={['userPassword']}
                                                 rules={[
-                                                    { required: true, message: 'Vui lòng nhập mật khẩu!' },
+                                                    { required: true, message: 'Vui lòng nhập xác nhận mật khẩu!' },
                                                     ({ getFieldValue }) => ({
                                                         validator(_, value) {
                                                             if (!value || getFieldValue('userPassword') === value) {
@@ -308,7 +296,7 @@ const Login = (props: MyProps) => {
                                                     }),
                                                 ]}
                                             >
-                                                <Input.Password id='basic_ConfirmPasswordRegiter' placeholder='Nhập lại mật khẩu'  />
+                                                <Input.Password id='basic_ConfirmPasswordRegiter' placeholder='Nhập lại mật khẩu' />
                                             </Form.Item>
 
                                             <Form.Item >
@@ -350,7 +338,7 @@ const Login = (props: MyProps) => {
                                                 <Select
                                                     suffixIcon={<CaretDownOutlined />}
                                                     placeholder="Chọn cơ sở đào tạo"
-                                                    // onChange={handleChange}
+                                                // onChange={handleChange}
                                                 >
                                                     {lstFacility.map((index) => (
                                                         <Option value={index.id}>{index.name}</Option>
@@ -393,7 +381,7 @@ const Login = (props: MyProps) => {
                                         </Form>
                                     </motion.div>}
 
-                                {current === 2 &&
+                                {(current === 2 && userPositionId === "63bfc266919bbb3754b7162a") &&
                                     <motion.div
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
@@ -412,6 +400,118 @@ const Login = (props: MyProps) => {
                                             <Form.Item
                                                 label="Bạn thuộc Khoa/Viện nào tại cơ sở đào tạo đó?"
                                                 name="UsernameRegister"
+                                                rules={[{ required: true, message: 'Vui lòng nhập thông tin!' }]}
+                                            >
+                                                <Input className='email-input' placeholder='Nhập câu trả lời' />
+                                            </Form.Item>
+                                            <Form.Item
+                                                className='agreement'
+                                                name="agreement-1"
+                                                valuePropName="checked"
+                                                rules={[
+                                                    {
+                                                        validator: (_, value) =>
+                                                            value ? Promise.resolve() : Promise.reject(new Error('Vui lòng chấp nhận điều khoản')),
+                                                    },
+                                                ]}
+                                            >
+                                                <label className='label-login label-agreement'>
+                                                    <Checkbox className='checkbox-login' />
+                                                    <>Tôi chấp nhận Tuyên bố về quyền riêng tư
+                                                        Bằng cách chọn hộp này, tôi xác nhận rằng tôi muốn đăng ký dịch vụ này và tôi đồng ý cho IID xử lý dữ liệu cá nhân của tôi cho mục đích được mô tả trong tuyên bố về quyền riêng tư (nghĩa là để nhận thông tin được yêu cầu về các chủ đề khác nhau trong lĩnh vực dịch vụ của VNHEI thông qua bản tin hoặc thông báo của chúng tôi)   </>
+                                                </label>
+                                            </Form.Item>
+                                            <Form.Item
+                                                className='agreement'
+                                                name="agreement-2"
+                                                valuePropName="checked"
+                                                rules={[
+                                                    {
+                                                        validator: (_, value) =>
+                                                            value ? Promise.resolve() : Promise.reject(new Error('Vui lòng chấp nhận điều khoản')),
+                                                    },
+                                                ]}
+                                            >
+                                                <label className='label-login label-agreement'>
+                                                    <Checkbox className='checkbox-login' />
+                                                    <>Tôi chấp nhận <strong>  Điều khoản và Điều kiện</strong></>
+                                                </label>
+                                            </Form.Item>
+                                            <Form.Item
+                                                name="agreement-3"
+                                                className='agreement'
+                                                valuePropName="checked"
+
+                                            >
+                                                <label className='label-login label-agreement'>
+                                                    <Checkbox className='checkbox-login' />
+                                                    <>Tôi muốn nhận thông tin cập nhật về VNHEI</>
+                                                </label>
+                                            </Form.Item>
+                                            <Form.Item
+                                                name="agreement-4"
+                                                className='agreement'
+                                                valuePropName="checked"
+                                            >
+                                                <label className='label-login label-agreement'>
+                                                    <Checkbox className='checkbox-login' />
+                                                    <>Tôi muốn nhận thêm thông tin về cách sử dụng trang web VNHEI</>
+                                                </label>
+                                            </Form.Item>
+
+                                            <Form.Item >
+                                                <Button className='button-submit' type="primary" htmlType="submit">
+                                                    Đăng ký
+                                                </Button>
+                                            </Form.Item>
+                                            <Form.Item >
+                                                <Button className='button-back' onClick={onClickBackPage}>
+                                                    Quay lại
+                                                </Button>
+                                            </Form.Item>
+                                            <Form.Item className='step-item'>
+                                                <Steps
+                                                    progressDot
+                                                    current={current}
+                                                    items={[{}, {}, {},]}
+                                                />
+                                            </Form.Item>
+                                        </Form>
+                                    </motion.div>
+                                }
+                                {(current === 2 && userPositionId !== "63bfc266919bbb3754b7162a") &&
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 1 }}>
+
+                                        <Form
+                                            name="basic"
+                                            wrapperCol={{ span: 16 }}
+                                            initialValues={{ remember: true }}
+                                            onFinish={onFinishRegister}
+                                            autoComplete="off"
+                                            form={form}
+
+                                        >
+                                            <Form.Item
+                                                label="Bạn thuộc Khoa/Viện nào tại cơ sở đào tạo đó?"
+                                                name="input-1"
+                                                rules={[{ required: true, message: 'Vui lòng nhập thông tin!' }]}
+                                            >
+                                                <Input className='email-input' placeholder='Nhập câu trả lời' />
+                                            </Form.Item>
+                                            <Form.Item
+                                                label="Vai trò của bạn tại Cơ sở đào tạo đó?"
+                                                name="input-2"
+                                                rules={[{ required: true, message: 'Vui lòng nhập thông tin!' }]}
+                                            >
+                                                <Input className='email-input' placeholder='Nhập câu trả lời' />
+                                            </Form.Item>
+                                            <Form.Item
+                                                label="Lĩnh vực phụ trách?"
+                                                name="input-3"
                                                 rules={[{ required: true, message: 'Vui lòng nhập thông tin!' }]}
                                             >
                                                 <Input className='email-input' placeholder='Nhập câu trả lời' />

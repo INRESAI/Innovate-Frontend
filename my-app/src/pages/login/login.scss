@@ -38,10 +38,10 @@
             flex-direction: column;
             justify-content: end;
             align-items: center;
-            margin-top: -50px;
+            // margin-top: -100px;
             margin-left: 50px;
             width: 40%;
-
+            height: 100%;
             .title {
                 font-weight: 700;
                 font-size: 40px;
@@ -71,7 +71,6 @@
         }
 
         .form-login {
-            margin-top: 20px;
             width: 30%;
 
             .container {
@@ -137,7 +136,7 @@
 
             .ant-form {
                 .ant-form-item {
-                    
+                    margin-bottom: 5px;
                     .ant-row {
                         flex-direction: column;
 
@@ -203,8 +202,8 @@
                                         margin-left: 5px !important;
                                     }
                                 }
-                                #basic_agreement-4{
-                                    margin-bottom: 10px;
+                                #basic_agreement-1{
+                                    margin-top: 20px;
                                 }
 
                             }
@@ -282,6 +281,7 @@
                             font-size: 14px;
                             line-height: 20px;
                             color: #FFFFFF;
+                            margin: 30px 0px 20px 0px;
                         }
 
                         .button-back {
@@ -320,7 +320,6 @@
                         }
                     }
                 }
-
                 .remember-forgot-password {
                     .ant-form-item-control-input-content {
                         display: flex;
