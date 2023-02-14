@@ -24,7 +24,7 @@ $accent-color: #FF9955;
                 font-weight: 640;
                 font-weight: 700;
                 font-size: 30px;
-                line-height: 56px;
+                
                 color: #1E1E1E;
             }
 
@@ -249,7 +249,7 @@ $accent-color: #FF9955;
                 .title {
                     font-weight: 700;
                     font-size: 40px;
-                    line-height: 56px;
+                    
                     color: #1E1E1E;
                     margin-top: 30px;
                 }
@@ -361,9 +361,10 @@ $accent-color: #FF9955;
                         align-items: center;
 
                         .pagination {
-                            pointer-events: none;
+                            // pointer-events: none;
                         }
-                        .paginnation.paginnation-result{
+
+                        .paginnation.paginnation-result {
                             pointer-events: auto !important;
                         }
 
@@ -637,7 +638,7 @@ $accent-color: #FF9955;
                 .title {
                     font-weight: 700;
                     font-size: 40px;
-                    line-height: 56px;
+                    
                     color: #1E1E1E;
                 }
 
@@ -671,7 +672,7 @@ $accent-color: #FF9955;
                             tspan:nth-child(1) {
                                 font-weight: 700;
                                 // font-size: 30px !important;
-                                line-height: 56px;
+                                
                                 display: flex;
                                 align-items: center;
                                 text-align: center;
@@ -698,7 +699,7 @@ $accent-color: #FF9955;
                             justify-content: center;
                             font-weight: 700;
                             font-size: 40px;
-                            line-height: 56px;
+                            
                             display: flex;
                             align-items: center;
                             text-align: center;
@@ -731,7 +732,7 @@ $accent-color: #FF9955;
             .title {
                 font-weight: 700;
                 font-size: 40px;
-                line-height: 56px;
+                
                 text-align: center;
                 color: #1E1E1E;
             }
@@ -846,13 +847,11 @@ $accent-color: #FF9955;
                 display: flex;
                 justify-content: space-between;
 
-                .pagination {
-
-                }
+                .pagination {}
 
                 .button-group {
                     display: flex;
-                    
+
                     .button {
                         // background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
                         border-radius: 30px;
@@ -1031,7 +1030,7 @@ $accent-color: #FF9955;
             }
 
             .taking-test-area {
-
+                width: 80%;
 
                 .sub-title {}
 
@@ -1118,7 +1117,6 @@ $accent-color: #FF9955;
             }
 
             .taking-test-area {
-
 
                 .sub-title {}
 
@@ -1503,6 +1501,8 @@ $accent-color: #FF9955;
                     }
 
                     .taking-test-area {
+                        width: 100%;
+
                         .sub-title {
                             font-size: 14px;
                         }
@@ -1522,11 +1522,20 @@ $accent-color: #FF9955;
                                     }
 
                                     .label::before {
-                                        width: 22.5px !important;
+                                        // width: 22.5px !important;
                                     }
                                 }
                             }
                         }
+
+                        .footer {
+                            .button-group {
+                                .number-of-questions-answered {
+                                    font-size: 12px;
+                                }
+                            }
+                        }
+
                     }
                 }
             }
@@ -1667,7 +1676,7 @@ $accent-color: #FF9955;
                             }
 
                             .label::before {
-                                width: 22.5px !important;
+                                // width: 22.5px !important;
                             }
                         }
                     }
@@ -1766,6 +1775,8 @@ $accent-color: #FF9955;
                     }
 
                     .taking-test-area {
+                        width: 100%;
+
                         .sub-title {
                             font-size: 12px;
                         }
@@ -1805,7 +1816,9 @@ $accent-color: #FF9955;
                                     }
 
                                     .label::before {
-                                        width: 22px !important;
+                                        // width: 22px !important;
+                                        height: 15px;
+                                        width: 15px;
                                     }
                                 }
                             }
@@ -1824,6 +1837,39 @@ $accent-color: #FF9955;
         }
 
         .result-answer {
+            .total-score {
+                .total-score-left {
+                    .title {
+                        font-size: 25px;
+                    }
+
+                    .sub-title {
+                        font-size: 12px;
+                    }
+
+                    .detail-total {
+                        .pf-c-chart {
+                            svg {
+                                &:nth-child(1) {
+                                    width: 400px !important;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            .title-view-test {
+                .title {
+                    font-size: 25px;
+                }
+
+                .content {
+                    font-size: 12px;
+                }
+            }
+
             .taking-test-area {
                 width: 90%;
 
@@ -1866,7 +1912,7 @@ $accent-color: #FF9955;
                             }
 
                             .label::before {
-                                width: 22px !important;
+                                // width: 22px !important;
                             }
                         }
                     }
@@ -1877,6 +1923,70 @@ $accent-color: #FF9955;
     }
 }
 
+@media (max-width: 450px) {
+    .judgement-main {
+        .taking-test {
+            .test-body {
+                .test-detail {
+                    .taking-test-area {
+                        .question-lst {
+                            .options-of-answer {
+                                .lst-item {
+                                    .label {
+                                        &::before {
+                                            height: 10px;
+                                            width: 10px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .footer {
+                            .button-group {
+                                flex-direction: column;
+
+                                .number-of-questions-answered {
+                                    font-size: 10px;
+                                }
+
+                                .button {
+                                    font-size: 12px !important;
+                                }
+
+                                .taking-test-area {
+                                    margin: 10px 0;
+                                }
+
+                                // .taking-test-button:last-child {
+                                //     margin: 0px !important;
+                                // }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+        .result-answer {
+            .total-score {
+                .total-score-left {
+                    .detail-total {
+                        .pf-c-chart {
+                            svg {
+                                &:nth-child(1) {
+                                    width: 300px !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
 
 @media (max-width: 350px) {
     .judgement-main {
@@ -1941,7 +2051,7 @@ $accent-color: #FF9955;
 
                 .test-detail {
                     .title {
-                        font-size: 25px !important;
+                        font-size: 20px !important;
                     }
 
                     .text {
@@ -1984,11 +2094,12 @@ $accent-color: #FF9955;
                                     }
 
                                     .label {
-                                        font-size: 8px;
+                                        font-size: 6px;
                                     }
 
                                     .label::before {
-                                        width: 30px !important;
+                                        height: 10px;
+                                        width: 10px;
                                     }
                                 }
                             }
@@ -2001,7 +2112,35 @@ $accent-color: #FF9955;
                 }
             }
         }
-
+        .result-answer {
+            .total-score {
+                .total-score-left {
+                    .title {
+                        font-size: 20px;
+                    }
+                    .sub-title{
+                        font-size: 10px;
+                    }
+                    .detail-total {
+                        .pf-c-chart {
+                            svg {
+                                &:nth-child(1) {
+                                    width: 250px !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .title-view-test{
+                .title{
+                    font-size: 20px;
+                }
+                .content{
+                    font-size: 10px;
+                }
+            }
+        }
     }
 }
 

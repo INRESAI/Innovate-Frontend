@@ -1,20 +1,20 @@
 import { ArrowLeftOutlined, CaretDownOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Checkbox, Form, Input, Select, Steps } from 'antd';
+import { Breadcrumb, Button, Checkbox, Form, Input, Select, Steps, message } from 'antd';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "../../App.scss";
 import LoginImage2 from '../../images/login-image-2.png';
 import LoginImage from '../../images/login-image.png';
 
-import './login.scss';
 import { LoginRequest, RegisterRequest } from '../../common/define-identity';
-import { useDispatchRoot, useSelectorRoot } from '../../redux/store';
-import { checkEmailRequest, loginRequest, registerRequest } from '../../redux/controller/login.slice';
-import IdentityApi from '../../api/identity/identity.api';
-import { getAllFacilitiesRequest, getAllPositionsRequest } from '../../redux/controller';
-import { IPosition } from '../../common/u-innovate/define-position';
 import { IFacilities } from '../../common/u-innovate/define-facilities';
+import { IPosition } from '../../common/u-innovate/define-position';
+import { getAllFacilitiesRequest, getAllPositionsRequest } from '../../redux/controller';
+import { checkEmailRequest, loginRequest, registerRequest } from '../../redux/controller/login.slice';
+import { useDispatchRoot, useSelectorRoot } from '../../redux/store';
+import './login.scss';
+import ActiveAccountModel from '../ActiveAccount/ActiveAccountModel';
 
 interface MyProps {
     isLogin?: boolean
@@ -29,7 +29,7 @@ const Login = (props: MyProps) => {
     const [current, setCurrent] = useState(0);  // Biến gán giá trị đang ở bước bao nhiêu của trang đăng ký
     const dispatch = useDispatchRoot();
     const navigate = useNavigate();
-    const { tokenLogin, isExistEmail } = useSelectorRoot((state) => state.login);
+    const { tokenLogin, isExistEmail, registerSuccess } = useSelectorRoot((state) => state.login);
     const { positionsLst, facilitiesLst } = useSelectorRoot((state) => state.uinnovate);
     const [lstPosition, setLstPosition] = useState<IPosition[]>([]);
     const [lstFacility, setLstFacility] = useState<IFacilities[]>([]);
@@ -39,6 +39,7 @@ const Login = (props: MyProps) => {
     const [userConfirmPassword, setUserConfirmPassword] = useState<string>('');
     const [userFacilityId, setUserFacilityId] = useState<string>('');
     const [userPositionId, setUserPositionId] = useState<string>('');
+    const [activeAccountStatus, setActiveAccountStatus] = useState<boolean>(false);
 
     // Thực hiện lấy vai trò và cơ sở đào tạo của user
     useEffect(() => {
@@ -72,6 +73,14 @@ const Login = (props: MyProps) => {
         }
     }, [isExistEmail])
 
+    // Thực hiện khi đăng ký thành công
+    useEffect(() => {
+        if (registerSuccess) {
+            setIsLogin(!isLogin)
+            message.success('Email xác nhận đã gửi!');
+        }
+    }, [registerSuccess])
+
     // Hàm thực hiện lưu thông tin của trang đầu tiên của đăng ký
     const handleClickFirstStep = async (res: any): Promise<any> => {
         console.log(res);
@@ -104,7 +113,7 @@ const Login = (props: MyProps) => {
             "additionalProp1": {}
         };
         dispatch(registerRequest(req));
-        setIsLogin(!isLogin)
+        // setIsLogin(!isLogin)
         // dispatch(re(req));
     }
     // Hàm thực hiện khi đã hoàn thành form đăng nhập
@@ -597,7 +606,7 @@ const Login = (props: MyProps) => {
 
                 </div>
             </div>
-
+            {registerSuccess && <ActiveAccountModel email={userEmail} />}
         </motion.div>
     )
 }

@@ -198,3 +198,8 @@ export interface CheckEmailResponse {
     exist: boolean,
     message: string,
 }
+
+export interface ActiveAccountRequest {
+    email: string,
+    activeCode: string,
+}

@@ -12,6 +12,7 @@ const SYSTEM_CONSTANTS = {
             REGISTER: "users/register",
             GETUSERINFO: "users/getuserinfo",
             CHECKEMAIL: "users/checkemail",
+            ACTIVE_ACCOUNT: "users/active-account"
         },
         MEETINGS: {
             CREATE_MEETINGS: 'meeting',

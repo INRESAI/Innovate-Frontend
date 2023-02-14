@@ -1,6 +1,6 @@
 /* eslint-disable */
 import SYSTEM_CONSTANTS from '../../common/constants';
-import { CheckEmailResponse, GetUserInfoRequest, IUser, LoginRequest, NewResponseLogin, RegisterRequest, ResponseDeparment, ResponseLogin } from '../../common/define-identity';
+import { ActiveAccountRequest, CheckEmailResponse, GetUserInfoRequest, IUser, LoginRequest, NewResponseLogin, RegisterRequest, ResponseDeparment, ResponseLogin } from '../../common/define-identity';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError, map } from "rxjs/operators";
 import HttpClient from "../http-client";
@@ -42,6 +42,11 @@ export default class IdentityApi {
         const api = `${IdentityApi.host}/${SYSTEM_CONSTANTS.API.IDENTITY.CHECKEMAIL}?email=${body}`;
         return HttpClient.get(api).pipe(
             map((res) => res as IDataResponse<CheckEmailResponse> || null, catchError((error) => new Observable)));
+    }
+    static checkActiveAccount(body: ActiveAccountRequest): Observable<IDataResponse<any> | null> {
+        const api = `${IdentityApi.host}/${SYSTEM_CONSTANTS.API.IDENTITY.ACTIVE_ACCOUNT}?email=${body.email}&activeCode=${body.activeCode}`;
+        return HttpClient.get(api).pipe(
+            map((res) => res as IDataResponse<any> || null, catchError((error) => new Observable)));
     }
 
     static register(body: RegisterRequest): Observable<IDataResponse<any> | null> {

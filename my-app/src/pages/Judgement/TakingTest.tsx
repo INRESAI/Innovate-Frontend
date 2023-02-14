@@ -359,6 +359,10 @@ const TakingTest = (props: MyProps) => {
         setCurrentIndex(currentIndex - 1);
         setCheckNextBtn(true);
     }
+
+    const handlePageChange = (page: number) => {
+        setCurrentIndex(page - 1);
+    };
     const handleFinishTest = async () => { // Neu da nhap het cau tra loi thi se call API tinh toan diem 
         console.log("---------------Leu leu leu----------------")
 
@@ -391,10 +395,6 @@ const TakingTest = (props: MyProps) => {
                 setReceivedResult(res.data.data);
             })
         }
-    }
-
-    const selectAnswerHandle = () => {
-
     }
 
     return (
@@ -468,7 +468,7 @@ const TakingTest = (props: MyProps) => {
                                 </div>
                                 <div className='footer'>
                                     {/* <Pagination className='pagination' page={currentIndex + 1} onChange={handleChange} count={props.questionLst.length} variant="outlined" siblingCount={0} /> */}
-                                    <Pagination className='pagination' current={currentIndex + 1} total={props.numberOfQuestions * 10} showLessItems={true} />
+                                    <Pagination className='pagination' current={currentIndex + 1} total={props.numberOfQuestions * 10} onChange={handlePageChange} showLessItems={true} />
                                     <div className='button-group'>
                                         <div className='number-of-questions-answered'>
                                             Đã trả lời: {numberOfQuestionsAnswered}/{numberOfQuestions}

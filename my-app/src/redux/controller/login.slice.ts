@@ -5,7 +5,7 @@ import { notification } from "antd";
 import { WritableDraft } from "immer/dist/internal";
 import { catchError, filter, map, mergeMap, switchMap } from "rxjs/operators";
 // import IdentityApi from "../../api/identity.api";
-import { CheckEmailResponse, GetUserInfoRequest, IUser, LoginRequest, RegisterRequest, ResponseDeparment } from "../../common/define-identity";
+import { ActiveAccountRequest, CheckEmailResponse, GetUserInfoRequest, IUser, LoginRequest, RegisterRequest, ResponseDeparment } from "../../common/define-identity";
 import { RootEpic } from "../../common/define-type";
 import Utils from "../../common/utils";
 import IdentityApi from "../../api/identity/identity.api";
@@ -29,6 +29,7 @@ interface LoginState {
     statusCode: string | undefined;
     tokenLogin: string | undefined;
     isExistEmail: boolean;
+    registerSuccess: boolean;
 }
 
 const initState: LoginState = {
@@ -42,6 +43,7 @@ const initState: LoginState = {
     statusCode: undefined,
     tokenLogin: undefined,
     isExistEmail: true,
+    registerSuccess: false,
 }
 
 const loginSlice = createSlice({
@@ -138,9 +140,54 @@ const loginSlice = createSlice({
             }
         },
         checkEmailFailed(state, action: PayloadAction<boolean>) {
+            state.loading = action.payload; 
+        },
+        checkActiveAccountRequest: (state, action: PayloadAction<ActiveAccountRequest>) => {
+            state.loading = true;
+        },
+        checkActiveAccountSuccess: (state, action: PayloadAction<any>) => {
+            console.log(action.payload);
+            if (action.payload.statusCode === "OK") {
+                notification.open({
+                    message: action.payload.data,
+                    description: 'Tài khoản đã có thể đăng nhập',
+                    onClick: () => {
+                        console.log('Notification Clicked!');
+                    },
+                    style: {
+                        // marginTop: 20
+                    }
+                });
+            }
+            if (action.payload.statusCode === "AccountActivated") {
+                notification.open({
+                    message: action.payload.data,
+                    description: 'Vui lòng không xác nhận lại',
+                    onClick: () => {
+                        console.log('Notification Clicked!');
+                    },
+                    style: {
+                        // marginTop: 20
+                    }
+                });
+            }
+            if (action.payload.statusCode === "UserNotFound") {
+                notification.open({
+                    message: action.payload.data,
+                    description: 'Vui lòng đăng ký / đăng nhập lại với tài khoản khác đã xác nhận',
+                    onClick: () => {
+                        console.log('Notification Clicked!');
+                    },
+                    style: {
+                        // marginTop: 20
+                    }
+                });
+            }
+            
+        },
+        checkActiveAccountFailed(state, action: PayloadAction<boolean>) {
             state.loading = action.payload;
         },
-
         forgotRequest(state, action: PayloadAction<string>) {
             state.loading = true
         },
@@ -179,10 +226,13 @@ const loginSlice = createSlice({
 
         registerRequest(state, action: PayloadAction<RegisterRequest>) {
             state.loading = true;
+            state.registerSuccess = false;
             console.log('Da chui vao voi action: ', action);
         },
 
         registerSuccess(state, action: PayloadAction<any>) {
+            console.log(action);
+
             notification.open({
                 message: 'Đăng ký tài khoản thành công',
                 // description:
@@ -194,9 +244,12 @@ const loginSlice = createSlice({
 
             // state.user = action.payload.user
             state.isSuccess = true;
+            state.registerSuccess = true;
         },
 
         registerFail(state, action: PayloadAction<any>) {
+            console.log(action);
+
             notification.open({
                 message: 'Đăng ký không thành công',
                 // description:
@@ -206,6 +259,7 @@ const loginSlice = createSlice({
                 },
             });
             state.loading = false
+            state.registerSuccess = false;
         },
     }
 })
@@ -291,6 +345,7 @@ const register$: RootEpic = (action$) => action$.pipe(
             }),
             catchError(err =>
                 [
+
                     loginSlice.actions.setStatusCode('UniqueEmail'),
                     loginSlice.actions.registerFail(err)
                 ]
@@ -349,14 +404,35 @@ const checkEmail$: RootEpic = (action$) => action$.pipe(
         )
     })
 )
+const checkActiveAccount$: RootEpic = (action$) => action$.pipe(
+    filter(checkActiveAccountRequest.match),
+    switchMap((re) => {
+        console.log(re);
+        return IdentityApi.checkActiveAccount(re.payload).pipe(
+            mergeMap((res: any) => {
+                console.log(res);
+                return [
+
+                    loginSlice.actions.checkActiveAccountSuccess(res),
+                ];
+            }),
+            catchError(err =>
+                [loginSlice.actions.checkActiveAccountFailed(err)]
+            )
+        )
+    })
+)
+
 export const LoginEpics = [
     login$,
     forgot$,
     checkEmail$,
+    checkActiveAccount$,
     clearMessage$,
     logOut$,
     register$,
     getUserInfo$
+
 ]
 export const {
     // getDepartmentRequest,
@@ -367,6 +443,7 @@ export const {
     clearMessageResquest,
     clearAllRequest,
     registerRequest,
-    checkAbleToLogin
+    checkAbleToLogin,
+    checkActiveAccountRequest
 } = loginSlice.actions
 export const loginReducer = loginSlice.reducer

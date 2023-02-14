@@ -143,8 +143,7 @@ const Result = (props: MyProps) => {
                     }
                 </div>
                 <div className='footer'>
-                    <Pagination className='pagination paginnation-result' defaultCurrent={currentIndex + 1} onChange={handlePageChange}
-                        total={props.numberOfQuestionList * 10} showLessItems={true} />
+                    <Pagination className='pagination paginnation-result' defaultCurrent={currentIndex + 1} onChange={handlePageChange} total={props.numberOfQuestionList * 10} showLessItems={true} />
                 </div>
             </div>
         </div>

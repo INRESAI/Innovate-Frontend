@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/iframe-has-title */
 import { Button, notification } from 'antd';
 import "../../App.scss";
 import ImageOfIntro from '../../images/home_image_1.png';
@@ -16,11 +17,38 @@ import './styles.home.scss';
 import { motion } from 'framer-motion';
 import { useSelectorRoot } from '../../redux/store';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 
 // Phần trang chủ của trang web
 const Home = () => {
     const { tokenLogin, user } = useSelectorRoot((state) => state.login);
     const navigate = useNavigate();
+    const mapRef = useRef<any>(null);
+
+    useEffect(() => {
+      if (mapRef.current) {
+        const mapDoc = mapRef.current.contentWindow?.document;
+        if (mapDoc) {
+          const placeCard = mapDoc.querySelector('.place-card');
+          if (placeCard) {
+            placeCard.style.backgroundColor = 'red';
+          }
+        }
+      }
+    }, [mapRef]);
+  
+    // useEffect(() => {
+    //     // const arrElement = Array.from(document.getElementsByClassName('place-card') as HTMLCollectionOf<HTMLElement>)
+    //     // const element = document.querySelector('.place-card.place-card-large');
+    //     // console.log(arrElement);
+    //     const iframe = document.querySelector('iframe[src^="https://www.google.com/maps"]');
+    //     console.log(iframe);
+
+    //     // iframeContent = iframe.contentWindow.document;
+    //     // const placeCard = iframeContent.querySelector('.place-card');
+    //     // placeCard.style.backgroundColor = 'red';
+
+    // })
 
     const handleOnClick = () => {
         if (!tokenLogin) {
@@ -119,9 +147,18 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <div className='map-of-all-user'>
-
-            </div>
+            <iframe
+                className="gmap_iframe"
+                id='gmap'
+                ref={mapRef}
+                src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=176 P. Thái Hà, Trung Liệt, Đống Đa, Hà Nội&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"                width="100%"
+                frameBorder="0"
+                style={{ border: 0 }}
+                allowFullScreen
+            />
+            {/* <iframe
+                src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=5th Floor, Vietnam Academy of Social Sciences Building, 176 Thai Ha, Dong Da, Hanoi&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+            </iframe> */}
 
             <div className='our-partner'>
                 <div className='title'>Đối tác của chúng tôi</div>
