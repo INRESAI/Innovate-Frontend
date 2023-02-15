@@ -47,7 +47,7 @@ export const CHeader = (props: MyProps) => {
             setCurrent('4')
         if (window.location.pathname === '/')
             setCurrent('1')
-    }, [window.location.pathname])
+    }, [])
 
     // Hiển thị ra nút thu gọn menu
     const showDrawer = () => {

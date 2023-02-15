@@ -58,6 +58,7 @@
         display: flex;
         padding: 8.5px 10px;
         align-items: center;
+        margin-right: 5px;
 
         .search-input {
             min-width: none;
@@ -120,7 +121,6 @@
         background: linear-gradient(308.85deg, #FF6600 0%, #f87925 100%);
     }
 
-    .menubtn:hover {}
 }
 
 .ant-drawer {
@@ -237,10 +237,6 @@
 
     .header-content-input {
         display: none !important;
-    }
-
-    .header-button {
-        // display: none !important;
     }
 
     .menubtn {

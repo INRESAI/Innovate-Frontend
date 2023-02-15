@@ -39,7 +39,6 @@ const Login = (props: MyProps) => {
     const [userConfirmPassword, setUserConfirmPassword] = useState<string>('');
     const [userFacilityId, setUserFacilityId] = useState<string>('');
     const [userPositionId, setUserPositionId] = useState<string>('');
-    const [activeAccountStatus, setActiveAccountStatus] = useState<boolean>(false);
 
     // Thực hiện lấy vai trò và cơ sở đào tạo của user
     useEffect(() => {
