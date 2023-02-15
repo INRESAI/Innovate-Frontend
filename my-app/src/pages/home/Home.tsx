@@ -1,5 +1,8 @@
 /* eslint-disable jsx-a11y/iframe-has-title */
 import { Button, notification } from 'antd';
+import { motion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "../../App.scss";
 import ImageOfIntro from '../../images/home_image_1.png';
 import HowToUse from '../../images/home_image_2.png';
@@ -13,11 +16,8 @@ import RightOfUseImage2 from '../../images/right_of_use_image_2.png';
 import RightOfUseImage3 from '../../images/right_of_use_image_3.png';
 import RightOfUseImage4 from '../../images/right_of_use_image_4.png';
 import RightOfUseImage5 from '../../images/right_of_use_image_5.png';
-import './styles.home.scss';
-import { motion } from 'framer-motion';
 import { useSelectorRoot } from '../../redux/store';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useRef } from 'react';
+import './styles.home.scss';
 
 // Phần trang chủ của trang web
 const Home = () => {
@@ -26,29 +26,16 @@ const Home = () => {
     const mapRef = useRef<any>(null);
 
     useEffect(() => {
-      if (mapRef.current) {
-        const mapDoc = mapRef.current.contentWindow?.document;
-        if (mapDoc) {
-          const placeCard = mapDoc.querySelector('.place-card');
-          if (placeCard) {
-            placeCard.style.backgroundColor = 'red';
-          }
+        if (mapRef.current) {
+            const mapDoc = mapRef.current.contentWindow?.document;
+            if (mapDoc) {
+                const placeCard = mapDoc.querySelector('.place-card');
+                if (placeCard) {
+                    placeCard.style.backgroundColor = 'red';
+                }
+            }
         }
-      }
     }, [mapRef]);
-  
-    // useEffect(() => {
-    //     // const arrElement = Array.from(document.getElementsByClassName('place-card') as HTMLCollectionOf<HTMLElement>)
-    //     // const element = document.querySelector('.place-card.place-card-large');
-    //     // console.log(arrElement);
-    //     const iframe = document.querySelector('iframe[src^="https://www.google.com/maps"]');
-    //     console.log(iframe);
-
-    //     // iframeContent = iframe.contentWindow.document;
-    //     // const placeCard = iframeContent.querySelector('.place-card');
-    //     // placeCard.style.backgroundColor = 'red';
-
-    // })
 
     const handleOnClick = () => {
         if (!tokenLogin) {
@@ -151,7 +138,7 @@ const Home = () => {
                 className="gmap_iframe"
                 id='gmap'
                 ref={mapRef}
-                src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=176 P. Thái Hà, Trung Liệt, Đống Đa, Hà Nội&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"                width="100%"
+                src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=176 P. Thái Hà, Trung Liệt, Đống Đa, Hà Nội&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" width="100%"
                 frameBorder="0"
                 style={{ border: 0 }}
                 allowFullScreen

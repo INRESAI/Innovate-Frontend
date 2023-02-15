@@ -10,10 +10,10 @@ import { Link, useNavigate } from "react-router-dom"
 import "../../App.scss"
 // import CRegisterModal from './CRegisterModal';
 import { MenuOutlined } from '@ant-design/icons'
-import { useSelectorRoot } from '../../redux/store'
+import { motion } from 'framer-motion'
 import Utils from '../../common/utils'
 import UserIcon from '../../images/user_icon.png'
-import { motion } from 'framer-motion'
+import { useSelectorRoot } from '../../redux/store'
 
 
 interface MyProps {
@@ -105,7 +105,7 @@ export const CHeader = (props: MyProps) => {
                 <Link to={'/'} className='logo-text'> U.innovate</Link>
             </div>
             <Menu
-                className='header-menu'
+                className={`header-menu + ${tokenLogin ? 'login' : ''}`}
                 onClick={handleClick}
                 defaultSelectedKeys={[current]}
                 selectedKeys={[current]}
@@ -125,7 +125,14 @@ export const CHeader = (props: MyProps) => {
                     <Link to={'/about_us'}>Về chúng tôi</Link>
                 </Menu.Item>
             </Menu>
-            <div className='header-content-input'>
+            {/* <div className='header-content-input '>
+                <Input
+                    className='search-input'
+                    placeholder='Tìm kiếm'
+                />
+                <SearchOutlined className='icon-search' />
+            </div> */}
+            <div className={`header-content-input ${tokenLogin ? 'login' : ''}`}>
                 <Input
                     className='search-input'
                     placeholder='Tìm kiếm'
@@ -134,14 +141,10 @@ export const CHeader = (props: MyProps) => {
             </div>
             {!tokenLogin &&
                 <>
-                    {/* <motion.div className='header-button' whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}>
-                        <Button onClick={handleClickLogin}>Đăng ký</Button>
-                    </motion.div> */}
                     <motion.div className='header-button'
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}>
-                        <Button onClick={handleClickLogin}>Đăng nhập</Button>
+                        <Button onClick={handleClickLogin}>Đăng ký / Đăng nhập</Button>
                     </motion.div>
                 </>
             }
@@ -151,7 +154,7 @@ export const CHeader = (props: MyProps) => {
                 </Dropdown>
             }
             <>
-                <Button className='menubtn' type="primary" shape="circle" icon={<MenuOutlined />} onClick={showDrawer} ></Button>
+                <Button className={`menubtn + ${tokenLogin ? 'login' : ''}`} type="primary" shape="circle" icon={<MenuOutlined />} onClick={showDrawer} ></Button>
                 <Drawer
                     title={
                         <div className='header-logo'>
@@ -164,8 +167,8 @@ export const CHeader = (props: MyProps) => {
                     <div style={{ display: 'flex', flexDirection: "column" }}>
                         <Button type="text" href="/" >Trang chủ</Button>
                         <Button type="text" href="/test" >Đánh giá</Button>
-                        {/* <Button type="text" href="/news" >Tin tức</Button> */}
                         <Button type="text" href="/about_us" >Về chúng tôi</Button>
+                        {!tokenLogin && <Button type="text" href="/login" >Đăng nhập / Đăng ký</Button>}
                     </div>
                 </Drawer>
             </>
