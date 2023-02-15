@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/iframe-has-title */
 import { Button, notification } from 'antd';
-import { motion } from 'framer-motion';
+import { Variants, motion, useTransform, useViewportScroll } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../../App.scss";
@@ -25,6 +25,32 @@ const Home = () => {
     const navigate = useNavigate();
     const mapRef = useRef<any>(null);
 
+    const imageVariants: Variants = {
+        offscreen: {
+            x: 200,
+            opacity: 0
+        },
+        onscreen: {
+            x: 0,
+            opacity: 1,
+            transition: {
+                type: "spring",
+                bounce: 0.4,
+                duration: 2
+            }
+        }
+    };
+
+    const hoverVariants = {
+        hover: {
+            scale: 1.1,
+            opacity: 0.8,
+            borderRadius: '30px'
+        },
+        tap: {
+            scale: 0.8
+        },
+    };
     useEffect(() => {
         if (mapRef.current) {
             const mapDoc = mapRef.current.contentWindow?.document;
@@ -66,7 +92,12 @@ const Home = () => {
                     </div>
                 </div>
                 <div className='image-of-intro'>
-                    <img src={ImageOfIntro} alt='' />
+                    <motion.img src={ImageOfIntro} alt=''
+                        variants={imageVariants}
+                        initial="offscreen"
+                        whileInView="onscreen"
+                        viewport={{ once: true, amount: 'all' }}
+                    />
                 </div>
             </div>
             <div className='right-of-user'>
@@ -74,38 +105,57 @@ const Home = () => {
                     Quyền lợi khi sử dụng U.innovate
                 </div>
                 <div className='right-lst'>
-                    <div className='lst-item'>
+                    <motion.div
+                        className='lst-item'
+                        whileHover="hover"
+                        whileTap="tap"
+                        variants={hoverVariants}
+                    >
+
                         <img className='lst-item-image' src={RightOfUseImage1} alt='' />
                         <div className='lst-item-title'>ĐÁNH GIÁ</div>
                         <div className='lst-item-content'>Tiềm năng khởi nghiệp trong quy mô trường học</div>
-                    </div>
-                    <div className='lst-item'>
+                    </motion.div>
+                    <motion.div className='lst-item' whileHover="hover"
+                        whileTap="tap"
+                        variants={hoverVariants}>
                         <img className='lst-item-image' src={RightOfUseImage2} alt='' />
 
                         <div className='lst-item-title'>THEO DÕI</div>
                         <div className='lst-item-content'>Hoạt động khởi nghiệp trong tổ chức của mình</div>
-                    </div>
-                    <div className='lst-item'>
+                    </motion.div>
+                    <motion.div className='lst-item' whileHover="hover"
+                        whileTap="tap"
+                        variants={hoverVariants}>
                         <img className='lst-item-image' src={RightOfUseImage3} alt='' />
                         <div className='lst-item-title'>XẾP HẠNG</div>
                         <div className='lst-item-content'>Năng lực khởi nghiệp dựa trên tiêu chuẩn của bộ giáo dục và đào tạo</div>
-                    </div>
-                    <div className='lst-item'>
+                    </motion.div>
+                    <motion.div className='lst-item' whileHover="hover"
+                        whileTap="tap"
+                        variants={hoverVariants}>
                         <img className='lst-item-image' src={RightOfUseImage4} alt='' />
                         <div className='lst-item-title'>CUNG CẤP</div>
                         <div className='lst-item-content'>Những thông tin, kiến thức về đánh giá năng lực khởi nghiệp hoàn toàn miễn phí</div>
-                    </div>
-                    <div className='lst-item'>
+                    </motion.div>
+                    <motion.div className='lst-item' whileHover="hover"
+                        whileTap="tap"
+                        variants={hoverVariants}>
                         <img className='lst-item-image' src={RightOfUseImage5} alt='' />
                         <div className='lst-item-title'>CƠ HỘI</div>
                         <div className='lst-item-content'>Trao đổi, nhận tư vấn từ các chuyên gia đầu ngành về lĩnh vực khởi nghiệp tạo tác động</div>
-                    </div>
+                    </motion.div>
 
                 </div>
             </div>
             <div className='how-to-use'>
                 <div className='tutorial-image'>
-                    <img src={HowToUse} alt='' />
+                    <motion.img src={HowToUse} alt=''
+                        variants={imageVariants}
+                        initial="offscreen"
+                        whileInView="onscreen"
+                        viewport={{ once: true, amount: 'all' }}
+                    />
                 </div>
                 <div className='content'>
                     <div className='title'>Làm thế nào để sử dụng U.innovate?</div>

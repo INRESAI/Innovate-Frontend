@@ -3,6 +3,7 @@
 .main-home {
     font-family: 'Montserrat';
     font-style: normal;
+    user-select: none;
 
     .intro-part {
         display: flex;
@@ -14,14 +15,12 @@
         background: #FFFFFF;
 
         .text-of-intro {
-            margin-left: 99px;
-            margin-top: 150px;
+            margin-left: 100px;
+            margin-top: 100px;
 
             .title {
-                font-weight: 640;
                 font-weight: 700;
                 font-size: 30px;
-                line-height: 56px;
                 color: #1E1E1E;
             }
 
@@ -30,7 +29,6 @@
                 margin-bottom: 27px;
                 font-weight: 500;
                 font-size: 14px;
-                line-height: 24px;
                 color: #858585;
             }
 
@@ -60,6 +58,7 @@
 
             img {
                 height: 70%;
+                margin-top: -60px;
             }
         }
     }
@@ -91,6 +90,8 @@
                 background-color: #FF9955;
                 padding: 20px;
                 position: relative;
+                cursor: pointer;
+                user-select: none;
 
                 .lst-item-image {
                     position: absolute;
@@ -120,6 +121,7 @@
 
             .lst-item:nth-child(1) {
                 background-color: #a027ff;
+                // background-color: #59009c;
 
                 .lst-item-image {
                     top: -60px;
@@ -189,7 +191,8 @@
             display: flex;
             justify-content: start;
             align-items: center;
-
+            margin-top: -70px;
+            margin-right: -100px;
             img {
                 height: 80%;
             }
@@ -201,14 +204,12 @@
             .title {
                 font-weight: 700;
                 font-size: 30px;
-                line-height: 56px;
                 color: #1E1E1E;
             }
 
             .subtitle {
                 font-weight: 500;
                 font-size: 20px;
-                line-height: 32px;
                 color: #4E4E4E;
             }
 
@@ -224,8 +225,7 @@
 
                     .text-item {
                         font-weight: 500;
-                        font-size: 16px;
-                        line-height: 32px;
+                        font-size: 14px;
                         color: #4E4E4E;
 
                     }
@@ -309,9 +309,19 @@
         .intro-part {
             padding-bottom: 50px;
 
+            .text-of-intro {
+                .title {
+                    font-size: 25px;
+                }
+                .detail{
+                    font-size: 13px;
+                }
+            }
+
             .image-of-intro {
                 img {
-                    height: 50%;
+                    margin-top: -100px;
+                    height: 55%;
                     margin-left: -400px !important;
                 }
             }
@@ -319,6 +329,8 @@
 
         .how-to-use {
             .tutorial-image {
+                margin-top: -125px;
+                margin-right: -0px;
                 img {
                     height: 60%;
                     margin-right: -300px;
@@ -454,7 +466,7 @@
                 }
 
                 .button-start {
-                    font-size: 10px;
+                    font-size: 12px;
                 }
             }
 
@@ -491,7 +503,7 @@
 
                 .lst-item {
                     width: 100%;
-
+                    margin: 10px 0px;
                     .lst-item-title {
                         font-size: 12px;
                         margin-top: 0 !important;
@@ -526,15 +538,15 @@
                 margin: 100px 25px 50px 25px;
 
                 .title {
-                    font-size: 20px;
+                    font-size: 15px;
                 }
 
                 .detail {
-                    font-size: 12px;
+                    font-size: 10px;
                 }
 
                 .button-start {
-                    font-size: 10px;
+                    font-size: 12px;
                 }
             }
 
