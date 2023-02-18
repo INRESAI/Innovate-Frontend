@@ -36,8 +36,10 @@ $accent-color: #FF9955;
                 line-height: 24px;
                 color: #858585;
             }
-
-            .button-start {
+            .button-start{
+                width: 200px;
+            }
+            .button-start button {
                 background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
                 border-radius: 30px;
                 color: #FFFFFF;
@@ -45,13 +47,11 @@ $accent-color: #FF9955;
                 font-weight: 400;
                 font-size: 14px;
                 line-height: 20px;
-
             }
-
-            .button-start:hover {
-                font-weight: bold;
-                background: linear-gradient(308.85deg, #FF6600 0%, #fa7b26 100%);
-                transition: 0.3s all;
+        
+        
+            .button-start button:hover {
+                font-weight: 700;
             }
         }
 
@@ -59,8 +59,8 @@ $accent-color: #FF9955;
             display: flex;
             justify-content: end;
             align-items: center;
-            margin-right: 100px;
-
+            margin-right: 40px;
+            margin-left: 100px;
             img {
                 height: 80%;
             }
@@ -1161,11 +1161,12 @@ $accent-color: #FF9955;
                 margin-left: 50px;
 
                 .title {
-                    // font-size: 25px;
+                    font-size: 25px;
                 }
 
                 .detail {
-                    // font-size: 13px;
+                    font-size: 13px;
+                    line-height: 20px;
                 }
             }
 
@@ -1377,6 +1378,18 @@ $accent-color: #FF9955;
 }
 
 @media (max-width: 1000px) {
+    .judgement-main {
+        .intro-part {
+            .image-of-intro {
+                margin-left: 0px;
+                img {
+                    height: 50%;
+                    // margin-left: px !important;
+                }
+            }
+        }
+    }
+    
     .result-answer {
 
         .total-score {

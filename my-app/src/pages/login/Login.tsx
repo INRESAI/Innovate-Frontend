@@ -13,14 +13,17 @@ import { IPosition } from '../../common/u-innovate/define-position';
 import { getAllFacilitiesRequest, getAllPositionsRequest } from '../../redux/controller';
 import { checkEmailRequest, loginRequest, registerRequest } from '../../redux/controller/login.slice';
 import { useDispatchRoot, useSelectorRoot } from '../../redux/store';
-import './login.scss';
 import ActiveAccountModel from '../ActiveAccount/ActiveAccountModel';
+import './login.scss';
 
 interface MyProps {
     isLogin?: boolean
 }
 
 const { Option } = Select;
+const easeIn = [0.42, 0, 1, 1];
+const easeOut = [0, 0, 0.58, 1];
+
 // Phần đăng nhập / đăng ký của trang web
 const Login = (props: MyProps) => {
 
@@ -39,7 +42,9 @@ const Login = (props: MyProps) => {
     const [userConfirmPassword, setUserConfirmPassword] = useState<string>('');
     const [userFacilityId, setUserFacilityId] = useState<string>('');
     const [userPositionId, setUserPositionId] = useState<string>('');
-
+    const [checkFacility, setCheckFacility] = useState<number>(0);
+    const [checkClickTypeOfFacility, setCheckClickTypeOfFacility] = useState<boolean>(false);
+    const [checkClickFacility, setCheckClickFacility] = useState<boolean>(false);
     // Thực hiện lấy vai trò và cơ sở đào tạo của user
     useEffect(() => {
         if (!isLogin) {
@@ -88,6 +93,27 @@ const Login = (props: MyProps) => {
         setUserPassword(res.userPassword);
         setUserConfirmPassword(res.userConfirmPassword);
         dispatch(checkEmailRequest(res.userEmail));
+    }
+    // Hàm thực hiện check khi click vào select 
+    const handleTypeOfFacilityVisibleChange = (visible: boolean) => {
+        setCheckClickTypeOfFacility(visible);
+    }
+
+    // Hàm thực hiện check khi click vào select của trường đại học / cao đẳng
+
+    const handleFacilityVisibleChange = (visible: boolean) => {
+        setCheckClickFacility(visible);
+    }
+    // Hàm thực hiện thay đổi thông tin nhập khi chọn đại học / cao đẳng 
+    const handleOnChangeTypeOfFacility = (val: string) => {
+        if (val === '1') {
+            setCheckFacility(1)
+        }
+        if (val === '2') {
+            setCheckFacility(2)
+        }
+        console.log(val);
+
     }
 
     // Hàm thực hiện lưu thông tin của trang thứ 2 của đăng ký
@@ -340,44 +366,114 @@ const Login = (props: MyProps) => {
                                         >
                                             <Form.Item
                                                 label="Cơ sở đào tạo"
-                                                name="userFacilityId"
-                                                rules={[{ required: true, message: 'Vui lòng cơ sở đào tạo!' }]}
-                                            >
+                                                name="typeOfFacility"
+                                                rules={[{ required: true, message: 'Vui lòng cơ sở đào tạo!' }]}>
                                                 <Select
                                                     suffixIcon={<CaretDownOutlined />}
                                                     placeholder="Chọn cơ sở đào tạo"
-                                                // onChange={handleChange}
+                                                    onChange={handleOnChangeTypeOfFacility}
+                                                    onDropdownVisibleChange={handleTypeOfFacilityVisibleChange}
                                                 >
-                                                    {lstFacility.map((index) => (
-                                                        <Option value={index.id}>{index.name}</Option>
-                                                    ))}
+                                                    <Option value='1'>Đại học</Option>
+                                                    <Option value='2'>Cao đẳng</Option>
                                                 </Select>
                                             </Form.Item>
-
-                                            <Form.Item
-                                                label="Vai trò tại cơ sở đào tạo"
-                                                name="userPositionId"
-                                                rules={[{ required: true, message: 'Vui lòng chọn vai trò cơ sở đào tạo!' }]}
-                                            >
-                                                <Select
-                                                    suffixIcon={<CaretDownOutlined />}
-                                                    placeholder="Chọn vai trò"
+                                            {checkFacility === 1 &&
+                                                <motion.div
+                                                    initial={{ opacity: 0, marginTop: 70 }}
+                                                    animate={checkClickTypeOfFacility ? { opacity: 1, marginTop: 70 } : { opacity: 1, marginTop: 0 }}
+                                                    exit={{ opacity: 0 }}
+                                                    transition={{ duration: 0.25 }}
                                                 >
-                                                    {lstPosition.map((index) => (
-                                                        <Option value={index.id}>{index.name}</Option>
-                                                    ))}
-                                                </Select>
-                                            </Form.Item>
+                                                    <Form.Item
+                                                        label="Chọn trường đại học"
+                                                        name="userFacilityId"
+                                                        rules={[{ required: true, message: 'Vui lòng chọn trường đại học!' }]}
+                                                    >
+                                                        <Select
+                                                            showSearch
+                                                            suffixIcon={<CaretDownOutlined />}
+                                                            placeholder="Tìm kiếm trường đại học"
+                                                            onDropdownVisibleChange={handleFacilityVisibleChange}
+                                                            optionFilterProp="children"
+                                                            // filterOption={(input, option) =>
+                                                            //     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                                            // }
+                                                        // onChange={handleChange}
+                                                        >
+                                                            {lstFacility.map((index) => (
+                                                                <Option value={index.id}>{index.name}</Option>
+                                                            ))}
+                                                        </Select>
+                                                    </Form.Item>
+                                                </motion.div>
+                                            }
+                                            {checkFacility === 2 &&
+                                                <motion.div
+                                                    initial={{ opacity: 0, marginTop: 70 }}
+                                                    animate={checkClickTypeOfFacility ? { opacity: 1, marginTop: 70 } : { opacity: 1, marginTop: 0 }}
+                                                    exit={{ opacity: 0 }}
+                                                    transition={{ duration: 0.25 }}
+                                                >
+                                                    <Form.Item
+                                                        label="Chọn trường cao đẳng"
+                                                        name="userFacilityId"
+                                                        rules={[{ required: true, message: 'Vui lòng chọn trường cao đẳng!' }]}
+                                                    >
+                                                        <Select
+                                                            suffixIcon={<CaretDownOutlined />}
+                                                            placeholder="Tìm kiếm theo cao đẳng"
+                                                            onDropdownVisibleChange={handleFacilityVisibleChange}
+
+                                                        // onChange={handleChange}
+                                                        >
+                                                            {lstFacility.map((index) => (
+                                                                <Option value={index.id}>{index.name}</Option>
+                                                            ))}
+                                                        </Select>
+                                                    </Form.Item>
+                                                </motion.div>
+                                            }
+                                            <motion.div
+                                                initial={{ marginTop: 0 }}
+                                                animate={checkClickFacility ? { marginTop: 205 } : { marginTop: 0 }}
+                                                exit={{ marginTop: 0 }}
+                                                transition={{ duration: 0.25 }}>
+                                                <Form.Item
+                                                    label="Vai trò tại cơ sở đào tạo"
+                                                    name="userPositionId"
+                                                    rules={[{ required: true, message: 'Vui lòng chọn vai trò cơ sở đào tạo!' }]}
+                                                >
+                                                    <Select
+                                                        suffixIcon={<CaretDownOutlined />}
+                                                        placeholder="Chọn vai trò"
+                                                    >
+                                                        {lstPosition.map((index) => (
+                                                            <Option value={index.id}>{index.name}</Option>
+                                                        ))}
+                                                    </Select>
+                                                </Form.Item>
+                                            </motion.div>
 
                                             <Form.Item >
-                                                <Button className='button-submit' type="primary" htmlType="submit">
-                                                    Tiếp tục
-                                                </Button>
-                                            </Form.Item>
-                                            <Form.Item >
-                                                <Button className='button-back' onClick={onClickBackPage}>
-                                                    Quay lại
-                                                </Button>
+                                                <div style={{ display: 'flex', margin: '10px 0', justifyContent: 'space-between' }}>
+                                                    <motion.div
+                                                        style={{ width: '100%', marginRight: '20px' }}
+                                                        whileHover={{ scale: 1.1 }}
+                                                        whileTap={{ scale: 0.95 }}>
+                                                        <Button className='button-submit' type="primary" htmlType="submit" style={{ marginRight: 10 }}>
+                                                            Tiếp tục
+                                                        </Button>
+                                                    </motion.div>
+                                                    <motion.div
+                                                        style={{ width: '100%' }}
+                                                        whileHover={{ scale: 1.1 }}
+                                                        whileTap={{ scale: 0.95 }}>
+                                                        <Button className='button-back' onClick={onClickBackPage}>
+                                                            Quay lại
+                                                        </Button>
+                                                    </motion.div>
+                                                </div>
                                             </Form.Item>
                                             <Form.Item className='step-item'>
                                                 <Steps
@@ -468,14 +564,24 @@ const Login = (props: MyProps) => {
                                             </Form.Item>
 
                                             <Form.Item >
-                                                <Button className='button-submit' type="primary" htmlType="submit">
-                                                    Đăng ký
-                                                </Button>
-                                            </Form.Item>
-                                            <Form.Item >
-                                                <Button className='button-back' onClick={onClickBackPage}>
-                                                    Quay lại
-                                                </Button>
+                                                <div style={{ display: 'flex', margin: '10px 0', justifyContent: 'space-between' }}>
+                                                    <motion.div
+                                                        style={{ width: '100%', marginRight: '20px' }}
+                                                        whileHover={{ scale: 1.1 }}
+                                                        whileTap={{ scale: 0.95 }}>
+                                                        <Button className='button-submit' type="primary" htmlType="submit" style={{ marginRight: 10 }}>
+                                                            Đăng ký
+                                                        </Button>
+                                                    </motion.div>
+                                                    <motion.div
+                                                        style={{ width: '100%' }}
+                                                        whileHover={{ scale: 1.1 }}
+                                                        whileTap={{ scale: 0.95 }}>
+                                                        <Button className='button-back' onClick={onClickBackPage}>
+                                                            Quay lại
+                                                        </Button>
+                                                    </motion.div>
+                                                </div>
                                             </Form.Item>
                                             <Form.Item className='step-item'>
                                                 <Steps
@@ -580,14 +686,24 @@ const Login = (props: MyProps) => {
                                             </Form.Item>
 
                                             <Form.Item >
-                                                <Button className='button-submit' type="primary" htmlType="submit">
-                                                    Đăng ký
-                                                </Button>
-                                            </Form.Item>
-                                            <Form.Item >
-                                                <Button className='button-back' onClick={onClickBackPage}>
-                                                    Quay lại
-                                                </Button>
+                                                <div style={{ display: 'flex', margin: '10px 0', justifyContent: 'space-between' }}>
+                                                    <motion.div
+                                                        style={{ width: '100%', marginRight: '20px' }}
+                                                        whileHover={{ scale: 1.1 }}
+                                                        whileTap={{ scale: 0.95 }}>
+                                                        <Button className='button-submit' type="primary" htmlType="submit" style={{ marginRight: 10 }}>
+                                                            Đăng ký
+                                                        </Button>
+                                                    </motion.div>
+                                                    <motion.div
+                                                        style={{ width: '100%' }}
+                                                        whileHover={{ scale: 1.1 }}
+                                                        whileTap={{ scale: 0.95 }}>
+                                                        <Button className='button-back' onClick={onClickBackPage}>
+                                                            Quay lại
+                                                        </Button>
+                                                    </motion.div>
+                                                </div>
                                             </Form.Item>
                                             <Form.Item className='step-item'>
                                                 <Steps
