@@ -10,6 +10,7 @@ import Criteria6 from '../../images/criteria6.png'
 import Criteria7 from '../../images/criteria7.png'
 import Criteria8 from '../../images/criteria8.png'
 import "../../App.scss";
+import { motion } from 'framer-motion'
 
 
 interface MyProps {
@@ -69,6 +70,16 @@ const TemporaryCriteriaLst = [
     },
 ]
 
+const hoverVariants = {
+    hover: {
+        scale: 1.1,
+        opacity: 0.8,
+        borderRadius: '30px'
+    },
+    tap: {
+        scale: 0.8
+    },
+};
 const JudgementCriteriaOptions = (props: MyProps) => {
     const [newOptionsLst, setNewOptionLst] = useState<ICriteria[]>();
 
@@ -112,15 +123,22 @@ const JudgementCriteriaOptions = (props: MyProps) => {
                         onClick={() => props.tranferFromCriteriaToTest(item)}
                         style={{ cursor: "pointer" }}
                     >
-                        <List.Item.Meta
-                            avatar={<img className='criteria-image' src={item.urlImage} />}
-                            title={<a className='criteria-title'>{item.name}</a>}
-                            description={<div>
-                                <div className='criteria-text'>{item.description}</div>
-                                <Button className='criteria-btn'>Đánh giá</Button>
-                            </div>}
-                            className="lst-item"
-                        />
+                        <motion.div
+                            whileHover="hover"
+                            whileTap="tap"
+                            variants={hoverVariants}
+                        >
+
+                            <List.Item.Meta
+                                avatar={<img className='criteria-image' src={item.urlImage} />}
+                                title={<a className='criteria-title'>{item.name}</a>}
+                                description={<div>
+                                    <div className='criteria-text'>{item.description}</div>
+                                    <Button className='criteria-btn'>Đánh giá</Button>
+                                </div>}
+                                className="lst-item"
+                            />
+                        </motion.div>
                     </List.Item>
                 )}
             />

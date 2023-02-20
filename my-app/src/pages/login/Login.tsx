@@ -8,9 +8,9 @@ import LoginImage2 from '../../images/login-image-2.png';
 import LoginImage from '../../images/login-image.png';
 
 import { LoginRequest, RegisterRequest } from '../../common/define-identity';
-import { IFacilities } from '../../common/u-innovate/define-facilities';
+import { IFacilities, IFacilitiesList } from '../../common/u-innovate/define-facilities';
 import { IPosition } from '../../common/u-innovate/define-position';
-import { getAllFacilitiesRequest, getAllPositionsRequest } from '../../redux/controller';
+import { getAllFacilitiesByDescriptionRequest, getAllPositionsRequest } from '../../redux/controller';
 import { checkEmailRequest, loginRequest, registerRequest } from '../../redux/controller/login.slice';
 import { useDispatchRoot, useSelectorRoot } from '../../redux/store';
 import ActiveAccountModel from '../ActiveAccount/ActiveAccountModel';
@@ -33,9 +33,10 @@ const Login = (props: MyProps) => {
     const dispatch = useDispatchRoot();
     const navigate = useNavigate();
     const { tokenLogin, isExistEmail, registerSuccess } = useSelectorRoot((state) => state.login);
-    const { positionsLst, facilitiesLst } = useSelectorRoot((state) => state.uinnovate);
+    const { positionsLst, facilitiesLst, facilitiesLstByDescription } = useSelectorRoot((state) => state.uinnovate);
     const [lstPosition, setLstPosition] = useState<IPosition[]>([]);
     const [lstFacility, setLstFacility] = useState<IFacilities[]>([]);
+    const [lstFacilityByDescription, setLstFacilityByDescription] = useState<IFacilitiesList>();
     const [userName, setUserName] = useState<string>('');
     const [userEmail, setUserEmail] = useState<string>('');
     const [userPassword, setUserPassword] = useState<string>('');
@@ -45,10 +46,12 @@ const Login = (props: MyProps) => {
     const [checkFacility, setCheckFacility] = useState<number>(0);
     const [checkClickTypeOfFacility, setCheckClickTypeOfFacility] = useState<boolean>(false);
     const [checkClickFacility, setCheckClickFacility] = useState<boolean>(false);
+    const [checkClickPosition, setCheckClickPosition] = useState<boolean>(false);
     // Thực hiện lấy vai trò và cơ sở đào tạo của user
     useEffect(() => {
         if (!isLogin) {
-            dispatch(getAllFacilitiesRequest());
+            // dispatch(getAllFacilitiesRequest());
+            dispatch(getAllFacilitiesByDescriptionRequest());
             dispatch(getAllPositionsRequest());
         }
     }, [isLogin])
@@ -57,6 +60,12 @@ const Login = (props: MyProps) => {
     useEffect(() => {
         setLstFacility(JSON.parse(JSON.stringify(facilitiesLst)));
     }, [facilitiesLst]);
+
+    // Thực hiện gán giá trị cơ sở đào tạo
+    useEffect(() => {
+        facilitiesLstByDescription && setLstFacilityByDescription(JSON.parse(JSON.stringify(facilitiesLstByDescription)));
+        console.log(facilitiesLstByDescription);
+    }, [facilitiesLstByDescription]);
 
     // Thực hiện gán giá trị vai trò
     useEffect(() => {
@@ -81,7 +90,7 @@ const Login = (props: MyProps) => {
     useEffect(() => {
         if (registerSuccess) {
             setIsLogin(!isLogin)
-            message.success('Email xác nhận đã gửi!');
+            // message.success('Email xác nhận đã gửi!');
         }
     }, [registerSuccess])
 
@@ -104,6 +113,12 @@ const Login = (props: MyProps) => {
     const handleFacilityVisibleChange = (visible: boolean) => {
         setCheckClickFacility(visible);
     }
+
+    // Hàm thực hiện check khi click vào select của vị trí
+
+    const handlePositionVisibleChange = (visible: boolean) => {
+        setCheckClickPosition(visible);
+    }
     // Hàm thực hiện thay đổi thông tin nhập khi chọn đại học / cao đẳng 
     const handleOnChangeTypeOfFacility = (val: string) => {
         if (val === '1') {
@@ -118,8 +133,10 @@ const Login = (props: MyProps) => {
 
     // Hàm thực hiện lưu thông tin của trang thứ 2 của đăng ký
     const handleClickSecondStep = async (res: any): Promise<any> => {
-        console.log(res);
-        setUserFacilityId(res.userFacilityId);
+        if (checkFacility === 1)
+            setUserFacilityId(res.userFacilityUniversitiesId);
+        if (checkFacility === 2)
+            setUserFacilityId(res.userFacilityCollegesId);
         setUserPositionId(res.userPositionId)
         setCurrent(current + 1);
     }
@@ -387,7 +404,7 @@ const Login = (props: MyProps) => {
                                                 >
                                                     <Form.Item
                                                         label="Chọn trường đại học"
-                                                        name="userFacilityId"
+                                                        name="userFacilityUniversitiesId"
                                                         rules={[{ required: true, message: 'Vui lòng chọn trường đại học!' }]}
                                                     >
                                                         <Select
@@ -395,13 +412,8 @@ const Login = (props: MyProps) => {
                                                             suffixIcon={<CaretDownOutlined />}
                                                             placeholder="Tìm kiếm trường đại học"
                                                             onDropdownVisibleChange={handleFacilityVisibleChange}
-                                                            optionFilterProp="children"
-                                                            // filterOption={(input, option) =>
-                                                            //     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                                            // }
-                                                        // onChange={handleChange}
                                                         >
-                                                            {lstFacility.map((index) => (
+                                                            {lstFacilityByDescription?.universities.map((index) => (
                                                                 <Option value={index.id}>{index.name}</Option>
                                                             ))}
                                                         </Select>
@@ -417,17 +429,16 @@ const Login = (props: MyProps) => {
                                                 >
                                                     <Form.Item
                                                         label="Chọn trường cao đẳng"
-                                                        name="userFacilityId"
+                                                        name="userFacilityCollegesId"
                                                         rules={[{ required: true, message: 'Vui lòng chọn trường cao đẳng!' }]}
                                                     >
                                                         <Select
+                                                            showSearch
                                                             suffixIcon={<CaretDownOutlined />}
                                                             placeholder="Tìm kiếm theo cao đẳng"
                                                             onDropdownVisibleChange={handleFacilityVisibleChange}
-
-                                                        // onChange={handleChange}
                                                         >
-                                                            {lstFacility.map((index) => (
+                                                            {lstFacilityByDescription?.colleges.map((index) => (
                                                                 <Option value={index.id}>{index.name}</Option>
                                                             ))}
                                                         </Select>
@@ -436,7 +447,7 @@ const Login = (props: MyProps) => {
                                             }
                                             <motion.div
                                                 initial={{ marginTop: 0 }}
-                                                animate={checkClickFacility ? { marginTop: 205 } : { marginTop: 0 }}
+                                                animate={checkClickFacility ? { marginTop: 260 } : { marginTop: 0 }}
                                                 exit={{ marginTop: 0 }}
                                                 transition={{ duration: 0.25 }}>
                                                 <Form.Item
@@ -447,6 +458,7 @@ const Login = (props: MyProps) => {
                                                     <Select
                                                         suffixIcon={<CaretDownOutlined />}
                                                         placeholder="Chọn vai trò"
+                                                        onDropdownVisibleChange={handlePositionVisibleChange}
                                                     >
                                                         {lstPosition.map((index) => (
                                                             <Option value={index.id}>{index.name}</Option>
@@ -456,7 +468,11 @@ const Login = (props: MyProps) => {
                                             </motion.div>
 
                                             <Form.Item >
-                                                <div style={{ display: 'flex', margin: '10px 0', justifyContent: 'space-between' }}>
+                                                <motion.div
+                                                    style={{ display: 'flex', margin: '10px 0', justifyContent: 'space-between' }}
+                                                    initial={{ marginTop: 10 }}
+                                                    animate={checkClickPosition ? { marginTop: 120 } : { marginTop: 10 }}
+                                                >
                                                     <motion.div
                                                         style={{ width: '100%', marginRight: '20px' }}
                                                         whileHover={{ scale: 1.1 }}
@@ -473,7 +489,7 @@ const Login = (props: MyProps) => {
                                                             Quay lại
                                                         </Button>
                                                     </motion.div>
-                                                </div>
+                                                </motion.div>
                                             </Form.Item>
                                             <Form.Item className='step-item'>
                                                 <Steps

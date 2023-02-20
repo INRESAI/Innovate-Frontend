@@ -387,8 +387,9 @@
                     font-size: 12px;
                     line-height: 24px;
                     color: #696969;
-                    .ant-select-selection-search{
-                        .ant-select-selection-search-input{
+
+                    .ant-select-selection-search {
+                        .ant-select-selection-search-input {
                             margin-left: 10px;
                         }
                     }
@@ -453,9 +454,11 @@
 .ant-notification {
     top: 70px !important;
 }
-.rc-virtual-list-holder{
-    max-height: 204px !important;
+
+.rc-virtual-list-holder {
+    // max-height: 204px !important;
 }
+
 @media (min-width: 1300px) {}
 
 @media (max-width: 1300px) {}

@@ -10,7 +10,7 @@ import FacilitiesAPI from "../../api/facilities/facilities.api";
 import PositionsAPI from "../../api/positions/positions.api";
 import { RootEpic } from "../../common/define-type";
 import { ICriteria } from "../../common/u-innovate/define-criteria";
-import { IFacilities } from "../../common/u-innovate/define-facilities";
+import { IFacilities, IFacilitiesList } from "../../common/u-innovate/define-facilities";
 import { IPosition } from "../../common/u-innovate/define-position";
 
 
@@ -19,6 +19,7 @@ interface UInnovateState {
     criteriaLst: ICriteria[];
     positionsLst: IPosition[];
     facilitiesLst: IFacilities[];
+    facilitiesLstByDescription: IFacilitiesList | null,
 }
 
 const initState: UInnovateState = {
@@ -26,6 +27,7 @@ const initState: UInnovateState = {
     criteriaLst: [],
     positionsLst: [],
     facilitiesLst: [],
+    facilitiesLstByDescription: null,
 }
 
 const uInnovateSlice = createSlice({
@@ -82,6 +84,20 @@ const uInnovateSlice = createSlice({
         getAllFacilitiesFail(state, action: any) {
             state.loading = false
         },
+
+        // Lấy ra hết vai trò của user
+        getAllFacilitiesByDescriptionRequest(state) {
+            state.loading = true
+        },
+
+        getAllFacilitiesByDescriptionSuccess(state, action: PayloadAction<IFacilitiesList>) {
+            state.loading = false
+            state.facilitiesLstByDescription = action.payload;
+        },
+
+        getAllFacilitiesByDescriptionFail(state, action: any) {
+            state.loading = false
+        },
     }
 })
 
@@ -123,36 +139,30 @@ const getAllFacilities$: RootEpic = (action$) => action$.pipe(
         )
     })
 )
-// const getAllQuestionsByCriteriaId$: RootEpic = (action$) => action$.pipe(
-//     filter(getAllQuestionsByCriteriaIdRequest.match),
-//     switchMap((req) => {
-//         // IdentityApi.login(re.payload) ?
-
-//         return QuestionAPI.getAllQuestionByCriteriaId(req.payload).pipe(
-//             mergeMap((res: any) => {
-//                     console.log(res);
-//                     return [
-//                         uInnovateSlice.actions.getCriteriaLstSuccess(res.data),
-
-//                     ];
-//             }),
-//             catchError(err => [uInnovateSlice.actions.getCriteriaLstFail(err)])
-//         )
-//     })
-// )
-
-
+const getAllFacilitiesByDescription$: RootEpic = (action$) => action$.pipe(
+    filter(getAllFacilitiesByDescriptionRequest.match),
+    switchMap(() => {
+        return FacilitiesAPI.getAllFacilitiesByDescription().pipe(
+            mergeMap((res: any) => {
+                console.log(res);
+                return [uInnovateSlice.actions.getAllFacilitiesByDescriptionSuccess(res.data),];
+            }),
+            catchError(err => [uInnovateSlice.actions.getAllFacilitiesByDescriptionFail(err)])
+        )
+    })
+)
 export const UInnovateEpics = [
     getAllCriteria$,
     getAllPosition$,
     getAllFacilities$,
-    // getAllQuestionsByCriteriaId$
+    getAllFacilitiesByDescription$,
 ]
 export const {
     getAllPositionsRequest,
     getCriteriaLstRequest,
     getAllQuestionsByCriteriaIdRequest,
     getAllFacilitiesRequest,
+    getAllFacilitiesByDescriptionRequest,
 
 } = uInnovateSlice.actions
 export const uInnovateReducer = uInnovateSlice.reducer

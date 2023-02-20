@@ -24,7 +24,7 @@ $accent-color: #FF9955;
                 font-weight: 640;
                 font-weight: 700;
                 font-size: 30px;
-                
+
                 color: #1E1E1E;
             }
 
@@ -36,9 +36,11 @@ $accent-color: #FF9955;
                 line-height: 24px;
                 color: #858585;
             }
-            .button-start{
+
+            .button-start {
                 width: 200px;
             }
+
             .button-start button {
                 background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
                 border-radius: 30px;
@@ -48,8 +50,8 @@ $accent-color: #FF9955;
                 font-size: 14px;
                 line-height: 20px;
             }
-        
-        
+
+
             .button-start button:hover {
                 font-weight: 700;
             }
@@ -61,6 +63,7 @@ $accent-color: #FF9955;
             align-items: center;
             margin-right: 40px;
             margin-left: 100px;
+
             img {
                 height: 80%;
             }
@@ -249,7 +252,7 @@ $accent-color: #FF9955;
                 .title {
                     font-weight: 700;
                     font-size: 40px;
-                    
+
                     color: #1E1E1E;
                     margin-top: 30px;
                 }
@@ -638,7 +641,7 @@ $accent-color: #FF9955;
                 .title {
                     font-weight: 700;
                     font-size: 40px;
-                    
+
                     color: #1E1E1E;
                 }
 
@@ -663,6 +666,12 @@ $accent-color: #FF9955;
                                         font-size: 14px !important;
                                         line-height: 20px;
                                         color: #4E4E4E;
+                                        transition: transform 0.3s ease-in-out;
+                                    }
+
+                                    tspan:hover {
+                                        transform: scale(1.5) !important;
+                                        cursor: pointer;
                                     }
                                 }
                             }
@@ -672,7 +681,7 @@ $accent-color: #FF9955;
                             tspan:nth-child(1) {
                                 font-weight: 700;
                                 // font-size: 30px !important;
-                                
+
                                 display: flex;
                                 align-items: center;
                                 text-align: center;
@@ -699,7 +708,7 @@ $accent-color: #FF9955;
                             justify-content: center;
                             font-weight: 700;
                             font-size: 40px;
-                            
+
                             display: flex;
                             align-items: center;
                             text-align: center;
@@ -732,7 +741,7 @@ $accent-color: #FF9955;
             .title {
                 font-weight: 700;
                 font-size: 40px;
-                
+
                 text-align: center;
                 color: #1E1E1E;
             }
@@ -1382,6 +1391,7 @@ $accent-color: #FF9955;
         .intro-part {
             .image-of-intro {
                 margin-left: 0px;
+
                 img {
                     height: 50%;
                     // margin-left: px !important;
@@ -1389,7 +1399,7 @@ $accent-color: #FF9955;
             }
         }
     }
-    
+
     .result-answer {
 
         .total-score {
@@ -1938,6 +1948,18 @@ $accent-color: #FF9955;
 
 @media (max-width: 450px) {
     .judgement-main {
+        .criteria-lst {
+            .ant-list {
+                .ant-list-item {
+                    &:nth-child(1) {
+                        .lst-item {
+                            margin-bottom: 10px;
+                        }
+                    }
+                }
+            }
+        }
+
         .taking-test {
             .test-body {
                 .test-detail {
@@ -2125,15 +2147,18 @@ $accent-color: #FF9955;
                 }
             }
         }
+
         .result-answer {
             .total-score {
                 .total-score-left {
                     .title {
                         font-size: 20px;
                     }
-                    .sub-title{
+
+                    .sub-title {
                         font-size: 10px;
                     }
+
                     .detail-total {
                         .pf-c-chart {
                             svg {
@@ -2145,11 +2170,13 @@ $accent-color: #FF9955;
                     }
                 }
             }
-            .title-view-test{
-                .title{
+
+            .title-view-test {
+                .title {
                     font-size: 20px;
                 }
-                .content{
+
+                .content {
                     font-size: 10px;
                 }
             }

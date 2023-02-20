@@ -4,3 +4,7 @@ export interface IFacilities {
     description: string,
     id: string,
 }
+export interface IFacilitiesList {
+    colleges: IFacilities[],
+    universities: IFacilities[],
+}

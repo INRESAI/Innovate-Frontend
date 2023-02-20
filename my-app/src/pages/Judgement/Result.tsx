@@ -1,13 +1,12 @@
-import "../../App.scss";
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { ChartDonut, ChartThemeColor } from '@patternfly/react-charts';
-import Chart from "chart.js";
-import { motion } from 'framer-motion';
-import React, { useEffect, useRef, useState } from 'react';
+import { Pagination } from "antd";
+import { Variants, motion } from 'framer-motion';
+import React, { useState } from 'react';
+import "../../App.scss";
 import { ISetOfQuestions } from '../../common/u-innovate/define-setOfQuestions';
 import ResultImage from '../../images/result-image.png';
 import './styles.judgement.scss';
-import { Pagination } from "antd";
 
 interface MyProps {
     receivedResult: any;
@@ -18,44 +17,23 @@ interface MyProps {
     setReceivedResult: React.Dispatch<any>;
     numberOfQuestionList: number;
 }
-
+const imageVariants: Variants = {
+    offscreen: {
+        y: 100,
+        opacity: 0
+    },
+    onscreen: {
+        y: 0,
+        opacity: 1,
+        transition: {
+            type: "spring",
+            bounce: 0.4,
+            duration: 2
+        }
+    }
+};
 const Result = (props: MyProps) => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    useEffect(() => {
-
-    })
-    const chartRef = useRef<Chart | null>(null);
-    console.log(props.quantityOfEachTypeOfAnswer[0], props.quantityOfEachTypeOfAnswer[1], props.quantityOfEachTypeOfAnswer[2])
-    // callback creates the chart on the canvas element
-    const canvasCallback = (canvas: HTMLCanvasElement | null) => {
-        if (!canvas) return;
-        chartRef.current = new Chart(canvas,
-            {
-
-                type: 'doughnut',
-                data: {
-                    labels: ["Quan sát được hoàn toàn", "Quan sát được một phần", "Không quan sát thấy"], //Thay bang cac nhan rac 
-                    datasets: [
-                        {
-
-                            label: "Population (millions)",
-                            backgroundColor: ["#FB9400", "#9610FF", "#FF4D67"],
-                            data: [props.quantityOfEachTypeOfAnswer[0], props.quantityOfEachTypeOfAnswer[1], props.quantityOfEachTypeOfAnswer[2]], //So luong rac hien tai. Truyen array tu data goi ve vao day
-                            borderWidth: 4,
-                            // data: [7,7,3] //So luong rac hien tai. Truyen array tu data goi ve vao day
-                        }
-                    ]
-                },
-                options: {
-                    title: {
-                        display: true,
-                        text: 'Tỷ lệ mỗi loại câu trả lời'
-                    }
-                }
-            }
-        );
-
-    };
 
     const handlePageChange = (page: number) => {
         setCurrentIndex(page - 1);
@@ -106,7 +84,11 @@ const Result = (props: MyProps) => {
                     </div>
                 </div>
                 <div className='total-score-right'>
-                    <img src={ResultImage} alt='' />
+                    <motion.img src={ResultImage} alt=''
+                        variants={imageVariants}
+                        initial="offscreen"
+                        whileInView="onscreen"
+                        viewport={{ once: true, amount: 'all' }} />
                 </div>
             </div>
             <div className='title-view-test'>

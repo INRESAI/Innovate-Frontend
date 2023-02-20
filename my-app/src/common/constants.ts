@@ -49,7 +49,8 @@ const SYSTEM_CONSTANTS = {
             GET_ALL: 'positions'
         },
         FACILITIES: {
-            GET_ALL: 'facilities'
+            GET_ALL: 'facilities',
+            GET_BY_DESCRIPTION: 'facilities/byDescription'
         },
         RESULT: {
             CACULATE: 'results/answers'

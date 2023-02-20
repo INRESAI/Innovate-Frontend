@@ -1,5 +1,5 @@
 import { Button } from 'antd'
-import { motion } from 'framer-motion'
+import { Variants, motion } from 'framer-motion'
 import "../../App.scss"
 import FirewallImage from '../../images/Firewall_image.png'
 import LayeredSecurityImage from '../../images/Layered_security_image.png'
@@ -8,7 +8,30 @@ import MailImage from '../../images/mail_image.png'
 import PhoneImage from '../../images/phone_image.png'
 import WebImage from '../../images/web_image.png'
 import '../AboutUs/styles.aboutus.scss'
-
+const imageVariants: Variants = {
+    offscreen: {
+        y: 100,
+        opacity: 0
+    },
+    onscreen: {
+        y: 0,
+        opacity: 1,
+        transition: {
+            type: "spring",
+            bounce: 0.4,
+            duration: 2
+        }
+    }
+};
+const hoverVariants = {
+    hover: {
+        scale: 1.1,
+        borderRadius: '30px'
+    },
+    tap: {
+        scale: 0.8
+    },
+};
 // Phần giới thiệu về chúng tôi ở trang web
 const AboutUs = () => {
     return (
@@ -39,7 +62,11 @@ const AboutUs = () => {
                     </div>
                 </div>
                 <div className='image-of-intro'>
-                    <img className='about-image-1' src={AboutImage1} alt='' />
+                    <motion.img className='about-image-1' src={AboutImage1} alt=''
+                        variants={imageVariants}
+                        initial="offscreen"
+                        whileInView="onscreen"
+                        viewport={{ once: true, amount: 'all' }} />
                 </div>
             </div>
             <div className='right-of-user'>
@@ -48,33 +75,56 @@ const AboutUs = () => {
                 </div>
                 <div className='right-lst'>
                     <div className='menu-lst'>
-                        <div className='lst-item'>
+                        <motion.div className='lst-item'
+                            whileHover="hover"
+                            whileTap="tap"
+                            variants={hoverVariants}>
                             <img className='item-icon' src={MailImage} alt='' />
                             <a className='item-text' href="mailto:hello@iid.org.vn">hello@iid.org.vn</a>
-                        </div>
-                        <div className='lst-item'>
+                        </motion.div>
+                        <motion.div className='lst-item'
+                            whileHover="hover"
+                            whileTap="tap"
+                            variants={hoverVariants}>
                             <img className='item-icon' src={PhoneImage} alt='' />
                             <a className='item-text' href="tel:+8424888651212">+8424888651212</a>
-                        </div>
-                        <div className='lst-item'>
+                        </motion.div>
+                        <motion.div className='lst-item'
+                            whileHover="hover"
+                            whileTap="tap"
+                            variants={hoverVariants}>
                             <img className='item-icon' src={WebImage} alt='' />
                             <a className='item-text' href='https://www.facebook.com/iidvietnam' target="_blank">https://www.facebook.com/iidvietnam</a>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </div>
             <div className='privacy-legal'>
                 <div className='content'>
-                    <div className='content-box'>
+                    <motion.div className='content-box' whileHover="hover"
+                        whileTap="tap"
+                        variants={hoverVariants}>
                         <div className='title'>Privacy Policy</div>
-                        <Button className='button'>Xem chi tiết</Button>
+                        <motion.div
+                            style={{ width: '100px' }}
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}>
+                            <Button className='button'>Xem chi tiết</Button>
+                        </motion.div>
                         <img className='image' src={FirewallImage} alt='' />
-                    </div>
-                    <div className='content-box'>
+                    </motion.div>
+                    <motion.div className='content-box' whileHover="hover"
+                        whileTap="tap"
+                        variants={hoverVariants}>
                         <div className='title'>Legal notice</div>
-                        <Button className='button'>Xem chi tiết</Button>
+                        <motion.div
+                            style={{ width: '100px' }}
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}>
+                            <Button className='button'>Xem chi tiết</Button>
+                        </motion.div>
                         <img className='image' src={LayeredSecurityImage} alt='' />
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </motion.div>
