@@ -1,14 +1,12 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { Breadcrumb, Button, notification, Pagination } from 'antd';
 import { useEffect, useState } from 'react';
-import "../../App.scss";
 import QuestionAPI from '../../api/questions/question.api';
 import { ICriteria } from '../../common/u-innovate/define-criteria';
 import { IQuestion } from '../../common/u-innovate/define-question';
 import { ISetOfQuestions } from '../../common/u-innovate/define-setOfQuestions';
 import OtherTestIcon from '../../images/other-test-icon.png';
 
-import "../../App.scss";
 import Result from './Result';
 import { motion } from 'framer-motion';
 

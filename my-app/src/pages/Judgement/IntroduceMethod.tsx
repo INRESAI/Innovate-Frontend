@@ -1,5 +1,4 @@
 import { Button, notification } from 'antd';
-import "../../App.scss";
 import IntroduceMethodImg from '../../images/introduce_method.png';
 import './styles.judgement.scss';
 import { useSelectorRoot } from '../../redux/store';

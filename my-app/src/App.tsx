@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import './App.scss'
 // import CMainRouter from './components/CMainRouter';
 import { Layout } from 'antd';
 import { useLocation } from 'react-router-dom';
@@ -44,7 +45,7 @@ function App() {
             checkLogin = checkLogin.slice(1);
             checkLogin = checkLogin.slice(0, checkLogin.length - 1);
             console.log(checkLogin);
-            
+
             const req: GetUserInfoRequest = {
                 "accessToken": checkLogin,
                 "additionalProp1": {},

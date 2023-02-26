@@ -1,6 +1,5 @@
 import { Button } from 'antd'
 import { Variants, motion } from 'framer-motion'
-import "../../App.scss"
 import FirewallImage from '../../images/Firewall_image.png'
 import LayeredSecurityImage from '../../images/Layered_security_image.png'
 import AboutImage1 from '../../images/about_image_1.png'

@@ -7,12 +7,12 @@ import { useEffect, useState } from 'react'
 import "./styles.header.scss"
 // import "./styles.css";
 import { Link, useNavigate } from "react-router-dom"
-import "../../App.scss"
 // import CRegisterModal from './CRegisterModal';
 import { MenuOutlined } from '@ant-design/icons'
 import { motion } from 'framer-motion'
 import Utils from '../../common/utils'
 import UserIcon from '../../images/user_icon.png'
+import SearchIcon from '../../images/Search_Icon.png'
 import { useSelectorRoot } from '../../redux/store'
 
 
@@ -137,14 +137,15 @@ export const CHeader = (props: MyProps) => {
                     className='search-input'
                     placeholder='Tìm kiếm'
                 />
-                <SearchOutlined className='icon-search' />
+                <img src={SearchIcon} className='icon-search'></img>
+                {/* <SearchOutlined className='icon-search' /> */}
             </div>
             {!tokenLogin &&
                 <>
                     <motion.div className='header-button'
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}>
-                        <Button onClick={handleClickLogin}>Đăng ký / Đăng nhập</Button>
+                        <Button onClick={handleClickLogin}>Đăng Ký / Đăng Nhập</Button>
                     </motion.div>
                 </>
             }

@@ -67,9 +67,12 @@
             line-height: 20px;
             white-space: nowrap;
             border-radius: 20px;
-            font-weight: 400;
             font-size: 14px;
             line-height: 20px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            color: #696969;
         }
 
         .search-input:hover {
@@ -78,6 +81,9 @@
 
         .search-input:focus {
             border: 1px solid #FF9955 !important;
+            // border-color: #FF9955;
+            box-shadow: 0 0 0 1px #FF9955;
+            caret-color: #FF9955;
         }
 
         .icon-search {
@@ -85,6 +91,8 @@
             right: 15px;
             padding: 7px;
             pointer-events: none;
+            height: 30px;
+            width: 30px;
         }
     }
 
@@ -215,6 +223,7 @@
     .header-menu.login {
         display: none;
     }
+
     .menubtn.login {
         display: block;
         position: absolute;

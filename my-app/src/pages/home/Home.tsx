@@ -3,7 +3,6 @@ import { Button, notification } from 'antd';
 import { Variants, motion, useTransform, useViewportScroll } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import "../../App.scss";
 import ImageOfIntro from '../../images/home_image_1.png';
 import HowToUse from '../../images/home_image_2.png';
 import HowToUse1 from '../../images/how_to_use1.png';

@@ -3,10 +3,8 @@ import { Breadcrumb, Button, Checkbox, Form, Input, Select, Steps, message } fro
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import "../../App.scss";
 import LoginImage2 from '../../images/login-image-2.png';
 import LoginImage from '../../images/login-image.png';
-
 import { LoginRequest, RegisterRequest } from '../../common/define-identity';
 import { IFacilities, IFacilitiesList } from '../../common/u-innovate/define-facilities';
 import { IPosition } from '../../common/u-innovate/define-position';
@@ -15,14 +13,12 @@ import { checkEmailRequest, loginRequest, registerRequest } from '../../redux/co
 import { useDispatchRoot, useSelectorRoot } from '../../redux/store';
 import ActiveAccountModel from '../ActiveAccount/ActiveAccountModel';
 import './login.scss';
-
+import '../../App.scss';
 interface MyProps {
     isLogin?: boolean
 }
 
 const { Option } = Select;
-const easeIn = [0.42, 0, 1, 1];
-const easeOut = [0, 0, 0.58, 1];
 
 // Phần đăng nhập / đăng ký của trang web
 const Login = (props: MyProps) => {
@@ -281,9 +277,15 @@ const Login = (props: MyProps) => {
                                     </Form.Item>
 
                                     <Form.Item >
-                                        <Button className='button-submit' type="primary" htmlType="submit">
-                                            Đăng nhập
-                                        </Button>
+                                        <motion.div
+                                            whileHover={{ scale: 1.1 }}
+                                            whileTap={{ scale: 0.95 }}
+                                            whileFocus={{ scale: 1.1 }}
+                                        >
+                                            <Button className='button-submit' type="text" htmlType="submit">
+                                                Đăng nhập
+                                            </Button>
+                                        </motion.div>
                                     </Form.Item>
                                 </Form>
                             </motion.div>
@@ -351,9 +353,15 @@ const Login = (props: MyProps) => {
                                             </Form.Item>
 
                                             <Form.Item >
-                                                <Button className='button-submit' type="primary" htmlType="submit">
-                                                    Tiếp tục
-                                                </Button>
+                                                <motion.div
+                                                    whileHover={{ scale: 1.1 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    whileFocus={{ scale: 1.1 }}
+                                                >
+                                                    <Button className='button-submit' type="text" htmlType="submit">
+                                                        Tiếp tục
+                                                    </Button>
+                                                </motion.div>
                                             </Form.Item>
                                             <Form.Item className='step-item'>
                                                 <Steps
@@ -477,7 +485,7 @@ const Login = (props: MyProps) => {
                                                         style={{ width: '100%', marginRight: '20px' }}
                                                         whileHover={{ scale: 1.1 }}
                                                         whileTap={{ scale: 0.95 }}>
-                                                        <Button className='button-submit' type="primary" htmlType="submit" style={{ marginRight: 10 }}>
+                                                        <Button className='button-submit' type="text" htmlType="submit" style={{ marginRight: 10 }}>
                                                             Tiếp tục
                                                         </Button>
                                                     </motion.div>
@@ -585,7 +593,7 @@ const Login = (props: MyProps) => {
                                                         style={{ width: '100%', marginRight: '20px' }}
                                                         whileHover={{ scale: 1.1 }}
                                                         whileTap={{ scale: 0.95 }}>
-                                                        <Button className='button-submit' type="primary" htmlType="submit" style={{ marginRight: 10 }}>
+                                                        <Button className='button-submit' type="text" htmlType="submit" style={{ marginRight: 10 }}>
                                                             Đăng ký
                                                         </Button>
                                                     </motion.div>

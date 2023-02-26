@@ -3,7 +3,6 @@ import { ChartDonut, ChartThemeColor } from '@patternfly/react-charts';
 import { Pagination } from "antd";
 import { Variants, motion } from 'framer-motion';
 import React, { useState } from 'react';
-import "../../App.scss";
 import { ISetOfQuestions } from '../../common/u-innovate/define-setOfQuestions';
 import ResultImage from '../../images/result-image.png';
 import './styles.judgement.scss';

@@ -9,7 +9,6 @@ import Criteria5 from '../../images/criteria5.png'
 import Criteria6 from '../../images/criteria6.png'
 import Criteria7 from '../../images/criteria7.png'
 import Criteria8 from '../../images/criteria8.png'
-import "../../App.scss";
 import { motion } from 'framer-motion'
 
 

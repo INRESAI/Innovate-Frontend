@@ -169,6 +169,8 @@
                                         .ant-checkbox:focus .ant-checkbox-inner {
                                             border-color: #FF9955 !important;
                                             background-color: #FF9955 !important;
+                                            box-shadow: 0 0 0 1px #FF9955;
+                                            caret-color: #FF9955;
                                         }
 
                                         .ant-checkbox-checked .ant-checkbox-inner {
@@ -188,6 +190,8 @@
                                         .ant-checkbox:hover .ant-checkbox-inner,
                                         .ant-checkbox-input:focus+.ant-checkbox-inner {
                                             border-color: #FF9955;
+                                            box-shadow: 0 0 0 1px #FF9955;
+                                            caret-color: #FF9955;
                                         }
                                     }
                                 }
@@ -257,7 +261,8 @@
                         .ant-input.email-input:focus {
                             outline: none;
                             border: 1px solid #FF6600;
-                            box-shadow: none;
+                            box-shadow: 0 0 0 1px #FF9955;
+                            caret-color: #FF9955;
                         }
 
                         .ant-input-password:hover {
@@ -267,13 +272,12 @@
 
                         .ant-input-affix-wrapper {
                             width: 285px !important;
-
                         }
 
                         .ant-input-affix-wrapper-focused {
-                            box-shadow: none !important;
                             border: 1px solid #FF6600;
-
+                            box-shadow: 0 0 0 1px #FF9955;
+                            caret-color: #FF9955;
                         }
 
                         .button-submit {
@@ -285,7 +289,7 @@
                             font-size: 14px;
                             line-height: 20px;
                             color: #FFFFFF;
-
+                            margin: 16px 0;
                         }
 
                         .button-back {
@@ -298,6 +302,7 @@
                             background-color: white !important;
                             border: 2px solid #FF9955;
                             color: #FF9955 !important;
+                            margin: 16px 0;
                         }
 
                         .button-submit:hover {
@@ -322,6 +327,11 @@
                         #basic_PasswordRegiter,
                         #basic_ConfirmPasswordRegiter {
                             border-radius: 0px;
+                        }
+
+                        #basic_PasswordLogin:focus {
+                            box-shadow: 0 0 0 1px #FF9955;
+                            caret-color: #FF9955;
                         }
                     }
                 }
@@ -403,8 +413,10 @@
                 .ant-select-selector:focus {
                     outline: none !important;
                     border: 1px solid #FF6600 !important;
-                    box-shadow: none !important;
                     z-index: 3;
+                    box-shadow: 0 0 0 1px #FF9955 !important;
+                    caret-color: #FF9955 !important;
+
                 }
 
 
@@ -417,7 +429,8 @@
             .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
                 outline: none !important;
                 border: 1px solid #FF6600 !important;
-                box-shadow: none !important;
+                box-shadow: 0 0 0 1px #FF9955;
+                caret-color: #FF9955;
             }
 
         }
@@ -457,6 +470,12 @@
 
 .rc-virtual-list-holder {
     // max-height: 204px !important;
+}
+
+.ant-btn:active {
+    background-color: red !important;
+    color: white !important;
+    box-shadow: 0 0 0 1px #FF9955;
 }
 
 @media (min-width: 1300px) {}

@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import "../../App.scss";
 import "./styles.footer.scss";
 const hoverVariants = {
     hover: {
