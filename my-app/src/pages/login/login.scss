@@ -1,6 +1,9 @@
 .login-main {
+    font-style: normal !important;
+    font-family: 'Montserrat' !important;
     background-color: white;
     overflow-x: visible;
+    user-select: none;
 
     .back-button {
         display: flex;
@@ -28,10 +31,11 @@
 
     .content-main {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         z-index: 2;
         position: relative;
         background: #FFFFFF;
+        padding: 0px 40px;
 
         .image-of-login {
             display: flex;
@@ -46,7 +50,7 @@
             .title {
                 font-weight: 700;
                 font-size: 40px;
-                line-height: 56px;
+                line-height: 40px;
                 display: flex;
                 align-items: center;
                 background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
@@ -66,13 +70,92 @@
             }
 
             img {
-                height: 60%;
-                margin-left: 100px;
+                // height: 60%;
+                width: 80%;
+                margin-left: 150px;
             }
         }
 
         .form-login {
-            width: 30%;
+            width: 40%;
+
+            .login-content {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                width: 330px;
+                padding: 0px;
+                gap: 4px;
+                margin-top: 10px;
+
+                .title {
+                    font-family: 'Montserrat';
+                    font-style: normal;
+                    font-weight: 800;
+                    font-size: 18px;
+                    line-height: 20px;
+                    display: flex;
+                    align-items: center;
+                    color: #4E4E4E;
+                }
+
+                .content {
+                    font-family: 'Montserrat';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 16px;
+                    display: flex;
+                    align-items: center;
+                    color: #858585;
+                    margin: 10px 0;
+                }
+            }
+
+            .choose-evaluate {
+                display: flex;
+                width: 330px;
+                justify-content: space-around;
+                align-content: center;
+                align-items: center;
+                flex-direction: column;
+
+                .content-box {
+                    width: 330px;
+                    height: 180px;
+                    background-image: url("../../images/university-reviews-bg.png");
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    border-radius: 30px;
+                    position: relative;
+                    margin: 10px 0;
+                    cursor: pointer;
+
+                    .title {
+                        font-weight: 700;
+                        font-size: 18px;
+                        color: #FFFFFF;
+                        text-align: center;
+                        padding-top: 40px;
+                    }
+
+                    .sub-title {
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 20px;
+                        display: flex;
+                        align-items: center;
+                        text-align: center;
+                        color: #FFFFFF;
+                        padding: 0px 20px
+                    }
+                }
+
+                .content-box:nth-child(2) {
+                    background-image: url("../../images/local-reviews-bg.png");
+                }
+            }
 
             .container {
                 margin-left: 80px;
@@ -143,7 +226,7 @@
                         flex-direction: column;
 
                         .ant-form-item-control-input {
-                            width: 285px;
+                            width: 330px;
 
                             .ant-form-item-control-input-content {
                                 .label-login {
@@ -198,8 +281,8 @@
 
                                 .label-login.label-agreement {
                                     font-weight: 400;
-                                    font-size: 12px;
-                                    line-height: 16px;
+                                    font-size: 10px;
+                                    line-height: 14px;
                                     display: flex;
                                     align-items: center;
                                     color: #858585;
@@ -211,7 +294,7 @@
                                 }
 
                                 #basic_agreement-1 {
-                                    margin-top: 20px;
+                                    margin-top: 10px;
                                 }
 
                             }
@@ -221,6 +304,7 @@
                             text-align: start;
 
                             label {
+
                                 font-weight: 700;
                                 font-size: 12px;
                                 line-height: 24px;
@@ -242,10 +326,9 @@
                             // color: red;
                             margin-left: 10px;
                             padding-left: 5px;
-                            font-style: italic;
                             width: 285px !important;
-                            font-weight: 500;
-                            font-size: 12px;
+                            font-weight: 400;
+                            font-size: 11px;
                             line-height: 24px;
                             display: flex;
                             align-items: center;
@@ -271,7 +354,7 @@
                         }
 
                         .ant-input-affix-wrapper {
-                            width: 285px !important;
+                            width: 330px !important;
                         }
 
                         .ant-input-affix-wrapper-focused {
@@ -364,10 +447,15 @@
                 }
 
                 .step-item {
-                    margin-left: -70px;
+                    margin-left: 60px;
+                    margin-top: -10px;
 
                     .ant-steps {
+                        width: 100px;
+
                         .ant-steps-item {
+                            width: 30px;
+
                             .ant-steps-icon-dot {
                                 background-color: #FF6600 !important;
                             }
@@ -433,6 +521,34 @@
                 caret-color: #FF9955;
             }
 
+            .change-to-register {
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                justify-content: center;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                display: flex;
+                align-items: center;
+                color: #000000;
+                width: 330px;
+
+                .register {
+                    font-weight: 700;
+                    font-size: 14px;
+                    line-height: 20px;
+                    display: flex;
+                    align-items: center;
+                    background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                    text-fill-color: transparent;
+                    margin-left: 10px;
+                    cursor: pointer;
+                }
+            }
         }
 
 
@@ -478,6 +594,11 @@
     box-shadow: 0 0 0 1px #FF9955;
 }
 
+.ant-checkbox-inner {
+    width: 15px;
+    height: 15px;
+}
+
 @media (min-width: 1300px) {}
 
 @media (max-width: 1300px) {}
@@ -490,11 +611,16 @@
                 margin-top: 0px;
 
                 .title {
-                    font-size: 35px;
+                    font-size: 30px;
+                }
+
+                .sub-title {
+                    font-size: 13px;
                 }
 
                 img {
-                    width: 85%;
+                    width: 100%;
+                    margin-left: 100px;
                 }
             }
         }
@@ -505,7 +631,7 @@
 @media (max-width: 900px) {
     .login-main {
         .back-button {
-            margin-left: 30px;
+            margin-left: 70px;
         }
 
         .content-main {
@@ -528,7 +654,7 @@
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
     .login-main {
 
         .content-main {
@@ -578,6 +704,77 @@
     }
 }
 
+@media (max-width: 450px) {
+    .login-main {
+        .content-main {
+            width: 100%;
+            margin: 0;
 
+            .form-login {
+                display: flex;
+                justify-content: center;
 
-@media (max-width: 350px) {}
+                .login-content {
+                    width: 250px;
+
+                    .title {
+                        font-size: 16px;
+                    }
+
+                    .content {
+                        font-size: 11px;
+                    }
+                }
+
+                .ant-form {
+                    .ant-form-item {
+                        .ant-row {
+                            .ant-form-item-control-input {
+                                width: 250px;
+
+                                .ant-form-item-control-input-content {
+                                    .label-login {
+                                        font-size: 12px;
+                                    }
+                                }
+                            }
+
+                            .ant-input:placeholder-shown {
+                                width: 250px !important;
+                            }
+
+                            .ant-input-affix-wrapper {
+                                width: 250px !important;
+                            }
+
+                            .ant-form-item-label {
+                                label {
+                                    font-size: 12px;
+                                }
+                            }
+
+                        }
+                    }
+
+                    .remember-forgot-password {
+                        .ant-form-item-control-input-content {
+                            .forgot-password {
+                                font-size: 12px;
+                            }
+                        }
+                    }
+                }
+
+                .change-to-register {
+                    width: 250px;
+                    font-size: 10px;
+
+                    .register {
+                        font-size: 10px;
+                    }
+                }
+            }
+
+        }
+    }
+}

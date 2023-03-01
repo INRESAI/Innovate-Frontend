@@ -12,6 +12,8 @@ import { RootEpic } from "../../common/define-type";
 import { ICriteria } from "../../common/u-innovate/define-criteria";
 import { IFacilities, IFacilitiesList } from "../../common/u-innovate/define-facilities";
 import { IPosition } from "../../common/u-innovate/define-position";
+import { IAddresses } from "../../common/u-innovate/define-addresses";
+import AddressesAPI from "../../api/addresses/addresses.api";
 
 
 interface UInnovateState {
@@ -20,6 +22,9 @@ interface UInnovateState {
     positionsLst: IPosition[];
     facilitiesLst: IFacilities[];
     facilitiesLstByDescription: IFacilitiesList | null,
+    addressesLst: IAddresses[];
+    positonUniversityLst: IPosition[];
+    positonLocalLst: IPosition[];
 }
 
 const initState: UInnovateState = {
@@ -28,6 +33,9 @@ const initState: UInnovateState = {
     positionsLst: [],
     facilitiesLst: [],
     facilitiesLstByDescription: null,
+    addressesLst: [],
+    positonUniversityLst: [],
+    positonLocalLst: [],
 }
 
 const uInnovateSlice = createSlice({
@@ -62,8 +70,14 @@ const uInnovateSlice = createSlice({
             state.loading = true
         },
 
-        getAllPositionsSuccess(state, action: PayloadAction<IPosition[]>) {
+        getAllPositionsSuccess(state, action: PayloadAction<any>) {
             state.positionsLst = action.payload
+            for (let i = 0; i < action.payload.length; i++) {
+                if (action.payload[i].type === 'UINNOVATE')
+                    state.positonUniversityLst = action.payload[i].positions;
+                else if (action.payload[i].type === 'PINNOVATE')
+                    state.positonLocalLst = action.payload[i].positions;
+            }
             state.loading = false
         },
 
@@ -71,6 +85,18 @@ const uInnovateSlice = createSlice({
             state.loading = false
         },
 
+        getAllAddressesRequest(state) {
+            state.loading = true
+        },
+
+        getAllAddressesSuccess(state, action: PayloadAction<IAddresses[]>) {
+            state.addressesLst = action.payload
+            state.loading = false
+        },
+
+        getAllAddressesFail(state, action: any) {
+            state.loading = false
+        },
         // Lấy ra hết vai trò của user
         getAllFacilitiesRequest(state) {
             state.loading = true
@@ -127,6 +153,18 @@ const getAllPosition$: RootEpic = (action$) => action$.pipe(
         )
     })
 )
+const getAllAddresses$: RootEpic = (action$) => action$.pipe(
+    filter(getAllAddressesRequest.match),
+    switchMap(() => {
+        return AddressesAPI.getAllAddresses().pipe(
+            mergeMap((res: any) => {
+                console.log(res);
+                return [uInnovateSlice.actions.getAllAddressesSuccess(res.data),];
+            }),
+            catchError(err => [uInnovateSlice.actions.getAllAddressesFail(err)])
+        )
+    })
+)
 const getAllFacilities$: RootEpic = (action$) => action$.pipe(
     filter(getAllFacilitiesRequest.match),
     switchMap(() => {
@@ -156,6 +194,7 @@ export const UInnovateEpics = [
     getAllPosition$,
     getAllFacilities$,
     getAllFacilitiesByDescription$,
+    getAllAddresses$,
 ]
 export const {
     getAllPositionsRequest,
@@ -163,6 +202,7 @@ export const {
     getAllQuestionsByCriteriaIdRequest,
     getAllFacilitiesRequest,
     getAllFacilitiesByDescriptionRequest,
+    getAllAddressesRequest,
 
 } = uInnovateSlice.actions
 export const uInnovateReducer = uInnovateSlice.reducer

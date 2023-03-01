@@ -52,6 +52,9 @@ const SYSTEM_CONSTANTS = {
             GET_ALL: 'facilities',
             GET_BY_DESCRIPTION: 'facilities/byDescription'
         },
+        ADDRESSES: {
+            GET_ALL: 'addresses'
+        },
         RESULT: {
             CACULATE: 'results/answers'
         }

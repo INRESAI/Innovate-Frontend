@@ -102,7 +102,7 @@ export const CHeader = (props: MyProps) => {
     return (
         <div className='main-header'>
             <div className='header-logo'>
-                <Link to={'/'} className='logo-text'> U.innovate</Link>
+                <Link to={'/'} className='logo-text'> V.innovate</Link>
             </div>
             <Menu
                 className={`header-menu + ${tokenLogin ? 'login' : ''}`}
@@ -159,7 +159,7 @@ export const CHeader = (props: MyProps) => {
                 <Drawer
                     title={
                         <div className='header-logo'>
-                            <Link to={'/'} className='logo-text'>U.innovate</Link>
+                            <Link to={'/'} className='logo-text'>V.innovate</Link>
                         </div>
                     }
                     placement="right"
