@@ -170,7 +170,7 @@ export interface GetUserInfoRequest {
     additionalProp1: {}
 }
 export interface IUser {
-    id?: string;    
+    id?: string;
     email: string,
     name: string,
     address: string,
@@ -189,6 +189,8 @@ export interface RegisterRequest {
     name: string,
     phone: string,
     address: string,
+    type: string,
+    addressId: string,
     facilityId: string,
     positionId: string,
     additionalProp1: {}

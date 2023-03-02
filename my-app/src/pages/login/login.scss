@@ -570,7 +570,6 @@
 .ant-select-item:hover {
     background-color: #ffb17d;
     color: #FFFFFF;
-
 }
 
 .ant-select-dropdown.ant-select-dropdown-placement-bottomLeft {
@@ -597,6 +596,16 @@
 .ant-checkbox-inner {
     width: 15px;
     height: 15px;
+}
+
+.ant-select-item-option-disabled {
+    background: #DFDFDF;
+    color: #C0C0C0;
+}
+
+.ant-select-item-option-disabled:hover {
+    background-color: #DFDFDF;
+    color: #C0C0C0;
 }
 
 @media (min-width: 1300px) {}

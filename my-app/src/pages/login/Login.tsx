@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined, CaretDownOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Checkbox, Form, Input, Select, Steps, message } from 'antd';
+import { Breadcrumb, Button, Checkbox, Form, Input, Select, Steps, message, notification } from 'antd';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -59,7 +59,10 @@ const Login = (props: MyProps) => {
     const [userPositionId, setUserPositionId] = useState<string>('');
     const [userLocalId, setUserLocalId] = useState<string>('');
     const [userPositionLocalId, setUserPositionLocalId] = useState<string>('');
-
+    const [positionIdStudent, setPositionIdStudent] = useState<string>('63bfc266919bbb3754b7162a')
+    const [positionIdStaffInChange, setPositionIdStaffInChange] = useState<string>('63fed41004d0683c30798352')
+    const [positionIdStaffInChangeStartUp, setPositionIdStaffInChangeStartUp] = useState<string>('63ff17abe3784121fb227fc0')
+    const [isMailEdu, setIsMailEdu] = useState<boolean>(false);
     const [checkFacility, setCheckFacility] = useState<number>(0);
     const [checkClickTypeOfFacility, setCheckClickTypeOfFacility] = useState<boolean>(false);
     const [checkClickFacility, setCheckClickFacility] = useState<boolean>(false);
@@ -130,6 +133,39 @@ const Login = (props: MyProps) => {
         }
     }, [registerSuccess])
 
+    useEffect(() => {
+        if (checkClickUniversityReview) {
+            if (userEmail && !userEmail.includes("edu.vn")) {
+                notification['info']({
+                    message: 'Email cung cấp không có đuôi edu.vn',
+                    description: 'Bạn không thể lựa chọn vai trò cán bộ/giảng viên/cán bộ chuyên trách nếu không cung cấp email có đuôi edu.vn',
+                    duration: 3,
+                    style: {
+                        width: '50%',
+                        marginTop: '-50px'
+                    }
+                });
+            }
+            if (userEmail && userEmail.includes("edu.vn")) setIsMailEdu(true);
+
+        }
+        else if (checkClickLocalReview) {
+            if (userEmail && !userEmail.includes("gov.vn")) {
+                notification['info']({
+                    message: 'Email cung cấp không có đuôi gov.vn',
+                    description: 'Bạn không thể lựa chọn vai trò cán bộ chuyên trách nếu không cung cấp email có đuôi gov.vn',
+                    duration: 3,
+                    style: {
+                        width: '50%',
+                        marginTop: '-50px'
+                    }
+                });
+            }
+            if (userEmail && userEmail.includes("gov.vn")) setIsMailEdu(true);
+        }
+        console.log(isMailEdu);
+    }, [userEmail])
+
     // Hàm thực hiện lưu thông tin của trang đầu tiên của đăng ký
     const handleClickFirstStep = async (res: any): Promise<any> => {
         console.log(res);
@@ -169,7 +205,7 @@ const Login = (props: MyProps) => {
 
     // Hàm thực hiện lưu thông tin của trang thứ 2 của đăng ký
     const handleClickSecondStep = async (res: any): Promise<any> => {
-
+        console.log(res);
         if (checkClickUniversityReview) {
             if (checkFacility === 1)
                 setUserFacilityId(res.userFacilityUniversitiesId);
@@ -188,20 +224,48 @@ const Login = (props: MyProps) => {
     // Hàm thực hiện khi đã hoàn thành form đăng ký
     const onFinishRegister = async (): Promise<any> => {
 
-        const req: RegisterRequest = {
-            "email": userEmail,
-            "password": userPassword,
-            "confirmPassword": userConfirmPassword,
-            "name": userName,
-            "phone": "string",
-            "address": "string",
-            "facilityId": userFacilityId,
-            "positionId": userPositionId,
-            "additionalProp1": {}
-        };
-        dispatch(registerRequest(req));
-        // setIsLogin(!isLogin)
-        // dispatch(re(req));
+        let type = "";
+        if (userPositionId !== positionIdStaffInChange) {
+            type = "UINNOVATE";
+        }
+        else if (userPositionId === positionIdStaffInChange) {
+            type = "UIMPACT";
+        }
+        if (userPositionLocalId) {
+            type = "PINNOVATE";
+        }
+        if (userPositionId) {
+            const req: RegisterRequest = {
+                "email": userEmail,
+                "password": userPassword,
+                "confirmPassword": userConfirmPassword,
+                "name": userName,
+                "phone": "string",
+                "address": "string",
+                "type": type,
+                "addressId": userLocalId,
+                "facilityId": userFacilityId,
+                "positionId": userPositionId,
+                "additionalProp1": {}
+            };
+            dispatch(registerRequest(req));
+        }
+        else {
+            const req: RegisterRequest = {
+                "email": userEmail,
+                "password": userPassword,
+                "confirmPassword": userConfirmPassword,
+                "name": userName,
+                "phone": "string",
+                "address": "string",
+                "type": type,
+                "addressId": userLocalId,
+                "facilityId": userFacilityId,
+                "positionId": userPositionLocalId,
+                "additionalProp1": {}
+            };
+            dispatch(registerRequest(req));
+        }
     }
     // Hàm thực hiện khi đã hoàn thành form đăng nhập
     const onFinishLogin = async (account: any): Promise<any> => {
@@ -241,12 +305,14 @@ const Login = (props: MyProps) => {
         setCheckClickUniversityReview(true);
         setCheckBeginFrom(false);
         setCurrentUniversity(0);
+        setIsMailEdu(false);
     }
 
     const handleClickLocalReview = () => {
         setCheckClickLocalReview(true);
         setCurrentLocal(0);
         setCheckBeginFrom(false);
+        setIsMailEdu(false);
     }
 
     return (
@@ -594,7 +660,12 @@ const Login = (props: MyProps) => {
                                                             onDropdownVisibleChange={handlePositionVisibleChange}
                                                         >
                                                             {lstPositonUniversity.map((index) => (
-                                                                <Option value={index.id}>{index.name}</Option>
+                                                                <>
+                                                                    {index.id === positionIdStudent && <Option value={index.id}>{index.name}</Option>}
+                                                                    {(index.id !== positionIdStudent && isMailEdu) && <Option value={index.id}>{index.name}</Option>}
+                                                                    {(index.id !== positionIdStudent && !isMailEdu) && <Option value={index.id} disabled>{index.name}</Option>}
+                                                                </>
+                                                                // <Option value={index.id}>{index.name}</Option>
                                                             ))}
                                                         </Select>
                                                     </Form.Item>
@@ -633,7 +704,7 @@ const Login = (props: MyProps) => {
                                                 </Form.Item>
                                             </Form>
                                         </motion.div>}
-                                    {(currentUniversity === 2 && userPositionId !== "63fed41004d0683c30798352") &&
+                                    {(currentUniversity === 2 && userPositionId !== positionIdStaffInChange) &&
                                         <motion.div
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
@@ -757,7 +828,7 @@ const Login = (props: MyProps) => {
                                             </Form>
                                         </motion.div>
                                     }
-                                    {(currentUniversity === 2 && userPositionId === "63fed41004d0683c30798352") &&
+                                    {(currentUniversity === 2 && userPositionId === positionIdStaffInChange) &&
                                         <motion.div
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
@@ -964,7 +1035,7 @@ const Login = (props: MyProps) => {
                                                     <Steps
                                                         direction='horizontal'
                                                         progressDot
-                                                        current={currentUniversity}
+                                                        current={currentLocal}
                                                         items={[{}, {}, {},]}
                                                     />
                                                 </Form.Item>
@@ -1030,7 +1101,11 @@ const Login = (props: MyProps) => {
                                                             onDropdownVisibleChange={handlePositionVisibleChange}
                                                         >
                                                             {lstPositonLocal.map((index) => (
-                                                                <Option value={index.id}>{index.name}</Option>
+                                                                <>
+                                                                    {(index.id !== positionIdStaffInChangeStartUp) && <Option value={index.id}>{index.name}</Option>}
+                                                                    {(index.id === positionIdStaffInChangeStartUp && isMailEdu) && <Option value={index.id}>{index.name}</Option>}
+                                                                    {(index.id === positionIdStaffInChangeStartUp && !isMailEdu) && <Option value={index.id} disabled>{index.name}</Option>}
+                                                                </>
                                                             ))}
                                                         </Select>
                                                     </Form.Item>
@@ -1063,13 +1138,13 @@ const Login = (props: MyProps) => {
                                                 <Form.Item className='step-item'>
                                                     <Steps
                                                         progressDot
-                                                        current={currentUniversity}
+                                                        current={currentLocal}
                                                         items={[{}, {}, {},]}
                                                     />
                                                 </Form.Item>
                                             </Form>
                                         </motion.div>}
-                                    {(currentUniversity === 2 && userPositionId !== "63fed41004d0683c30798352") &&
+                                    {(currentLocal === 2 && userPositionLocalId === positionIdStaffInChangeStartUp) &&
                                         <motion.div
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
@@ -1089,14 +1164,14 @@ const Login = (props: MyProps) => {
 
                                             >
                                                 <Form.Item
-                                                    label="Anh/chị thuộc Khoa/Viện nào tại cơ sở đào tạo?"
+                                                    label="Anh/chị thuộc Sở, ban ngành nào?"
                                                     name="FinalInfo-1"
                                                     rules={[{ required: true, message: 'Vui lòng nhập thông tin!' }]}
                                                 >
                                                     <Input className='email-input' placeholder='Nhập câu trả lời' />
                                                 </Form.Item>
                                                 <Form.Item
-                                                    label="Vai trò của anh/chị tại Cơ sở đào tạo? "
+                                                    label="Vai trò của anh/chị tại cơ quan của mình? "
                                                     name="FinalInfo-2"
                                                     rules={[{ required: true, message: 'Vui lòng nhập thông tin!' }]}
                                                 >
@@ -1186,14 +1261,14 @@ const Login = (props: MyProps) => {
                                                 <Form.Item className='step-item'>
                                                     <Steps
                                                         progressDot
-                                                        current={currentUniversity}
+                                                        current={currentLocal}
                                                         items={[{}, {}, {},]}
                                                     />
                                                 </Form.Item>
                                             </Form>
                                         </motion.div>
                                     }
-                                    {(currentUniversity === 2 && userPositionId === "63fed41004d0683c30798352") &&
+                                    {(currentLocal === 2 && userPositionLocalId !== positionIdStaffInChangeStartUp) &&
                                         <motion.div
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
@@ -1311,7 +1386,7 @@ const Login = (props: MyProps) => {
                                                 <Form.Item className='step-item'>
                                                     <Steps
                                                         progressDot
-                                                        current={currentUniversity}
+                                                        current={currentLocal}
                                                         items={[{}, {}, {},]}
                                                     />
                                                 </Form.Item>

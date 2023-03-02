@@ -140,7 +140,7 @@ const loginSlice = createSlice({
             }
         },
         checkEmailFailed(state, action: PayloadAction<boolean>) {
-            state.loading = action.payload; 
+            state.loading = action.payload;
         },
         checkActiveAccountRequest: (state, action: PayloadAction<ActiveAccountRequest>) => {
             state.loading = true;
@@ -183,7 +183,7 @@ const loginSlice = createSlice({
                     }
                 });
             }
-            
+
         },
         checkActiveAccountFailed(state, action: PayloadAction<boolean>) {
             state.loading = action.payload;
@@ -331,6 +331,8 @@ const register$: RootEpic = (action$) => action$.pipe(
             "name": re.payload.name,
             "phone": re.payload.phone,
             "address": re.payload.address,
+            "type": re.payload.type,
+            "addressId": re.payload.addressId,
             "facilityId": re.payload.facilityId,
             "positionId": re.payload.positionId,
             "additionalProp1": {}
