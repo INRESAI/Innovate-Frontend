@@ -7,12 +7,11 @@
     width: 100%;
     background: white;
     z-index: 100;
-    font-family: 'Montserrat';
-    font-style: normal;
+    font-family: 'Montserrat' !important;
+    font-style: normal !important;
     display: flex;
     align-items: center;
     padding: 10px 100px;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
 
     .header-logo {
         .logo-text {
@@ -228,6 +227,12 @@
         display: block;
         position: absolute;
         right: 20px;
+    }
+}
+
+@media (max-width: 900px) {
+    .main-header {
+        padding: 10px 25px;
     }
 }
 

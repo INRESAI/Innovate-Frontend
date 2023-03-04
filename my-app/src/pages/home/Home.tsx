@@ -84,11 +84,13 @@ const Home = () => {
         >
             <div className='intro-part'>
                 <div className='text-of-intro'>
-                    <div className='title' >Tổ chức Giáo dục Đại học của bạn đã chuẩn bị sẵn sàng cho những thách thức trong tương lai chưa?</div>
-                    <div className='detail'>Quốc gia khởi nghiệp là một trong những ưu tiên phát triển của Việt Nam từ năm 2016 đến nay. Nhiều chương trình quốc gia đã được phê duyệt và triển khai sâu rộng trên toàn quốc như đề án 844, 1665, 939. Trường đại học, cao đẳng cần là cốt lõi cho hệ sinh thái khởi nghiệp, đổi mới sáng tạo quốc gia, vì ở đó là nơi tạo ra tri thức, chia sẻ tri thức, cũng như phát triển nhân tài cho đổi mới sáng tạo và khởi nghiệp.</div>
-                    <div>
-                        <Button className='button-start' onClick={handleOnClick}>Đến trang đánh giá</Button>
-                    </div>
+                    <div className='title' >Tổ chức Giáo dục Đại học của bạn đã chuẩn bị sẵn sàng cho những thách thức trong tương lai chưa? </div>
+                    <div className='detail'>Viện Nghiên cứu Đổi mới và Phát triển (IID), được thành lập năm từ năm 2017, là một viện nghiên cứu dựa trên nền tảng công nghệ, dữ liệu và mạng lưới kết nối toàn cầu để theo đuổi sứ mệnh trở thành một là một tổ chức trung gian, xây dựng hệ sinh thái góp phần tạo ra sân chơi cho những học giả và ươm tạo nhân tài trẻ góp phần thúc đẩy khu vực sáng tạo và kinh doanh tạo tác động xã hội Việt Nam.</div>
+                    <motion.div className='home-button'
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}>
+                        <Button onClick={handleOnClick}>Đến trang đánh giá</Button>
+                    </motion.div>
                 </div>
                 <div className='image-of-intro'>
                     <motion.img src={ImageOfIntro} alt=''
@@ -99,10 +101,45 @@ const Home = () => {
                     />
                 </div>
             </div>
-            <div className='right-of-user'>
-                <div className='title'>
-                    Quyền lợi khi sử dụng U.innovate
+            <div className='tool-of-web'>
+                <div className="title">Công cụ đánh giá của V.innovate</div>
+                <div className="subtitle">Đây là một nền tảng chuyên về đánh giá, xếp hạng các trường đại học, cao đẳng; tỉnh thành phố về đổi mới sáng tạo, khởi nghiệp và tạo tác động </div>
+                <div className="lst-tool">
+                    <motion.div
+                        className="tool"
+                        whileHover="hover"
+                        whileTap="tap"
+                        variants={hoverVariants}>
+                        <div className="tool-title">U.INNOVATE</div>
+                        <div className="tool-subtitle">Bộ tiêu chí đánh giá trường đại học khởi nghiệp</div>
+                        <Button className="btn-tool">BẮT ĐẦU ĐÁNH GIÁ</Button>
+                    </motion.div>
+                    <motion.div
+                        className="tool"
+                        whileHover="hover"
+                        whileTap="tap"
+                        variants={hoverVariants}>
+                        <div className="tool-title">U.IMPACT</div>
+                        <div className="tool-subtitle">Bộ tiêu chí đánh giá trường đại học tạo tác động xã hội</div>
+                        <Button className="btn-tool">BẮT ĐẦU ĐÁNH GIÁ</Button>
+                    </motion.div>
+                    <motion.div
+                        className="tool"
+                        whileHover="hover"
+                        whileTap="tap"
+                        variants={hoverVariants}>
+                        <div className="tool-title">P.INNOVATE</div>
+                        <div className="tool-subtitle">Bộ tiêu chí đánh giá khởi nghiệp tại địa phương</div>
+                        <Button className="btn-tool">BẮT ĐẦU ĐÁNH GIÁ</Button>
+                    </motion.div>
+
                 </div>
+            </div>
+            {/* <div className='right-of-user'>
+                <div className='title'>
+                    Công cụ đánh giá của V.innovate
+                </div>
+                <div className="subtitle">Đây là một nền tảng chuyên về đánh giá, xếp hạng các trường đại học, cao đẳng; tỉnh thành phố về đổi mới sáng tạo, khởi nghiệp và tạo tác động </div>
                 <div className='right-lst'>
                     <motion.div
                         className='lst-item'
@@ -146,7 +183,7 @@ const Home = () => {
                     </motion.div>
 
                 </div>
-            </div>
+            </div> */}
             <div className='how-to-use'>
                 <div className='tutorial-image'>
                     <motion.img src={HowToUse} alt=''
