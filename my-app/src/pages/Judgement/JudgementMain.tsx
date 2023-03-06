@@ -12,13 +12,13 @@ import './styles.judgement.scss'
 import { ICriteria } from '../../common/u-innovate/define-criteria'
 
 const JudgementMain = () => {
-    const [isShowIntro, setIsShowIntro] = useState(true);
-    const [isShowCriteria, setIsShowCriteria] = useState(false);
+    const [isShowIntro, setIsShowIntro] = useState(false); // true
+    const [isShowCriteria, setIsShowCriteria] = useState(true); // false
     const [isShowTest, setIsShowTest] = useState(false);
     const [isShowMoreTest, setIsShowMoreTest] = useState(false);
     const [criteriaLst, setCriteriaLst] = useState<any>();
     const [questionLst, setQuestionLst] = useState<ISetOfQuestions[]>();
-    const [choseCriteria,setChoseCriteria] = useState<ICriteria>(); // Luu lai Criteria duoc chon o giao dien danh sach Criteria. Sau do truyen vao giao dien lam test
+    const [choseCriteria, setChoseCriteria] = useState<ICriteria>(); // Luu lai Criteria duoc chon o giao dien danh sach Criteria. Sau do truyen vao giao dien lam test
 
     //Dung useSelector lay ra 2 lst criteriaLst va questionByCriteriaLst
     // const { criteriaLst } = useSelectorRoot((state) => state.uinnovate);
@@ -33,21 +33,21 @@ const JudgementMain = () => {
     // },[])
 
     const tranferFromIntroToCriteria = async () => {
-        await CriteriaAPI.alternativeGetAllCriteria().then((res: any)=>{
+        await CriteriaAPI.alternativeGetAllCriteria().then((res: any) => {
             console.log(res)
             // dispatch(sendAnswersRequest(data.data))
             setCriteriaLst(res.data.data)
-            
+
             console.log(criteriaLst)
 
         })
         console.log('baka');
-        
+
         setIsShowIntro(false);
         setIsShowCriteria(true);
     }
 
-    const tranferFromCriteriaToTest =  async (criteria: ICriteria) => { // chuyen tu man chon tieu chi sang man lam bai test
+    const tranferFromCriteriaToTest = async (criteria: ICriteria) => { // chuyen tu man chon tieu chi sang man lam bai test
         //Call API get danh sach question theo criteriaId
         let responseOfFirstAPI: any;
         let responseOfSecondAPI;
@@ -56,12 +56,12 @@ const JudgementMain = () => {
         setChoseCriteria(criteria);
 
 
-        await QuestionAPI.getAllQuestionByCriteriaId(criteria.id).then((res: any)=>{ // Lay tat ca bo cau hoi (moi bo cau hoi gom nhieu cau hoi) cua tieu chi duoc chon
+        await QuestionAPI.getAllQuestionByCriteriaId(criteria.id).then((res: any) => { // Lay tat ca bo cau hoi (moi bo cau hoi gom nhieu cau hoi) cua tieu chi duoc chon
             console.log(res)
             responseOfFirstAPI = res.data.data;
         })
 
-        await QuestionAPI.getAllAnswer().then((res: any)=>{
+        await QuestionAPI.getAllAnswer().then((res: any) => {
             responseOfFirstAPI.map((item: any) => { // Mapper form of data from API to form of Frontend data
                 const newItem: ISetOfQuestions = {
                     id: item.setOfQuestions._id,
@@ -115,7 +115,8 @@ const JudgementMain = () => {
                 />
             }
             {
-                criteriaLst && isShowCriteria &&
+                // criteriaLst && isShowCriteria &&
+                isShowCriteria &&
                 <JudgementCriteriaOptions
                     tranferFromCriteriaToTest={tranferFromCriteriaToTest}
                     revertToIntro={revertToIntro}

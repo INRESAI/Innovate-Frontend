@@ -3,6 +3,7 @@ import IntroduceMethodImg from '../../images/introduce_method.png';
 import './styles.judgement.scss';
 import { useSelectorRoot } from '../../redux/store';
 import { Variants, motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 interface MyProps {
     tranferFromIntroToCriteria: () => void
@@ -24,6 +25,14 @@ const imageVariants: Variants = {
 };
 const IntroduceMethod = (props: MyProps) => {
     const { tokenLogin, user } = useSelectorRoot((state) => state.login);
+    const [role, setRole] = useState<string>('PINNOVATE');
+
+    useEffect(() => {
+        const btnDiv = document.getElementById("btn-intro-part") as HTMLElement;
+        (role === "UINNOVATE" && !btnDiv.classList.contains("UINNOVATE")) && btnDiv.classList.add("UINNOVATE");
+        (role === "UIMPACT" && !btnDiv.classList.contains("UIMPACT")) && btnDiv.classList.add("UIMPACT");
+        (role === "PINNOVATE" && !btnDiv.classList.contains("PINNOVATE")) && btnDiv.classList.add("PINNOVATE");
+    })
 
     const handleOnClick = () => {
         if (tokenLogin)
@@ -37,6 +46,7 @@ const IntroduceMethod = (props: MyProps) => {
             });
     }
     return (
+
         <div className='intro-part'>
             <div className='text-of-intro'>
                 <div className='title'>Giới thiệu, phương pháp được sử dụng trong bảng khảo sát</div>
@@ -47,11 +57,12 @@ const IntroduceMethod = (props: MyProps) => {
                     Để bắt đầu tự đánh giá, hãy chọn một trong 8 tiêu chí. Bằng cách nhấp vào sơ đồ, bạn sẽ được đưa đến tiêu chí đã chọn của U.innovate. Trong mỗi khía cạnh, các câu lệnh đã được thiết kế để bạn có thể đánh giá chúng theo 3 mức độ (không quan sát được, quan sát được một phần, quan sát toàn phần). Vui lòng sử dụng thanh trượt bên dưới các câu để ghi điểm.
                 </div>
                 <motion.div
-                    className='button-start'
+
+                    className='button-start btn-intro-part'
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                 >
-                    <Button onClick={handleOnClick} >BẮT ĐẦU TỰ ĐÁNH GIÁ</Button>
+                    <Button id='btn-intro-part' onClick={handleOnClick} >BẮT ĐẦU TỰ ĐÁNH GIÁ</Button>
                 </motion.div>
             </div>
             <div className='image-of-intro'><motion.img src={IntroduceMethodImg} alt=''

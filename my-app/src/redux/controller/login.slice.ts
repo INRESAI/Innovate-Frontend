@@ -361,12 +361,12 @@ const getUserInfo$: RootEpic = (action$) => action$.pipe(
     filter(getUserInfoRequest.match),
     switchMap((re) => {
         console.log(re);
-        const body: GetUserInfoRequest = {
-            "accessToken": re.payload.accessToken,
-            "additionalProp1": {}
-        };
-
-        return IdentityApi.getUserInfo(body).pipe(
+        // const body: GetUserInfoRequest = {
+        //     "accessToken": re.payload.accessToken,
+        //     "additionalProp1": {}
+        // };
+        // const token = 
+        return IdentityApi.getUserInfo(re.payload.accessToken).pipe(
             mergeMap((res: any) => {
                 console.log(res);
                 const token = res.data.accessToken;
@@ -375,8 +375,9 @@ const getUserInfo$: RootEpic = (action$) => action$.pipe(
                     email: res.data.email,
                     name: res.data.name,
                     address: res.data.address,
-                    facilityId: res.data.facilityId,
-                    positionId: res.data.positionId,
+                    type: res.data.type,
+                    position: res.data.position,
+                    facility: res.data.facility,
                 };
                 console.log(user);
                 return [

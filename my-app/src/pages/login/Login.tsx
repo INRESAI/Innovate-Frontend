@@ -61,7 +61,7 @@ const Login = (props: MyProps) => {
     const [userPositionLocalId, setUserPositionLocalId] = useState<string>('');
     const [positionIdStudent, setPositionIdStudent] = useState<string>('63bfc266919bbb3754b7162a')
     const [positionIdStaffInChange, setPositionIdStaffInChange] = useState<string>('63fed41004d0683c30798352')
-    const [positionIdStaffInChangeStartUp, setPositionIdStaffInChangeStartUp] = useState<string>('63ff17abe3784121fb227fc0')
+    const [positionIdStaffInChangeStartUp, setPositionIdStaffInChangeStartUp] = useState<string>('63ff07c04b0a045eb0d8c39d')
     const [isMailEdu, setIsMailEdu] = useState<boolean>(false);
     const [checkFacility, setCheckFacility] = useState<number>(0);
     const [checkClickTypeOfFacility, setCheckClickTypeOfFacility] = useState<boolean>(false);

@@ -153,6 +153,20 @@ export const CHeader = (props: MyProps) => {
                 <Dropdown menu={{ items }} placement="bottomLeft" arrow>
                     <Avatar className='header-avatar' src={UserIcon} />
                 </Dropdown>
+                //                 <div className='header-avatar-content' style={{ display: 'flex', alignItems: 'center' }}>
+                //     <Avatar size={32} icon={<UserOutlined />} style={{ marginRight: '12px' }} />
+                //     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flex: 1 }}>
+                //         <div className='header-avatar-right'>
+                //             <div>{user?.name}</div>
+                //             <div>{user?.email}</div>
+                //         </div>
+                //         <Dropdown overlay={menu}>
+                //             <a href="/" style={{ marginLeft: '12px' }}>
+                //                 More
+                //             </a>
+                //         </Dropdown>
+                //     </div>
+                // </div>
             }
             <>
                 <Button className={`menubtn + ${tokenLogin ? 'login' : ''}`} type="primary" shape="circle" icon={<MenuOutlined />} onClick={showDrawer} ></Button>

@@ -60,10 +60,14 @@
             align-items: center;
             margin-right: 20px;
             width: 50%;
+            // margin-bottom: 100px;
+            padding-bottom: 100px;
 
             img {
                 margin-top: 200px;
                 width: 100%;
+                // padding-bottom: 50px;
+                // margin-bottom: 50px;
             }
         }
     }
@@ -77,6 +81,7 @@
         background: #FFF6EE;
         padding-bottom: 50px;
         border-radius: 30px;
+        margin-bottom: -10px;
 
         .title {
             margin-top: 50px;
@@ -103,8 +108,8 @@
             width: 100%;
 
             .tool {
-                width: 261.33px;
-                height: 280px;
+                width: calc(361.33px + 50px);
+                height: calc(380px + 50px);
                 background-repeat: no-repeat;
                 background-size: cover;
                 cursor: pointer;
@@ -114,15 +119,15 @@
 
                 .tool-title {
                     font-weight: 700;
-                    font-size: 20px;
+                    font-size: 40px;
                     text-align: center;
                     color: #FFFFFF;
-                    padding-top: 100px;
+                    padding-top: 200px;
                 }
 
                 .tool-subtitle {
                     font-weight: 500;
-                    font-size: 14px;
+                    font-size: 20px;
                     text-align: center;
                     color: #FFFFFF;
                     padding: 0px 30px;
@@ -134,7 +139,7 @@
                     border: 2px solid #FFFFFF;
                     border-radius: 30px;
                     font-weight: 700;
-                    font-size: 12px;
+                    font-size: 14px;
                     line-height: 20px;
                     display: flex;
                     align-items: center;
@@ -291,16 +296,20 @@
             display: flex;
             justify-content: start;
             align-items: center;
-            margin-top: -70px;
+            margin-top: -100px;
             margin-right: -100px;
+            width: 50%;
 
             img {
-                height: 80%;
+                height: 700px;
+                width: 700px;
+                margin-left: -50px;
             }
         }
 
         .content {
             margin-top: 30px;
+            width: 55%;
 
             .title {
                 font-weight: 700;
@@ -310,35 +319,156 @@
 
             .subtitle {
                 font-weight: 500;
-                font-size: 20px;
-                color: #4E4E4E;
+                font-size: 14px;
+                line-height: 24px;
+                color: #858585;
             }
 
             .step-lst {
-                .lst-item {
+                .row-item {
                     display: flex;
+                    justify-content: space-between;
                     align-items: center;
-                    margin: 20px 0px;
 
-                    .img-item {
-                        margin-right: 20px;
-                    }
+                    .item-lst {
+                        position: relative;
+                        background: radial-gradient(53.88% 53.88% at 50% 50%, #FFECE5 0%, rgba(255, 236, 229, 0) 100%);
+                        // filter: drop-shadow(1px 10px 100px rgba(255, 153, 85, 0.15));
+                        box-shadow: 1px 10px 100px rgba(255, 153, 85, 0.15);
+                        border-radius: 30px;
+                        width: 350px;
+                        height: 200px;
+                        margin: 30px;
+                        padding: 50px;
+                        margin-left: 0px;
+                        cursor: pointer;
 
-                    .text-item {
-                        font-weight: 500;
-                        font-size: 14px;
-                        color: #4E4E4E;
+                        .item-title {
+                            font-weight: 700;
+                            font-size: 14px;
+                            line-height: 20px;
+                            display: flex;
+                            align-items: center;
+                            color: #FE8B60;
+                        }
 
+                        .item-sub-title {
+                            font-weight: 500;
+                            font-size: 12px;
+                            line-height: 24px;
+                            display: flex;
+                            align-items: center;
+                            color: #858585;
+                        }
+
+                        .item-img {
+                            position: absolute;
+                            top: -25px;
+                            right: 0;
+                        }
                     }
                 }
             }
         }
     }
 
-    .gmap_iframe {
-        height: 500px;
-        width: 100%;
-        border-radius: 40px;
+    .tutorial {
+        .tutorial-title {
+            font-weight: 700;
+            font-size: 30px;
+            line-height: 56px;
+            color: #1E1E1E;
+            text-align: center;
+        }
+
+        .tutorial-sub-title {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 24px;
+            text-align: center;
+            color: #858585;
+            padding: 0px 150px;
+        }
+
+        .first-tutorial {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .f-t-left {
+                margin: 0px 75px;
+
+                .f-t-l-item {
+                    display: flex;
+                    align-items: center;
+                    position: relative;
+                    background: radial-gradient(53.88% 53.88% at 50% 50%, #FFECE5 0%, rgba(255, 236, 229, 0) 100%);
+                    box-shadow: 1px 10px 100px rgb(255 153 85 / 15%);
+                    border-radius: 30px;
+                    width: 500px;
+                    height: 100px;
+                    padding: 10px;
+                    margin-left: 50px;
+                    margin-bottom: 20px;
+                    cursor: pointer;
+
+                    .f-t-l-t-icon {
+                        position: absolute;
+                        top: -20px;
+                        left: -33px;
+                        height: 80px;
+                        width: 80px;
+                    }
+
+                    .f-t-l-t-content {
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 32px;
+                        display: flex;
+                        align-items: center;
+                        color: #858585;
+                        margin-left: 40px;
+                    }
+                }
+
+                .f-t-l-item.long-item {
+                    height: 300px;
+                }
+            }
+
+            .f-t-right {
+                img {
+                    cursor: pointer;
+                    width: 100%;
+                }
+            }
+
+        }
+    }
+
+    .map-user {
+        .map-title {
+            font-weight: 700;
+            font-size: 30px;
+            text-align: center;
+            color: #1E1E1E;
+        }
+
+        .map-sub-title {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 24px;
+            text-align: center;
+            color: #858585;
+        }
+
+        .gmap_iframe {
+            height: 600px;
+            width: 100%;
+            border-radius: 40px;
+            // margin: 50px;
+            padding: 50px;
+        }
     }
 
     .our-partner {
@@ -355,6 +485,14 @@
             font-size: 30px;
             line-height: 56px;
             color: #1E1E1E;
+        }
+
+        .sub-title {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 24px;
+            text-align: center;
+            color: #858585;
         }
 
         .partner-lst {
@@ -390,10 +528,27 @@
 @media (max-width: 1300px) {
     .main-home {
         .intro-part {
-
             .image-of-intro {
                 img {
                     margin-left: -275px !important;
+                }
+            }
+        }
+
+        .tool-of-web {
+            .lst-tool {
+                .tool {
+                    width: calc(361.33px - 50px);
+                    height: calc(380px - 50px);
+
+                    .tool-title {
+                        font-size: 30px;
+                        padding-top: 150px;
+                    }
+
+                    .tool-subtitle {
+                        font-size: 14px;
+                    }
                 }
             }
         }
@@ -446,8 +601,44 @@
                 margin-right: -0px;
 
                 img {
-                    height: 60%;
                     margin-right: -300px;
+                    height: 600px;
+                    width: 600px;
+                }
+            }
+
+            .content {
+                .step-lst {
+                    .row-item {
+                        .item-lst {
+                            height: 300px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .tutorial {
+
+            .first-tutorial {
+                .f-t-right {
+                    margin-left: -100px;
+                }
+
+                .f-t-left {
+                    .f-t-l-item {}
+                }
+            }
+
+            .first-tutorial.second-tutorial {
+                .f-t-right {
+                    margin-top: -50px;
+                    margin-right: -200px;
+                    margin-left: 0px;
+                }
+
+                .f-t-left {
+                    .f-t-l-item {}
                 }
             }
         }
@@ -489,6 +680,18 @@
         .how-to-use {
             .tutorial-image {
                 display: none !important;
+            }
+
+            .content {
+                width: 100%;
+
+                .step-lst {
+                    .row-item {
+                        .item-lst {
+                            height: 200px;
+                        }
+                    }
+                }
             }
         }
 
@@ -563,6 +766,33 @@
                 }
             }
         }
+
+        .tutorial {
+            .tutorial-sub-title {
+                padding: 0px 50px;
+            }
+
+            .first-tutorial {
+                .f-t-right {
+                    // width: 100%;
+                    display: none;
+                }
+
+                .f-t-left {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+
+                    .f-t-l-item {
+                        margin-left: 0px;
+                        width: 100%;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -586,6 +816,21 @@
 
                     .btn-tool {
                         font-size: 10px;
+                    }
+                }
+            }
+        }
+
+        .how-to-use {
+            .content {
+                width: 100%;
+
+                .step-lst {
+                    .row-item {
+                        .item-lst {
+                            height: 300px;
+                            padding: 30px;
+                        }
                     }
                 }
             }
@@ -700,6 +945,26 @@
             }
         }
 
+        .tutorial {
+            .tutorial-title {
+                font-size: 20px;
+            }
+
+            .tutorial-sub-title {
+                font-size: 12px;
+            }
+
+            .first-tutorial {
+                .f-t-left {
+                    .f-t-l-item {
+                        .f-t-l-t-content {
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+        }
+
         .our-partner {
             .title {
                 font-size: 25px;
@@ -736,6 +1001,67 @@
                     }
                 }
 
+            }
+        }
+
+        .how-to-use {
+            .content {
+                width: 100%;
+
+                .step-lst {
+                    .row-item {
+                        display: flex;
+                        flex-direction: column;
+
+                        .item-lst {
+                            height: 150px;
+                            padding-left: 50px;
+                            margin: 10px;
+
+                            .item-title {
+                                font-size: 12px;
+                            }
+
+                            .item-sub-title {
+                                font-size: 10px;
+                            }
+
+                            .item-img {
+                                display: none;
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .tutorial {
+            .tutorial-title {
+                font-size: 20px;
+            }
+
+            .tutorial-sub-title {
+                font-size: 12px;
+            }
+
+            .first-tutorial {
+                .f-t-left {
+                    margin: 0px 20px;
+
+                    .f-t-l-item {
+                        padding: 0px;
+                        margin: 5px;
+
+                        .f-t-l-t-icon {
+                            display: none;
+                        }
+
+                        .f-t-l-t-content {
+                            font-size: 10px;
+                        }
+                    }
+                }
             }
         }
     }

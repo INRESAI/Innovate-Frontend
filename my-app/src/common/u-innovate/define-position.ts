@@ -1,5 +1,5 @@
-export interface IPosition{
+export interface IPosition {
     name: string;
-    description: string;
+    description?: string;
     id: string;
 }

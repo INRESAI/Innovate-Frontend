@@ -1,15 +1,14 @@
 .footer-main {
     padding: 50px;
     display: flex;
-    background-color: white;
+    background-color: #FEF9F5;
     flex-direction: column;
 
-    .separation-line {
-        border-top: 1px solid #DFDFDF;
-        margin-top: -25px;
-        margin-bottom: 30px;
-        align-items: center;
-    }
+    // .separation-line {
+    //     margin-top: -25px;
+    //     margin-bottom: 30px;
+    //     align-items: center;
+    // }
 
     .content {
         display: flex;

@@ -5,6 +5,12 @@
     overflow-x: visible;
     user-select: none;
 
+    .ant-btn:active {
+        background-color: red !important;
+        color: white !important;
+        box-shadow: 0 0 0 1px #FF9955;
+    }
+
     .back-button {
         display: flex;
         justify-content: end;
@@ -587,11 +593,7 @@
     // max-height: 204px !important;
 }
 
-.ant-btn:active {
-    background-color: red !important;
-    color: white !important;
-    box-shadow: 0 0 0 1px #FF9955;
-}
+
 
 .ant-checkbox-inner {
     width: 15px;

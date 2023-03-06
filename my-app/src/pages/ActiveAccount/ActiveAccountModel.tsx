@@ -37,7 +37,7 @@ const ActiveAccountModel = (props: MyProps) => {
             >
                 <div className='title'>Đã gửi email xác nhận</div>
                 <div className='content'>Để đăng nhập cần phải xác nhận email. Vui lòng kiểm tra tài khoản email của bạn và xác nhận email!</div>
-                <div className='email-account'>Đã gửi tới email: <strong> kienn11000@gmail.com</strong></div>
+                {/* <div className='email-account'>Đã gửi tới email: <strong> {props.email}</strong></div> */}
                 <motion.div className='button-confirm' whileHover={{ scale: 1.1 }}>
                     <Button onClick={handleCancel}>Xác nhận</Button>
                 </motion.div>

@@ -1,4 +1,6 @@
 import { DataForeservation } from "./define-api-booking";
+import { IFacilities } from "./u-innovate/define-facilities";
+import { IPosition } from "./u-innovate/define-position";
 
 export interface ResponseDeparment {
     id: number,
@@ -173,13 +175,16 @@ export interface IUser {
     id?: string;
     email: string,
     name: string,
-    address: string,
     phone?: string,
-    password?: string,
-    confirmPassword?: string,
-    facilityId: string,
-    positionId: string,
-    role?: string;
+    address: string,
+    position: IPosition,
+    facility: IFacilities,
+    type: string,
+    // password?: string,
+    // confirmPassword?: string,
+    // facilityId: string,
+    // positionId: string,
+    // role?: string;
 }
 
 export interface RegisterRequest {

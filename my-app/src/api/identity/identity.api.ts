@@ -10,17 +10,6 @@ import { IDataResponse } from '../../common/define-meetings';
 import axios from 'axios';
 export default class IdentityApi {
     static host = 'http://178.128.19.31:2001';
-    // static encryptData(text: string, key: string) {
-    //     const jsEncrypt = new JSEncrypt();
-    //     jsEncrypt.setPublicKey(key)
-    //     const encypt = jsEncrypt.encrypt(text);
-    //     return encypt || '';
-    // }
-    // static getToken(): Observable<string | null> {
-    //     return HttpClient.get(`${IdentityApi.host}/${SYSTEM_CONSTANTS.API.IDENTITY.CONNECT_TOKEN}`).pipe(
-    //         map((res) => res as string || null)
-    //     );
-    // }
 
     static getCurrentUserByToken(token: string): Observable<IDataResponse<any> | null> {
         const api = `${IdentityApi.host}/${SYSTEM_CONSTANTS.API.IDENTITY.CONNECT_TOKEN}`;
@@ -33,11 +22,26 @@ export default class IdentityApi {
         return HttpClient.post(api, body).pipe(
             map((res) => res as IDataResponse<IUser> || null, catchError((error) => new Observable)));
     }
-    static getUserInfo(body: GetUserInfoRequest): Observable<IDataResponse<any> | null> {
-        const api = `${IdentityApi.host}/${SYSTEM_CONSTANTS.API.IDENTITY.GETUSERINFO}`;
-        return HttpClient.post(api, body).pipe(
+    // static getUserInfo(body: GetUserInfoRequest): Observable<IDataResponse<any> | null> {
+    //     const api = `${IdentityApi.host}/${SYSTEM_CONSTANTS.API.IDENTITY.GETUSERINFO}`;
+    //     return HttpClient.post(api, body, headers).pipe(
+    //         map((res) => res as IDataResponse<IUser> || null, catchError((error) => new Observable)));
+    // }
+    static getUserInfo(token: any): Observable<IDataResponse<any> | null> {
+        const api = `${IdentityApi.host}/${SYSTEM_CONSTANTS.API.IDENTITY.PROFILE}`;
+        return HttpClient.get(api, { headers: { Authorization: `Bearer ${token}` } }).pipe(
             map((res) => res as IDataResponse<IUser> || null, catchError((error) => new Observable)));
     }
+    // static alternativeGetAllCriteria() {
+    //     const api = `${CriteriaAPI.host}/${SYSTEM_CONSTANTS.API.CRITERIA.GET_ALL}`;
+
+    //     var config = {
+    //         method: 'get',
+    //         url: api,
+    //         headers: {}
+    //     };
+    //     return axios(config);
+    // }
     static checkEmail(body: string): Observable<IDataResponse<any> | null> {
         const api = `${IdentityApi.host}/${SYSTEM_CONSTANTS.API.IDENTITY.CHECKEMAIL}?email=${body}`;
         return HttpClient.get(api).pipe(

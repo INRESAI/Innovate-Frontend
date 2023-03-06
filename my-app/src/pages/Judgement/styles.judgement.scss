@@ -96,6 +96,98 @@ $accent-color: #FF9955;
 
             .ant-list-item {
                 border: none;
+
+                .ant-card {
+                    background-image: url("../../images/bg-lock-card.png");
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    border-radius: 30px;
+
+                    .ant-card-body {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+
+                        .card-img-option {
+                            height: 40%;
+                            width: 40%;
+                        }
+
+                        .card-title-option {
+                            font-weight: 700;
+                            font-size: 16px;
+                            line-height: 32px;
+                            text-align: center;
+                            color: #FFFFFF;
+                            margin-top: 24px;
+                        }
+
+                        .card-number-of-question-complete {
+                            font-weight: 500;
+                            font-size: 16px;
+                            line-height: 20px;
+                            text-align: center;
+                            color: #FFFFFF;
+                        }
+
+                        .card-progress-option {
+                            margin: 10px 0px;
+
+                            .ant-progress-outer {
+                                margin-right: 0;
+                                padding-right: 0;
+
+                                .ant-progress-inner {
+                                    background-color: rgba(255, 255, 255, 0.297);
+
+                                    .ant-progress-bg {
+                                        background-color: white;
+                                    }
+                                }
+                            }
+
+                            .ant-progress-text {
+                                display: none;
+                            }
+                        }
+
+                        .card-description-option {
+                            font-weight: 400;
+                            font-size: 12px;
+                            line-height: 16px;
+                            text-align: center;
+                            color: #FFFFFF;
+                            margin-bottom: 10px;
+                        }
+
+                        .card-btn-option {
+                            background: #FFFFFF;
+                            border-radius: 30px;
+                            font-weight: 700;
+                            font-size: 14px;
+                            line-height: 20px;
+                            display: flex;
+                            align-items: center;
+                            text-align: center;
+                            color: #00000050;
+                        }
+
+                        .card-btn-option:hover {
+                            border: 1px solid #00000050;
+                        }
+
+                        .card-btn-option:active {
+                            background: #FFFFFF;
+                            color: #00000050;
+                        }
+                    }
+                }
+
+                .ant-card.unLock {
+                    background-image: url("../../images/bg-unlock-card.png") !important;
+                }
             }
 
             .lst-item {
@@ -927,6 +1019,17 @@ $accent-color: #FF9955;
     margin-right: 10px;
 }
 
+#btn-intro-part.UINNOVATE {
+    background: linear-gradient(138.87deg, #FF5A80 0%, #FFC19E 99.02%);
+}
+
+#btn-intro-part.UIMPACT {
+    background: linear-gradient(125.34deg, #46D6A1 0%, #9FDE69 100%);
+}
+
+#btn-intro-part.PINNOVATE {
+    background: linear-gradient(135deg, #6C7DEF 0%, #C981F7 100%);
+}
 
 @media (min-width: 1300px) {
     .judgement-main {

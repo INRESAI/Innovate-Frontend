@@ -1,14 +1,36 @@
-import { Avatar, Breadcrumb, Button, List } from 'antd'
+import { Avatar, Breadcrumb, Button, Card, List, Progress } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { ICriteria } from '../../common/u-innovate/define-criteria'
-import Criteria1 from '../../images/criteria1.png'
-import Criteria2 from '../../images/criteria2.png'
-import Criteria3 from '../../images/criteria3.png'
-import Criteria4 from '../../images/criteria4.png'
-import Criteria5 from '../../images/criteria5.png'
-import Criteria6 from '../../images/criteria6.png'
-import Criteria7 from '../../images/criteria7.png'
-import Criteria8 from '../../images/criteria8.png'
+// import Criteria1 from '../../images/criteria1.png'
+// import Criteria2 from '../../images/criteria2.png'
+// import Criteria3 from '../../images/criteria3.png'
+// import Criteria4 from '../../images/criteria4.png'
+// import Criteria5 from '../../images/criteria5.png'
+// import Criteria6 from '../../images/criteria6.png'
+// import Criteria7 from '../../images/criteria7.png'
+// import Criteria8 from '../../images/criteria8.png'
+import Lock1 from '../../images/Lock/1.png';
+import Lock2 from '../../images/Lock/2.png';
+import Lock3 from '../../images/Lock/3.png';
+import Lock4 from '../../images/Lock/4.png';
+import Lock5 from '../../images/Lock/5.png';
+import Lock6 from '../../images/Lock/6.png';
+import Lock7 from '../../images/Lock/7.png';
+import Lock8 from '../../images/Lock/8.png';
+import Lock9 from '../../images/Lock/9.png';
+import Lock10 from '../../images/Lock/10.png';
+import Lock11 from '../../images/Lock/11.png';
+import Lock12 from '../../images/Lock/12.png';
+import Unlock1 from '../../images/Unlock/1.png';
+import Unlock2 from '../../images/Unlock/2.png';
+import Unlock3 from '../../images/Unlock/3.png';
+import Unlock4 from '../../images/Unlock/4.png';
+import Unlock5 from '../../images/Unlock/5.png';
+import Unlock6 from '../../images/Unlock/6.png';
+import Unlock7 from '../../images/Unlock/7.png';
+import Unlock8 from '../../images/Unlock/8.png';
+import Unlock9 from '../../images/Unlock/9.png';
+import Unlock10 from '../../images/Unlock/10.png';
 import { motion } from 'framer-motion'
 
 
@@ -20,52 +42,68 @@ interface MyProps {
 
 const TemporaryCriteriaLst = [
     {
-        // id: "1",
-        // title: 'LÃNH ĐẠO QUẢN TRỊ',
-        // content: "Khả năng lãnh đạo và quản trị tốt là yếu tố quan trọng để phát triển khởi nghiệp và đổi mới văn hoá trong một tổ chức giáo dục đại học. Nhiều tổ chức bao hàm các từ 'doanh nghiệp' và 'tinh thần kinh doanh' trong tuyên bố sứ mệnh của họ, nhưng đối với các tổ chức kinh doanh, đây không chỉ là một tài liệu tham khảo. Phần này nhấn mạnh một số yếu tố quan trọng mà các tổ chức giáo dục đại học có thể xem xét để tăng cường chương trình của họ ",
-        urlImage: Criteria1
+        id: "1",
+        name: 'LÃNH ĐẠO QUẢN TRỊ',
+        description: "Yếu tố quan trọng để phát triển khởi nghiệp và đổi mới văn hoá trong lĩnh vực đại học",
+        lockImage: Lock1,
+        unLockImage: Unlock1,
+        used: true,
     },
     {
-        // id: "2",
-        // title: "NĂNG LỰC TỔ CHỨC",
-        urlImage: Criteria2,
-        // content: "Năng lực tổ chức của một cơ sở giáo dục đại học thúc đẩy khả năng thực hiện chiến lược của nó. Nếu một tổ chức giáo dục đại học cam kết thực hiện các hoạt động khởi nghiệp để hỗ trợ các mục tiêu chiến lược của mình, thì các nguồn lực chính như tài trợ và đầu tư, con người, chuyên môn và kiến ​​thức, và các hệ thống khuyến khích cần phải được áp dụng để duy trì và phát triển năng lực khởi nghiệp"
+        id: "2",
+        name: "NĂNG LỰC TỔ CHỨC",
+        lockImage: Lock2,
+        unLockImage: Unlock2,
+        description: "Năng lực tổ chức của một cơ sở giáo dục đại học thúc đẩy khả năng thực hiện chiến lược ",
+        used: false,
     },
     {
-        // id: "3",
-        // title: "DẠY HỌC VÀ KHỞI NGHIỆP",
-        urlImage: Criteria3,
-        // content: "Dạy và học khởi nghiệp liên quan đến việc khám phá các phương pháp giảng dạy sáng tạo và tìm cách kích thích tư duy khởi nghiệp. Nó không chỉ là học về kinh doanh, mà còn là tiếp xúc với kinh nghiệm kinh doanh và có được các kỹ năng và năng lực để phát triển tư duy kinh doanh"
+        id: "3",
+        name: "DẠY HỌC VÀ KHỞI NGHIỆP",
+        lockImage: Lock3,
+        unLockImage: Unlock3,
+        description: "Khám phá các phương pháp giảng dạy sáng tạo và tìm cách kích thích tư duy khởi nghiệp",
+        used: false,
     },
     {
-        // id: "4",
-        // title: "ƯƠM TẠO KHỞI NGHIỆP",
-        urlImage: Criteria4,
-        // content: "Các tổ chức giáo dục đại học có thể giúp học sinh, sinh viên tốt nghiệp và nhân lực cân nhắc việc khởi nghiệp như một lựa chọn nghề nghiệp. Ngay từ những bước đầu, điều quan trọng là phải giúp các cá nhân định hướng về các mục tiêu thương mại, xã hội, môi trường hoặc lối sống liên quan đến nguyện vọng và ý định kinh doanh của họ"
+        id: "4",
+        name: "ƯƠM TẠO KHỞI NGHIỆP",
+        lockImage: Lock4,
+        unLockImage: Unlock4,
+        description: "Tổ chức giáo dục đại học có thể giúp hs, sv tốt nghiệp và nhân lực cân nhắc việc khởi nghiệp ",
+        used: false,
     },
     {
-        // id: "5",
-        // title: "CHUYỂN ĐỔI NĂNG LỰC SỐ",
-        urlImage: Criteria5,
-        // content: "Các cơ sở giáo dục đại học đã và đang triển khai các công nghệ kỹ thuật số, tuy nhiên việc tiếp thu và tích hợp khác nhau giữa các tổ chức và trong các tổ chức. Các các tổ chức giáo dục đại học nên tận dụng tối đa các cơ hội do chuyển đổi kỹ thuật số mang lại và coi công nghệ kỹ thuật số là yếu tố thúc đẩy quan trọng. Phần tự đánh giá này cung cấp một số tuyên bố để phản ánh về năng lực kỹ thuật số của tổ chức giáo dục đại học, được định nghĩa là khả năng tích hợp, tối ưu hóa và chuyển đổi công nghệ kỹ thuật số để hỗ trợ đổi mới và khởi nghiệp"
+        id: "5",
+        name: "CHUYỂN ĐỔI NĂNG LỰC SỐ",
+        lockImage: Lock5,
+        unLockImage: Unlock5,
+        description: "Các trường đại học đang sử dụng công nghệ số, tuy nhiên việc kết nối còn gặp nhiều khó khăn",
+        used: false,
     },
     {
-        // id: "6",
-        // title: "TRAO ĐỔI TRI THỨC",
-        urlImage: Criteria6,
-        // content: "Trao đổi kiến ​​thức là một chất xúc tác quan trọng cho sự đổi mới tổ chức, sự tiến bộ của giảng dạy và nghiên cứu, và sự phát triển của địa phương. Đây là một quá trình liên tục bao gồm 'sứ mệnh thứ ba' của các tổ chức giáo dục đại học, được định nghĩa là việc kích thích và ứng dụng trực tiếp và khai thác kiến ​​thức vì lợi ích của sự phát triển kinh tế, văn hóa và xã hội. Động lực để tăng cường hợp tác và trao đổi kiến ​​thức là tạo ra giá trị cho các tổ chức giáo dục đại học và xã hội"
+        id: "6",
+        name: "TRAO ĐỔI TRI THỨC",
+        lockImage: Lock6,
+        unLockImage: Unlock6,
+        description: "Chất xúc tác quan trọng cho sự đổi mới tổ chức trong nghiên cứu, và sự phát triển của địa phương",
+        used: false,
     },
     {
-        // id: "7",
-        // title: "QUỐC TẾ HÓA",
-        urlImage: Criteria7,
-        // content: "Quốc tế hóa là quá trình tích hợp một khía cạnh quốc tế hoặc toàn cầu vào việc thiết kế và cung cấp giáo dục, nghiên cứu và trao đổi kiến thức. Bản thân quốc tế hóa không phải là mục đích cuối cùng mà là phương tiện để thay đổi và cải tiến. Nó đưa ra những cách thức tư duy khác nhau, đặt câu hỏi về các phương pháp giảng dạy truyền thống, đồng thời mở ra cơ hội quản trị và quản lý cho các bên liên quan bên ngoài"
+        id: "7",
+        name: "QUỐC TẾ HÓA",
+        lockImage: Lock7,
+        unLockImage: Unlock7,
+        description: "Quá trình tích hợp một khía cạnh hoặc toàn cầu vào việc thiết kế, nghiên cứu và trao đổi kiến thức",
+        used: false,
     },
     {
-        // id: "8",
-        // title: "ĐO LƯỜNG TÁC ĐỘNG",
-        urlImage: Criteria8,
-        // content: "Các tổ chức giáo dục đại học khởi nghiệp/sáng tạo cần hiểu tác động của những thay đổi mà họ mang lại cho tổ chức của mình. Khái niệm về một tổ chức giáo dục đại học khởi nghiệp/sáng tạo kết hợp sự tự nhận thức của chính tổ chức đó, phản ánh ra bên ngoài và có cách tiếp cận dựa trên bằng chứng. Tuy nhiên, đo lường tác động trong các cơ sở giáo dục đại học vẫn chưa được phát triển. Các phép đo hiện tại thường tập trung vào số lượng công ty con, số lượng và chất lượng của việc tạo ra tài sản trí tuệ và tạo ra thu nhập từ nghiên cứu, thay vì tinh thần khởi nghiệp của sinh viên tốt nghiệp, kết quả giảng dạy và học tập, giữ chân nhân tài, đóng góp cho phát triển kinh tế địa phương hoặc tác động của chương trình nghị sự kinh doanh rộng hơn. Phần này xác định các lĩnh vực mà một tổ chức có thể đo lường tác động"
+        id: "8",
+        name: "ĐO LƯỜNG TÁC ĐỘNG",
+        lockImage: Lock8,
+        unLockImage: Unlock8,
+        description: "Các trường đại học khởi nghiệp/sáng tạo cần nắm  những thay đổi mà họ mang lại cho tổ chức",
+        used: false,
     },
 ]
 
@@ -80,23 +118,23 @@ const hoverVariants = {
     },
 };
 const JudgementCriteriaOptions = (props: MyProps) => {
-    const [newOptionsLst, setNewOptionLst] = useState<ICriteria[]>();
+    // const [newOptionsLst, setNewOptionLst] = useState<ICriteria[]>();
 
-    useEffect(() => {// Mapping du lieu nhan ve tu API sang class duoc khai bao o frontend
-        let newLst: ICriteria[] = [];
-        props.criteriaLst.map((item, index) => {
-            newLst.push(
-                {
-                    description: item.description,
-                    id: item.id,
-                    name: item.name,
-                    ...TemporaryCriteriaLst[index]
-                }
-            )
-        }
-        )
-        setNewOptionLst(newLst)
-    }, [])
+    // useEffect(() => {// Mapping du lieu nhan ve tu API sang class duoc khai bao o frontend
+    //     let newLst: ICriteria[] = [];
+    //     props.criteriaLst.map((item, index) => {
+    //         newLst.push(
+    //             {
+    //                 description: item.description,
+    //                 id: item.id,
+    //                 name: item.name,
+    //                 ...TemporaryCriteriaLst[index]
+    //             }
+    //         )
+    //     }
+    //     )
+    //     setNewOptionLst(newLst)
+    // }, [])
 
     // console.log(props.criteriaLst)
 
@@ -114,12 +152,12 @@ const JudgementCriteriaOptions = (props: MyProps) => {
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>An Application</Breadcrumb.Item> */}
             </Breadcrumb>
-            <List
+            {/* <List
                 itemLayout="horizontal"
-                dataSource={newOptionsLst}
+                dataSource={TemporaryCriteriaLst}
                 renderItem={(item) => (
                     <List.Item
-                        onClick={() => props.tranferFromCriteriaToTest(item)}
+                        // onClick={() => props.tranferFromCriteriaToTest(item)}
                         style={{ cursor: "pointer" }}
                     >
                         <motion.div
@@ -138,6 +176,26 @@ const JudgementCriteriaOptions = (props: MyProps) => {
                                 className="lst-item"
                             />
                         </motion.div>
+                    </List.Item>
+                )}
+            /> */}
+            <List
+                grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 4, xxl: 4, }}
+                dataSource={TemporaryCriteriaLst}
+                renderItem={(item) => (
+                    <List.Item>
+                        <Card bordered={false} className={item.used ? 'unLock' : ''}>
+                            <img src={!item.used ? item.lockImage : item.unLockImage} alt="" className="card-img-option" />
+                            <div className="card-title-option">{item.name}</div>
+                            <div className='card-number-of-question-complete'>0/22 câu hỏi</div>
+                            <Progress className='card-progress-option' percent={30} />
+                            <div className="card-description-option">{item.description}</div>
+                            <motion.div
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.95 }}>
+                                <Button className={item.used ? 'card-btn-option unlock' : 'card-btn-option'}>Bắt đầu đánh giá</Button>
+                            </motion.div>
+                        </Card>
                     </List.Item>
                 )}
             />
