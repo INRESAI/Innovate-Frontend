@@ -1,28 +1,42 @@
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import CriteriaAPI from '../../api/criteria/criteria.api'
 import QuestionAPI from '../../api/questions/question.api'
 import { ISetOfQuestions } from '../../common/u-innovate/define-setOfQuestions'
-import { useDispatchRoot } from '../../redux/store'
+import { useDispatchRoot, useSelectorRoot } from '../../redux/store'
 import IntroduceMethod from './IntroduceMethod'
 import JudgementCriteriaOptions from './JudgementCriteriaOptions'
 import MoreTest from './MoreTest'
 import TakingTest from './TakingTest'
 import './styles.judgement.scss'
-import { ICriteria } from '../../common/u-innovate/define-criteria'
+import { GetCriteriaRequest, ICriteria } from '../../common/u-innovate/define-criteria'
+import { getAllQuestionsByCriteriaIdRequest, getCriteriaLstRequest } from '../../redux/controller'
 
 const JudgementMain = () => {
-    const [isShowIntro, setIsShowIntro] = useState(false); // true
-    const [isShowCriteria, setIsShowCriteria] = useState(true); // false
+    const [isShowIntro, setIsShowIntro] = useState(true); // true
+    const [isShowCriteria, setIsShowCriteria] = useState(false); // false
     const [isShowTest, setIsShowTest] = useState(false);
     const [isShowMoreTest, setIsShowMoreTest] = useState(false);
-    const [criteriaLst, setCriteriaLst] = useState<any>();
-    const [questionLst, setQuestionLst] = useState<ISetOfQuestions[]>();
-    const [choseCriteria, setChoseCriteria] = useState<ICriteria>(); // Luu lai Criteria duoc chon o giao dien danh sach Criteria. Sau do truyen vao giao dien lam test
+    const [numberOfQuestion, setNumberOfQuestions] = useState<number>(0);
+    const [choseCriteria, setChoseCriteria] = useState<any>(); // Luu lai Criteria duoc chon o giao dien danh sach Criteria. Sau do truyen vao giao dien lam test
+    const { user } = useSelectorRoot((state) => state.login);
+    const { criteriaLst, lstQuestionsByCriteria } = useSelectorRoot((state) => state.uinnovate);
 
     //Dung useSelector lay ra 2 lst criteriaLst va questionByCriteriaLst
-    // const { criteriaLst } = useSelectorRoot((state) => state.uinnovate);
     const dispatch = useDispatchRoot()
+
+    useEffect(() => {
+        let checkLogin = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+        if (checkLogin && user) {
+            checkLogin = checkLogin.slice(1);
+            checkLogin = checkLogin.slice(0, checkLogin.length - 1);
+            const req: GetCriteriaRequest = {
+                "token": checkLogin,
+                "type": user.type,
+            }
+            dispatch(getCriteriaLstRequest(req))
+        }
+    }, [user])
 
     // const getAllCriteria
 
@@ -33,52 +47,46 @@ const JudgementMain = () => {
     // },[])
 
     const tranferFromIntroToCriteria = async () => {
-        await CriteriaAPI.alternativeGetAllCriteria().then((res: any) => {
-            console.log(res)
-            // dispatch(sendAnswersRequest(data.data))
-            setCriteriaLst(res.data.data)
+        // await CriteriaAPI.alternativeGetAllCriteria().then((res: any) => {
+        //     console.log(res)
+        //     // dispatch(sendAnswersRequest(data.data))
+        //     setCriteriaLst(res.data.data)
 
-            console.log(criteriaLst)
+        //     console.log(criteriaLst)
 
-        })
-        console.log('baka');
-
+        // })
         setIsShowIntro(false);
         setIsShowCriteria(true);
     }
 
-    const tranferFromCriteriaToTest = async (criteria: ICriteria) => { // chuyen tu man chon tieu chi sang man lam bai test
-        //Call API get danh sach question theo criteriaId
-        let responseOfFirstAPI: any;
-        let responseOfSecondAPI;
-        let finalQuestionOfCriteriaLst: ISetOfQuestions[] = [];
-
+    const tranferFromCriteriaToTest = async (criteria: any) => { // chuyen tu man chon tieu chi sang man lam bai test
+        console.log(criteria);
+        // dispatch(getAllQuestionsByCriteriaIdRequest(criteria.criteriaId))
+        setNumberOfQuestions(criteria.numberOfQuestion);
         setChoseCriteria(criteria);
+        // await QuestionAPI.getAllQuestionByCriteriaId(criteria.id).then((res: any) => { // Lay tat ca bo cau hoi (moi bo cau hoi gom nhieu cau hoi) cua tieu chi duoc chon
+        //     console.log(res)
+        //     responseOfFirstAPI = res.data.data;
+        // })
 
-
-        await QuestionAPI.getAllQuestionByCriteriaId(criteria.id).then((res: any) => { // Lay tat ca bo cau hoi (moi bo cau hoi gom nhieu cau hoi) cua tieu chi duoc chon
-            console.log(res)
-            responseOfFirstAPI = res.data.data;
-        })
-
-        await QuestionAPI.getAllAnswer().then((res: any) => {
-            responseOfFirstAPI.map((item: any) => { // Mapper form of data from API to form of Frontend data
-                const newItem: ISetOfQuestions = {
-                    id: item.setOfQuestions._id,
-                    content: item.setOfQuestions.name,
-                    questionLst: item.question.map((subitem: any) => {
-                        return {
-                            id: subitem.id,
-                            content: subitem.content,
-                            answerLst: res.data.data,
-                            pickedAnswer: null
-                        }
-                    })
-                }
-                finalQuestionOfCriteriaLst.push(newItem);
-            })
-            setQuestionLst(finalQuestionOfCriteriaLst)
-        })
+        // await QuestionAPI.getAllAnswer().then((res: any) => {
+        //     responseOfFirstAPI.map((item: any) => { // Mapper form of data from API to form of Frontend data
+        //         const newItem: ISetOfQuestions = {
+        //             id: item.setOfQuestions._id,
+        //             content: item.setOfQuestions.name,
+        //             questionLst: item.question.map((subitem: any) => {
+        //                 return {
+        //                     id: subitem.id,
+        //                     content: subitem.content,
+        //                     answerLst: res.data.data,
+        //                     pickedAnswer: null
+        //                 }
+        //             })
+        //         }
+        //         finalQuestionOfCriteriaLst.push(newItem);
+        //     })
+        //     setQuestionLst(finalQuestionOfCriteriaLst)
+        // })
         setIsShowCriteria(false);
         setIsShowTest(true);
     }
@@ -103,6 +111,13 @@ const JudgementMain = () => {
         setIsShowCriteria(true);
         setIsShowTest(false);
     }
+
+
+    useEffect(() => {
+        console.log(28);
+        console.log(lstQuestionsByCriteria[0]);
+    }, [lstQuestionsByCriteria])
+
     return (
         <motion.div className='judgement-main'
             initial={{ width: 0 }}
@@ -115,8 +130,8 @@ const JudgementMain = () => {
                 />
             }
             {
-                // criteriaLst && isShowCriteria &&
-                isShowCriteria &&
+                criteriaLst && isShowCriteria &&
+                // isShowCriteria &&
                 <JudgementCriteriaOptions
                     tranferFromCriteriaToTest={tranferFromCriteriaToTest}
                     revertToIntro={revertToIntro}
@@ -126,14 +141,13 @@ const JudgementMain = () => {
             }
             {
                 // Sau nay se sua isShowTest thanh questionByCriteria != null
-                questionLst && isShowTest && choseCriteria &&
+                isShowTest && choseCriteria &&
                 <TakingTest
                     choseCriteria={choseCriteria}
                     revertToIntro={revertToIntro}
                     revertToCriteria={revertToCriteria}
                     tranferFromTestToMoreTests={tranferFromTestToMoreTests}
-                    questionLst={questionLst}
-                    numberOfQuestions={questionLst.length}
+                    numberOfQuestion={numberOfQuestion}
                 //Sau nay se truyen 1 lst questionByCriteriaLst vao nua
                 />
             }

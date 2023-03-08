@@ -9,11 +9,13 @@ import FacilitiesAPI from "../../api/facilities/facilities.api";
 // import PositionsAPI from "../../api/positions/positions.api";
 import PositionsAPI from "../../api/positions/positions.api";
 import { RootEpic } from "../../common/define-type";
-import { ICriteria } from "../../common/u-innovate/define-criteria";
+import { GetCriteriaRequest, ICriteria } from "../../common/u-innovate/define-criteria";
 import { IFacilities, IFacilitiesList } from "../../common/u-innovate/define-facilities";
 import { IPosition } from "../../common/u-innovate/define-position";
 import { IAddresses } from "../../common/u-innovate/define-addresses";
 import AddressesAPI from "../../api/addresses/addresses.api";
+import { IGetAllQuestionsByCriteriaResponse } from "../../common/u-innovate/define-question";
+import QuestionAPI from "../../api/questions/question.api";
 
 
 interface UInnovateState {
@@ -25,6 +27,7 @@ interface UInnovateState {
     addressesLst: IAddresses[];
     positonUniversityLst: IPosition[];
     positonLocalLst: IPosition[];
+    lstQuestionsByCriteria: IGetAllQuestionsByCriteriaResponse[];
 }
 
 const initState: UInnovateState = {
@@ -36,13 +39,15 @@ const initState: UInnovateState = {
     addressesLst: [],
     positonUniversityLst: [],
     positonLocalLst: [],
+    lstQuestionsByCriteria: [],
 }
 
 const uInnovateSlice = createSlice({
     name: 'uinnovate',
     initialState: initState,
     reducers: {
-        getCriteriaLstRequest(state) {
+
+        getCriteriaLstRequest(state, action: PayloadAction<GetCriteriaRequest>) {
             state.loading = true;
             // console.log("da chui vao",state.loading)
         },
@@ -58,7 +63,9 @@ const uInnovateSlice = createSlice({
         getAllQuestionsByCriteriaIdRequest(state, action: PayloadAction<string>) {
             state.loading = true
         },
-        getAllQuestionsByCriteriaSuccess(state, action: PayloadAction<any>) {
+        getAllQuestionsByCriteriaSuccess(state, action: PayloadAction<IGetAllQuestionsByCriteriaResponse[]>) {
+            console.log(action.payload[0]);
+            state.lstQuestionsByCriteria = action.payload;
             state.loading = true
         },
         getAllQuestionsByCriteriaIdFail(state, action: PayloadAction<any>) {
@@ -129,10 +136,9 @@ const uInnovateSlice = createSlice({
 
 const getAllCriteria$: RootEpic = (action$) => action$.pipe(
     filter(getCriteriaLstRequest.match),
-    switchMap(() => {
-        // IdentityApi.login(re.payload) ?
-
-        return CriteriaAPI.getAllCriteria().pipe(
+    switchMap((re) => {
+        console.log(re);
+        return CriteriaAPI.getCriteriaByUserToken(re.payload).pipe(
             mergeMap((res: any) => {
                 console.log(res);
                 return [uInnovateSlice.actions.getCriteriaLstSuccess(res.data),];
@@ -141,6 +147,21 @@ const getAllCriteria$: RootEpic = (action$) => action$.pipe(
         )
     })
 )
+
+const getAllQuestionsByCriteriaId$: RootEpic = (action$) => action$.pipe(
+    filter(getAllQuestionsByCriteriaIdRequest.match),
+    switchMap((re) => {
+        console.log(re);
+        return QuestionAPI.getAllQuestionByCriteriaId(re.payload).pipe(
+            mergeMap((res: any) => {
+                console.log(res);
+                return [uInnovateSlice.actions.getAllQuestionsByCriteriaSuccess(res.data),];
+            }),
+            catchError(err => [uInnovateSlice.actions.getAllQuestionsByCriteriaIdFail(err)])
+        )
+    })
+)
+
 const getAllPosition$: RootEpic = (action$) => action$.pipe(
     filter(getAllPositionsRequest.match),
     switchMap(() => {
@@ -195,6 +216,7 @@ export const UInnovateEpics = [
     getAllFacilities$,
     getAllFacilitiesByDescription$,
     getAllAddresses$,
+    getAllQuestionsByCriteriaId$,
 ]
 export const {
     getAllPositionsRequest,

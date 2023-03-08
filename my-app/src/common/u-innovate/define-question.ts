@@ -1,21 +1,33 @@
-import { ISetOfQuestions } from "./define-setOfQuestions";
-
-export interface IGetAllQuestionsByCriteriaResponse{
-    id: string;
-    criteriaName: string;
-    setOfQuestionsLst: ISetOfQuestions[];
+export interface IGetAllQuestionsByCriteriaResponse {
+    setOfQuestions: setOfQuestions;
+    questions: questions[];
 }
 
-export interface IAnswerOfQuestion{
-    id: string;
-    content: string;
-    description: string;
-    point: string;
+export interface setOfQuestions {
+    _id: string;
+    name: string;
 }
 
-export interface IQuestion{
-    id: string;
-    content: string;
-    answerLst: IAnswerOfQuestion[];
-    pickedAnswer: IAnswerOfQuestion | null;
+export interface questions {
+    question: IQuestion;
+    answers: IAnswers[];
+}
+export interface IQuestion {
+    title: string,
+    description: string,
+    content: string,
+    setQuestionId: string,
+    createdAt?: Date,
+    updatedAt?: Date,
+    id: string
+}
+
+export interface IAnswers {
+    questionId: string,
+    content: string,
+    description: string,
+    point: number,
+    createdAt?: Date,
+    updatedAt?: Date,
+    id: string,
 }

@@ -25,17 +25,22 @@ const imageVariants: Variants = {
 };
 const IntroduceMethod = (props: MyProps) => {
     const { tokenLogin, user } = useSelectorRoot((state) => state.login);
-    const [role, setRole] = useState<string>('PINNOVATE');
+    const [isLogin, setIsLogin] = useState<boolean>(false);
+    const [userType, setUserType] = useState<string>('')
 
     useEffect(() => {
-        const btnDiv = document.getElementById("btn-intro-part") as HTMLElement;
-        (role === "UINNOVATE" && !btnDiv.classList.contains("UINNOVATE")) && btnDiv.classList.add("UINNOVATE");
-        (role === "UIMPACT" && !btnDiv.classList.contains("UIMPACT")) && btnDiv.classList.add("UIMPACT");
-        (role === "PINNOVATE" && !btnDiv.classList.contains("PINNOVATE")) && btnDiv.classList.add("PINNOVATE");
-    })
+        let checkLogin = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+        let type = localStorage.getItem('userType') ? localStorage.getItem('userType') : '';
+        if (checkLogin) setIsLogin(true);
+        if (type) {
+            type = type.slice(1);
+            type = type.slice(0, type.length - 1);
+            setUserType(type);
+        }
+    });
 
     const handleOnClick = () => {
-        if (tokenLogin)
+        if (isLogin)
             props.tranferFromIntroToCriteria();
         else
             notification['warning']({
@@ -49,13 +54,30 @@ const IntroduceMethod = (props: MyProps) => {
 
         <div className='intro-part'>
             <div className='text-of-intro'>
-                <div className='title'>Giới thiệu, phương pháp được sử dụng trong bảng khảo sát</div>
-                <div className='detail'>
-                    Tại đây, bạn có thể đọc về các yếu tố đánh giá của U.innovate và tải xuống ghi chú Khái niệm, cung cấp thông tin cơ bản về U.innovate và khái niệm về các trường đại học khởi nghiệp.
-                </div>
-                <div className='detail'>
-                    Để bắt đầu tự đánh giá, hãy chọn một trong 8 tiêu chí. Bằng cách nhấp vào sơ đồ, bạn sẽ được đưa đến tiêu chí đã chọn của U.innovate. Trong mỗi khía cạnh, các câu lệnh đã được thiết kế để bạn có thể đánh giá chúng theo 3 mức độ (không quan sát được, quan sát được một phần, quan sát toàn phần). Vui lòng sử dụng thanh trượt bên dưới các câu để ghi điểm.
-                </div>
+                {userType === "" &&
+                    <>
+                        <div className='title'>Giới thiệu phương pháp được sử dụng trong bảng khảo sát</div>
+                        <div className='detail'>V.innovate là một nền tảng gồm 3 công cụ (U.innovate; U.impact; P.innovate) tự đánh giá miễn phí dành cho tất cả các loại hình tổ chức giáo dục đại học; các doanh nghiệp khởi nghiệp; các tỉnh/thành phố. Các công cụ cho phép bạn đánh giá tổ chức của mình bằng cách sử dụng một số tuyên bố liên quan đến các hoạt động kinh doanh của tổ chức, bao gồm lãnh đạo, nhân sự và liên kết với doanh nghiệp. Các tài liệu hỗ trợ và đào tạo phong phú, bao gồm các nghiên cứu điển hình thực tế, luôn sẵn sàng để hỗ trợ các hội thảo và phát triển hơn nữa trong tổ chức của bạn.</div>
+                    </>
+                }
+                {userType === "UINNOVATE" &&
+                    <>
+                        <div className='title'>Giới thiệu bộ tiêu chí đánh giá trường đại học khởi nghiệp</div>
+                        <div className='detail'>U.innovate là công cụ tự đánh giá, được truyền cảm hứng từ mô hình đại học khởi nghiệp của OECD. Các trường đại học thông qua U.innovate có thể quan sát được các điểm mạnh, điểm yếu trong hệ sinh thái đổi mới sáng tạo và khởi nghiệp của trường mình. Đồng thời có thể so sánh và đối chiếu về sự phát triển của nhà trường cùng với thời gian, cũng như so sánh với trung bình những trường khác tại Việt Nam.</div>
+                    </>
+                }
+                {userType === "UIMPACT" &&
+                    <>
+                        <div className='title'>Giới thiệu phương pháp được sử dụng trong bảng khảo sát</div>
+                        <div className='detail'>U.impact là công cụ tự đánh giá mức độ tác động xã hội của trường đại học thông qua 17 mục tiêu phát triển bền vững thuộc Liên Hợp Quốc. Các trường đại học thông qua U.impact có thể quan sát được các tác động của mình cho cộng đồng, xã hội.</div>
+                    </>
+                }
+                {userType === "PINNOVATE" &&
+                    <>
+                        <div className='title'>Giới thiệu phương pháp được sử dụng trong bảng khảo sát</div>
+                        <div className='detail'>P.innovate là công cụ tự đánh giá cho các cộng đồng khởi nghiệp tại từng tỉnh/thành phố có thể quan sát được các chính sách, nguồn lực, văn hoá tác động tới hệ sinh thái khởi nghiệp của mình. Đồng thời có thể so sánh và đối chiếu về sự phát triển của hệ sinh thái tại địa phương mình cùng với thời gian, cũng như so sánh với trung bình những tỉnh thành khác tại Việt Nam.</div>
+                    </>
+                }
                 <motion.div
 
                     className='button-start btn-intro-part'

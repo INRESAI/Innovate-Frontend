@@ -9,6 +9,7 @@ import OtherTestIcon from '../../images/other-test-icon.png';
 
 import Result from './Result';
 import { motion } from 'framer-motion';
+import { useSelectorRoot } from '../../redux/store';
 
 const fakeOtherTestLst = [
     {
@@ -260,16 +261,15 @@ interface MyProps {
     revertToIntro: () => void; // Chuyen qua lai giua cac phan cua danh gia
     revertToCriteria: () => void
     tranferFromTestToMoreTests: () => void;
-    questionLst: ISetOfQuestions[];
-    choseCriteria: ICriteria;
-    numberOfQuestions: number;
+    choseCriteria: any;
+    numberOfQuestion: number;
 }
 
 const TakingTest = (props: MyProps) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentSetOfQuestion, setCurrentSetOfQuestion] = useState<ISetOfQuestions>(); // Set lai moi khi chon phan pagination
     const [currentChoseAnswerId, setCurrentChoseAnswerId] = useState<number>(0);
-    const [receivedResult, setReceivedResult] = useState<any>();
+    const [receivedResult, setReceivedResult] = useState<boolean>(false);
     let questionLstOfRequestBody: any[] = []; // doi lai form cua questionLst cho phu hop voi bodyRequest cua API
     let quantityOfEachTypeOfAnswer: number[] = [0, 0, 0]; // Lst luu lai so luong cau tra loi moi loai, vi tri 0 luu cau tra loi "quan sat hoan toan", 1 la "quan sat duoc 1 phan", 2 la "khong quan sat duoc"    const [numberOfQuestionsAnswered, setNumberOfQuestionsAnswered] = useState<number>(0); // Kiểm tra xem đã điền hết đáp án của trang để hiển thị nút tiếp tuc
     const [numberOfQuestions, setNumberOfQuestions] = useState<number>(0);
@@ -277,78 +277,66 @@ const TakingTest = (props: MyProps) => {
     const [numberOfQuestionsAnswered, setNumberOfQuestionsAnswered] = useState<number>(0); // Kiểm tra xem đã điền hết đáp án của trang để hiển thị nút tiếp tuc
     const [totalScoreOfQuestionList, setTotalScoreOfQuestionList] = useState<number>(0); // Tổng số điểm của danh sách câu hỏi
     const [checkNextBtn, setCheckNextBtn] = useState<boolean>(false); // Kiểm tra xem đã điền hết đáp án của trang để hiển thị nút tiếp tuc
+    const { lstQuestionsByCriteria, criteriaLst } = useSelectorRoot((state) => state.uinnovate);
 
-    useEffect(() => {
-        console.log('----------------RENDERED-------------------')
-        console.log(props.questionLst)
-        let count = 0;
-        props.questionLst.forEach(item => {
-            count += item.questionLst.length;
-        });
-        setNumberOfQuestions(count);
-    }, [])
+    // useEffect(() => {
+    // countQuestionIsAnswered();
+    //     checkIsPartOfQuestionIsAnswered();
+    // }, [currentChoseAnswerId])
 
-    useEffect(() => {
-        console.log('----------------RENDERED-------------------')
-        console.log(props.numberOfQuestions);
-    })
-    useEffect(() => {
-        countQuestionIsAnswered();
-        checkIsPartOfQuestionIsAnswered();
-    }, [currentChoseAnswerId])
+    // useEffect(() => {
+    //     checkIsPartOfQuestionIsAnswered();
+    // }, [currentIndex])
 
-    useEffect(() => {
-        checkIsPartOfQuestionIsAnswered();
-    }, [currentIndex])
-
-    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        setCurrentIndex(value - 1);
-    };
-    // Đếm số lượng câu hỏi đã được trả lời 
-    const countQuestionIsAnswered = () => {
-        let count = 0;
-        props.questionLst.forEach(item => {
-            item.questionLst.forEach(question => {
-                if (question.pickedAnswer) count += 1;
-            });
-        });
-        setNumberOfQuestionsAnswered(count);
-    }
-    // Kiểm tra xem từng trang của danh sách câu hỏi đã được trả lời hết chưa
-    const checkIsPartOfQuestionIsAnswered = () => {
-        for (let i = 0; i < props.questionLst[currentIndex].questionLst.length; i++) {
-            if (!props.questionLst[currentIndex].questionLst[i].pickedAnswer) {
-                setCheckNextBtn(false);
-                return;
-            }
-        }
-        props.questionLst.length === currentIndex + 1 ? setCheckNextBtn(false) : setCheckNextBtn(true);
-    }
-    const checkWhetherDoneTest = () => { // Check xem nguoi dung da nhap het cau tra loi chua
-        let check = 1;
-        questionLstOfRequestBody = [];
-        props.questionLst.forEach((item) => {
-            if (check === 0) return;
-            item.questionLst.forEach((subitem) => {
-                if (subitem.pickedAnswer === null) {
-                    check = 0;
-                    return;
-                } else {
-                    questionLstOfRequestBody.push({ // Neu cau hoi da duoc chon dap an thi se day ID cau hoi va ID cau tra loi vao lst
-                        "questionId": subitem.id,
-                        "answerId": subitem.pickedAnswer.id,
-                        "point": subitem.pickedAnswer.point,
-                        "additionalProp1": {}
-                    })
-                }
-            })
-        })
-        if (check === 1) return true;
-        else {
-            questionLstOfRequestBody = [] // Neu chi can 1 cau hoi chua duoc tra loi thi se xoa toan bo lst
-            return false
-        };
-    }
+    // const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    //     setCurrentIndex(value - 1);
+    // };
+    // // Đếm số lượng câu hỏi đã được trả lời 
+    // const countQuestionIsAnswered = () => {
+    //     let count = 0;
+    // lstQuestionsByCriteria
+    //     props.questionLst.forEach(item => {
+    //         item.questionLst.forEach(question => {
+    //             if (question.pickedAnswer) count += 1;
+    //         });
+    //     });
+    //     setNumberOfQuestionsAnswered(count);
+    // }
+    // // Kiểm tra xem từng trang của danh sách câu hỏi đã được trả lời hết chưa
+    // const checkIsPartOfQuestionIsAnswered = () => {
+    //     for (let i = 0; i < props.questionLst[currentIndex].questionLst.length; i++) {
+    //         if (!props.questionLst[currentIndex].questionLst[i].pickedAnswer) {
+    //             setCheckNextBtn(false);
+    //             return;
+    //         }
+    //     }
+    //     props.questionLst.length === currentIndex + 1 ? setCheckNextBtn(false) : setCheckNextBtn(true);
+    // }
+    // const checkWhetherDoneTest = () => { // Check xem nguoi dung da nhap het cau tra loi chua
+    //     let check = 1;
+    //     questionLstOfRequestBody = [];
+    //     props.questionLst.forEach((item) => {
+    //         if (check === 0) return;
+    //         item.questionLst.forEach((subitem) => {
+    //             if (subitem.pickedAnswer === null) {
+    //                 check = 0;
+    //                 return;
+    //             } else {
+    //                 questionLstOfRequestBody.push({ // Neu cau hoi da duoc chon dap an thi se day ID cau hoi va ID cau tra loi vao lst
+    //                     "questionId": subitem.id,
+    //                     "answerId": subitem.pickedAnswer.id,
+    //                     "point": subitem.pickedAnswer.point,
+    //                     "additionalProp1": {}
+    //                 })
+    //             }
+    //         })
+    //     })
+    //     if (check === 1) return true;
+    //     else {
+    //         questionLstOfRequestBody = [] // Neu chi can 1 cau hoi chua duoc tra loi thi se xoa toan bo lst
+    //         return false
+    //     };
+    // }
     const handleChangePagination = () => {
         setCurrentIndex(currentIndex + 1);
         setCheckNextBtn(false);
@@ -361,43 +349,44 @@ const TakingTest = (props: MyProps) => {
     const handlePageChange = (page: number) => {
         setCurrentIndex(page - 1);
     };
-    const handleFinishTest = async () => { // Neu da nhap het cau tra loi thi se call API tinh toan diem 
-        console.log("---------------Leu leu leu----------------")
+    // const handleFinishTest = async () => { // Neu da nhap het cau tra loi thi se call API tinh toan diem 
+    //     console.log("---------------Leu leu leu----------------")
 
-        if (checkWhetherDoneTest() === true) {
-            console.log('-----------------Mai la anh em ban nhe------------------')
-            console.log(props.questionLst)
-            let count = 0;
-            // Luu lai so luong cau tra loi moi loai
-            props.questionLst.forEach((item) => {
-                count += item.questionLst.length * 5;
-                item.questionLst.forEach((subitem) => {
-                    console.log(subitem.pickedAnswer?.id);
-                    if (subitem.pickedAnswer?.id === "63c4109aa5775a103cdc9de0") { // Quan sat duoc hoan toan
-                        quantityOfEachTypeOfAnswer[0] += 1
-                    } else if (subitem.pickedAnswer?.id === "63c410a6a5775a103cdc9de2") { // Quan sat duoc 1 phan
-                        quantityOfEachTypeOfAnswer[1] += 1
-                    } else {
-                        quantityOfEachTypeOfAnswer[2] += 1 // KHong quan sat duoc
-                    }
-                })
-            })
+    //     if (checkWhetherDoneTest() === true) {
+    //         console.log('-----------------Mai la anh em ban nhe------------------')
+    //         console.log(props.questionLst)
+    //         let count = 0;
+    //         // Luu lai so luong cau tra loi moi loai
+    //         props.questionLst.forEach((item) => {
+    //             count += item.questionLst.length * 5;
+    //             item.questionLst.forEach((subitem) => {
+    //                 console.log(subitem.pickedAnswer?.id);
+    //                 if (subitem.pickedAnswer?.id === "63c4109aa5775a103cdc9de0") { // Quan sat duoc hoan toan
+    //                     quantityOfEachTypeOfAnswer[0] += 1
+    //                 } else if (subitem.pickedAnswer?.id === "63c410a6a5775a103cdc9de2") { // Quan sat duoc 1 phan
+    //                     quantityOfEachTypeOfAnswer[1] += 1
+    //                 } else {
+    //                     quantityOfEachTypeOfAnswer[2] += 1 // KHong quan sat duoc
+    //                 }
+    //             })
+    //         })
 
-            console.log(quantityOfEachTypeOfAnswer)
-            setquantityOfEachTypeOfAnswerUseState(quantityOfEachTypeOfAnswer)
-            setTotalScoreOfQuestionList(count);
-            //Call API tinh diem
+    //         console.log(quantityOfEachTypeOfAnswer)
+    //         setquantityOfEachTypeOfAnswerUseState(quantityOfEachTypeOfAnswer)
+    //         setTotalScoreOfQuestionList(count);
+    //         //Call API tinh diem
 
-            await QuestionAPI.caculateResult(questionLstOfRequestBody).then(res => {
-                console.log(res.data.data);
-                setReceivedResult(res.data.data);
-            })
-        }
-    }
+    //         await QuestionAPI.caculateResult(questionLstOfRequestBody).then(res => {
+    //             console.log(res.data.data);
+    //             setReceivedResult(res.data.data);
+    //         })
+    //     }
+    // }
 
     return (
+        // <></>
         <div className='taking-test'>
-            {
+            {/* {
                 receivedResult && quantityOfEachTypeOfAnswerUseState &&
                 <Result
                     receivedResult={receivedResult}
@@ -408,7 +397,7 @@ const TakingTest = (props: MyProps) => {
                     totalScoreOfQuestionList={totalScoreOfQuestionList}
                     numberOfQuestionList={props.numberOfQuestions}
                 />
-            }
+            } */}
             {
                 !receivedResult &&
                 <div>
@@ -430,74 +419,72 @@ const TakingTest = (props: MyProps) => {
                     <div className='test-body'>
                         <div className='test-detail'>
                             <div className='title'>{props.choseCriteria.name}</div>
-                            <div className='text'>Bạn có thể đọc về các yếu tố đánh giá của U.innovate và tải xuống ghi chú Khái niệm, cung cấp thông tin cơ bản về U.innovate và khái niệm về các trường đại học khởi nghiệp</div>
-                            <div className='taking-test-area'>
-                                {/* Khi call API se thay doan duoi nay thanh currentSetOfQuestion.content */}
-                                <div className='sub-title'>{props.questionLst[currentIndex].content}</div>
+                            <div className='text'>{props.choseCriteria.description}</div>
+                            {lstQuestionsByCriteria[currentIndex] &&
+                                <div className='taking-test-area'>
+                                    {/* Khi call API se thay doan duoi nay thanh currentSetOfQuestion.content */}
+                                    <div className='sub-title'>{lstQuestionsByCriteria[currentIndex]?.setOfQuestions.name}</div>
 
-                                <div className='question-lst' >
-                                    {
-                                        props.questionLst[currentIndex].questionLst.map((item) => ( // Sau nay se thay bang useState currentSetOfQuestion
-                                            <div>
-                                                <div className='content'>{item.content}</div>
-                                                <div className='options-of-answer'>
-                                                    {
-                                                        item.answerLst.map((subitem) => (
-                                                            <label className='lst-item'
-                                                                onClick={() => {
-                                                                    item.pickedAnswer = subitem
-                                                                    setCurrentChoseAnswerId(currentChoseAnswerId + 1)
-                                                                    console.log(item);
-                                                                }}
-                                                            >
-                                                                <input
-                                                                    type="radio" className="radio-btn"
-                                                                    checked={item.pickedAnswer === subitem}
-                                                                    value={subitem.id} id={subitem.id} name={item.id}
-                                                                />
-                                                                <div className="label">{subitem.content}</div>
-                                                            </label>
-                                                        ))
-                                                    }
-                                                </div>
-                                            </div>
-                                        ))
-                                    }
-                                </div>
-                                <div className='footer'>
-                                    {/* <Pagination className='pagination' page={currentIndex + 1} onChange={handleChange} count={props.questionLst.length} variant="outlined" siblingCount={0} /> */}
-                                    <Pagination className='pagination' current={currentIndex + 1} total={props.numberOfQuestions * 10} onChange={handlePageChange} showLessItems={true} />
-                                    <div className='button-group'>
-                                        <div className='number-of-questions-answered'>
-                                            Đã trả lời: {numberOfQuestionsAnswered}/{numberOfQuestions}
-                                        </div>
-                                        {/* {(checkWhetherDoneTest()) && <Button className='button' onClick={() => { handleFinishTest() }}>Hoàn thành</Button>} */}
-                                        {currentIndex > 0 &&
-                                            <motion.div className='taking-test-button'
-                                                whileHover={{ scale: 1.1 }}
-                                                whileTap={{ scale: 0.95 }}>
-                                                {/* <Button onClick={handleClickLogin}>Đăng nhập</Button> */}
-                                                <Button className='button' onClick={() => { handleBackPagination() }}>Quay lại</Button>
-                                            </motion.div>
-                                        }
-                                        {checkNextBtn &&
-                                            <motion.div className='taking-test-button'
-                                                whileHover={{ scale: 1.1 }}
-                                                whileTap={{ scale: 0.95 }}>
-                                                <Button className='button' onClick={() => { handleChangePagination() }}>Tiếp tục</Button>
-                                            </motion.div>
-                                        }
+                                    <div className='question-lst' >
                                         {
-                                            (props.questionLst.length === currentIndex + 1 && checkWhetherDoneTest()) &&
-                                            <motion.div className='taking-test-button'
-                                                whileHover={{ scale: 1.1 }}
-                                                whileTap={{ scale: 0.95 }}>
-                                                <Button className='button' onClick={() => { handleFinishTest() }}>Hoàn thành</Button>
-                                            </motion.div>
+                                            lstQuestionsByCriteria[currentIndex].questions.map((item, indexitem) => ( // Sau nay se thay bang useState currentSetOfQuestion
+                                                <div>
+                                                    <div className='content'>{item.question.content}</div>
+                                                    <div className='options-of-answer'>
+                                                        {
+                                                            item.answers.map((subitem, indexsubitem) => (
+                                                                <label className='lst-item'
+                                                                // onClick={() => {
+                                                                //     item.pickedAnswer = subitem
+                                                                //     setCurrentChoseAnswerId(currentChoseAnswerId + 1)
+                                                                //     console.log(item);
+                                                                // }}
+                                                                >
+                                                                    <input
+                                                                        type="radio" className="radio-btn"
+                                                                        // checked={item.pickedAnswer === subitem}
+                                                                        value={subitem.id} id={subitem.id} name={indexitem.toString()}
+                                                                    />
+                                                                    <div className="label">{subitem.content}</div>
+                                                                </label>
+                                                            ))
+                                                        }
+                                                    </div>
+                                                </div>
+                                            ))
                                         }
                                     </div>
-                                </div>
-                            </div>
+                                    <div className='footer'>
+                                        <Pagination className='pagination' current={currentIndex + 1} total={lstQuestionsByCriteria.length * 10} onChange={handlePageChange} showLessItems={true} />
+                                        <div className='button-group'>
+                                            <div className='number-of-questions-answered'>
+                                                Đã trả lời: {numberOfQuestionsAnswered}/{props.numberOfQuestion}
+                                            </div>
+                                            {currentIndex > 0 &&
+                                                <motion.div className='taking-test-button'
+                                                    whileHover={{ scale: 1.1 }}
+                                                    whileTap={{ scale: 0.95 }}>
+                                                    <Button className='button' onClick={() => { handleBackPagination() }}>Quay lại</Button>
+                                                </motion.div>
+                                            }
+                                            {checkNextBtn &&
+                                                <motion.div className='taking-test-button'
+                                                    whileHover={{ scale: 1.1 }}
+                                                    whileTap={{ scale: 0.95 }}>
+                                                    <Button className='button' onClick={() => { handleChangePagination() }}>Tiếp tục</Button>
+                                                </motion.div>
+                                            }
+                                            {
+                                                // (props.questionLst.length === currentIndex + 1 && checkWhetherDoneTest()) &&
+                                                // <motion.div className='taking-test-button'
+                                                //     whileHover={{ scale: 1.1 }}
+                                                //     whileTap={{ scale: 0.95 }}>
+                                                //     <Button className='button' onClick={() => { handleFinishTest() }}>Hoàn thành</Button>
+                                                // </motion.div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>}
                         </div>
                     </div>
                 </div>

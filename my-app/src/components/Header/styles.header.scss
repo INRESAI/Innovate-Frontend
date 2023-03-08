@@ -1,5 +1,5 @@
 @import '~antd/dist/antd.css';
-
+@import "../../index.css";
 
 .main-header {
     position: fixed !important;
@@ -15,7 +15,7 @@
 
     .header-logo {
         .logo-text {
-            color: #FF9955;
+            color: var(--color-primary);
             font-size: 20px;
             font-weight: bold;
         }
@@ -27,7 +27,7 @@
         margin-left: 100px;
 
         .ant-menu-item a:hover {
-            color: #FF9955 !important;
+            color: var(--color-primary) !important;
             border: none;
         }
     }
@@ -43,7 +43,7 @@
         font-weight: 700;
         font-size: 16px;
         line-height: 20px;
-        color: #FF9955 !important;
+        color: var(--color-primary) !important;
         transition: 0.3s all ease-in-out;
     }
 
@@ -57,7 +57,6 @@
         display: flex;
         padding: 8.5px 10px;
         align-items: center;
-        margin-right: 5px;
 
         .search-input {
             min-width: none;
@@ -75,14 +74,14 @@
         }
 
         .search-input:hover {
-            border: 1px solid #FF9955 !important;
+            border: 1px solid var(--color-primary) !important;
         }
 
         .search-input:focus {
-            border: 1px solid #FF9955 !important;
-            // border-color: #FF9955;
-            box-shadow: 0 0 0 1px #FF9955;
-            caret-color: #FF9955;
+            border: 1px solid var(--color-primary) !important;
+            // border-color: var(--color-primary);
+            box-shadow: 0 0 0 1px var(--color-primary);
+            caret-color: var(--color-primary);
         }
 
         .icon-search {
@@ -95,8 +94,12 @@
         }
     }
 
+    .header-content-input.login {
+        margin-right: 120px;
+    }
+
     .header-button button {
-        background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
+        background: var(--color-primary);
         border-radius: 30px;
         color: #FFFFFF;
         border: none;
@@ -110,13 +113,40 @@
         font-weight: 700;
     }
 
-    .header-avatar {
+    .header-avatar-content {
         position: absolute;
         right: 50px;
+
+        .header-avatar-right {
+            .header-avatar-name {
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 20px;
+                display: flex;
+                align-items: center;
+                text-align: right;
+                color: #696969;
+            }
+
+            .header-avatar-position {
+                font-weight: 400;
+                font-size: 10px;
+                line-height: 16px;
+                display: flex;
+                align-items: center;
+                text-align: right;
+                color: #C0C0C0;
+            }
+        }
+
+        .anticon {
+            margin-left: 5px;
+            margin-right: 10px;
+        }
     }
 
     .menubtn {
-        background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
+        background: var(--color-primary);
         border: none;
 
     }
@@ -125,7 +155,7 @@
     .menubtn:focus {
         animation: pulse 1s;
         box-shadow: 0 0 0 2em transparent;
-        background: linear-gradient(308.85deg, #FF6600 0%, #f87925 100%);
+        background: var(--color-primary);
     }
 
 }
@@ -134,7 +164,7 @@
     .ant-drawer-header {
         .header-logo {
             .logo-text {
-                color: #FF9955;
+                color: var(--color-primary);
                 font-size: 20px;
                 font-weight: bold;
             }
@@ -159,6 +189,10 @@
             opacity: 1;
         }
     }
+}
+
+.ant-dropdown-menu {
+    width: 150px;
 }
 
 @media (min-width: 1280px) {
@@ -218,7 +252,7 @@
     }
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
     .header-menu.login {
         display: none;
     }

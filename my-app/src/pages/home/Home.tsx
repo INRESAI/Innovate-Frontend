@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/iframe-has-title */
 import { Button, notification } from 'antd';
 import { Variants, motion, useTransform, useViewportScroll } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ImageOfIntro from '../../images/home_image_1.png';
 import HowToUse from '../../images/HowToUse.png';
@@ -23,7 +23,8 @@ import './styles.home.scss';
 
 // Phần trang chủ của trang web
 const Home = () => {
-    const { tokenLogin, user } = useSelectorRoot((state) => state.login);
+    const { user } = useSelectorRoot((state) => state.login);
+    const [isLogin, setIsLogin] = useState<boolean>(false)
     const navigate = useNavigate();
     const mapRef = useRef<any>(null);
 
@@ -68,6 +69,14 @@ const Home = () => {
             scale: 0.8
         },
     };
+
+    useEffect(() => {
+        let checkLogin = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+        if (checkLogin) {
+            setIsLogin(true);
+        }
+    });
+
     useEffect(() => {
         if (mapRef.current) {
             const mapDoc = mapRef.current.contentWindow?.document;
@@ -81,7 +90,7 @@ const Home = () => {
     }, [mapRef]);
 
     const handleOnClick = () => {
-        if (!tokenLogin) {
+        if (!isLogin) {
             notification['warning']({
                 message: 'Vui lòng đăng nhập tài khoản trước',
                 duration: 1,

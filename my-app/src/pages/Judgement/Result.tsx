@@ -98,7 +98,7 @@ const Result = (props: MyProps) => {
                 {/* Khi call API se thay doan duoi nay thanh currentSetOfQuestion.content */}
                 <div className='sub-title'>{props.doneQuestionLst[currentIndex].content}</div>
 
-                <div className='question-lst'>
+                {/* <div className='question-lst'>
                     {
                         props.doneQuestionLst[currentIndex].questionLst.map((item) => ( // Sau nay se thay bang useState currentSetOfQuestion
                             <div>
@@ -122,7 +122,7 @@ const Result = (props: MyProps) => {
                             </div>
                         ))
                     }
-                </div>
+                </div> */}
                 <div className='footer'>
                     <Pagination className='pagination paginnation-result' defaultCurrent={currentIndex + 1} onChange={handlePageChange} total={props.numberOfQuestionList * 10} showLessItems={true} />
                 </div>

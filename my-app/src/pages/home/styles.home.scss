@@ -1,4 +1,5 @@
 @import '~antd/dist/antd.css';
+@import "../../index.css";
 
 .main-home {
     font-family: 'Montserrat';
@@ -39,7 +40,7 @@
             }
 
             .home-button button {
-                background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
+                background: var(--color-primary);
                 border-radius: 30px;
                 color: #FFFFFF;
                 border: none;
@@ -349,7 +350,7 @@
                             line-height: 20px;
                             display: flex;
                             align-items: center;
-                            color: #FE8B60;
+                            color: var(--color-primary);
                         }
 
                         .item-sub-title {

@@ -38,7 +38,8 @@ const SYSTEM_CONSTANTS = {
             MEETING_INVITATION: 'meetingInvitation'
         },
         CRITERIA: {
-            GET_ALL: 'criteria'
+            GET_ALL: 'criteria',
+            GET_CRITERIA_BY_USER_TOKEN: 'criteria/result/{type}'
         },
         QUESTION: {
             GET_ALL: 'questions/criteria'

@@ -12,7 +12,7 @@ import { LoginRequest, RegisterRequest } from '../../common/define-identity';
 import { IFacilities, IFacilitiesList } from '../../common/u-innovate/define-facilities';
 import { IPosition } from '../../common/u-innovate/define-position';
 import { getAllAddressesRequest, getAllFacilitiesByDescriptionRequest, getAllPositionsRequest } from '../../redux/controller';
-import { checkEmailRequest, loginRequest, registerRequest } from '../../redux/controller/login.slice';
+import { checkEmailRequest, getUserInfoRequest, loginRequest, registerRequest } from '../../redux/controller/login.slice';
 import { useDispatchRoot, useSelectorRoot } from '../../redux/store';
 import ActiveAccountModel from '../ActiveAccount/ActiveAccountModel';
 import './login.scss';
@@ -111,6 +111,7 @@ const Login = (props: MyProps) => {
     // Thực hiện nếu đã đăng nhập thành công, trở về trang chủ
     useEffect(() => {
         if (tokenLogin) {
+            dispatch(getUserInfoRequest(tokenLogin));
             navigate("/");
         }
     }, [tokenLogin])

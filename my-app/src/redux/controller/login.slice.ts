@@ -88,16 +88,19 @@ const loginSlice = createSlice({
             state.statusCode = action.payload;
         }
         ,
-        getUserInfoRequest(state, action: PayloadAction<GetUserInfoRequest>) {
+        getUserInfoRequest(state, action: PayloadAction<any>) {
             state.tokenLogin = action.payload.accessToken
             state.loading = true;
         },
         getUserInfoSuccess(state, action: PayloadAction<{ user: IUser, token: string }>) {
-            Utils.setLocalStorage('userName', action.payload.user.name);
-            Utils.setLocalStorage('userMail', action.payload.user.email);
+            // Utils.setLocalStorage('userName', action.payload.user.name);
+            // Utils.setLocalStorage('userMail', action.payload.user.email);
+            Utils.setLocalStorage('userType', action.payload.user.type);
+            // Utils.setLocalStorage('userPosition', action.payload.user.position.name);
             state.loading = false;
             state.isSuccess = true;
             state.user = action.payload.user;
+            console.log(action.payload.user);
             console.log('---get user info success---');
 
 
@@ -361,16 +364,10 @@ const getUserInfo$: RootEpic = (action$) => action$.pipe(
     filter(getUserInfoRequest.match),
     switchMap((re) => {
         console.log(re);
-        // const body: GetUserInfoRequest = {
-        //     "accessToken": re.payload.accessToken,
-        //     "additionalProp1": {}
-        // };
-        // const token = 
-        return IdentityApi.getUserInfo(re.payload.accessToken).pipe(
+        return IdentityApi.getUserInfo(re.payload).pipe(
             mergeMap((res: any) => {
                 console.log(res);
                 const token = res.data.accessToken;
-
                 const user: IUser = {
                     email: res.data.email,
                     name: res.data.name,

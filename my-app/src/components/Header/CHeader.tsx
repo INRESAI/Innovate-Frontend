@@ -8,13 +8,15 @@ import "./styles.header.scss"
 // import "./styles.css";
 import { Link, useNavigate } from "react-router-dom"
 // import CRegisterModal from './CRegisterModal';
-import { MenuOutlined } from '@ant-design/icons'
+import { MenuOutlined, UserOutlined, DownOutlined } from '@ant-design/icons'
 import { motion } from 'framer-motion'
 import Utils from '../../common/utils'
-import UserIcon from '../../images/user_icon.png'
+import UserIcon1 from '../../images/user-1.png';
+import UserIcon2 from '../../images/user-2.png';
+import UserIcon3 from '../../images/user-3.png';
+
 import SearchIcon from '../../images/Search_Icon.png'
 import { useSelectorRoot } from '../../redux/store'
-
 
 interface MyProps {
     // setIsLogout: React.Dispatch<React.SetStateAction<boolean>>
@@ -24,19 +26,28 @@ interface MyProps {
 export const CHeader = (props: MyProps) => {
     const [visible, setVisible] = useState(false); // Biến thể hiện nút thu gọn menu có đang mở hay không
     const [current, setCurrent] = useState<string>('1') // Biến thể hiện giá trị cho nút hiện tại
-    const { tokenLogin, user } = useSelectorRoot((state) => state.login);
-    const [userName, setUserName] = useState<string>(user?.name ? user.name : '')
-    const [userEmail, setUserEmail] = useState<string>(user?.email ? user.email : '')
+    const { user } = useSelectorRoot((state) => state.login);
+
+    const [userIcon, setUserIcon] = useState<string>(UserIcon1);
+    const [isLogin, setIsLogin] = useState<boolean>(false)
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (tokenLogin) {
-            const usermail = localStorage.getItem('userMail') ? localStorage.getItem('userMail') : '';
-            const username = localStorage.getItem('userName') ? localStorage.getItem('userName') : '';
-            setUserEmail(usermail ? usermail : '');
-            setUserName(username ? username : '');
+        let checkLogin = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+        if (checkLogin) {
+            setIsLogin(true);
+            if (user?.type === 'UINNOVATE') {
+                setUserIcon(UserIcon1);
+            }
+            if (user?.type === 'UIMPACT') {
+                setUserIcon(UserIcon2);
+            }
+            if (user?.type === 'PINNOVATE') {
+                setUserIcon(UserIcon3);
+            }
         }
     });
+
     // Kiểm tra xem đường dẫn đang là gì để set thuộc tính đã click cho header
     useEffect(() => {
         if (window.location.pathname === '/test')
@@ -65,24 +76,20 @@ export const CHeader = (props: MyProps) => {
     };
     const onClickLogout = () => {
         Utils.removeItemLocalStorage('token');
+        Utils.removeItemLocalStorage('userPosition');
         Utils.removeItemLocalStorage('userMail');
+        Utils.removeItemLocalStorage('theme');
         Utils.removeItemLocalStorage('userName');
+        Utils.removeItemLocalStorage('userType');
+
         window.location.reload();
     }
     const items: MenuProps['items'] = [
         {
-            key: '1',
+            key: '3',
             label: (
                 <div >
-                    Tên: {userName}
-                </div>
-            ),
-        },
-        {
-            key: '2',
-            label: (
-                <div >
-                    Email: {userEmail}
+                    {user?.position.name}
                 </div>
             ),
         },
@@ -102,10 +109,10 @@ export const CHeader = (props: MyProps) => {
     return (
         <div className='main-header'>
             <div className='header-logo'>
-                <Link to={'/'} className='logo-text'> V.innovate</Link>
+                <div id='main-header-logo' className='logo-text'>V.innovate</div>
             </div>
             <Menu
-                className={`header-menu + ${tokenLogin ? 'login' : ''}`}
+                className={`header-menu + ${isLogin ? 'login' : ''}`}
                 onClick={handleClick}
                 defaultSelectedKeys={[current]}
                 selectedKeys={[current]}
@@ -132,7 +139,7 @@ export const CHeader = (props: MyProps) => {
                 />
                 <SearchOutlined className='icon-search' />
             </div> */}
-            <div className={`header-content-input ${tokenLogin ? 'login' : ''}`}>
+            <div className={`header-content-input ${isLogin ? 'login' : ''}`}>
                 <Input
                     className='search-input'
                     placeholder='Tìm kiếm'
@@ -140,7 +147,7 @@ export const CHeader = (props: MyProps) => {
                 <img src={SearchIcon} className='icon-search'></img>
                 {/* <SearchOutlined className='icon-search' /> */}
             </div>
-            {!tokenLogin &&
+            {!isLogin &&
                 <>
                     <motion.div className='header-button'
                         whileHover={{ scale: 1.1 }}
@@ -149,27 +156,30 @@ export const CHeader = (props: MyProps) => {
                     </motion.div>
                 </>
             }
-            {tokenLogin &&
-                <Dropdown menu={{ items }} placement="bottomLeft" arrow>
-                    <Avatar className='header-avatar' src={UserIcon} />
-                </Dropdown>
-                //                 <div className='header-avatar-content' style={{ display: 'flex', alignItems: 'center' }}>
-                //     <Avatar size={32} icon={<UserOutlined />} style={{ marginRight: '12px' }} />
-                //     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flex: 1 }}>
-                //         <div className='header-avatar-right'>
-                //             <div>{user?.name}</div>
-                //             <div>{user?.email}</div>
-                //         </div>
-                //         <Dropdown overlay={menu}>
-                //             <a href="/" style={{ marginLeft: '12px' }}>
-                //                 More
-                //             </a>
-                //         </Dropdown>
-                //     </div>
-                // </div>
+            {isLogin &&
+                // <Dropdown menu={{ items }} placement="bottomLeft" arrow>
+                //     <Avatar className='header-avatar' src={UserIcon} />
+                // </Dropdown>
+                <div className='header-avatar-content' style={{ display: 'flex', alignItems: 'center' }}>
+                    <Avatar size={32} icon={<img src={userIcon} />} style={{ marginRight: '12px' }} />
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flex: 1 }}>
+                        <div className='header-avatar-right'>
+                            <div
+                                className='header-avatar-name'>{user?.name}
+                            </div>
+                            <div
+                                className='header-avatar-position'>{user?.position.description}
+                            </div>
+                            {/* <div>{user?.po}</div> */}
+                        </div>
+                        <Dropdown menu={{ items }} placement="bottomLeft" arrow>
+                            <DownOutlined />
+                        </Dropdown>
+                    </div>
+                </div>
             }
             <>
-                <Button className={`menubtn + ${tokenLogin ? 'login' : ''}`} type="primary" shape="circle" icon={<MenuOutlined />} onClick={showDrawer} ></Button>
+                <Button className={`menubtn + ${isLogin ? 'login' : ''}`} type="primary" shape="circle" icon={<MenuOutlined />} onClick={showDrawer} ></Button>
                 <Drawer
                     title={
                         <div className='header-logo'>
@@ -183,7 +193,7 @@ export const CHeader = (props: MyProps) => {
                         <Button type="text" href="/" >Trang chủ</Button>
                         <Button type="text" href="/test" >Đánh giá</Button>
                         <Button type="text" href="/about_us" >Về chúng tôi</Button>
-                        {!tokenLogin && <Button type="text" href="/login" >Đăng nhập / Đăng ký</Button>}
+                        {!isLogin && <Button type="text" href="/login" >Đăng nhập / Đăng ký</Button>}
                     </div>
                 </Drawer>
             </>

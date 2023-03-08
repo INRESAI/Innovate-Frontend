@@ -1,6 +1,5 @@
 @import '~antd/dist/antd.css';
-$primary-color: #fff;
-$accent-color: #FF9955;
+@import '../../index.css';
 
 .judgement-main {
     margin-top: 50px;
@@ -42,7 +41,7 @@ $accent-color: #FF9955;
             }
 
             .button-start button {
-                background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
+                background: var(--color-primary);
                 border-radius: 30px;
                 color: #FFFFFF;
                 border: none;
@@ -72,8 +71,8 @@ $accent-color: #FF9955;
 
     .criteria-lst {
         margin-top: 33px;
-        margin-right: 153px;
-        margin-left: 153px;
+        margin-right: 100px;
+        margin-left: 100px;
 
         .ant-breadcrumb {
             .ant-breadcrumb-link {
@@ -105,14 +104,18 @@ $accent-color: #FF9955;
                     border-radius: 30px;
 
                     .ant-card-body {
+                        position: relative;
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
                         align-items: center;
+                        height: 350px;
 
                         .card-img-option {
-                            height: 40%;
-                            width: 40%;
+                            width: 100px;
+                            height: 100px;
+                            position: absolute;
+                            top: 20px;
                         }
 
                         .card-title-option {
@@ -122,6 +125,8 @@ $accent-color: #FF9955;
                             text-align: center;
                             color: #FFFFFF;
                             margin-top: 24px;
+                            white-space: nowrap;
+                            margin-top: 100px;
                         }
 
                         .card-number-of-question-complete {
@@ -160,27 +165,41 @@ $accent-color: #FF9955;
                             text-align: center;
                             color: #FFFFFF;
                             margin-bottom: 10px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 3;
+                            /* number of lines to show */
+                            line-clamp: 3;
+                            -webkit-box-orient: vertical;
                         }
 
                         .card-btn-option {
+                            width: 100%;
                             background: #FFFFFF;
                             border-radius: 30px;
                             font-weight: 700;
                             font-size: 14px;
                             line-height: 20px;
                             display: flex;
+                            justify-content: center;
                             align-items: center;
                             text-align: center;
                             color: #00000050;
-                        }
-
-                        .card-btn-option:hover {
-                            border: 1px solid #00000050;
+                            border: none;
                         }
 
                         .card-btn-option:active {
                             background: #FFFFFF;
                             color: #00000050;
+                        }
+
+                        .card-btn-option:disabled {
+                            background: rgba(255, 255, 255, 0.503);
+                        }
+
+                        .card-btn-option.unlock {
+                            color: #ff9a9a;
                         }
                     }
                 }
@@ -394,10 +413,10 @@ $accent-color: #FF9955;
                                 position: relative;
 
                                 &:hover>.label {
-                                    color: $accent-color;
+                                    color: var(--color-primary);
 
                                     &::before {
-                                        border: 0.5rem solid $accent-color;
+                                        border: 0.5rem solid var(--color-primary);
                                         margin-right: 1rem;
                                     }
                                 }
@@ -409,11 +428,11 @@ $accent-color: #FF9955;
                                     visibility: hidden;
 
                                     &:checked+.label {
-                                        color: $accent-color;
+                                        color: var(--color-primary);
 
                                         &::before {
                                             margin-right: 1rem;
-                                            border: 0.5rem solid $accent-color;
+                                            border: 0.5rem solid var(--color-primary);
                                             background: #EEF2F6;
                                         }
                                     }
@@ -472,11 +491,11 @@ $accent-color: #FF9955;
                             }
 
                             .button {
-                                // background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
+                                // background: var(--color-primary);
                                 border-radius: 30px;
-                                color: #FF9955;
+                                color: var(--color-primary);
                                 background-color: #EEF2F6;
-                                border: 2px solid #FF9955;
+                                border: 2px solid var(--color-primary);
                                 font-weight: 700;
                                 font-size: 14px;
                                 line-height: 20px;
@@ -487,7 +506,8 @@ $accent-color: #FF9955;
                             }
 
                             .button:hover {
-                                background: linear-gradient(308.85deg, #FF6600 0%, #fa7b26 100%);
+                                background: var(--color-primary);
+                                ;
                                 transition: 0.3s all;
                                 color: white;
                             }
@@ -524,7 +544,7 @@ $accent-color: #FF9955;
                     }
 
                     .button {
-                        background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
+                        background: var(--color-primary);
                         border-radius: 30px;
                         color: #FFFFFF;
                         border: none;
@@ -537,7 +557,7 @@ $accent-color: #FF9955;
 
                     .button:hover {
                         font-weight: bold;
-                        background: linear-gradient(308.85deg, #FF6600 0%, #fa7b26 100%);
+                        background: var(--color-primary);
                         transition: 0.3s all;
                     }
                 }
@@ -556,12 +576,12 @@ $accent-color: #FF9955;
                         display: flex;
                         align-items: center;
                         text-align: right;
-                        color: #FF9955;
+                        color: var(--color-primary);
                         margin-right: 10px;
                     }
 
                     .icon {
-                        color: #FF9955;
+                        color: var(--color-primary);
                         margin-bottom: 5px;
                     }
                 }
@@ -601,11 +621,11 @@ $accent-color: #FF9955;
                 display: flex;
                 align-items: center;
                 text-align: right;
-                color: #FF9955;
+                color: var(--color-primary);
             }
 
             .icon {
-                color: #FF9955;
+                color: var(--color-primary);
                 margin-right: 10px;
                 margin-bottom: 5px;
             }
@@ -658,7 +678,7 @@ $accent-color: #FF9955;
                     }
 
                     .button {
-                        background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
+                        background: var(--color-primary);
                         border-radius: 30px;
                         color: #FFFFFF;
                         border: none;
@@ -671,7 +691,7 @@ $accent-color: #FF9955;
 
                     .button:hover {
                         font-weight: bold;
-                        background: linear-gradient(308.85deg, #FF6600 0%, #fa7b26 100%);
+                        background: var(--color-primary);
                         transition: 0.3s all;
                     }
                 }
@@ -690,12 +710,12 @@ $accent-color: #FF9955;
                         display: flex;
                         align-items: center;
                         text-align: right;
-                        color: #FF9955;
+                        color: var(--color-primary);
                         margin-right: 10px;
                     }
 
                     .icon {
-                        color: #FF9955;
+                        color: var(--color-primary);
                         margin-bottom: 5px;
                     }
                 }
@@ -888,10 +908,10 @@ $accent-color: #FF9955;
                         position: relative;
 
                         &:hover>.label {
-                            color: $accent-color;
+                            color: var(--color-primary);
 
                             &::before {
-                                border: 0.5rem solid $accent-color;
+                                border: 0.5rem solid var(--color-primary);
                                 margin-right: 1rem;
                             }
                         }
@@ -903,11 +923,11 @@ $accent-color: #FF9955;
                             visibility: hidden;
 
                             &:checked+.label {
-                                color: $accent-color;
+                                color: var(--color-primary);
 
                                 &::before {
                                     margin-right: 1rem;
-                                    border: 0.5rem solid $accent-color;
+                                    border: 0.5rem solid var(--color-primary);
                                     background: #EEF2F6;
                                 }
                             }
@@ -954,11 +974,11 @@ $accent-color: #FF9955;
                     display: flex;
 
                     .button {
-                        // background: linear-gradient(308.85deg, #FF6600 0%, #FF9955 100%);
+                        // background: var(--color-primary);
                         border-radius: 30px;
-                        color: #FF9955;
+                        color: var(--color-primary);
                         background-color: #EEF2F6;
-                        border: 2px solid #FF9955;
+                        border: 2px solid var(--color-primary);
                         font-weight: 700;
                         font-size: 14px;
                         line-height: 20px;
@@ -969,7 +989,7 @@ $accent-color: #FF9955;
                     }
 
                     .button:hover {
-                        background: linear-gradient(308.85deg, #FF6600 0%, #fa7b26 100%);
+                        background: var(--color-primary);
                         transition: 0.3s all;
                         color: white;
                     }
@@ -997,11 +1017,11 @@ $accent-color: #FF9955;
                     display: flex;
                     align-items: center;
                     text-align: right;
-                    color: #FF9955;
+                    color: var(--color-primary);
                 }
 
                 .icon {
-                    color: #FF9955;
+                    color: var(--color-primary);
                     margin-right: 10px;
                     margin-bottom: 5px;
                 }
@@ -1019,17 +1039,6 @@ $accent-color: #FF9955;
     margin-right: 10px;
 }
 
-#btn-intro-part.UINNOVATE {
-    background: linear-gradient(138.87deg, #FF5A80 0%, #FFC19E 99.02%);
-}
-
-#btn-intro-part.UIMPACT {
-    background: linear-gradient(125.34deg, #46D6A1 0%, #9FDE69 100%);
-}
-
-#btn-intro-part.PINNOVATE {
-    background: linear-gradient(135deg, #6C7DEF 0%, #C981F7 100%);
-}
 
 @media (min-width: 1300px) {
     .judgement-main {
@@ -1048,6 +1057,7 @@ $accent-color: #FF9955;
 
 @media (max-width: 1300px) {
     .judgement-main {
+
         .intro-part {
             .image-of-intro {
                 img {
@@ -1068,8 +1078,17 @@ $accent-color: #FF9955;
         }
 
         .criteria-lst {
-            margin-right: 50px;
-            margin-left: 125px;
+            .ant-list {
+                .ant-list-item {
+                    .ant-card {
+                        .ant-card-body {
+                            .card-title-option {
+                                font-size: 14px;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         .more-test {
@@ -1182,8 +1201,8 @@ $accent-color: #FF9955;
 @media (max-width: 1200px) {
     .judgement-main {
         .criteria-lst {
-            margin-right: 50px;
-            margin-left: 125px;
+            margin-right: 25px;
+            margin-left: 25px;
 
             .criteria-image {
                 margin-top: 24px;
@@ -1595,8 +1614,8 @@ $accent-color: #FF9955;
         }
 
         .criteria-lst {
-            margin-right: 50px;
-            margin-left: 50px;
+            margin-right: 25px;
+            margin-left: 25px;
 
             .criteria-image {
                 display: none !important;
@@ -1860,8 +1879,8 @@ $accent-color: #FF9955;
         }
 
         .criteria-lst {
-            margin-right: 50px;
-            margin-left: 50px;
+            margin-right: 25px;
+            margin-left: 25px;
 
             .lst-item {
                 padding: 20px !important;
@@ -1919,7 +1938,7 @@ $accent-color: #FF9955;
 
                                     &:hover>.label {
                                         &::before {
-                                            border: 5px solid $accent-color;
+                                            border: 5px solid var(--color-primary);
                                             margin-right: 5px;
                                             width: 20px !important;
                                         }
@@ -1929,7 +1948,7 @@ $accent-color: #FF9955;
                                         &:checked+.label {
                                             &::before {
                                                 margin-right: 5px;
-                                                border: 5px solid $accent-color;
+                                                border: 5px solid var(--color-primary);
                                                 background: #EEF2F6;
                                                 width: 20px !important;
 
@@ -2015,7 +2034,7 @@ $accent-color: #FF9955;
 
                             &:hover>.label {
                                 &::before {
-                                    border: 5px solid $accent-color;
+                                    border: 5px solid var(--color-primary);
                                     margin-right: 5px;
                                     width: 20px !important;
                                 }
@@ -2025,7 +2044,7 @@ $accent-color: #FF9955;
                                 &:checked+.label {
                                     &::before {
                                         margin-right: 5px;
-                                        border: 5px solid $accent-color;
+                                        border: 5px solid var(--color-primary);
                                         background: #EEF2F6;
                                         width: 20px !important;
 
@@ -2213,7 +2232,7 @@ $accent-color: #FF9955;
 
                                     &:hover>.label {
                                         &::before {
-                                            border: 5px solid $accent-color;
+                                            border: 5px solid var(--color-primary);
                                             margin-right: 5px;
                                             width: 20px !important;
                                         }
@@ -2223,7 +2242,7 @@ $accent-color: #FF9955;
                                         &:checked+.label {
                                             &::before {
                                                 margin-right: 5px;
-                                                border: 5px solid $accent-color;
+                                                border: 5px solid var(--color-primary);
                                                 background: #EEF2F6;
                                                 width: 20px !important;
 
