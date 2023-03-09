@@ -4,12 +4,15 @@ body[data-theme='light'] {
 
 body[data-theme='UINNOVATE'] {
   --color-primary: #FF5A80;
+  --bg-note: #FEF9F5;
 }
 
 body[data-theme='UIMPACT'] {
   --color-primary: #46D6A1;
+  --bg-note: #F1FFEF;
 }
 
 body[data-theme='PINNOVATE'] {
   --color-primary: #6C7DEF;
+  --bg-note: #FAF5FE;
 }

@@ -14,7 +14,7 @@ import { IFacilities, IFacilitiesList } from "../../common/u-innovate/define-fac
 import { IPosition } from "../../common/u-innovate/define-position";
 import { IAddresses } from "../../common/u-innovate/define-addresses";
 import AddressesAPI from "../../api/addresses/addresses.api";
-import { IGetAllQuestionsByCriteriaResponse } from "../../common/u-innovate/define-question";
+import { GetAllQuestionByCriteriaIdRequest, IGetAllQuestionsByCriteriaResponse } from "../../common/u-innovate/define-question";
 import QuestionAPI from "../../api/questions/question.api";
 
 
@@ -28,6 +28,7 @@ interface UInnovateState {
     positonUniversityLst: IPosition[];
     positonLocalLst: IPosition[];
     lstQuestionsByCriteria: IGetAllQuestionsByCriteriaResponse[];
+    tmplstQuestionsByCriteria: IGetAllQuestionsByCriteriaResponse[]
 }
 
 const initState: UInnovateState = {
@@ -40,6 +41,7 @@ const initState: UInnovateState = {
     positonUniversityLst: [],
     positonLocalLst: [],
     lstQuestionsByCriteria: [],
+    tmplstQuestionsByCriteria: [],
 }
 
 const uInnovateSlice = createSlice({
@@ -66,12 +68,20 @@ const uInnovateSlice = createSlice({
         getAllQuestionsByCriteriaSuccess(state, action: PayloadAction<IGetAllQuestionsByCriteriaResponse[]>) {
             console.log(action.payload[0]);
             state.lstQuestionsByCriteria = action.payload;
+            state.tmplstQuestionsByCriteria = action.payload;
             state.loading = true
         },
         getAllQuestionsByCriteriaIdFail(state, action: PayloadAction<any>) {
             state.loading = true
         },
 
+        setAnswersIsChosen(state, action: PayloadAction<any>) {
+
+            for (let i = 0; i < state.tmplstQuestionsByCriteria[action.payload.currentIndex].questions[action.payload.indexitem].answers.length; i++) {
+                (i === action.payload.index ? state.tmplstQuestionsByCriteria[action.payload.currentIndex].questions[action.payload.indexitem].answers[i].isChosen = true : state.tmplstQuestionsByCriteria[action.payload.currentIndex].questions[action.payload.indexitem].answers[i].isChosen = false)
+            }
+            console.log(state.tmplstQuestionsByCriteria);
+        },
         // Lấy ra hết vị trí của user
         getAllPositionsRequest(state) {
             state.loading = true
@@ -131,6 +141,8 @@ const uInnovateSlice = createSlice({
         getAllFacilitiesByDescriptionFail(state, action: any) {
             state.loading = false
         },
+
+
     }
 })
 
@@ -225,6 +237,7 @@ export const {
     getAllFacilitiesRequest,
     getAllFacilitiesByDescriptionRequest,
     getAllAddressesRequest,
+    setAnswersIsChosen,
 
 } = uInnovateSlice.actions
 export const uInnovateReducer = uInnovateSlice.reducer

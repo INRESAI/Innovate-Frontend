@@ -1,3 +1,8 @@
+export interface GetAllQuestionByCriteriaIdRequest {
+    token: string,
+    criteriaId: string,
+}
+
 export interface IGetAllQuestionsByCriteriaResponse {
     setOfQuestions: setOfQuestions;
     questions: questions[];
@@ -30,4 +35,5 @@ export interface IAnswers {
     createdAt?: Date,
     updatedAt?: Date,
     id: string,
+    isChosen: boolean,
 }

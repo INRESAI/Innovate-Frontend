@@ -2,6 +2,12 @@ import { Breadcrumb, Button, Card, List, Progress } from 'antd';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { ICriteria } from '../../common/u-innovate/define-criteria';
+
+import UinnovateBgLockCard from '../../images/bg-lock-card.png';
+import UinnovateBgUnLockCard from '../../images/bg-unlock-card.png';
+import PinnovateBgLockCard from '../../images/pinnovate-bg-lock-card.png';
+import PinnovateBgUnLockCard from '../../images/pinnovate-bg-unlock-card.png';
+
 import Lock1 from '../../images/Lock/1.png';
 import Lock2 from '../../images/Lock/2.png';
 import Lock3 from '../../images/Lock/3.png';
@@ -51,6 +57,42 @@ import Unlock22 from '../../images/Unlock/22.png';
 import Unlock23 from '../../images/Unlock/23.png';
 import Unlock24 from '../../images/Unlock/24.png';
 import Unlock25 from '../../images/Unlock/25.png';
+
+import UIMPACTLOCK2 from '../../images/Uimpact_lock/1.png';
+import UIMPACTLOCK3 from '../../images/Uimpact_lock/2.png';
+import UIMPACTLOCK4 from '../../images/Uimpact_lock/3.png';
+import UIMPACTLOCK5 from '../../images/Uimpact_lock/4.png';
+import UIMPACTLOCK6 from '../../images/Uimpact_lock/5.png';
+import UIMPACTLOCK7 from '../../images/Uimpact_lock/6.png';
+import UIMPACTLOCK8 from '../../images/Uimpact_lock/7.png';
+import UIMPACTLOCK9 from '../../images/Uimpact_lock/8.png';
+import UIMPACTLOCK10 from '../../images/Uimpact_lock/9.png';
+import UIMPACTLOCK11 from '../../images/Uimpact_lock/10.png';
+import UIMPACTLOCK12 from '../../images/Uimpact_lock/11.png';
+import UIMPACTLOCK13 from '../../images/Uimpact_lock/12.png';
+import UIMPACTLOCK14 from '../../images/Uimpact_lock/13.png';
+import UIMPACTLOCK15 from '../../images/Uimpact_lock/14.png';
+import UIMPACTLOCK16 from '../../images/Uimpact_lock/15.png';
+import UIMPACTLOCK17 from '../../images/Uimpact_lock/16.png';
+
+import UIMPACTUNLOCK1 from '../../images/Uimpact_unLock/1.png';
+import UIMPACTUNLOCK2 from '../../images/Uimpact_unLock/2.png';
+import UIMPACTUNLOCK3 from '../../images/Uimpact_unLock/3.png';
+import UIMPACTUNLOCK4 from '../../images/Uimpact_unLock/4.png';
+import UIMPACTUNLOCK5 from '../../images/Uimpact_unLock/5.png';
+import UIMPACTUNLOCK6 from '../../images/Uimpact_unLock/6.png';
+import UIMPACTUNLOCK7 from '../../images/Uimpact_unLock/7.png';
+import UIMPACTUNLOCK8 from '../../images/Uimpact_unLock/8.png';
+import UIMPACTUNLOCK9 from '../../images/Uimpact_unLock/9.png';
+import UIMPACTUNLOCK10 from '../../images/Uimpact_unLock/10.png';
+import UIMPACTUNLOCK11 from '../../images/Uimpact_unLock/11.png';
+import UIMPACTUNLOCK12 from '../../images/Uimpact_unLock/12.png';
+import UIMPACTUNLOCK13 from '../../images/Uimpact_unLock/13.png';
+import UIMPACTUNLOCK14 from '../../images/Uimpact_unLock/14.png';
+import UIMPACTUNLOCK15 from '../../images/Uimpact_unLock/15.png';
+import UIMPACTUNLOCK16 from '../../images/Uimpact_unLock/16.png';
+import UIMPACTUNLOCK17 from '../../images/Uimpact_unLock/17.png';
+
 
 import { getAllQuestionsByCriteriaIdRequest } from '../../redux/controller';
 import { useDispatchRoot } from '../../redux/store';
@@ -128,7 +170,7 @@ const TemporaryCriteriaUINNOVATELst = [
         used: false,
     },
 ]
-const TemporaryCriteriaUIMPACTLst = [
+const TemporaryCriteriaPINNOVATELst = [
     {
         // id: "1",
         // name: 'LÃNH ĐẠO QUẢN TRỊ',
@@ -153,48 +195,130 @@ const TemporaryCriteriaUIMPACTLst = [
         unLockImage: Unlock3,
         used: false,
     },
+
+]
+const TemporaryCriteriaUIMPACTLst = [
     {
-        // id: "4",
-        // name: "ƯƠM TẠO KHỞI NGHIỆP",
-        // description: "Tổ chức giáo dục đại học có thể giúp hs, sv tốt nghiệp và nhân lực cân nhắc việc khởi nghiệp ",
+        lockImage: Lock1,
+        unLockImage: Unlock1,
+        lockUIMPACTImage: UIMPACTLOCK2,
+        unlockUIMPACTImage: UIMPACTUNLOCK1,
+        used: true,
+    },
+    {
+        lockImage: Lock2,
+        unLockImage: Unlock2,
+        lockUIMPACTImage: UIMPACTLOCK2,
+        unlockUIMPACTImage: UIMPACTUNLOCK2,
+        used: false,
+    },
+    {
+        lockImage: Lock3,
+        unLockImage: Unlock3,
+        lockUIMPACTImage: UIMPACTLOCK3,
+        unlockUIMPACTImage: UIMPACTUNLOCK3,
+        used: false,
+    },
+    {
         lockImage: Lock4,
         unLockImage: Unlock4,
+        lockUIMPACTImage: UIMPACTLOCK4,
+        unlockUIMPACTImage: UIMPACTUNLOCK4,
         used: false,
     },
     {
-        // id: "5",
-        // name: "CHUYỂN ĐỔI NĂNG LỰC SỐ",
-        // description: "Các trường đại học đang sử dụng công nghệ số, tuy nhiên việc kết nối còn gặp nhiều khó khăn",
         lockImage: Lock5,
         unLockImage: Unlock5,
+        lockUIMPACTImage: UIMPACTLOCK5,
+        unlockUIMPACTImage: UIMPACTUNLOCK5,
         used: false,
     },
     {
-        // id: "6",
-        // name: "TRAO ĐỔI TRI THỨC",
-        // description: "Chất xúc tác quan trọng cho sự đổi mới tổ chức trong nghiên cứu, và sự phát triển của địa phương",
         lockImage: Lock6,
         unLockImage: Unlock6,
+        lockUIMPACTImage: UIMPACTLOCK6,
+        unlockUIMPACTImage: UIMPACTUNLOCK6,
         used: false,
     },
     {
-        // id: "7",
-        // name: "QUỐC TẾ HÓA",
-        // description: "Quá trình tích hợp một khía cạnh hoặc toàn cầu vào việc thiết kế, nghiên cứu và trao đổi kiến thức",
         lockImage: Lock7,
         unLockImage: Unlock7,
+        lockUIMPACTImage: UIMPACTLOCK7,
+        unlockUIMPACTImage: UIMPACTUNLOCK7,
         used: false,
     },
     {
-        // id: "8",
-        // name: "ĐO LƯỜNG TÁC ĐỘNG",
-        // description: "Các trường đại học khởi nghiệp/sáng tạo cần nắm  những thay đổi mà họ mang lại cho tổ chức",
         lockImage: Lock8,
         unLockImage: Unlock8,
+        lockUIMPACTImage: UIMPACTLOCK8,
+        unlockUIMPACTImage: UIMPACTUNLOCK8,
         used: false,
     },
-]
+    {
+        lockImage: Lock9,
+        unLockImage: Unlock9,
+        lockUIMPACTImage: UIMPACTLOCK9,
+        unlockUIMPACTImage: UIMPACTUNLOCK9,
+        used: false,
+    },
+    {
+        lockImage: Lock10,
+        unLockImage: Unlock10,
+        lockUIMPACTImage: UIMPACTLOCK10,
+        unlockUIMPACTImage: UIMPACTUNLOCK10,
+        used: false,
+    },
+    {
+        lockImage: Lock11,
+        unLockImage: Unlock11,
+        lockUIMPACTImage: UIMPACTLOCK11,
+        unlockUIMPACTImage: UIMPACTUNLOCK11,
+        used: false,
+    },
+    {
+        lockImage: Lock12,
+        unLockImage: Unlock12,
+        lockUIMPACTImage: UIMPACTLOCK12,
+        unlockUIMPACTImage: UIMPACTUNLOCK12,
+        used: false,
+    },
+    {
+        lockImage: Lock13,
+        unLockImage: Unlock13,
+        lockUIMPACTImage: UIMPACTLOCK13,
+        unlockUIMPACTImage: UIMPACTUNLOCK13,
+        used: false,
+    },
+    {
+        lockImage: Lock14,
+        unLockImage: Unlock14,
+        lockUIMPACTImage: UIMPACTLOCK14,
+        unlockUIMPACTImage: UIMPACTUNLOCK14,
+        used: false,
+    },
+    {
+        lockImage: Lock15,
+        unLockImage: Unlock15,
+        lockUIMPACTImage: UIMPACTLOCK15,
+        unlockUIMPACTImage: UIMPACTUNLOCK15,
+        used: false,
+    },
+    {
+        lockImage: Lock16,
+        unLockImage: Unlock16,
+        lockUIMPACTImage: UIMPACTLOCK16,
+        unlockUIMPACTImage: UIMPACTUNLOCK16,
+        used: false,
+    },
+    {
+        lockImage: Lock17,
+        unLockImage: Unlock17,
+        lockUIMPACTImage: UIMPACTLOCK17,
+        unlockUIMPACTImage: UIMPACTUNLOCK17,
+        used: false,
+    },
 
+]
 const hoverVariants = {
     hover: {
         scale: 1.1,
@@ -209,31 +333,73 @@ const hoverVariants = {
 
 const JudgementCriteriaOptions = (props: MyProps) => {
     const [newCriteriaLst, setNewCriteriaLst] = useState<any[]>();
+    const [userToken, setUserToken] = useState<string>('');
+    const [userType, setUserType] = useState<string>('');
     const dispatch = useDispatchRoot()
 
     useEffect(() => {// Mapping du lieu nhan ve tu API sang class duoc khai bao o frontend
         let newLst: any[] = [];
-        props.criteriaLst.map((item, index) => {
-            // if (index === 0)
-            //     item.numberOfAnswered = item.numberOfQuestion;
-            newLst.push(
-                {
-                    criteriaId: item.criteriaId,
-                    name: item.name,
-                    description: item.description,
-                    type: item.type,
-                    isAnswered: item.isAnswered,
-                    numberOfQuestion: item.numberOfQuestion,
-                    numberOfAnswered: item.numberOfAnswered,
-                    ...TemporaryCriteriaUINNOVATELst[index]
-                }
+        let type = localStorage.getItem('userType') ? localStorage.getItem('userType') : '';
+        if (type) {
+            type = type.slice(1);
+            type = type.slice(0, type.length - 1);
+            setUserType(type);
+        }
+
+        if (type === 'UINNOVATE') {
+            props.criteriaLst.map((item, index) => {
+
+                newLst.push(
+                    {
+                        criteriaId: item.criteriaId,
+                        name: item.name,
+                        description: item.description,
+                        type: item.type,
+                        isAnswered: item.isAnswered,
+                        numberOfQuestion: item.numberOfQuestion,
+                        numberOfAnswered: item.numberOfAnswered,
+                        ...TemporaryCriteriaUINNOVATELst[index]
+                    }
+                )
+            }
             )
         }
-        )
-        // newLst.map((item, index) => {
-        //     if (index === 0)
-        //         item.numberOfAnswered = item.numberOfQuestion;
-        // })
+        if (type === 'UIMPACT') {
+            props.criteriaLst.map((item, index) => {
+
+                newLst.push(
+                    {
+                        criteriaId: item.criteriaId,
+                        name: item.name,
+                        description: item.description,
+                        type: item.type,
+                        isAnswered: item.isAnswered,
+                        numberOfQuestion: item.numberOfQuestion,
+                        numberOfAnswered: item.numberOfAnswered,
+                        ...TemporaryCriteriaUIMPACTLst[index]
+                    }
+                )
+            }
+            )
+        }
+        if (type === 'PINNOVATE') {
+            props.criteriaLst.map((item, index) => {
+
+                newLst.push(
+                    {
+                        criteriaId: item.criteriaId,
+                        name: item.name,
+                        description: item.description,
+                        type: item.type,
+                        isAnswered: item.isAnswered,
+                        numberOfQuestion: item.numberOfQuestion,
+                        numberOfAnswered: item.numberOfAnswered,
+                        ...TemporaryCriteriaPINNOVATELst[index]
+                    }
+                )
+            }
+            )
+        }
         for (let i = 0; i < newLst?.length; i++) {
             if (newLst[i].numberOfAnswered === newLst[i].numberOfQuestion) {
                 newLst[i].isAnswered = true;
@@ -278,25 +444,67 @@ const JudgementCriteriaOptions = (props: MyProps) => {
                 dataSource={newCriteriaLst}
                 renderItem={(item) => (
                     <List.Item>
-                        <Card bordered={false} className={item.used ? 'unLock' : ''}>
-                            <img src={!item.used ? item.lockImage : item.unLockImage} alt="" className="card-img-option" />
-                            <div className="card-title-option">{item.name}</div>
-                            <div className='card-number-of-question-complete'>{item.numberOfAnswered}/{item.numberOfQuestion} câu hỏi</div>
-                            <Progress className='card-progress-option' percent={item.numberOfAnswered / item.numberOfQuestion * 100} />
-                            <div className="card-description-option">{item.description}</div>
-                            <motion.div
-                                style={{ width: '100%' }}
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.95 }}>
-                                {(!item.used && !item.isAnswered) && <Button className={'card-btn-option'} disabled>Chưa mở khóa</Button>}
-                                {(item.used && !item.isAnswered) && <Button className={'card-btn-option unlock'} onClick={() => handleOnClick(item)}>Bắt đầu đánh giá</Button>}
-                                {(item.used && item.isAnswered) && <Button className={'card-btn-option unlock'} disabled>Đã hoàn thành</Button>}
-                            </motion.div>
-                        </Card>
+                        {userType === 'UINNOVATE' &&
+                            <Card style={{ backgroundImage: `url(${item.used ? UinnovateBgUnLockCard : UinnovateBgLockCard})` }} bordered={false} className={item.used ? 'unLock' : ''}>
+                                <img src={!item.used ? item.lockImage : item.unLockImage} alt="" className="card-img-option" />
+                                <div className="card-title-option">{item.name}</div>
+                                <div className='card-number-of-question-complete'>{item.numberOfAnswered}/{item.numberOfQuestion} câu hỏi</div>
+                                <Progress className='card-progress-option' percent={item.numberOfAnswered / item.numberOfQuestion * 100} />
+                                <div className="card-description-option">{item.description}</div>
+                                <motion.div
+                                    className='button-container'
+                                    style={{ width: '100%' }}
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.95 }}>
+                                    {(!item.used && !item.isAnswered) && <Button className={'card-btn-option'} disabled>Chưa mở khóa</Button>}
+                                    {(item.used && !item.isAnswered) && <Button className={'card-btn-option unlock'} onClick={() => handleOnClick(item)}>Bắt đầu đánh giá</Button>}
+                                    {(item.used && item.isAnswered) && <Button className={'card-btn-option unlock'} disabled>Đã hoàn thành</Button>}
+                                </motion.div>
+                            </Card>
+                        }
+                        {userType === 'UIMPACT' &&
+                            <Card style={{ backgroundImage: `url(${item.used ? item.unlockUIMPACTImage : item.lockUIMPACTImage})` }} bordered={false} className={item.used ? 'unLock' : ''}>
+                                <img src={!item.used ? item.lockImage : item.unLockImage} alt="" className="card-img-option" />
+                                <div className="card-title-option">{item.name}</div>
+                                <div style={{ marginTop: 170 }} className='card-number-of-question-complete'>{item.numberOfAnswered}/{item.numberOfQuestion} câu hỏi</div>
+                                <Progress className='card-progress-option' percent={item.numberOfAnswered / item.numberOfQuestion * 100} />
+                                {/* <div className="card-description-option">{item.description}</div> */}
+                                <motion.div
+                                    className='button-container'
+                                    style={{ width: '100%' }}
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.95 }}>
+                                    {(!item.used && !item.isAnswered) && <Button className={'card-btn-option'} disabled>Chưa mở khóa</Button>}
+                                    {(item.used && !item.isAnswered) && <Button className={'card-btn-option unlock'} onClick={() => handleOnClick(item)}>Bắt đầu đánh giá</Button>}
+                                    {(item.used && item.isAnswered) && <Button className={'card-btn-option unlock'} disabled>Đã hoàn thành</Button>}
+                                </motion.div>
+                            </Card>
+                        }
+                        {userType === 'PINNOVATE' &&
+                            <Card style={{ backgroundImage: `url(${item.used ? PinnovateBgLockCard : PinnovateBgUnLockCard})` }} bordered={false} className={item.used ? 'unLock' : ''}>
+                                <img src={!item.used ? item.lockImage : item.unLockImage} alt="" className="card-img-option" />
+                                <div className="card-title-option">{item.name}</div>
+                                <div style={{ marginTop: 170 }} className='card-number-of-question-complete'>{item.numberOfAnswered}/{item.numberOfQuestion} câu hỏi</div>
+                                <Progress className='card-progress-option' percent={item.numberOfAnswered / item.numberOfQuestion * 100} />
+                                {/* <div className="card-description-option">{item.description}</div> */}
+                                <motion.div
+                                    className='button-container'
+                                    style={{ width: '100%' }}
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.95 }}>
+                                    {(!item.used && !item.isAnswered) && <Button className={'card-btn-option'} disabled>Chưa mở khóa</Button>}
+                                    {(item.used && !item.isAnswered) && <Button className={'card-btn-option unlock'} onClick={() => handleOnClick(item)}>Bắt đầu đánh giá</Button>}
+                                    {(item.used && item.isAnswered) && <Button className={'card-btn-option unlock'} disabled>Đã hoàn thành</Button>}
+                                </motion.div>
+                            </Card>
+                        }
                     </List.Item>
                 )
                 }
             />
+            <div className='content-btn-show'>
+                <Button className="bnt-show-result" disabled>Xem kết quả</Button>
+            </div>
         </div >
     )
 }

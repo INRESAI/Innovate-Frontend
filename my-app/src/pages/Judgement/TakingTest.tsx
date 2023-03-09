@@ -1,15 +1,16 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, notification, Pagination } from 'antd';
+import { Breadcrumb, Button, notification, Pagination, Steps } from 'antd';
 import { useEffect, useState } from 'react';
 import QuestionAPI from '../../api/questions/question.api';
 import { ICriteria } from '../../common/u-innovate/define-criteria';
-import { IQuestion } from '../../common/u-innovate/define-question';
+import { IAnswers, IGetAllQuestionsByCriteriaResponse, IQuestion, questions } from '../../common/u-innovate/define-question';
 import { ISetOfQuestions } from '../../common/u-innovate/define-setOfQuestions';
 import OtherTestIcon from '../../images/other-test-icon.png';
 
 import Result from './Result';
 import { motion } from 'framer-motion';
-import { useSelectorRoot } from '../../redux/store';
+import { useDispatchRoot, useSelectorRoot } from '../../redux/store';
+import { setAnswersIsChosen } from '../../redux/controller';
 
 const fakeOtherTestLst = [
     {
@@ -277,7 +278,26 @@ const TakingTest = (props: MyProps) => {
     const [numberOfQuestionsAnswered, setNumberOfQuestionsAnswered] = useState<number>(0); // Kiểm tra xem đã điền hết đáp án của trang để hiển thị nút tiếp tuc
     const [totalScoreOfQuestionList, setTotalScoreOfQuestionList] = useState<number>(0); // Tổng số điểm của danh sách câu hỏi
     const [checkNextBtn, setCheckNextBtn] = useState<boolean>(false); // Kiểm tra xem đã điền hết đáp án của trang để hiển thị nút tiếp tuc
-    const { lstQuestionsByCriteria, criteriaLst } = useSelectorRoot((state) => state.uinnovate);
+    const { lstQuestionsByCriteria, criteriaLst, tmplstQuestionsByCriteria } = useSelectorRoot((state) => state.uinnovate);
+
+    const [countAnswer, setCoundAnswer] = useState<number>(0);
+    const [userType, setUserType] = useState<string>('');
+
+    const dispatch = useDispatchRoot()
+
+
+    useEffect(() => {
+        let type = localStorage.getItem('userType') ? localStorage.getItem('userType') : '';
+        if (type) {
+            type = type.slice(1);
+            type = type.slice(0, type.length - 1);
+            setUserType(type);
+        }
+    }, [])
+
+    useEffect(() => {
+        console.log(tmplstQuestionsByCriteria);
+    }, [tmplstQuestionsByCriteria])
 
     // useEffect(() => {
     // countQuestionIsAnswered();
@@ -382,7 +402,22 @@ const TakingTest = (props: MyProps) => {
     //         })
     //     }
     // }
+    const onHandleClickAnswer = (indexitem: number, index: number) => {
+        const req = {
+            currentIndex: currentIndex,
+            indexitem: indexitem,
+            index: index,
+        }
+        dispatch(setAnswersIsChosen(req));
+    }
 
+    // const getname = (i: number) => {
+    //     // console.log(i, j, n);
+    //     let val = countAnswer;
+    //     val += i;
+    //     setCoundAnswer(val);
+    //     return val.toString();
+    // }
     return (
         // <></>
         <div className='taking-test'>
@@ -411,80 +446,103 @@ const TakingTest = (props: MyProps) => {
                         <Breadcrumb.Item className='present-link'>
                             {props.choseCriteria.name}
                         </Breadcrumb.Item>
-                        {/* <Breadcrumb.Item>
-                        <a href="">Application List</a>
-                        </Breadcrumb.Item>
-                        <Breadcrumb.Item>An Application</Breadcrumb.Item> */}
+
                     </Breadcrumb>
                     <div className='test-body'>
                         <div className='test-detail'>
                             <div className='title'>{props.choseCriteria.name}</div>
                             <div className='text'>{props.choseCriteria.description}</div>
-                            {lstQuestionsByCriteria[currentIndex] &&
-                                <div className='taking-test-area'>
-                                    {/* Khi call API se thay doan duoi nay thanh currentSetOfQuestion.content */}
-                                    <div className='sub-title'>{lstQuestionsByCriteria[currentIndex]?.setOfQuestions.name}</div>
+                            <div className='test-content'>
+                                {tmplstQuestionsByCriteria[currentIndex] &&
+                                    <div className='taking-test-area'>
+                                        {/* Khi call API se thay doan duoi nay thanh currentSetOfQuestion.content */}
+                                        <div className='sub-title'>{tmplstQuestionsByCriteria[currentIndex]?.setOfQuestions.name}</div>
 
-                                    <div className='question-lst' >
-                                        {
-                                            lstQuestionsByCriteria[currentIndex].questions.map((item, indexitem) => ( // Sau nay se thay bang useState currentSetOfQuestion
-                                                <div>
-                                                    <div className='content'>{item.question.content}</div>
-                                                    <div className='options-of-answer'>
-                                                        {
-                                                            item.answers.map((subitem, indexsubitem) => (
-                                                                <label className='lst-item'
-                                                                // onClick={() => {
-                                                                //     item.pickedAnswer = subitem
-                                                                //     setCurrentChoseAnswerId(currentChoseAnswerId + 1)
-                                                                //     console.log(item);
-                                                                // }}
-                                                                >
-                                                                    <input
-                                                                        type="radio" className="radio-btn"
-                                                                        // checked={item.pickedAnswer === subitem}
-                                                                        value={subitem.id} id={subitem.id} name={indexitem.toString()}
-                                                                    />
-                                                                    <div className="label">{subitem.content}</div>
-                                                                </label>
-                                                            ))
-                                                        }
-                                                    </div>
-                                                </div>
-                                            ))
-                                        }
-                                    </div>
-                                    <div className='footer'>
-                                        <Pagination className='pagination' current={currentIndex + 1} total={lstQuestionsByCriteria.length * 10} onChange={handlePageChange} showLessItems={true} />
-                                        <div className='button-group'>
-                                            <div className='number-of-questions-answered'>
-                                                Đã trả lời: {numberOfQuestionsAnswered}/{props.numberOfQuestion}
-                                            </div>
-                                            {currentIndex > 0 &&
-                                                <motion.div className='taking-test-button'
-                                                    whileHover={{ scale: 1.1 }}
-                                                    whileTap={{ scale: 0.95 }}>
-                                                    <Button className='button' onClick={() => { handleBackPagination() }}>Quay lại</Button>
-                                                </motion.div>
-                                            }
-                                            {checkNextBtn &&
-                                                <motion.div className='taking-test-button'
-                                                    whileHover={{ scale: 1.1 }}
-                                                    whileTap={{ scale: 0.95 }}>
-                                                    <Button className='button' onClick={() => { handleChangePagination() }}>Tiếp tục</Button>
-                                                </motion.div>
-                                            }
+                                        <div className='question-lst' >
                                             {
-                                                // (props.questionLst.length === currentIndex + 1 && checkWhetherDoneTest()) &&
-                                                // <motion.div className='taking-test-button'
-                                                //     whileHover={{ scale: 1.1 }}
-                                                //     whileTap={{ scale: 0.95 }}>
-                                                //     <Button className='button' onClick={() => { handleFinishTest() }}>Hoàn thành</Button>
-                                                // </motion.div>
+                                                tmplstQuestionsByCriteria[currentIndex].questions.map((item, indexitem) => ( // Sau nay se thay bang useState currentSetOfQuestion
+                                                    <div>
+                                                        <div className='content'>{item.question.content}</div>
+                                                        <div className='options-of-answer'>
+                                                            {
+                                                                item.answers.map((subitem, indexsubitem) => (
+                                                                    <label className='lst-item'
+                                                                        onClick={() => {
+                                                                            onHandleClickAnswer(indexitem, indexsubitem)
+                                                                        }}
+                                                                    >
+                                                                        <input
+                                                                            type="radio" className="radio-btn"
+                                                                            defaultChecked={subitem.isChosen === true}
+                                                                            value={subitem.id} id={subitem.id} name={indexitem.toString()}
+                                                                        />
+                                                                        <div className="label">{subitem.content}</div>
+                                                                    </label>
+                                                                ))
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                ))
                                             }
                                         </div>
+                                        <div className='footer'>
+                                            <Pagination className='pagination' current={currentIndex + 1} total={tmplstQuestionsByCriteria.length * 10} onChange={handlePageChange} showLessItems={true} />
+                                            <div className='button-group'>
+                                                <div className='number-of-questions-answered'>
+                                                    Đã trả lời: {numberOfQuestionsAnswered}/{props.numberOfQuestion}
+                                                </div>
+                                                {currentIndex > 0 &&
+                                                    <motion.div className='taking-test-button'
+                                                        whileHover={{ scale: 1.1 }}
+                                                        whileTap={{ scale: 0.95 }}>
+                                                        <Button className='button' onClick={() => { handleBackPagination() }}>Quay lại</Button>
+                                                    </motion.div>
+                                                }
+                                                {checkNextBtn &&
+                                                    <motion.div className='taking-test-button'
+                                                        whileHover={{ scale: 1.1 }}
+                                                        whileTap={{ scale: 0.95 }}>
+                                                        <Button className='button' onClick={() => { handleChangePagination() }}>Tiếp tục</Button>
+                                                    </motion.div>
+                                                }
+                                                {
+                                                    // (props.questionLst.length === currentIndex + 1 && checkWhetherDoneTest()) &&
+                                                    // <motion.div className='taking-test-button'
+                                                    //     whileHover={{ scale: 1.1 }}
+                                                    //     whileTap={{ scale: 0.95 }}>
+                                                    //     <Button className='button' onClick={() => { handleFinishTest() }}>Hoàn thành</Button>
+                                                    // </motion.div>
+                                                }
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>}
+                                }
+                                <div className="note-taking-test">
+                                    <div className="note-title">HƯỚNG DẪN THỰC HIỆN BÀI ĐÁNH GIÁ</div>
+                                    <div className="note-content">Lorem ipsum dolor sit amet consectetur. Quisque quis ut sed sed ultrices facilisi. Mi in malesuada erat ac bibendum eget tristique. Tristique quam nunc dolor tempus varius fusce. Lacus tincidunt tellus nec sit. Nibh tincidunt integer varius tempus elit velit imperdiet a. Pellentesque sociis egestas sed nunc ultrices elementum id dui. Aliquam in sed tristique suspendisse sit. Nulla consectetur pharetra viverra magna. Lacus malesuada hendrerit feugiat sit proin massa at. Volutpat ultricies placerat sapien gravida sed risus vitae.</div>
+                                    <div className="note-content">Placerat eget nisl dictum augue vitae et massa. Viverra a maecenas id amet eget cras egestas velit. Etiam scelerisque eleifend cras in sed est diam ultrices. Quam aliquam dictum purus tincidunt id viverra netus faucibus. Vestibulum aliquam enim ac mauris nulla diam mi faucibus. Elit ornare at erat integer mus euismod blandit tellus. Semper dui varius aliquet tristique lorem accumsan eget. Turpis cras tincidunt pharetra sit dui massa eleifend malesuada. Odio enim odio morbi in.</div>
+                                    <div className="note-content">
+                                        Lưu ý:
+                                        <ul>
+                                            <li>Lựa chọn đáp án theo phản xạ nhanh và tự nhiên nhất đối với bản thân mình.</li>
+                                            <li>Không cố gắng lựa chọn đáp án vì muốn xây dựng một hình ảnh hoàn hảo nào đó.</li>
+                                        </ul>
+                                    </div>
+                                    {userType === 'UINNOVATE' &&
+                                        <div className="note-content">
+                                            Quy tắc tính điểm:
+                                            <ul>
+                                                <li>Chưa áp dụng - 1 điểm</li>
+                                                <li>Quan sát được một phần - 2 điểm</li>
+                                                <li>Quan sát được hoàn toàn - 3 điểm</li>
+                                            </ul>
+                                        </div>
+                                    }
+                                    {userType === 'PINNOVATE' &&
+                                        <></>
+                                    }
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

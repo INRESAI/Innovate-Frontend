@@ -6,7 +6,7 @@ import axios from "axios";
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError, map } from "rxjs/operators";
 import { ICriteria } from "../../common/u-innovate/define-criteria";
-import { IGetAllQuestionsByCriteriaResponse } from "../../common/u-innovate/define-question";
+import { GetAllQuestionByCriteriaIdRequest, IGetAllQuestionsByCriteriaResponse } from "../../common/u-innovate/define-question";
 
 export default class QuestionAPI {
     static host = 'http://178.128.19.31:2001';

@@ -42,7 +42,7 @@ const SYSTEM_CONSTANTS = {
             GET_CRITERIA_BY_USER_TOKEN: 'criteria/result/{type}'
         },
         QUESTION: {
-            GET_ALL: 'questions/criteria'
+            GET_ALL: 'questions/result'
         },
         ANSWER: {
             GET_ALL: 'answers'
