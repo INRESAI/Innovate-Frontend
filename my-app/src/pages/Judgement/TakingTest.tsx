@@ -1,5 +1,5 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, notification, Pagination, Steps } from 'antd';
+import { Breadcrumb, Button, notification, Pagination, Radio, Steps } from 'antd';
 import { useEffect, useState } from 'react';
 import QuestionAPI from '../../api/questions/question.api';
 import { ICriteria } from '../../common/u-innovate/define-criteria';
@@ -295,68 +295,86 @@ const TakingTest = (props: MyProps) => {
         }
     }, [])
 
+    // useEffect(() => {
+    // }, [tmplstQuestionsByCriteria])
+
     useEffect(() => {
-        console.log(tmplstQuestionsByCriteria);
-    }, [tmplstQuestionsByCriteria])
+        countQuestionIsAnswered();
+        checkIsPartOfQuestionIsAnswered();
+    }, [currentChoseAnswerId])
 
-    // useEffect(() => {
-    // countQuestionIsAnswered();
-    //     checkIsPartOfQuestionIsAnswered();
-    // }, [currentChoseAnswerId])
+    useEffect(() => {
+        checkIsPartOfQuestionIsAnswered();
+    }, [currentIndex])
 
-    // useEffect(() => {
-    //     checkIsPartOfQuestionIsAnswered();
-    // }, [currentIndex])
 
-    // const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    //     setCurrentIndex(value - 1);
-    // };
-    // // Đếm số lượng câu hỏi đã được trả lời 
-    // const countQuestionIsAnswered = () => {
-    //     let count = 0;
-    // lstQuestionsByCriteria
-    //     props.questionLst.forEach(item => {
-    //         item.questionLst.forEach(question => {
-    //             if (question.pickedAnswer) count += 1;
-    //         });
-    //     });
-    //     setNumberOfQuestionsAnswered(count);
-    // }
-    // // Kiểm tra xem từng trang của danh sách câu hỏi đã được trả lời hết chưa
-    // const checkIsPartOfQuestionIsAnswered = () => {
-    //     for (let i = 0; i < props.questionLst[currentIndex].questionLst.length; i++) {
-    //         if (!props.questionLst[currentIndex].questionLst[i].pickedAnswer) {
-    //             setCheckNextBtn(false);
-    //             return;
-    //         }
-    //     }
-    //     props.questionLst.length === currentIndex + 1 ? setCheckNextBtn(false) : setCheckNextBtn(true);
-    // }
-    // const checkWhetherDoneTest = () => { // Check xem nguoi dung da nhap het cau tra loi chua
-    //     let check = 1;
-    //     questionLstOfRequestBody = [];
-    //     props.questionLst.forEach((item) => {
-    //         if (check === 0) return;
-    //         item.questionLst.forEach((subitem) => {
-    //             if (subitem.pickedAnswer === null) {
-    //                 check = 0;
-    //                 return;
-    //             } else {
-    //                 questionLstOfRequestBody.push({ // Neu cau hoi da duoc chon dap an thi se day ID cau hoi va ID cau tra loi vao lst
-    //                     "questionId": subitem.id,
-    //                     "answerId": subitem.pickedAnswer.id,
-    //                     "point": subitem.pickedAnswer.point,
-    //                     "additionalProp1": {}
-    //                 })
-    //             }
-    //         })
-    //     })
-    //     if (check === 1) return true;
-    //     else {
-    //         questionLstOfRequestBody = [] // Neu chi can 1 cau hoi chua duoc tra loi thi se xoa toan bo lst
-    //         return false
-    //     };
-    // }
+    // Đếm số lượng câu hỏi đã được trả lời 
+    const countQuestionIsAnswered = () => {
+        // let tmp:  = tmplstQuestionsByCriteria;
+
+        let n = tmplstQuestionsByCriteria.length;
+        let numberAnswered = 0;
+        // tmplstQuestionsByCriteria[currentIndex].questions.map((item, indexitem) => ( // Sau nay se thay bang useState currentSetOfQuestion
+
+        for (let i = 0; i < n; i++) {
+            tmplstQuestionsByCriteria[i].questions.forEach(question => {
+                question.answers.forEach(answer => {
+                    if (answer.isChosen) numberAnswered += 1;
+                })
+            })
+        }
+
+        setNumberOfQuestionsAnswered(numberAnswered);
+    }
+
+    // Kiểm tra xem từng trang của danh sách câu hỏi đã được trả lời hết chưa
+    const checkIsPartOfQuestionIsAnswered = () => {
+        let n = tmplstQuestionsByCriteria.length;
+        for (let i = 0; i < n; i++) {
+            if (i === currentIndex) {
+                tmplstQuestionsByCriteria[i].questions.forEach(question => {
+                    question.answers.forEach(answer => {
+                        if (!answer.isChosen) {
+                            setCheckNextBtn(false);
+                        }
+                    })
+                })
+            }
+        }
+
+        tmplstQuestionsByCriteria.length === currentIndex + 1 ? setCheckNextBtn(false) : setCheckNextBtn(true);
+    }
+
+    const checkWhetherDoneTest = () => { // Check xem nguoi dung da nhap het cau tra loi chua
+        if (numberOfQuestionsAnswered === props.numberOfQuestion)
+            return true;
+        return false;
+
+        // let check = 1;
+        // questionLstOfRequestBody = [];
+        // props.questionLst.forEach((item) => {
+        //     if (check === 0) return;
+        //     item.questionLst.forEach((subitem) => {
+        //         if (subitem.pickedAnswer === null) {
+        //             check = 0;
+        //             return;
+        //         } else {
+        //             questionLstOfRequestBody.push({ // Neu cau hoi da duoc chon dap an thi se day ID cau hoi va ID cau tra loi vao lst
+        //                 "questionId": subitem.id,
+        //                 "answerId": subitem.pickedAnswer.id,
+        //                 "point": subitem.pickedAnswer.point,
+        //                 "additionalProp1": {}
+        //             })
+        //         }
+        //     })
+        // })
+        // if (check === 1) return true;
+        // else {
+        //     questionLstOfRequestBody = [] // Neu chi can 1 cau hoi chua duoc tra loi thi se xoa toan bo lst
+        //     return false
+        // };
+    }
+
     const handleChangePagination = () => {
         setCurrentIndex(currentIndex + 1);
         setCheckNextBtn(false);
@@ -369,6 +387,7 @@ const TakingTest = (props: MyProps) => {
     const handlePageChange = (page: number) => {
         setCurrentIndex(page - 1);
     };
+
     // const handleFinishTest = async () => { // Neu da nhap het cau tra loi thi se call API tinh toan diem 
     //     console.log("---------------Leu leu leu----------------")
 
@@ -408,18 +427,11 @@ const TakingTest = (props: MyProps) => {
             indexitem: indexitem,
             index: index,
         }
+        setCurrentChoseAnswerId(currentChoseAnswerId + 1);
         dispatch(setAnswersIsChosen(req));
     }
 
-    // const getname = (i: number) => {
-    //     // console.log(i, j, n);
-    //     let val = countAnswer;
-    //     val += i;
-    //     setCoundAnswer(val);
-    //     return val.toString();
-    // }
     return (
-        // <></>
         <div className='taking-test'>
             {/* {
                 receivedResult && quantityOfEachTypeOfAnswerUseState &&
@@ -465,6 +477,7 @@ const TakingTest = (props: MyProps) => {
                                                         <div className='content'>{item.question.content}</div>
                                                         <div className='options-of-answer'>
                                                             {
+
                                                                 item.answers.map((subitem, indexsubitem) => (
                                                                     <label className='lst-item'
                                                                         onClick={() => {
@@ -473,8 +486,8 @@ const TakingTest = (props: MyProps) => {
                                                                     >
                                                                         <input
                                                                             type="radio" className="radio-btn"
-                                                                            defaultChecked={subitem.isChosen === true}
-                                                                            value={subitem.id} id={subitem.id} name={indexitem.toString()}
+                                                                            checked={subitem.isChosen === true}
+                                                                            value={subitem.id} id={subitem.id} name={subitem.key.toString()}
                                                                         />
                                                                         <div className="label">{subitem.content}</div>
                                                                     </label>
@@ -491,7 +504,7 @@ const TakingTest = (props: MyProps) => {
                                                 <div className='number-of-questions-answered'>
                                                     Đã trả lời: {numberOfQuestionsAnswered}/{props.numberOfQuestion}
                                                 </div>
-                                                {currentIndex > 0 &&
+                                                {/* {currentIndex > 0 &&
                                                     <motion.div className='taking-test-button'
                                                         whileHover={{ scale: 1.1 }}
                                                         whileTap={{ scale: 0.95 }}>
@@ -504,14 +517,18 @@ const TakingTest = (props: MyProps) => {
                                                         whileTap={{ scale: 0.95 }}>
                                                         <Button className='button' onClick={() => { handleChangePagination() }}>Tiếp tục</Button>
                                                     </motion.div>
-                                                }
+                                                } */}
                                                 {
-                                                    // (props.questionLst.length === currentIndex + 1 && checkWhetherDoneTest()) &&
-                                                    // <motion.div className='taking-test-button'
-                                                    //     whileHover={{ scale: 1.1 }}
-                                                    //     whileTap={{ scale: 0.95 }}>
-                                                    //     <Button className='button' onClick={() => { handleFinishTest() }}>Hoàn thành</Button>
-                                                    // </motion.div>
+                                                    (tmplstQuestionsByCriteria.length === currentIndex + 1 && checkWhetherDoneTest()) &&
+                                                    <motion.div className='taking-test-button'
+                                                        whileHover={{ scale: 1.1 }}
+                                                        whileTap={{ scale: 0.95 }}>
+                                                        <Button
+                                                            className='button'
+                                                        // onClick={() => { handleFinishTest() }}
+                                                        >Hoàn thành
+                                                        </Button>
+                                                    </motion.div>
                                                 }
                                             </div>
                                         </div>
@@ -519,8 +536,8 @@ const TakingTest = (props: MyProps) => {
                                 }
                                 <div className="note-taking-test">
                                     <div className="note-title">HƯỚNG DẪN THỰC HIỆN BÀI ĐÁNH GIÁ</div>
-                                    <div className="note-content">Lorem ipsum dolor sit amet consectetur. Quisque quis ut sed sed ultrices facilisi. Mi in malesuada erat ac bibendum eget tristique. Tristique quam nunc dolor tempus varius fusce. Lacus tincidunt tellus nec sit. Nibh tincidunt integer varius tempus elit velit imperdiet a. Pellentesque sociis egestas sed nunc ultrices elementum id dui. Aliquam in sed tristique suspendisse sit. Nulla consectetur pharetra viverra magna. Lacus malesuada hendrerit feugiat sit proin massa at. Volutpat ultricies placerat sapien gravida sed risus vitae.</div>
-                                    <div className="note-content">Placerat eget nisl dictum augue vitae et massa. Viverra a maecenas id amet eget cras egestas velit. Etiam scelerisque eleifend cras in sed est diam ultrices. Quam aliquam dictum purus tincidunt id viverra netus faucibus. Vestibulum aliquam enim ac mauris nulla diam mi faucibus. Elit ornare at erat integer mus euismod blandit tellus. Semper dui varius aliquet tristique lorem accumsan eget. Turpis cras tincidunt pharetra sit dui massa eleifend malesuada. Odio enim odio morbi in.</div>
+                                    {/* <div className="note-content">Lorem ipsum dolor sit amet consectetur. Quisque quis ut sed sed ultrices facilisi. Mi in malesuada erat ac bibendum eget tristique. Tristique quam nunc dolor tempus varius fusce. Lacus tincidunt tellus nec sit. Nibh tincidunt integer varius tempus elit velit imperdiet a. Pellentesque sociis egestas sed nunc ultrices elementum id dui. Aliquam in sed tristique suspendisse sit. Nulla consectetur pharetra viverra magna. Lacus malesuada hendrerit feugiat sit proin massa at. Volutpat ultricies placerat sapien gravida sed risus vitae.</div> */}
+                                    {/* <div className="note-content">Placerat eget nisl dictum augue vitae et massa. Viverra a maecenas id amet eget cras egestas velit. Etiam scelerisque eleifend cras in sed est diam ultrices. Quam aliquam dictum purus tincidunt id viverra netus faucibus. Vestibulum aliquam enim ac mauris nulla diam mi faucibus. Elit ornare at erat integer mus euismod blandit tellus. Semper dui varius aliquet tristique lorem accumsan eget. Turpis cras tincidunt pharetra sit dui massa eleifend malesuada. Odio enim odio morbi in.</div> */}
                                     <div className="note-content">
                                         Lưu ý:
                                         <ul>

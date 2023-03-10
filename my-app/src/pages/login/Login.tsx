@@ -369,7 +369,7 @@ const Login = (props: MyProps) => {
                             >
                                 <div className='login-content'>
                                     <div className='title'>VUI LÒNG ĐĂNG NHẬP ĐỂ ĐÁNH GIÁ</div>
-                                    <div className='content'>Lorem ipsum dolor sit amet consectetur. Sit mattis mattis non convallis pulvinar sem commodo vitae est.</div>
+                                    {/* <div className='content'>Lorem ipsum dolor sit amet consectetur. Sit mattis mattis non convallis pulvinar sem commodo vitae est.</div> */}
                                 </div>
                                 <Form
                                     name="basic"

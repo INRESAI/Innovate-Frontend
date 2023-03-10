@@ -177,7 +177,7 @@ const Home = () => {
                 </div>
                 <div className='content'>
                     <div className='title'>Bạn nhận được gì từ V.innovate</div>
-                    <div className='subtitle'>Lorem ipsum dolor sit amet consectetur. Maecenas aenean neque at id erat. Lacus vel est luctus arcu risus ultricies pharetra bibendum.</div>
+                    {/* <div className='subtitle'>Lorem ipsum dolor sit amet consectetur. Maecenas aenean neque at id erat. Lacus vel est luctus arcu risus ultricies pharetra bibendum.</div> */}
                     <div className='step-lst'>
                         <div className="row-item">
                             <motion.div className="item-lst"
@@ -218,7 +218,7 @@ const Home = () => {
             </div>
             <div className='tutorial'>
                 <div className="tutorial-title">Hướng dẫn sử dụng V.innovate</div>
-                <div className="tutorial-sub-title">Lorem ipsum dolor sit amet consectetur. Maecenas aenean neque at id erat. Lacus vel est luctus arcu risus ultricies pharetra bibendum.</div>
+                {/* <div className="tutorial-sub-title">Lorem ipsum dolor sit amet consectetur. Maecenas aenean neque at id erat. Lacus vel est luctus arcu risus ultricies pharetra bibendum.</div> */}
                 <div className="first-tutorial">
                     <div className="f-t-left">
                         <motion.div className="f-t-l-item"
@@ -274,7 +274,7 @@ const Home = () => {
             </div>
             <div className='map-user'>
                 <div className="map-title">Bản đồ người sử dụng V.innovate</div>
-                <div className="map-sub-title">Lorem ipsum dolor sit amet consectetur. Maecenas aenean neque at id erat. Lacus vel est luctus arcu risus ultricies pharetra bibendum.</div>
+                {/* <div className="map-sub-title">Lorem ipsum dolor sit amet consectetur. Maecenas aenean neque at id erat. Lacus vel est luctus arcu risus ultricies pharetra bibendum.</div> */}
                 <iframe
                     className="gmap_iframe"
                     id='gmap'
@@ -291,7 +291,7 @@ const Home = () => {
 
             <div className='our-partner'>
                 <div className='title'>Đối tác của chúng tôi V.innovate</div>
-                <div className="sub-title">Lorem ipsum dolor sit amet consectetur. Maecenas aenean neque at id erat. Lacus vel est luctus arcu risus ultricies pharetra bibendum.</div>
+                {/* <div className="sub-title">Lorem ipsum dolor sit amet consectetur. Maecenas aenean neque at id erat. Lacus vel est luctus arcu risus ultricies pharetra bibendum.</div> */}
                 {/* <div className='partner-lst'>
                     <div className='item'>1</div>
                     <div className='item'>2</div>

@@ -35,5 +35,6 @@ export interface IAnswers {
     createdAt?: Date,
     updatedAt?: Date,
     id: string,
+    key: number,
     isChosen: boolean,
 }
