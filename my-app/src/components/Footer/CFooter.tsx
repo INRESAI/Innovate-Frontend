@@ -23,7 +23,7 @@ export default function CFooter() {
             <div className='separation-line'></div>
             <div className='content'>
                 <div className='content-left'>
-                    The U.innovate for design, creativity and innovation on the Internet
+                    The V.innovate for design, creativity and innovation on the Internet
                 </div>
             </div>
             <div className='content'>
@@ -72,7 +72,7 @@ export default function CFooter() {
                         whileHover="hover"
                         whileTap="tap"
                         variants={hoverVariants}>
-                        Điện thoại: +8424888651212
+                        Điện thoại: 0329109899
                     </motion.a>
                     <motion.a className='link-to-social' href='https://www.facebook.com/iidvietnam' target="_blank"
                         whileHover="hover"

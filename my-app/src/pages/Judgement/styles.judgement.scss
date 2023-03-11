@@ -2450,3 +2450,63 @@
         transform: translateX(0);
     }
 }
+
+.taking-test-save-modal {
+    .ant-modal-content {
+        .ant-modal-close {}
+
+        .ant-modal-header {
+            display: none;
+
+        }
+
+
+        .ant-modal-body {
+            .title {
+                font-weight: 700;
+                font-size: 30px;
+                line-height: 56px;
+                text-align: center;
+                color: #1E1E1E;
+            }
+
+            .body {
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 24px;
+                text-align: center;
+                color: #858585;
+                margin-top: 10px;
+
+            }
+        }
+
+        .ant-modal-footer {
+            border: none;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            .btn-back-test {
+                border-radius: 30px;
+                color: var(--color-primary);
+                background-color: white;
+                border: 2px solid var(--color-primary);
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 20px;
+            }
+
+            .btn-save-test {
+                border-radius: 30px;
+                color: white;
+                background-color: var(--color-primary);
+                border: 2px solid var(--color-primary);
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 20px;
+            }
+        }
+
+    }
+}

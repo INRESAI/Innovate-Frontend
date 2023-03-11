@@ -82,6 +82,11 @@ const uInnovateSlice = createSlice({
             }
             console.log(state.tmplstQuestionsByCriteria);
         },
+
+        setAllQuestionsIsChosen(state, action: PayloadAction<IGetAllQuestionsByCriteriaResponse[]>) {
+            console.log(action.payload);
+            state.lstQuestionsByCriteria = action.payload;
+        },
         // Lấy ra hết vị trí của user
         getAllPositionsRequest(state) {
             state.loading = true
@@ -238,6 +243,7 @@ export const {
     getAllFacilitiesByDescriptionRequest,
     getAllAddressesRequest,
     setAnswersIsChosen,
+    setAllQuestionsIsChosen,
 
 } = uInnovateSlice.actions
 export const uInnovateReducer = uInnovateSlice.reducer

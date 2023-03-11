@@ -118,6 +118,10 @@
         right: 50px;
 
         .header-avatar-right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
             .header-avatar-name {
                 font-weight: 700;
                 font-size: 14px;
@@ -136,6 +140,7 @@
                 align-items: center;
                 text-align: right;
                 color: #C0C0C0;
+                margin: 0px 10px;
             }
         }
 
@@ -192,7 +197,7 @@
 }
 
 .ant-dropdown-menu {
-    width: 150px;
+    width: 200px;
 }
 
 @media (min-width: 1280px) {

@@ -1,5 +1,5 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, notification, Pagination, Radio, Steps } from 'antd';
+import { Breadcrumb, Button, Modal, notification, Pagination, Radio, Steps } from 'antd';
 import { useEffect, useState } from 'react';
 import QuestionAPI from '../../api/questions/question.api';
 import { ICriteria } from '../../common/u-innovate/define-criteria';
@@ -10,7 +10,7 @@ import OtherTestIcon from '../../images/other-test-icon.png';
 import Result from './Result';
 import { motion } from 'framer-motion';
 import { useDispatchRoot, useSelectorRoot } from '../../redux/store';
-import { setAnswersIsChosen } from '../../redux/controller';
+import { setAllQuestionsIsChosen, setAnswersIsChosen } from '../../redux/controller';
 
 const fakeOtherTestLst = [
     {
@@ -283,6 +283,8 @@ const TakingTest = (props: MyProps) => {
     const [countAnswer, setCoundAnswer] = useState<number>(0);
     const [userType, setUserType] = useState<string>('');
 
+    const [isOpenSaveModal, setIsOpenSaveModal] = useState<boolean>(false);
+
     const dispatch = useDispatchRoot()
 
 
@@ -349,78 +351,26 @@ const TakingTest = (props: MyProps) => {
         if (numberOfQuestionsAnswered === props.numberOfQuestion)
             return true;
         return false;
-
-        // let check = 1;
-        // questionLstOfRequestBody = [];
-        // props.questionLst.forEach((item) => {
-        //     if (check === 0) return;
-        //     item.questionLst.forEach((subitem) => {
-        //         if (subitem.pickedAnswer === null) {
-        //             check = 0;
-        //             return;
-        //         } else {
-        //             questionLstOfRequestBody.push({ // Neu cau hoi da duoc chon dap an thi se day ID cau hoi va ID cau tra loi vao lst
-        //                 "questionId": subitem.id,
-        //                 "answerId": subitem.pickedAnswer.id,
-        //                 "point": subitem.pickedAnswer.point,
-        //                 "additionalProp1": {}
-        //             })
-        //         }
-        //     })
-        // })
-        // if (check === 1) return true;
-        // else {
-        //     questionLstOfRequestBody = [] // Neu chi can 1 cau hoi chua duoc tra loi thi se xoa toan bo lst
-        //     return false
-        // };
     }
 
-    const handleChangePagination = () => {
-        setCurrentIndex(currentIndex + 1);
-        setCheckNextBtn(false);
-    };
-    const handleBackPagination = () => {
-        setCurrentIndex(currentIndex - 1);
-        setCheckNextBtn(true);
-    }
+    // const handleChangePagination = () => {
+    //     setCurrentIndex(currentIndex + 1);
+    //     setCheckNextBtn(false);
+    // };
+    // const handleBackPagination = () => {
+    //     setCurrentIndex(currentIndex - 1);
+    //     setCheckNextBtn(true);
+    // }
 
     const handlePageChange = (page: number) => {
         setCurrentIndex(page - 1);
     };
 
-    // const handleFinishTest = async () => { // Neu da nhap het cau tra loi thi se call API tinh toan diem 
-    //     console.log("---------------Leu leu leu----------------")
+    const handleFinishTest = async () => { // Neu da nhap het cau tra loi thi se call API tinh toan diem 
+        console.log(tmplstQuestionsByCriteria);
+        showSaveModal();
 
-    //     if (checkWhetherDoneTest() === true) {
-    //         console.log('-----------------Mai la anh em ban nhe------------------')
-    //         console.log(props.questionLst)
-    //         let count = 0;
-    //         // Luu lai so luong cau tra loi moi loai
-    //         props.questionLst.forEach((item) => {
-    //             count += item.questionLst.length * 5;
-    //             item.questionLst.forEach((subitem) => {
-    //                 console.log(subitem.pickedAnswer?.id);
-    //                 if (subitem.pickedAnswer?.id === "63c4109aa5775a103cdc9de0") { // Quan sat duoc hoan toan
-    //                     quantityOfEachTypeOfAnswer[0] += 1
-    //                 } else if (subitem.pickedAnswer?.id === "63c410a6a5775a103cdc9de2") { // Quan sat duoc 1 phan
-    //                     quantityOfEachTypeOfAnswer[1] += 1
-    //                 } else {
-    //                     quantityOfEachTypeOfAnswer[2] += 1 // KHong quan sat duoc
-    //                 }
-    //             })
-    //         })
-
-    //         console.log(quantityOfEachTypeOfAnswer)
-    //         setquantityOfEachTypeOfAnswerUseState(quantityOfEachTypeOfAnswer)
-    //         setTotalScoreOfQuestionList(count);
-    //         //Call API tinh diem
-
-    //         await QuestionAPI.caculateResult(questionLstOfRequestBody).then(res => {
-    //             console.log(res.data.data);
-    //             setReceivedResult(res.data.data);
-    //         })
-    //     }
-    // }
+    }
     const onHandleClickAnswer = (indexitem: number, index: number) => {
         const req = {
             currentIndex: currentIndex,
@@ -431,6 +381,24 @@ const TakingTest = (props: MyProps) => {
         dispatch(setAnswersIsChosen(req));
     }
 
+    const showSaveModal = () => {
+        setIsOpenSaveModal(true);
+    };
+
+    const handleOkSaveModal = () => {
+        dispatch(setAllQuestionsIsChosen(tmplstQuestionsByCriteria))
+        props.revertToCriteria();
+        setIsOpenSaveModal(false);
+    };
+
+    const handleCancelSaveModal = () => {
+        setIsOpenSaveModal(false);
+    };
+
+    const onClickBackBread = () => {
+        showSaveModal();
+        // props.revertToCriteria()
+    }
     return (
         <div className='taking-test'>
             {/* {
@@ -450,10 +418,10 @@ const TakingTest = (props: MyProps) => {
                 <div>
                     <Breadcrumb>
                         <Breadcrumb.Item>
-                            <a onClick={() => props.revertToIntro()}>Đánh giá</a>
+                            <a onClick={() => onClickBackBread()}>Đánh giá</a>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>
-                            <a onClick={() => { props.revertToCriteria() }}>Bắt đầu đánh giá</a>
+                            <a onClick={() => onClickBackBread()}>Bắt đầu đánh giá</a>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item className='present-link'>
                             {props.choseCriteria.name}
@@ -519,13 +487,13 @@ const TakingTest = (props: MyProps) => {
                                                     </motion.div>
                                                 } */}
                                                 {
-                                                    (tmplstQuestionsByCriteria.length === currentIndex + 1 && checkWhetherDoneTest()) &&
+                                                    (checkWhetherDoneTest()) &&
                                                     <motion.div className='taking-test-button'
                                                         whileHover={{ scale: 1.1 }}
                                                         whileTap={{ scale: 0.95 }}>
                                                         <Button
                                                             className='button'
-                                                        // onClick={() => { handleFinishTest() }}
+                                                            onClick={() => { handleFinishTest() }}
                                                         >Hoàn thành
                                                         </Button>
                                                     </motion.div>
@@ -564,6 +532,37 @@ const TakingTest = (props: MyProps) => {
                     </div>
                 </div>
             }
+            <Modal
+                className='taking-test-save-modal'
+                title="Lưu thay đổi"
+                visible={isOpenSaveModal}
+                onOk={handleOkSaveModal}
+                onCancel={handleCancelSaveModal}
+                footer={[
+                    <motion.div
+                        whileHover={{ scale: 1.1, opacity: 0.75 }}
+                        whileTap={{ scale: 0.95 }}>
+                        <Button className='btn-back-test' key="back" onClick={handleCancelSaveModal}>
+                            Quay lại
+                        </Button>
+                    </motion.div>,
+                    <motion.div
+                        whileHover={{ scale: 1.1, opacity: 0.75 }}
+                        whileTap={{ scale: 0.95 }}
+                    >
+                        <Button className='btn-save-test' key="submit" type="primary" onClick={handleOkSaveModal}>
+                            Xác nhận
+                        </Button>
+                    </motion.div>
+                ]}
+            >
+                <div className="title">
+                    Bạn có muốn lưu thay đổi ?
+                </div>
+                <div className="body">
+                    Khi lưu thay đổi, bạn sẽ được chuyển đến trang bắt đầu đánh giá và tiếp tục đánh giá
+                </div>
+            </Modal>
         </div>
     )
 }

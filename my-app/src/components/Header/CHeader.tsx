@@ -161,7 +161,6 @@ export const CHeader = (props: MyProps) => {
                 //     <Avatar className='header-avatar' src={UserIcon} />
                 // </Dropdown>
                 <div className='header-avatar-content' style={{ display: 'flex', alignItems: 'center' }}>
-                    <Avatar size={32} icon={<img src={userIcon} />} style={{ marginRight: '12px' }} />
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flex: 1 }}>
                         <div className='header-avatar-right'>
                             <div
@@ -173,7 +172,7 @@ export const CHeader = (props: MyProps) => {
                             {/* <div>{user?.po}</div> */}
                         </div>
                         <Dropdown menu={{ items }} placement="bottomLeft" arrow>
-                            <DownOutlined />
+                            <DownOutlined style={{ cursor: 'pointer' }} />
                         </Dropdown>
                     </div>
                 </div>

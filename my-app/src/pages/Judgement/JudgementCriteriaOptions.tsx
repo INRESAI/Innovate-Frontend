@@ -95,7 +95,7 @@ import UIMPACTUNLOCK17 from '../../images/Uimpact_unLock/17.png';
 
 
 import { getAllQuestionsByCriteriaIdRequest } from '../../redux/controller';
-import { useDispatchRoot } from '../../redux/store';
+import { useDispatchRoot, useSelectorRoot } from '../../redux/store';
 
 
 interface MyProps {
@@ -335,7 +335,13 @@ const JudgementCriteriaOptions = (props: MyProps) => {
     const [newCriteriaLst, setNewCriteriaLst] = useState<any[]>();
     const [userToken, setUserToken] = useState<string>('');
     const [userType, setUserType] = useState<string>('');
+    const { lstQuestionsByCriteria, criteriaLst, tmplstQuestionsByCriteria } = useSelectorRoot((state) => state.uinnovate);
+
     const dispatch = useDispatchRoot()
+
+    useEffect(() => {
+        console.log(lstQuestionsByCriteria);
+    }, [lstQuestionsByCriteria])
 
     useEffect(() => {// Mapping du lieu nhan ve tu API sang class duoc khai bao o frontend
         let newLst: any[] = [];
@@ -414,6 +420,8 @@ const JudgementCriteriaOptions = (props: MyProps) => {
         dispatch(getAllQuestionsByCriteriaIdRequest(item.criteriaId))
         props.tranferFromCriteriaToTest(item);
     }
+
+
     // useEffect(() => {
     //     if (newCriteriaLst) {
     //         console.log(newCriteriaLst);

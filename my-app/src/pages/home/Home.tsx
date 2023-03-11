@@ -112,7 +112,7 @@ const Home = () => {
         >
             <div className='intro-part'>
                 <div className='text-of-intro'>
-                    <div className='title' >Tổ chức Giáo dục Đại học của bạn đã chuẩn bị sẵn sàng cho những thách thức trong tương lai chưa? </div>
+                    <div className='title' >Tổ chức, đơn vị của bạn đã chuẩn bị sẵn sàng cho những thách thức trong tương lai chưa? </div>
                     <div className='detail'>Viện Nghiên cứu Đổi mới và Phát triển (IID), được thành lập năm từ năm 2017, là một viện nghiên cứu dựa trên nền tảng công nghệ, dữ liệu và mạng lưới kết nối toàn cầu để theo đuổi sứ mệnh trở thành một là một tổ chức trung gian, xây dựng hệ sinh thái góp phần tạo ra sân chơi cho những học giả và ươm tạo nhân tài trẻ góp phần thúc đẩy khu vực sáng tạo và kinh doanh tạo tác động xã hội Việt Nam.</div>
                     <motion.div className='home-button'
                         whileHover={{ scale: 1.1 }}
