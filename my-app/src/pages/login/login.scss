@@ -717,6 +717,10 @@
 
 @media (max-width: 450px) {
     .login-main {
+        .back-button {
+            margin-left: 30px;
+        }
+
         .content-main {
             width: 100%;
             margin: 0;
@@ -730,10 +734,18 @@
 
                     .title {
                         font-size: 16px;
+                        // margin-left: 30px;
                     }
 
                     .content {
                         font-size: 11px;
+                        width: 250px;
+                        // margin-left: 30px;
+                    }
+
+                    .title.login-1,
+                    .content.login-1 {
+                        margin-left: 30px;
                     }
                 }
 
@@ -776,6 +788,13 @@
                     }
                 }
 
+                .choose-evaluate {
+                    .content-box {
+                        width: 270px;
+                        height: 200px;
+                    }
+                }
+
                 .change-to-register {
                     width: 250px;
                     font-size: 10px;
@@ -787,5 +806,9 @@
             }
 
         }
+    }
+
+    .ant-notification-notice {
+        width: 100% !important;
     }
 }

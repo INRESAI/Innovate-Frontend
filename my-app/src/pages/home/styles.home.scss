@@ -1071,6 +1071,8 @@
 @media (max-width: 400px) {
     .main-home {
         .intro-part {
+            height: 550px;
+
             .text-of-intro {
                 margin: 100px 25px 50px 25px;
 
@@ -1089,7 +1091,42 @@
 
         }
 
+        .tool-of-web {
+            .lst-tool {
+                .tool {
+                    height: 120px;
+                }
+            }
+        }
 
+        .how-to-use {
+            .content {
+                .step-lst {
+                    .row-item {
+                        .item-lst {
+                            width: 250px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .tutorial {
+            .first-tutorial {
+                .f-t-left {
+                    .f-t-l-item {
+                        .f-t-l-t-content {
+                            font-size: 9px;
+                            margin-right: 5px;
+                        }
+                    }
+
+                    .f-t-l-item.long-item {
+                        height: 350px;
+                    }
+                }
+            }
+        }
 
         .right-of-user {
             z-index: 3;

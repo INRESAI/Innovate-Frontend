@@ -445,8 +445,8 @@ const Login = (props: MyProps) => {
                                     transition={{ duration: 1 }}
                                 >
                                     <div className='login-content'>
-                                        <div className='title'>BẠN CẦN ĐÁNH GIÁ ĐIỀU GÌ?</div>
-                                        <div className='content'>Chúng tôi sẽ xác định xem bạn có phải người thực sự là người thuộc ở trong trường đại học hay không ?</div>
+                                        <div className='title login-1'>BẠN CẦN ĐÁNH GIÁ ĐIỀU GÌ?</div>
+                                        <div className='content login-1'>Chúng tôi sẽ xác định xem bạn có phải người thực sự là người thuộc ở trong trường đại học hay không ?</div>
                                     </div>
                                     <div className='choose-evaluate'>
                                         <motion.div className='content-box'

@@ -303,3 +303,19 @@
         display: none !important;
     }
 }
+
+@media (max-width: 400px) {
+    .header-button {
+        display: none !important;
+    }
+
+    .main-header {
+        .header-avatar-content {
+            .header-avatar-right {
+                .header-avatar-position {
+                    display: none;
+                }
+            }
+        }
+    }
+}

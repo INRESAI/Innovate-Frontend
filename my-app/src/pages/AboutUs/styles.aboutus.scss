@@ -67,6 +67,74 @@
         }
     }
 
+    #about-2 {
+        .about-item {
+            margin-bottom: 20px;
+            margin-top: 20px;
+            background-color: white;
+            padding: 30px 30px;
+            padding-bottom: 0px;
+            box-shadow: 1px 10px 100px rgba(255, 153, 85, 0.15);
+            height: 100%;
+            border-radius: 30px;
+            cursor: pointer;
+
+            i {
+                font-size: 43px;
+                margin: 0;
+            }
+
+            h3 {
+                text-align: center;
+                font-weight: 700;
+                font-size: 30px;
+                line-height: 56px;
+                color: #1E1E1E;
+                margin-bottom: 10px;
+            }
+
+            hr {
+                width: 46px;
+                height: 5px !important;
+                background-color: var(--color-primary);
+                margin: 0 auto;
+                border: none;
+                text-align: center;
+            }
+
+            p {
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 30px;
+                color: #767676;
+            }
+
+            &:hover {
+                background-color: var(--color-primary);
+
+                i {
+                    color: #fff;
+                    transform: translateY(-20px);
+                    transition: all 400ms ease-in-out;
+                }
+
+                h3 {
+                    color: #fff;
+                    transition: all 400ms ease-in-out;
+                }
+
+                p {
+                    color: #fff;
+                }
+
+                hr {
+                    background-color: white;
+                    transition: all 400ms ease-in-out;
+                }
+            }
+        }
+    }
+
     .right-of-user {
         margin-top: 50px;
         padding: 40px;
@@ -272,6 +340,12 @@
             }
         }
 
+        #about-2 {
+            .col-md-4 {
+                margin-bottom: 20px !important;
+            }
+        }
+
         .right-of-user {
             height: 350px;
 
@@ -341,6 +415,18 @@
                 .about-image-1 {
                     display: none !important;
 
+                }
+            }
+        }
+
+        #about-2 {
+            .about-item {
+                h3 {
+                    font-size: 25px;
+                }
+
+                p {
+                    font-size: 11px;
                 }
             }
         }
@@ -500,80 +586,4 @@
             }
         }
     }
-}
-
-/*===========================
- adding style to about items 
-============================*/
-
-.about-item {
-    margin-bottom: 20px;
-    margin-top: 20px;
-    background-color: white;
-    padding: 80px 30px;
-    box-shadow: 1px 10px 100px rgba(255, 153, 85, 0.15);
-    // box-shadow: 0 0 9px rgba(0, 0, 0.6);
-    // box-shadow: 0 0 0 1px var(--color-primary);
-    height: 100%;
-    border-radius: 30px;
-    cursor: pointer;
-}
-
-/*======================================
-adding style to the icons(book,globe,pencil)
-=========================================*/
-.about-item i {
-    font-size: 43px;
-    margin: 0;
-}
-
-/*======================================
-adding style to h3(heading 3) of each item 
-=========================================*/
-.about-item h3 {
-    font-size: 25px;
-    margin-bottom: 10px;
-
-}
-
-/*======================================
-styling the hr (the blue line in between)
-=========================================*/
-.about-item hr {
-    width: 46px;
-    height: 5px !important;
-    background-color: var(--color-primary);
-    margin: 0 auto;
-    border: none;
-    text-align: center;
-}
-
-/*========================================
-hover means when you put your cursor over it
-=========================================*/
-.about-item:hover {
-    background-color: var(--color-primary);
-}
-
-.about-item:hover i,
-.about-item:hover h3,
-.about-item:hover p {
-    color: #fff;
-}
-
-.about-item:hover hr {
-    background-color: white;
-}
-
-/*==============================================================================
-translate Y: move along the Y axis, negative(-20) moves it up, while positive(20) moves in down by  
-================================================================================*/
-.about-item:hover i {
-    transform: translateY(-20px);
-}
-
-.about-item:hover i,
-.about-item:hover h3,
-.about-item:hover hr {
-    transition: all 400ms ease-in-out;
 }
