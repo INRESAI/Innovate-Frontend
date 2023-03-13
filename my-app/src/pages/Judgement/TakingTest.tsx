@@ -10,7 +10,8 @@ import OtherTestIcon from '../../images/other-test-icon.png';
 import Result from './Result';
 import { motion } from 'framer-motion';
 import { useDispatchRoot, useSelectorRoot } from '../../redux/store';
-import { setAllQuestionsIsChosen, setAnswersIsChosen } from '../../redux/controller';
+import { postResultsRequest, putResultsRequest, setAllQuestionsIsChosen, setAnswersIsChosen } from '../../redux/controller';
+import { Answer, PostResultRequest, PutResultRequest } from '../../common/u-innovate/define-results';
 
 const fakeOtherTestLst = [
     {
@@ -386,7 +387,29 @@ const TakingTest = (props: MyProps) => {
     };
 
     const handleOkSaveModal = () => {
-        dispatch(setAllQuestionsIsChosen(tmplstQuestionsByCriteria))
+        let answerLst: Answer[] = [];
+        tmplstQuestionsByCriteria.map((item, index) => {
+            item.questions.map((question, index) => {
+                question.answers.map((answer, index) => {
+                    if (answer.isChosen) {
+                        answerLst.push({
+                            questionId: answer.questionId,
+                            answerId: answer.id,
+                            point: answer.point,
+                            additionalProp1: {}
+                        })
+                    }
+                })
+            })
+        });
+        console.log(answerLst);
+
+        const req: PostResultRequest = {
+            criteriaId: props.choseCriteria.criteriaId,
+            listAnswer: answerLst,
+            additionalProp1: {}
+        }
+        props.choseCriteria.isAnswered ? dispatch(putResultsRequest(req)) : dispatch(postResultsRequest(req));
         props.revertToCriteria();
         setIsOpenSaveModal(false);
     };
@@ -436,7 +459,11 @@ const TakingTest = (props: MyProps) => {
                                 {tmplstQuestionsByCriteria[currentIndex] &&
                                     <div className='taking-test-area'>
                                         {/* Khi call API se thay doan duoi nay thanh currentSetOfQuestion.content */}
-                                        <div className='sub-title'>{tmplstQuestionsByCriteria[currentIndex]?.setOfQuestions.name}</div>
+                                        <div className='sub-title'>{tmplstQuestionsByCriteria[currentIndex]?.setOfQuestions.name}:
+                                            {userType === 'PINNOVATE' &&
+                                                tmplstQuestionsByCriteria[currentIndex]?.setOfQuestions.description
+                                            }
+                                        </div>
 
                                         <div className='question-lst' >
                                             {

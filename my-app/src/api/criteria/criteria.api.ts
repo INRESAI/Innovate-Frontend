@@ -18,7 +18,11 @@ export default class CriteriaAPI {
             map((res) => res as IDataResponse<ICriteria[]> || null, catchError((error) => new Observable)));
     }
 
-
+    static getCriteria(type: string): Observable<IDataResponse<any> | null> {
+        const api = `${CriteriaAPI.host}/${SYSTEM_CONSTANTS.API.CRITERIA.GET_CRITERIA_BY_USER_TOKEN.replace('{type}', type)}`;
+        return HttpClient.get(api, {}).pipe(
+            map((res) => res as IDataResponse<ICriteria[]> || null, catchError((error) => new Observable)));
+    }
     // static getAllCriteria(): Observable<ICriteria[] | null> {
     //     const api = `${CriteriaAPI.host}/${SYSTEM_CONSTANTS.API.CRITERIA.GET_ALL}`;
     //     return HttpClient.get(api, {}).pipe(

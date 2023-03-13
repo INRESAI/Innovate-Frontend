@@ -14,6 +14,7 @@ const SYSTEM_CONSTANTS = {
             CHECKEMAIL: "users/checkemail",
             ACTIVE_ACCOUNT: "users/active-account",
             PROFILE: "users/profile",
+            CHANGE_TYPE: "users/changetype",
         },
         MEETINGS: {
             CREATE_MEETINGS: 'meeting',
@@ -58,7 +59,8 @@ const SYSTEM_CONSTANTS = {
             GET_ALL: 'addresses'
         },
         RESULT: {
-            CACULATE: 'results/answers'
+            POST_RESULT: 'results/answers',
+            PUT_RESULT: 'results/answers'
         }
 
     },

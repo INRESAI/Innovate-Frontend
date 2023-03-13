@@ -5,7 +5,7 @@ import { notification } from "antd";
 import { WritableDraft } from "immer/dist/internal";
 import { catchError, filter, map, mergeMap, switchMap } from "rxjs/operators";
 // import IdentityApi from "../../api/identity.api";
-import { ActiveAccountRequest, CheckEmailResponse, GetUserInfoRequest, IUser, LoginRequest, RegisterRequest, ResponseDeparment } from "../../common/define-identity";
+import { ActiveAccountRequest, ChangeTypeRequest, CheckEmailResponse, GetUserInfoRequest, IUser, LoginRequest, RegisterRequest, ResponseDeparment } from "../../common/define-identity";
 import { RootEpic } from "../../common/define-type";
 import Utils from "../../common/utils";
 import IdentityApi from "../../api/identity/identity.api";
@@ -30,6 +30,7 @@ interface LoginState {
     tokenLogin: string | undefined;
     isExistEmail: boolean;
     registerSuccess: boolean;
+    tmpUser: IUser | undefined;
 }
 
 const initState: LoginState = {
@@ -44,6 +45,7 @@ const initState: LoginState = {
     tokenLogin: undefined,
     isExistEmail: true,
     registerSuccess: false,
+    tmpUser: undefined
 }
 
 const loginSlice = createSlice({
@@ -264,6 +266,17 @@ const loginSlice = createSlice({
             state.loading = false
             state.registerSuccess = false;
         },
+
+        changeTypeRequest(state, action: PayloadAction<ChangeTypeRequest>) {
+
+        },
+
+        changeTypeSuccess(state, action: PayloadAction<any>) {
+            state.tmpUser = action.payload
+        },
+
+        changeTypeFail(state, action: PayloadAction<any>) {
+        }
     }
 })
 
@@ -422,7 +435,23 @@ const checkActiveAccount$: RootEpic = (action$) => action$.pipe(
         )
     })
 )
-
+const changeType$: RootEpic = (action$) => action$.pipe(
+    filter(changeTypeRequest.match),
+    switchMap((re) => {
+        console.log(re);
+        return IdentityApi.changeType(re.payload).pipe(
+            mergeMap((res: any) => {
+                console.log(res);
+                return [
+                    loginSlice.actions.changeTypeSuccess(res),
+                ];
+            }),
+            catchError(err =>
+                [loginSlice.actions.changeTypeFail(err)]
+            )
+        )
+    })
+)
 export const LoginEpics = [
     login$,
     forgot$,
@@ -431,7 +460,8 @@ export const LoginEpics = [
     clearMessage$,
     logOut$,
     register$,
-    getUserInfo$
+    getUserInfo$,
+    changeType$,
 
 ]
 export const {
@@ -444,6 +474,7 @@ export const {
     clearAllRequest,
     registerRequest,
     checkAbleToLogin,
-    checkActiveAccountRequest
+    checkActiveAccountRequest,
+    changeTypeRequest,
 } = loginSlice.actions
 export const loginReducer = loginSlice.reducer

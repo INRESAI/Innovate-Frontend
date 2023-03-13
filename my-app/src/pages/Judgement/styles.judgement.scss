@@ -433,6 +433,16 @@
                         margin-bottom: 10px;
                     }
 
+                    .sub-mini-title {
+                        font-weight: 400;
+                        font-size: 12px;
+                        line-height: 16px;
+                        display: flex;
+                        align-items: center;
+                        color: #858585;
+                        margin-bottom: 10px;
+                    }
+
                     .question-lst {
                         .content {
                             font-weight: 500;
@@ -2486,6 +2496,7 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
+            padding: 1.5em 0;
 
             .btn-back-test {
                 border-radius: 30px;

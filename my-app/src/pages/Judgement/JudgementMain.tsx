@@ -20,7 +20,7 @@ const JudgementMain = () => {
     const [numberOfQuestion, setNumberOfQuestions] = useState<number>(0);
     const [choseCriteria, setChoseCriteria] = useState<any>(); // Luu lai Criteria duoc chon o giao dien danh sach Criteria. Sau do truyen vao giao dien lam test
     const { user } = useSelectorRoot((state) => state.login);
-    const { criteriaLst, lstQuestionsByCriteria } = useSelectorRoot((state) => state.uinnovate);
+    const { criteriaLst, lstQuestionsByCriteria, tmpResult } = useSelectorRoot((state) => state.uinnovate);
 
     //Dung useSelector lay ra 2 lst criteriaLst va questionByCriteriaLst
     const dispatch = useDispatchRoot()
@@ -38,6 +38,19 @@ const JudgementMain = () => {
         }
     }, [user])
 
+
+    useEffect(() => {
+        let checkLogin = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+        if (checkLogin && user) {
+            checkLogin = checkLogin.slice(1);
+            checkLogin = checkLogin.slice(0, checkLogin.length - 1);
+            const req: GetCriteriaRequest = {
+                "token": checkLogin,
+                "type": user.type,
+            }
+            dispatch(getCriteriaLstRequest(req))
+        }
+    }, [tmpResult])
     // const getAllCriteria
 
     // useEffect(() => {
@@ -107,16 +120,22 @@ const JudgementMain = () => {
     }
 
     const revertToCriteria = () => {
+        let checkLogin = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+        console.log(user);
+        if (checkLogin && user) {
+            checkLogin = checkLogin.slice(1);
+            checkLogin = checkLogin.slice(0, checkLogin.length - 1);
+            const req: GetCriteriaRequest = {
+                "token": checkLogin,
+                "type": user?.type,
+            }
+            console.log(req);
+            dispatch(getCriteriaLstRequest(req))
+        }
         setIsShowIntro(false);
         setIsShowCriteria(true);
         setIsShowTest(false);
     }
-
-
-    useEffect(() => {
-        console.log(28);
-        console.log(lstQuestionsByCriteria[0]);
-    }, [lstQuestionsByCriteria])
 
     return (
         <motion.div className='judgement-main'

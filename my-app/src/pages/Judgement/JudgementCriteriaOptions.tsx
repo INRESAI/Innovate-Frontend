@@ -1,7 +1,7 @@
 import { Breadcrumb, Button, Card, List, Progress } from 'antd';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { ICriteria } from '../../common/u-innovate/define-criteria';
+import { GetCriteriaRequest, ICriteria } from '../../common/u-innovate/define-criteria';
 
 import UinnovateBgLockCard from '../../images/bg-lock-card.png';
 import UinnovateBgUnLockCard from '../../images/bg-unlock-card.png';
@@ -335,13 +335,19 @@ const JudgementCriteriaOptions = (props: MyProps) => {
     const [newCriteriaLst, setNewCriteriaLst] = useState<any[]>();
     const [userToken, setUserToken] = useState<string>('');
     const [userType, setUserType] = useState<string>('');
-    const { lstQuestionsByCriteria, criteriaLst, tmplstQuestionsByCriteria } = useSelectorRoot((state) => state.uinnovate);
+    const { lstQuestionsByCriteria, criteriaLst, tmplstQuestionsByCriteria, tmpResult } = useSelectorRoot((state) => state.uinnovate);
 
     const dispatch = useDispatchRoot()
+
+
 
     useEffect(() => {
         console.log(lstQuestionsByCriteria);
     }, [lstQuestionsByCriteria])
+
+    useEffect(() => {
+        console.log(criteriaLst);
+    }, [criteriaLst])
 
     useEffect(() => {// Mapping du lieu nhan ve tu API sang class duoc khai bao o frontend
         let newLst: any[] = [];
@@ -353,7 +359,7 @@ const JudgementCriteriaOptions = (props: MyProps) => {
         }
 
         if (type === 'UINNOVATE') {
-            props.criteriaLst.map((item, index) => {
+            criteriaLst.map((item, index) => {
 
                 newLst.push(
                     {
@@ -364,6 +370,7 @@ const JudgementCriteriaOptions = (props: MyProps) => {
                         isAnswered: item.isAnswered,
                         numberOfQuestion: item.numberOfQuestion,
                         numberOfAnswered: item.numberOfAnswered,
+                        lock: false,
                         ...TemporaryCriteriaUINNOVATELst[index]
                     }
                 )
@@ -371,7 +378,7 @@ const JudgementCriteriaOptions = (props: MyProps) => {
             )
         }
         if (type === 'UIMPACT') {
-            props.criteriaLst.map((item, index) => {
+            criteriaLst.map((item, index) => {
 
                 newLst.push(
                     {
@@ -382,6 +389,7 @@ const JudgementCriteriaOptions = (props: MyProps) => {
                         isAnswered: item.isAnswered,
                         numberOfQuestion: item.numberOfQuestion,
                         numberOfAnswered: item.numberOfAnswered,
+                        lock: false,
                         ...TemporaryCriteriaUIMPACTLst[index]
                     }
                 )
@@ -389,7 +397,7 @@ const JudgementCriteriaOptions = (props: MyProps) => {
             )
         }
         if (type === 'PINNOVATE') {
-            props.criteriaLst.map((item, index) => {
+            criteriaLst.map((item, index) => {
 
                 newLst.push(
                     {
@@ -400,6 +408,7 @@ const JudgementCriteriaOptions = (props: MyProps) => {
                         isAnswered: item.isAnswered,
                         numberOfQuestion: item.numberOfQuestion,
                         numberOfAnswered: item.numberOfAnswered,
+                        lock: false,
                         ...TemporaryCriteriaPINNOVATELst[index]
                     }
                 )
@@ -408,13 +417,13 @@ const JudgementCriteriaOptions = (props: MyProps) => {
         }
         for (let i = 0; i < newLst?.length; i++) {
             if (newLst[i].numberOfAnswered === newLst[i].numberOfQuestion) {
-                newLst[i].isAnswered = true;
                 newLst[i + 1].used = true;
+                newLst[i].lock = true;
                 break;
             }
         }
         setNewCriteriaLst(newLst)
-    }, [])
+    }, [criteriaLst])
 
     const handleOnClick = (item: any) => {
         dispatch(getAllQuestionsByCriteriaIdRequest(item.criteriaId))
@@ -465,8 +474,8 @@ const JudgementCriteriaOptions = (props: MyProps) => {
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.95 }}>
                                     {(!item.used && !item.isAnswered) && <Button className={'card-btn-option'} disabled>Chưa mở khóa</Button>}
-                                    {(item.used && !item.isAnswered) && <Button className={'card-btn-option unlock'} onClick={() => handleOnClick(item)}>Bắt đầu đánh giá</Button>}
-                                    {(item.used && item.isAnswered) && <Button className={'card-btn-option unlock'} disabled>Đã hoàn thành</Button>}
+                                    {(item.used && !item.lock) && <Button className={'card-btn-option unlock'} onClick={() => handleOnClick(item)}>Bắt đầu đánh giá</Button>}
+                                    {(item.used && item.isAnswered && item.lock) && <Button className={'card-btn-option unlock'} disabled>Đã hoàn thành</Button>}
                                 </motion.div>
                             </Card>
                         }
@@ -483,8 +492,8 @@ const JudgementCriteriaOptions = (props: MyProps) => {
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.95 }}>
                                     {(!item.used && !item.isAnswered) && <Button className={'card-btn-option'} disabled>Chưa mở khóa</Button>}
-                                    {(item.used && !item.isAnswered) && <Button className={'card-btn-option unlock'} onClick={() => handleOnClick(item)}>Bắt đầu đánh giá</Button>}
-                                    {(item.used && item.isAnswered) && <Button className={'card-btn-option unlock'} disabled>Đã hoàn thành</Button>}
+                                    {(item.used && !item.lock) && <Button className={'card-btn-option unlock'} onClick={() => handleOnClick(item)}>Bắt đầu đánh giá</Button>}
+                                    {(item.used && item.isAnswered && item.lock) && <Button className={'card-btn-option unlock'} disabled>Đã hoàn thành</Button>}
                                 </motion.div>
                             </Card>
                         }
@@ -501,8 +510,8 @@ const JudgementCriteriaOptions = (props: MyProps) => {
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.95 }}>
                                     {(!item.used && !item.isAnswered) && <Button className={'card-btn-option'} disabled>Chưa mở khóa</Button>}
-                                    {(item.used && !item.isAnswered) && <Button className={'card-btn-option unlock'} onClick={() => handleOnClick(item)}>Bắt đầu đánh giá</Button>}
-                                    {(item.used && item.isAnswered) && <Button className={'card-btn-option unlock'} disabled>Đã hoàn thành</Button>}
+                                    {(item.used && !item.lock) && <Button className={'card-btn-option unlock'} onClick={() => handleOnClick(item)}>Bắt đầu đánh giá</Button>}
+                                    {(item.used && item.isAnswered && item.lock) && <Button className={'card-btn-option unlock'} disabled>Đã hoàn thành</Button>}
                                 </motion.div>
                             </Card>
                         }

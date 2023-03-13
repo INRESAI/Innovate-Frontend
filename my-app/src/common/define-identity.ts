@@ -210,3 +210,10 @@ export interface ActiveAccountRequest {
     email: string,
     activeCode: string,
 }
+
+export interface ChangeTypeRequest {
+    // token: string,
+    type: string,
+    additionalProp1: {},
+}
+

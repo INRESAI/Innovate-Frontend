@@ -16,7 +16,9 @@ import UserIcon2 from '../../images/user-2.png';
 import UserIcon3 from '../../images/user-3.png';
 
 import SearchIcon from '../../images/Search_Icon.png'
-import { useSelectorRoot } from '../../redux/store'
+import { useDispatchRoot, useSelectorRoot } from '../../redux/store'
+import { ChangeTypeRequest } from '../../common/define-identity'
+import { changeTypeRequest } from '../../redux/controller'
 
 interface MyProps {
     // setIsLogout: React.Dispatch<React.SetStateAction<boolean>>
@@ -26,27 +28,90 @@ interface MyProps {
 export const CHeader = (props: MyProps) => {
     const [visible, setVisible] = useState(false); // Biến thể hiện nút thu gọn menu có đang mở hay không
     const [current, setCurrent] = useState<string>('1') // Biến thể hiện giá trị cho nút hiện tại
-    const { user } = useSelectorRoot((state) => state.login);
+    const { user, tmpUser } = useSelectorRoot((state) => state.login);
 
     const [userIcon, setUserIcon] = useState<string>(UserIcon1);
     const [isLogin, setIsLogin] = useState<boolean>(false)
+    const [textLogo, setTextLogo] = useState<string>("V.INNOVATE");
+    const [items, setItems] = useState<MenuProps['items']>([])
     const navigate = useNavigate();
+    const dispatch = useDispatchRoot();
 
     useEffect(() => {
         let checkLogin = localStorage.getItem('token') ? localStorage.getItem('token') : ''
         if (checkLogin) {
             setIsLogin(true);
+
             if (user?.type === 'UINNOVATE') {
                 setUserIcon(UserIcon1);
+                setTextLogo('U.INNOVATE');
             }
             if (user?.type === 'UIMPACT') {
                 setUserIcon(UserIcon2);
+                setTextLogo('U.IMPACT');
             }
             if (user?.type === 'PINNOVATE') {
                 setUserIcon(UserIcon3);
+                setTextLogo('P.INNOVATE');
             }
         }
     });
+
+    useEffect(() => {
+        let userType = localStorage.getItem('userType') ? localStorage.getItem('userType') : ''
+        if (userType) {
+            userType = userType.slice(1);
+            userType = userType.slice(0, userType.length - 1);
+            console.log(userType);
+            if (userType === 'PINNOVATE') {
+                setItems([
+                    {
+                        key: '1',
+                        label: (
+                            <Link to='/' onClick={onClickLogout}>
+                                Đăng xuất
+                            </Link>
+                        ),
+                    },
+                ])
+            }
+            else {
+                setItems([
+                    {
+                        key: '2',
+                        label: (
+                            <div>
+                                Chọn công cụ đánh giá
+                            </div>
+                        ),
+                        children: [
+                            {
+                                key: '2-1',
+                                label: (
+                                    <Link to='/' onClick={handleClickChangeTypeUINNOVATE}>U.INNOVATE</Link>
+                                ),
+                            },
+                            {
+                                key: '2-2',
+                                label: (
+                                    <Link to='/' onClick={handleClickChangeTypeUIMPACT}>U.IMPACT</Link>
+                                ),
+                            },
+                        ],
+                    },
+                    {
+                        key: '3',
+                        label: (
+                            <Link to='/' onClick={onClickLogout}>
+                                Đăng xuất
+                            </Link>
+                        ),
+                    },
+                ]);
+            }
+        }
+
+    }, [user])
 
     // Kiểm tra xem đường dẫn đang là gì để set thuộc tính đã click cho header
     useEffect(() => {
@@ -59,6 +124,11 @@ export const CHeader = (props: MyProps) => {
         if (window.location.pathname === '/')
             setCurrent('1')
     }, [])
+
+    useEffect(() => {
+        if (tmpUser)
+            window.location.reload();
+    }, [tmpUser])
 
     // Hiển thị ra nút thu gọn menu
     const showDrawer = () => {
@@ -84,32 +154,36 @@ export const CHeader = (props: MyProps) => {
 
         window.location.reload();
     }
-    const items: MenuProps['items'] = [
-        {
-            key: '3',
-            label: (
-                <div >
-                    {user?.position.name}
-                </div>
-            ),
-        },
-        {
-            key: '4',
-            label: (
-                <Link to='/' onClick={onClickLogout}>
-                    Đăng xuất
-                </Link>
-            ),
-        },
-    ];
 
+    const handleClickChangeTypeUINNOVATE = () => {
+
+        const req: ChangeTypeRequest = {
+            type: 'UINNOVATE',
+            additionalProp1: {},
+        }
+        dispatch(changeTypeRequest(req))
+        // setTimeout(() => window.location.reload(), 2000);
+        // window.location.reload();
+
+    }
+    const handleClickChangeTypeUIMPACT = () => {
+
+        const req: ChangeTypeRequest = {
+            type: 'UIMPACT',
+            additionalProp1: {},
+        }
+        dispatch(changeTypeRequest(req))
+        // setTimeout(() => window.location.reload(), 2000);
+        // window.location.reload();
+
+    }
     const handleClickLogin = () => {
         navigate('/login');
     }
     return (
         <div className='main-header'>
             <div className='header-logo'>
-                <div id='main-header-logo' className='logo-text'>V.innovate</div>
+                <div id='main-header-logo' className='logo-text'>{textLogo}</div>
             </div>
             <Menu
                 className={`header-menu + ${isLogin ? 'login' : ''}`}
@@ -139,14 +213,13 @@ export const CHeader = (props: MyProps) => {
                 />
                 <SearchOutlined className='icon-search' />
             </div> */}
-            <div className={`header-content-input ${isLogin ? 'login' : ''}`}>
+            {/* <div className={`header-content-input ${isLogin ? 'login' : ''}`}>
                 <Input
                     className='search-input'
                     placeholder='Tìm kiếm'
                 />
                 <img src={SearchIcon} className='icon-search'></img>
-                {/* <SearchOutlined className='icon-search' /> */}
-            </div>
+            </div> */}
             {!isLogin &&
                 <>
                     <motion.div className='header-button'

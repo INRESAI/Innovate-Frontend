@@ -28,48 +28,48 @@ export default class QuestionAPI {
     //     return axios(config)
     // }
 
-    static getAllAnswer = () => {
-        var config = {
-            method: 'get',
-            url: `${QuestionAPI.host}/${SYSTEM_CONSTANTS.API.ANSWER.GET_ALL}`,
-            headers: {}
-        };
+    // static getAllAnswer = () => {
+    //     var config = {
+    //         method: 'get',
+    //         url: `${QuestionAPI.host}/${SYSTEM_CONSTANTS.API.ANSWER.GET_ALL}`,
+    //         headers: {}
+    //     };
 
-        return axios(config)
-    }
+    //     return axios(config)
+    // }
 
-    static caculateResult = (questionLst: any[]) => {
-        var data = JSON.stringify({
-            // "total": 0,
-            "listAnswer": questionLst,
-            "additionalProp1": {}
-        });
+    // static caculateResult = (questionLst: any[]) => {
+    //     var data = JSON.stringify({
+    //         // "total": 0,
+    //         "listAnswer": questionLst,
+    //         "additionalProp1": {}
+    //     });
 
-        console.log("check data: " + data);
+    //     console.log("check data: " + data);
 
 
 
-        let currentToken = localStorage.getItem('token') // Doi sau khi xong login thi cong tiep
+    //     let currentToken = localStorage.getItem('token') // Doi sau khi xong login thi cong tiep
 
-        if (currentToken) {
-            currentToken = currentToken.slice(1);
-            currentToken = currentToken.slice(0, currentToken.length - 1);
-            // console.log(currentToken);
+    //     if (currentToken) {
+    //         currentToken = currentToken.slice(1);
+    //         currentToken = currentToken.slice(0, currentToken.length - 1);
+    //         // console.log(currentToken);
 
-        }
-        console.log(currentToken)
+    //     }
+    //     console.log(currentToken)
 
-        var config = {
-            method: 'post',
-            url: `${QuestionAPI.host}/${SYSTEM_CONSTANTS.API.RESULT.CACULATE}`,
-            headers: { // Sau khi xong phan Login se thay accessToken vao sau Bearer
-                'Authorization': `Bearer ${currentToken}`,
-                'Content-Type': 'application/json'
-            },
-            data: data
-        };
+    //     var config = {
+    //         method: 'post',
+    //         url: `${QuestionAPI.host}/${SYSTEM_CONSTANTS.API.RESULT.CACULATE}`,
+    //         headers: { // Sau khi xong phan Login se thay accessToken vao sau Bearer
+    //             'Authorization': `Bearer ${currentToken}`,
+    //             'Content-Type': 'application/json'
+    //         },
+    //         data: data
+    //     };
 
-        return axios(config)
+    //     return axios(config)
 
-    }
+    // }
 }

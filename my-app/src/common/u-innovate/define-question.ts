@@ -11,6 +11,7 @@ export interface IGetAllQuestionsByCriteriaResponse {
 export interface setOfQuestions {
     _id: string;
     name: string;
+    description?: string;
 }
 
 export interface questions {
